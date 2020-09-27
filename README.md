@@ -19,3 +19,5 @@ Build System & CI: Matt, Matteo
 README: Matt
 
 
+
+Minutes link: https://docs.google.com/document/d/12lsN-TVCCejYf-qC-DQxinLZ5yPNsNurwRxDYTOuEH4/edit?usp=sharing
