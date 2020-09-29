@@ -1,0 +1,103 @@
+class ArtGalleryApplication {
+  singleton;
+  1 <@>- * User users;
+  1 <@>- * Address addresses;
+  1 <@>- * Artwork artworks;
+  1 <@>- * Order orders;
+}
+
+
+class User {
+  abstract;
+  unique email;
+  password;
+}
+
+class Artist {
+  isA User;
+  name;
+  phone;
+  1 -- * Artwork artworks;
+}
+
+class Customer {
+  isA User;
+  name;
+  phone;
+  1 -- 1 Address address;
+  1 -- * Order orders;
+}
+
+class Address {
+  street;
+  postalCode;
+}
+
+class Admin {
+  isA User;
+}
+
+class Artwork {
+  autounique artwork_id;
+  Date dateCreated;
+  float price;
+  Boolean isSold;
+}
+
+class Order {
+  enum DeliveryOption{ Pickup, Mail }
+  DeliveryOption deliveryOption;
+  float total;
+  Date dateOrdered;
+  1 -- * Artwork artworks;
+}//$?[End_of_model]$?
+
+namespace -;
+
+
+class ArtGalleryApplication
+{
+  position 272 10 146 39;
+  position.association ArtGalleryApplication__Artwork:artworks 141,39 18,0;
+  position.association ArtGalleryApplication__User:users 146,16 0,6;
+  position.association Address:addresses__ArtGalleryApplication 0,10 149,0;
+}
+
+class User
+{
+  position 501 16 141 90;
+}
+
+class Artist
+{
+  position 647 105 116 74;
+  position.association Artist__Artwork:artworks 0,65 141,0;
+}
+
+class Customer
+{
+  position 359 115 116 74;
+  position.association Customer__Order:orders 3,74 212,0;
+  position.association Address:address__Customer 0,10 150,0;
+}
+
+class Address
+{
+  position 97 131 149 74;
+}
+
+class Admin
+{
+  position 518 146 109 39;
+}
+
+class Artwork
+{
+  position 605 317 148 107;
+}
+
+class Order
+{
+  position 258 332 230 90;
+  position.association Artwork:artworks__Order 230,35 0,45;
+}
