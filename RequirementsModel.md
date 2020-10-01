@@ -2,7 +2,7 @@
 
 ## Functional Requirements
 
-FR1 The gallery system shall allow a customer to create an account to enable the customer to login to the application.
+###FR1### The gallery system shall allow a customer to create an account to enable the customer to login to the application.
 FR2 The gallery system shall allow an artist to create an account to enable the artist to login to the application.
 FR3 The gallery system shall allow a customer to login with his email and password so that he can access the virtual store.
 FR4 The gallery system shall allow an artist to login with his email and password so that he can access his artwork.
