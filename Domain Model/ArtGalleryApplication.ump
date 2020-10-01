@@ -1,0 +1,94 @@
+class Application {
+}
+
+class Address {
+  String addressLine1;
+  String addressLine2;
+  String city;
+  String provence;
+  String postalCode;
+  String country;
+}
+
+association {
+     0..1 Address address -<@> 1 Customer customer;
+}
+
+
+class User {
+    abstract;
+  
+    unique String email;
+    String password;
+    autounique user_id;
+
+    class Artist {
+        String firstname;
+        String lastname;
+        String phoneNumber;
+        lazy String artistDescription;
+
+    }
+
+    class Customer {
+        String firstname;
+        String lastname;
+        lazy String phoneNumber;
+    }
+
+    class Administrator {
+      String name;
+
+    }
+}
+
+association {
+    1 Application application <@>- * User users;
+}
+
+//review
+class Review {
+  Float rating;
+  String comment;
+  Boolean wouldReccomend;
+}
+
+association {
+  1 Customer customer -- * Review reviews;
+  1 Artist artist <@>- * Review reviews;
+}
+
+// art pieces
+class Art {
+    String name;
+    String description;
+    Float price;
+    Date dateOfCreation;
+    Boolean isSold;
+    unique Integer artwork_id;
+}
+
+association {
+    1 Artist artist -- * Art artWorks;
+    1 Application application <@>- * Art artWorks;
+}
+
+// buying art
+
+class Order {
+    autounique order_id;
+    Float totalPrice;
+    Date datePlaced;
+    lazy Date orderCompleted;
+    enum DeliveryMethod {Pickup, Delivery};
+    DeliveryMethod deliveryMethod;
+  enum OrderStatus {PlacedOrder, ShippedOrder, ReadyForPickup,  DeliveredOrder, OrderPickedup};
+    OrderStatus orderStatus;
+}
+
+association {
+    0..1 Order order -- 1..* Art artWorks;
+    1 Customer customer -- * Order orders;
+    1 Artist artist -- * Order orders;
+    1 Application application <@>- * Order orders;
+}
