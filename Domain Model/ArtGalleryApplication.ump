@@ -1,103 +1,94 @@
-class ArtGalleryApplication {
-  singleton;
-  1 <@>- * User users;
-  1 <@>- * Address addresses;
-  1 <@>- * Artwork artworks;
-  1 <@>- * Order orders;
+class Application {
+}
+
+class Address {
+  String addressLine1;
+  String addressLine2;
+  String city;
+  String provence;
+  String postalCode;
+  String country;
+}
+
+association {
+     0..1 Address address -<@> 1 Customer customer;
 }
 
 
 class User {
-  abstract;
-  unique email;
-  password;
+    abstract;
+  
+    unique String email;
+    String password;
+    autounique user_id;
+
+    class Artist {
+        String firstname;
+        String lastname;
+        String phoneNumber;
+        lazy String artistDescription;
+
+    }
+
+    class Customer {
+        String firstname;
+        String lastname;
+        lazy String phoneNumber;
+    }
+
+    class Administrator {
+      String name;
+
+    }
 }
 
-class Artist {
-  isA User;
-  name;
-  phone;
-  1 -- * Artwork artworks;
+association {
+    1 Application application <@>- * User users;
 }
 
-class Customer {
-  isA User;
-  name;
-  phone;
-  1 -- 1 Address address;
-  1 -- * Order orders;
+//review
+class Review {
+  Float rating;
+  String comment;
+  Boolean wouldReccomend;
 }
 
-class Address {
-  street;
-  postalCode;
+association {
+  1 Customer customer -- * Review reviews;
+  1 Artist artist <@>- * Review reviews;
 }
 
-class Admin {
-  isA User;
+// art pieces
+class Art {
+    String name;
+    String description;
+    Float price;
+    Date dateOfCreation;
+    Boolean isSold;
+    unique Integer artwork_id;
 }
 
-class Artwork {
-  autounique artwork_id;
-  Date dateCreated;
-  float price;
-  Boolean isSold;
+association {
+    1 Artist artist -- * Art artWorks;
+    1 Application application <@>- * Art artWorks;
 }
+
+// buying art
 
 class Order {
-  enum DeliveryOption{ Pickup, Mail }
-  DeliveryOption deliveryOption;
-  float total;
-  Date dateOrdered;
-  1 -- * Artwork artworks;
-}//$?[End_of_model]$?
-
-namespace -;
-
-
-class ArtGalleryApplication
-{
-  position 272 10 146 39;
-  position.association ArtGalleryApplication__Artwork:artworks 141,39 18,0;
-  position.association ArtGalleryApplication__User:users 146,16 0,6;
-  position.association Address:addresses__ArtGalleryApplication 0,10 149,0;
+    autounique order_id;
+    Float totalPrice;
+    Date datePlaced;
+    lazy Date orderCompleted;
+    enum DeliveryMethod {Pickup, Delivery};
+    DeliveryMethod deliveryMethod;
+  enum OrderStatus {PlacedOrder, ShippedOrder, ReadyForPickup,  DeliveredOrder, OrderPickedup};
+    OrderStatus orderStatus;
 }
 
-class User
-{
-  position 501 16 141 90;
-}
-
-class Artist
-{
-  position 647 105 116 74;
-  position.association Artist__Artwork:artworks 0,65 141,0;
-}
-
-class Customer
-{
-  position 359 115 116 74;
-  position.association Customer__Order:orders 3,74 212,0;
-  position.association Address:address__Customer 0,10 150,0;
-}
-
-class Address
-{
-  position 97 131 149 74;
-}
-
-class Admin
-{
-  position 518 146 109 39;
-}
-
-class Artwork
-{
-  position 605 317 148 107;
-}
-
-class Order
-{
-  position 258 332 230 90;
-  position.association Artwork:artworks__Order 230,35 0,45;
+association {
+    0..1 Order order -- 1..* Art artWorks;
+    1 Customer customer -- * Order orders;
+    1 Artist artist -- * Order orders;
+    1 Application application <@>- * Order orders;
 }
