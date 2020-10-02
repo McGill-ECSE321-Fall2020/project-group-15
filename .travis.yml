@@ -1,3 +1,4 @@
 language: java
 script:
-- gradle build
+- cd ArtSee-Backend
+- ./gradlew build
