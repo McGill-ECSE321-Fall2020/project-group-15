@@ -21,7 +21,7 @@ public class Artist extends User
 
   //Artist Associations
   private List<Review> reviews;
-  private List<Art> artWorks;
+  private List<Artwork> artWorks;
   private List<Order> orders;
 
   //------------------------
@@ -36,7 +36,7 @@ public class Artist extends User
     phoneNumber = aPhoneNumber;
     artistDescription = null;
     reviews = new ArrayList<Review>();
-    artWorks = new ArrayList<Art>();
+    artWorks = new ArrayList<Artwork>();
     orders = new ArrayList<Order>();
   }
 
@@ -126,15 +126,15 @@ public class Artist extends User
     return index;
   }
   /* Code from template association_GetMany */
-  public Art getArtWork(int index)
+  public Artwork getArtWork(int index)
   {
-    Art aArtWork = artWorks.get(index);
+    Artwork aArtWork = artWorks.get(index);
     return aArtWork;
   }
 
-  public List<Art> getArtWorks()
+  public List<Artwork> getArtWorks()
   {
-    List<Art> newArtWorks = Collections.unmodifiableList(artWorks);
+    List<Artwork> newArtWorks = Collections.unmodifiableList(artWorks);
     return newArtWorks;
   }
 
@@ -150,7 +150,7 @@ public class Artist extends User
     return has;
   }
 
-  public int indexOfArtWork(Art aArtWork)
+  public int indexOfArtWork(Artwork aArtWork)
   {
     int index = artWorks.indexOf(aArtWork);
     return index;
@@ -263,12 +263,12 @@ public class Artist extends User
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Art addArtWork(String aName, String aDescription, float aPrice, Date aDateOfCreation, boolean aIsSold, int aArtwork_id, Application aApplication)
+  public Artwork addArtWork(String aName, String aDescription, float aPrice, Date aDateOfCreation, int aNumInStock, int aArtwork_id, Application aApplication)
   {
-    return new Art(aName, aDescription, aPrice, aDateOfCreation, aIsSold, aArtwork_id, this, aApplication);
+    return new Artwork(aName, aDescription, aPrice, aDateOfCreation, aNumInStock, aArtwork_id, this, aApplication);
   }
 
-  public boolean addArtWork(Art aArtWork)
+  public boolean addArtWork(Artwork aArtWork)
   {
     boolean wasAdded = false;
     if (artWorks.contains(aArtWork)) { return false; }
@@ -286,7 +286,7 @@ public class Artist extends User
     return wasAdded;
   }
 
-  public boolean removeArtWork(Art aArtWork)
+  public boolean removeArtWork(Artwork aArtWork)
   {
     boolean wasRemoved = false;
     //Unable to remove aArtWork, as it must always have a artist
@@ -298,7 +298,7 @@ public class Artist extends User
     return wasRemoved;
   }
   /* Code from template association_AddIndexControlFunctions */
-  public boolean addArtWorkAt(Art aArtWork, int index)
+  public boolean addArtWorkAt(Artwork aArtWork, int index)
   {  
     boolean wasAdded = false;
     if(addArtWork(aArtWork))
@@ -312,7 +312,7 @@ public class Artist extends User
     return wasAdded;
   }
 
-  public boolean addOrMoveArtWorkAt(Art aArtWork, int index)
+  public boolean addOrMoveArtWorkAt(Artwork aArtWork, int index)
   {
     boolean wasAdded = false;
     if(artWorks.contains(aArtWork))
@@ -335,9 +335,9 @@ public class Artist extends User
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Order addOrder(float aTotalPrice, Date aDatePlaced, Order.DeliveryMethod aDeliveryMethod, Order.OrderStatus aOrderStatus, Customer aCustomer, Application aApplication, Art... allArtWorks)
+  public Order addOrder(float aTotalPrice, Date aDatePlaced, Order.DeliveryMethod aDeliveryMethod, Order.OrderStatus aOrderStatus, Customer aCustomer, Application aApplication, Artwork... allArtworks)
   {
-    return new Order(aTotalPrice, aDatePlaced, aDeliveryMethod, aOrderStatus, aCustomer, this, aApplication, allArtWorks);
+    return new Order(aTotalPrice, aDatePlaced, aDeliveryMethod, aOrderStatus, aCustomer, this, aApplication, allArtworks);
   }
 
   public boolean addOrder(Order aOrder)
@@ -413,7 +413,7 @@ public class Artist extends User
     
     for(int i=artWorks.size(); i > 0; i--)
     {
-      Art aArtWork = artWorks.get(i - 1);
+      Artwork aArtWork = artWorks.get(i - 1);
       aArtWork.delete();
     }
     for(int i=orders.size(); i > 0; i--)
