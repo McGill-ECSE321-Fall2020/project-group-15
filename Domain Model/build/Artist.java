@@ -5,7 +5,7 @@
 import java.util.*;
 import java.sql.Date;
 
-// line 25 "ArtGalleryApplication.ump"
+// line 28 "ArtGalleryApplication.ump"
 public class Artist extends User
 {
 
@@ -14,59 +14,27 @@ public class Artist extends User
   //------------------------
 
   //Artist Attributes
-  private String firstname;
-  private String lastname;
-  private String phoneNumber;
   private String artistDescription;
 
   //Artist Associations
   private List<Review> reviews;
-  private List<Art> artWorks;
-  private List<Order> orders;
+  private List<Artwork> artworks;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Artist(String aEmail, String aPassword, Application aApplication, String aFirstname, String aLastname, String aPhoneNumber)
+  public Artist(String aEmail, String aPassword, String aFirstname, String aLastname, Application aApplication)
   {
-    super(aEmail, aPassword, aApplication);
-    firstname = aFirstname;
-    lastname = aLastname;
-    phoneNumber = aPhoneNumber;
+    super(aEmail, aPassword, aFirstname, aLastname, aApplication);
     artistDescription = null;
     reviews = new ArrayList<Review>();
-    artWorks = new ArrayList<Art>();
-    orders = new ArrayList<Order>();
+    artworks = new ArrayList<Artwork>();
   }
 
   //------------------------
   // INTERFACE
   //------------------------
-
-  public boolean setFirstname(String aFirstname)
-  {
-    boolean wasSet = false;
-    firstname = aFirstname;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setLastname(String aLastname)
-  {
-    boolean wasSet = false;
-    lastname = aLastname;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setPhoneNumber(String aPhoneNumber)
-  {
-    boolean wasSet = false;
-    phoneNumber = aPhoneNumber;
-    wasSet = true;
-    return wasSet;
-  }
 
   public boolean setArtistDescription(String aArtistDescription)
   {
@@ -74,21 +42,6 @@ public class Artist extends User
     artistDescription = aArtistDescription;
     wasSet = true;
     return wasSet;
-  }
-
-  public String getFirstname()
-  {
-    return firstname;
-  }
-
-  public String getLastname()
-  {
-    return lastname;
-  }
-
-  public String getPhoneNumber()
-  {
-    return phoneNumber;
   }
 
   public String getArtistDescription()
@@ -126,63 +79,33 @@ public class Artist extends User
     return index;
   }
   /* Code from template association_GetMany */
-  public Art getArtWork(int index)
+  public Artwork getArtwork(int index)
   {
-    Art aArtWork = artWorks.get(index);
-    return aArtWork;
+    Artwork aArtwork = artworks.get(index);
+    return aArtwork;
   }
 
-  public List<Art> getArtWorks()
+  public List<Artwork> getArtworks()
   {
-    List<Art> newArtWorks = Collections.unmodifiableList(artWorks);
-    return newArtWorks;
+    List<Artwork> newArtworks = Collections.unmodifiableList(artworks);
+    return newArtworks;
   }
 
-  public int numberOfArtWorks()
+  public int numberOfArtworks()
   {
-    int number = artWorks.size();
+    int number = artworks.size();
     return number;
   }
 
-  public boolean hasArtWorks()
+  public boolean hasArtworks()
   {
-    boolean has = artWorks.size() > 0;
+    boolean has = artworks.size() > 0;
     return has;
   }
 
-  public int indexOfArtWork(Art aArtWork)
+  public int indexOfArtwork(Artwork aArtwork)
   {
-    int index = artWorks.indexOf(aArtWork);
-    return index;
-  }
-  /* Code from template association_GetMany */
-  public Order getOrder(int index)
-  {
-    Order aOrder = orders.get(index);
-    return aOrder;
-  }
-
-  public List<Order> getOrders()
-  {
-    List<Order> newOrders = Collections.unmodifiableList(orders);
-    return newOrders;
-  }
-
-  public int numberOfOrders()
-  {
-    int number = orders.size();
-    return number;
-  }
-
-  public boolean hasOrders()
-  {
-    boolean has = orders.size() > 0;
-    return has;
-  }
-
-  public int indexOfOrder(Order aOrder)
-  {
-    int index = orders.indexOf(aOrder);
+    int index = artworks.indexOf(aArtwork);
     return index;
   }
   /* Code from template association_MinimumNumberOfMethod */
@@ -258,146 +181,74 @@ public class Artist extends User
     return wasAdded;
   }
   /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfArtWorks()
+  public static int minimumNumberOfArtworks()
   {
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Art addArtWork(String aName, String aDescription, float aPrice, Date aDateOfCreation, boolean aIsSold, int aArtwork_id, Application aApplication)
+  public Artwork addArtwork(String aName, String aDescription, float aPrice, Date aDateOfCreation, int aNumInStock, int aArtwork_id, Application aApplication)
   {
-    return new Art(aName, aDescription, aPrice, aDateOfCreation, aIsSold, aArtwork_id, this, aApplication);
+    return new Artwork(aName, aDescription, aPrice, aDateOfCreation, aNumInStock, aArtwork_id, this, aApplication);
   }
 
-  public boolean addArtWork(Art aArtWork)
+  public boolean addArtwork(Artwork aArtwork)
   {
     boolean wasAdded = false;
-    if (artWorks.contains(aArtWork)) { return false; }
-    Artist existingArtist = aArtWork.getArtist();
+    if (artworks.contains(aArtwork)) { return false; }
+    Artist existingArtist = aArtwork.getArtist();
     boolean isNewArtist = existingArtist != null && !this.equals(existingArtist);
     if (isNewArtist)
     {
-      aArtWork.setArtist(this);
+      aArtwork.setArtist(this);
     }
     else
     {
-      artWorks.add(aArtWork);
+      artworks.add(aArtwork);
     }
     wasAdded = true;
     return wasAdded;
   }
 
-  public boolean removeArtWork(Art aArtWork)
+  public boolean removeArtwork(Artwork aArtwork)
   {
     boolean wasRemoved = false;
-    //Unable to remove aArtWork, as it must always have a artist
-    if (!this.equals(aArtWork.getArtist()))
+    //Unable to remove aArtwork, as it must always have a artist
+    if (!this.equals(aArtwork.getArtist()))
     {
-      artWorks.remove(aArtWork);
+      artworks.remove(aArtwork);
       wasRemoved = true;
     }
     return wasRemoved;
   }
   /* Code from template association_AddIndexControlFunctions */
-  public boolean addArtWorkAt(Art aArtWork, int index)
+  public boolean addArtworkAt(Artwork aArtwork, int index)
   {  
     boolean wasAdded = false;
-    if(addArtWork(aArtWork))
+    if(addArtwork(aArtwork))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfArtWorks()) { index = numberOfArtWorks() - 1; }
-      artWorks.remove(aArtWork);
-      artWorks.add(index, aArtWork);
+      if(index > numberOfArtworks()) { index = numberOfArtworks() - 1; }
+      artworks.remove(aArtwork);
+      artworks.add(index, aArtwork);
       wasAdded = true;
     }
     return wasAdded;
   }
 
-  public boolean addOrMoveArtWorkAt(Art aArtWork, int index)
+  public boolean addOrMoveArtworkAt(Artwork aArtwork, int index)
   {
     boolean wasAdded = false;
-    if(artWorks.contains(aArtWork))
+    if(artworks.contains(aArtwork))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfArtWorks()) { index = numberOfArtWorks() - 1; }
-      artWorks.remove(aArtWork);
-      artWorks.add(index, aArtWork);
+      if(index > numberOfArtworks()) { index = numberOfArtworks() - 1; }
+      artworks.remove(aArtwork);
+      artworks.add(index, aArtwork);
       wasAdded = true;
     } 
     else 
     {
-      wasAdded = addArtWorkAt(aArtWork, index);
-    }
-    return wasAdded;
-  }
-  /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfOrders()
-  {
-    return 0;
-  }
-  /* Code from template association_AddManyToOne */
-  public Order addOrder(float aTotalPrice, Date aDatePlaced, Order.DeliveryMethod aDeliveryMethod, Order.OrderStatus aOrderStatus, Customer aCustomer, Application aApplication, Art... allArtWorks)
-  {
-    return new Order(aTotalPrice, aDatePlaced, aDeliveryMethod, aOrderStatus, aCustomer, this, aApplication, allArtWorks);
-  }
-
-  public boolean addOrder(Order aOrder)
-  {
-    boolean wasAdded = false;
-    if (orders.contains(aOrder)) { return false; }
-    Artist existingArtist = aOrder.getArtist();
-    boolean isNewArtist = existingArtist != null && !this.equals(existingArtist);
-    if (isNewArtist)
-    {
-      aOrder.setArtist(this);
-    }
-    else
-    {
-      orders.add(aOrder);
-    }
-    wasAdded = true;
-    return wasAdded;
-  }
-
-  public boolean removeOrder(Order aOrder)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aOrder, as it must always have a artist
-    if (!this.equals(aOrder.getArtist()))
-    {
-      orders.remove(aOrder);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addOrderAt(Order aOrder, int index)
-  {  
-    boolean wasAdded = false;
-    if(addOrder(aOrder))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfOrders()) { index = numberOfOrders() - 1; }
-      orders.remove(aOrder);
-      orders.add(index, aOrder);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveOrderAt(Order aOrder, int index)
-  {
-    boolean wasAdded = false;
-    if(orders.contains(aOrder))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfOrders()) { index = numberOfOrders() - 1; }
-      orders.remove(aOrder);
-      orders.add(index, aOrder);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addOrderAt(aOrder, index);
+      wasAdded = addArtworkAt(aArtwork, index);
     }
     return wasAdded;
   }
@@ -411,15 +262,10 @@ public class Artist extends User
       reviews.remove(aReview);
     }
     
-    for(int i=artWorks.size(); i > 0; i--)
+    for(int i=artworks.size(); i > 0; i--)
     {
-      Art aArtWork = artWorks.get(i - 1);
-      aArtWork.delete();
-    }
-    for(int i=orders.size(); i > 0; i--)
-    {
-      Order aOrder = orders.get(i - 1);
-      aOrder.delete();
+      Artwork aArtwork = artworks.get(i - 1);
+      aArtwork.delete();
     }
     super.delete();
   }
@@ -428,9 +274,6 @@ public class Artist extends User
   public String toString()
   {
     return super.toString() + "["+
-            "firstname" + ":" + getFirstname()+ "," +
-            "lastname" + ":" + getLastname()+ "," +
-            "phoneNumber" + ":" + getPhoneNumber()+ "," +
             "artistDescription" + ":" + getArtistDescription()+ "]";
   }
 }

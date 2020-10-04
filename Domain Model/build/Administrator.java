@@ -4,7 +4,7 @@
 
 import java.util.*;
 
-// line 39 "ArtGalleryApplication.ump"
+// line 36 "ArtGalleryApplication.ump"
 public class Administrator extends User
 {
 
@@ -12,45 +12,22 @@ public class Administrator extends User
   // MEMBER VARIABLES
   //------------------------
 
-  //Administrator Attributes
-  private String name;
-
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Administrator(String aEmail, String aPassword, Application aApplication, String aName)
+  public Administrator(String aEmail, String aPassword, String aFirstname, String aLastname, Application aApplication)
   {
-    super(aEmail, aPassword, aApplication);
-    name = aName;
+    super(aEmail, aPassword, aFirstname, aLastname, aApplication);
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public boolean setName(String aName)
-  {
-    boolean wasSet = false;
-    name = aName;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public String getName()
-  {
-    return name;
-  }
-
   public void delete()
   {
     super.delete();
   }
 
-
-  public String toString()
-  {
-    return super.toString() + "["+
-            "name" + ":" + getName()+ "]";
-  }
 }

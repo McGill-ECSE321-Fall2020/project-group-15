@@ -2,20 +2,28 @@
 /*This code was generated using the UMPLE 1.29.1.4607.2d2b84eb8 modeling language!*/
 
 
+import java.util.*;
 
 // line 4 "ArtGalleryApplication.ump"
 public class Address
 {
 
   //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static Map<String, Address> addresssByAddress_id = new HashMap<String, Address>();
+
+  //------------------------
   // MEMBER VARIABLES
   //------------------------
 
   //Address Attributes
+  private String address_id;
   private String addressLine1;
   private String addressLine2;
   private String city;
-  private String provence;
+  private String province;
   private String postalCode;
   private String country;
 
@@ -26,14 +34,18 @@ public class Address
   // CONSTRUCTOR
   //------------------------
 
-  public Address(String aAddressLine1, String aAddressLine2, String aCity, String aProvence, String aPostalCode, String aCountry, Customer aCustomer)
+  public Address(String aAddress_id, String aAddressLine1, String aAddressLine2, String aCity, String aProvince, String aPostalCode, String aCountry, Customer aCustomer)
   {
     addressLine1 = aAddressLine1;
     addressLine2 = aAddressLine2;
     city = aCity;
-    provence = aProvence;
+    province = aProvince;
     postalCode = aPostalCode;
     country = aCountry;
+    if (!setAddress_id(aAddress_id))
+    {
+      throw new RuntimeException("Cannot create due to duplicate address_id. See http://manual.umple.org?RE003ViolationofUniqueness.html");
+    }
     boolean didAddCustomer = setCustomer(aCustomer);
     if (!didAddCustomer)
     {
@@ -44,6 +56,25 @@ public class Address
   //------------------------
   // INTERFACE
   //------------------------
+
+  public boolean setAddress_id(String aAddress_id)
+  {
+    boolean wasSet = false;
+    String anOldAddress_id = getAddress_id();
+    if (anOldAddress_id != null && anOldAddress_id.equals(aAddress_id)) {
+      return true;
+    }
+    if (hasWithAddress_id(aAddress_id)) {
+      return wasSet;
+    }
+    address_id = aAddress_id;
+    wasSet = true;
+    if (anOldAddress_id != null) {
+      addresssByAddress_id.remove(anOldAddress_id);
+    }
+    addresssByAddress_id.put(aAddress_id, this);
+    return wasSet;
+  }
 
   public boolean setAddressLine1(String aAddressLine1)
   {
@@ -69,10 +100,10 @@ public class Address
     return wasSet;
   }
 
-  public boolean setProvence(String aProvence)
+  public boolean setProvince(String aProvince)
   {
     boolean wasSet = false;
-    provence = aProvence;
+    province = aProvince;
     wasSet = true;
     return wasSet;
   }
@@ -93,6 +124,21 @@ public class Address
     return wasSet;
   }
 
+  public String getAddress_id()
+  {
+    return address_id;
+  }
+  /* Code from template attribute_GetUnique */
+  public static Address getWithAddress_id(String aAddress_id)
+  {
+    return addresssByAddress_id.get(aAddress_id);
+  }
+  /* Code from template attribute_HasUnique */
+  public static boolean hasWithAddress_id(String aAddress_id)
+  {
+    return getWithAddress_id(aAddress_id) != null;
+  }
+
   public String getAddressLine1()
   {
     return addressLine1;
@@ -108,9 +154,9 @@ public class Address
     return city;
   }
 
-  public String getProvence()
+  public String getProvince()
   {
-    return provence;
+    return province;
   }
 
   public String getPostalCode()
@@ -158,6 +204,7 @@ public class Address
 
   public void delete()
   {
+    addresssByAddress_id.remove(getAddress_id());
     Customer existingCustomer = customer;
     customer = null;
     if (existingCustomer != null)
@@ -170,10 +217,11 @@ public class Address
   public String toString()
   {
     return super.toString() + "["+
+            "address_id" + ":" + getAddress_id()+ "," +
             "addressLine1" + ":" + getAddressLine1()+ "," +
             "addressLine2" + ":" + getAddressLine2()+ "," +
             "city" + ":" + getCity()+ "," +
-            "provence" + ":" + getProvence()+ "," +
+            "province" + ":" + getProvince()+ "," +
             "postalCode" + ":" + getPostalCode()+ "," +
             "country" + ":" + getCountry()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "customer = "+(getCustomer()!=null?Integer.toHexString(System.identityHashCode(getCustomer())):"null");

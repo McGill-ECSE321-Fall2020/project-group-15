@@ -15,7 +15,7 @@ public class Application
 
   //Application Associations
   private List<User> users;
-  private List<Art> artWorks;
+  private List<Artwork> artworks;
   private List<Order> orders;
 
   //------------------------
@@ -25,7 +25,7 @@ public class Application
   public Application()
   {
     users = new ArrayList<User>();
-    artWorks = new ArrayList<Art>();
+    artworks = new ArrayList<Artwork>();
     orders = new ArrayList<Order>();
   }
 
@@ -63,33 +63,33 @@ public class Application
     return index;
   }
   /* Code from template association_GetMany */
-  public Art getArtWork(int index)
+  public Artwork getArtwork(int index)
   {
-    Art aArtWork = artWorks.get(index);
-    return aArtWork;
+    Artwork aArtwork = artworks.get(index);
+    return aArtwork;
   }
 
-  public List<Art> getArtWorks()
+  public List<Artwork> getArtworks()
   {
-    List<Art> newArtWorks = Collections.unmodifiableList(artWorks);
-    return newArtWorks;
+    List<Artwork> newArtworks = Collections.unmodifiableList(artworks);
+    return newArtworks;
   }
 
-  public int numberOfArtWorks()
+  public int numberOfArtworks()
   {
-    int number = artWorks.size();
+    int number = artworks.size();
     return number;
   }
 
-  public boolean hasArtWorks()
+  public boolean hasArtworks()
   {
-    boolean has = artWorks.size() > 0;
+    boolean has = artworks.size() > 0;
     return has;
   }
 
-  public int indexOfArtWork(Art aArtWork)
+  public int indexOfArtwork(Artwork aArtwork)
   {
-    int index = artWorks.indexOf(aArtWork);
+    int index = artworks.indexOf(aArtwork);
     return index;
   }
   /* Code from template association_GetMany */
@@ -192,74 +192,74 @@ public class Application
     return wasAdded;
   }
   /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfArtWorks()
+  public static int minimumNumberOfArtworks()
   {
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Art addArtWork(String aName, String aDescription, float aPrice, Date aDateOfCreation, boolean aIsSold, int aArtwork_id, Artist aArtist)
+  public Artwork addArtwork(String aName, String aDescription, float aPrice, Date aDateOfCreation, int aNumInStock, int aArtwork_id, Artist aArtist)
   {
-    return new Art(aName, aDescription, aPrice, aDateOfCreation, aIsSold, aArtwork_id, aArtist, this);
+    return new Artwork(aName, aDescription, aPrice, aDateOfCreation, aNumInStock, aArtwork_id, aArtist, this);
   }
 
-  public boolean addArtWork(Art aArtWork)
+  public boolean addArtwork(Artwork aArtwork)
   {
     boolean wasAdded = false;
-    if (artWorks.contains(aArtWork)) { return false; }
-    Application existingApplication = aArtWork.getApplication();
+    if (artworks.contains(aArtwork)) { return false; }
+    Application existingApplication = aArtwork.getApplication();
     boolean isNewApplication = existingApplication != null && !this.equals(existingApplication);
     if (isNewApplication)
     {
-      aArtWork.setApplication(this);
+      aArtwork.setApplication(this);
     }
     else
     {
-      artWorks.add(aArtWork);
+      artworks.add(aArtwork);
     }
     wasAdded = true;
     return wasAdded;
   }
 
-  public boolean removeArtWork(Art aArtWork)
+  public boolean removeArtwork(Artwork aArtwork)
   {
     boolean wasRemoved = false;
-    //Unable to remove aArtWork, as it must always have a application
-    if (!this.equals(aArtWork.getApplication()))
+    //Unable to remove aArtwork, as it must always have a application
+    if (!this.equals(aArtwork.getApplication()))
     {
-      artWorks.remove(aArtWork);
+      artworks.remove(aArtwork);
       wasRemoved = true;
     }
     return wasRemoved;
   }
   /* Code from template association_AddIndexControlFunctions */
-  public boolean addArtWorkAt(Art aArtWork, int index)
+  public boolean addArtworkAt(Artwork aArtwork, int index)
   {  
     boolean wasAdded = false;
-    if(addArtWork(aArtWork))
+    if(addArtwork(aArtwork))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfArtWorks()) { index = numberOfArtWorks() - 1; }
-      artWorks.remove(aArtWork);
-      artWorks.add(index, aArtWork);
+      if(index > numberOfArtworks()) { index = numberOfArtworks() - 1; }
+      artworks.remove(aArtwork);
+      artworks.add(index, aArtwork);
       wasAdded = true;
     }
     return wasAdded;
   }
 
-  public boolean addOrMoveArtWorkAt(Art aArtWork, int index)
+  public boolean addOrMoveArtworkAt(Artwork aArtwork, int index)
   {
     boolean wasAdded = false;
-    if(artWorks.contains(aArtWork))
+    if(artworks.contains(aArtwork))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfArtWorks()) { index = numberOfArtWorks() - 1; }
-      artWorks.remove(aArtWork);
-      artWorks.add(index, aArtWork);
+      if(index > numberOfArtworks()) { index = numberOfArtworks() - 1; }
+      artworks.remove(aArtwork);
+      artworks.add(index, aArtwork);
       wasAdded = true;
     } 
     else 
     {
-      wasAdded = addArtWorkAt(aArtWork, index);
+      wasAdded = addArtworkAt(aArtwork, index);
     }
     return wasAdded;
   }
@@ -269,9 +269,9 @@ public class Application
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Order addOrder(float aTotalPrice, Date aDatePlaced, Order.DeliveryMethod aDeliveryMethod, Order.OrderStatus aOrderStatus, Customer aCustomer, Artist aArtist, Art... allArtWorks)
+  public Order addOrder(float aTotalPrice, Date aDatePlaced, Order.DeliveryMethod aDeliveryMethod, Order.OrderStatus aOrderStatus, Customer aCustomer, Artwork... allArtworks)
   {
-    return new Order(aTotalPrice, aDatePlaced, aDeliveryMethod, aOrderStatus, aCustomer, aArtist, this, allArtWorks);
+    return new Order(aTotalPrice, aDatePlaced, aDeliveryMethod, aOrderStatus, aCustomer, this, allArtworks);
   }
 
   public boolean addOrder(Order aOrder)
@@ -345,11 +345,11 @@ public class Application
       users.remove(aUser);
     }
     
-    while (artWorks.size() > 0)
+    while (artworks.size() > 0)
     {
-      Art aArtWork = artWorks.get(artWorks.size() - 1);
-      aArtWork.delete();
-      artWorks.remove(aArtWork);
+      Artwork aArtwork = artworks.get(artworks.size() - 1);
+      aArtwork.delete();
+      artworks.remove(aArtwork);
     }
     
     while (orders.size() > 0)

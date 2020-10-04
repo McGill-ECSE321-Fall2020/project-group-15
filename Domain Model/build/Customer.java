@@ -13,11 +13,6 @@ public class Customer extends User
   // MEMBER VARIABLES
   //------------------------
 
-  //Customer Attributes
-  private String firstname;
-  private String lastname;
-  private String phoneNumber;
-
   //Customer Associations
   private Address address;
   private List<Review> reviews;
@@ -27,12 +22,9 @@ public class Customer extends User
   // CONSTRUCTOR
   //------------------------
 
-  public Customer(String aEmail, String aPassword, Application aApplication, String aFirstname, String aLastname)
+  public Customer(String aEmail, String aPassword, String aFirstname, String aLastname, Application aApplication)
   {
-    super(aEmail, aPassword, aApplication);
-    firstname = aFirstname;
-    lastname = aLastname;
-    phoneNumber = null;
+    super(aEmail, aPassword, aFirstname, aLastname, aApplication);
     reviews = new ArrayList<Review>();
     orders = new ArrayList<Order>();
   }
@@ -40,45 +32,6 @@ public class Customer extends User
   //------------------------
   // INTERFACE
   //------------------------
-
-  public boolean setFirstname(String aFirstname)
-  {
-    boolean wasSet = false;
-    firstname = aFirstname;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setLastname(String aLastname)
-  {
-    boolean wasSet = false;
-    lastname = aLastname;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setPhoneNumber(String aPhoneNumber)
-  {
-    boolean wasSet = false;
-    phoneNumber = aPhoneNumber;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public String getFirstname()
-  {
-    return firstname;
-  }
-
-  public String getLastname()
-  {
-    return lastname;
-  }
-
-  public String getPhoneNumber()
-  {
-    return phoneNumber;
-  }
   /* Code from template association_GetOne */
   public Address getAddress()
   {
@@ -255,9 +208,9 @@ public class Customer extends User
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Order addOrder(float aTotalPrice, Date aDatePlaced, Order.DeliveryMethod aDeliveryMethod, Order.OrderStatus aOrderStatus, Artist aArtist, Application aApplication, Art... allArtWorks)
+  public Order addOrder(float aTotalPrice, Date aDatePlaced, Order.DeliveryMethod aDeliveryMethod, Order.OrderStatus aOrderStatus, Application aApplication, Artwork... allArtworks)
   {
-    return new Order(aTotalPrice, aDatePlaced, aDeliveryMethod, aOrderStatus, this, aArtist, aApplication, allArtWorks);
+    return new Order(aTotalPrice, aDatePlaced, aDeliveryMethod, aOrderStatus, this, aApplication, allArtworks);
   }
 
   public boolean addOrder(Order aOrder)
@@ -344,13 +297,4 @@ public class Customer extends User
     super.delete();
   }
 
-
-  public String toString()
-  {
-    return super.toString() + "["+
-            "firstname" + ":" + getFirstname()+ "," +
-            "lastname" + ":" + getLastname()+ "," +
-            "phoneNumber" + ":" + getPhoneNumber()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "address = "+(getAddress()!=null?Integer.toHexString(System.identityHashCode(getAddress())):"null");
-  }
 }

@@ -6,9 +6,15 @@
 /**
  * review
  */
-// line 50 "ArtGalleryApplication.ump"
+// line 45 "ArtGalleryApplication.ump"
 public class Review
 {
+
+  //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static int nextReview_id = 1;
 
   //------------------------
   // MEMBER VARIABLES
@@ -18,6 +24,9 @@ public class Review
   private float rating;
   private String comment;
   private boolean wouldReccomend;
+
+  //Autounique Attributes
+  private int review_id;
 
   //Review Associations
   private Customer customer;
@@ -32,6 +41,7 @@ public class Review
     rating = aRating;
     comment = aComment;
     wouldReccomend = aWouldReccomend;
+    review_id = nextReview_id++;
     boolean didAddCustomer = setCustomer(aCustomer);
     if (!didAddCustomer)
     {
@@ -85,6 +95,11 @@ public class Review
   public boolean getWouldReccomend()
   {
     return wouldReccomend;
+  }
+
+  public int getReview_id()
+  {
+    return review_id;
   }
   /* Code from template attribute_IsBoolean */
   public boolean isWouldReccomend()
@@ -160,6 +175,7 @@ public class Review
   public String toString()
   {
     return super.toString() + "["+
+            "review_id" + ":" + getReview_id()+ "," +
             "rating" + ":" + getRating()+ "," +
             "comment" + ":" + getComment()+ "," +
             "wouldReccomend" + ":" + getWouldReccomend()+ "]" + System.getProperties().getProperty("line.separator") +

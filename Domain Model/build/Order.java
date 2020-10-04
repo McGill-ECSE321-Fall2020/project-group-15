@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * buying art
  */
-// line 78 "ArtGalleryApplication.ump"
+// line 74 "ArtGalleryApplication.ump"
 public class Order
 {
 
@@ -40,16 +40,15 @@ public class Order
   private int order_id;
 
   //Order Associations
-  private List<Art> artWorks;
+  private List<Artwork> artworks;
   private Customer customer;
-  private Artist artist;
   private Application application;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Order(float aTotalPrice, Date aDatePlaced, DeliveryMethod aDeliveryMethod, OrderStatus aOrderStatus, Customer aCustomer, Artist aArtist, Application aApplication, Art... allArtWorks)
+  public Order(float aTotalPrice, Date aDatePlaced, DeliveryMethod aDeliveryMethod, OrderStatus aOrderStatus, Customer aCustomer, Application aApplication, Artwork... allArtworks)
   {
     totalPrice = aTotalPrice;
     datePlaced = aDatePlaced;
@@ -57,21 +56,16 @@ public class Order
     deliveryMethod = aDeliveryMethod;
     orderStatus = aOrderStatus;
     order_id = nextOrder_id++;
-    artWorks = new ArrayList<Art>();
-    boolean didAddArtWorks = setArtWorks(allArtWorks);
-    if (!didAddArtWorks)
+    artworks = new ArrayList<Artwork>();
+    boolean didAddArtworks = setArtworks(allArtworks);
+    if (!didAddArtworks)
     {
-      throw new RuntimeException("Unable to create Order, must have at least 1 artWorks. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+      throw new RuntimeException("Unable to create Order, must have at least 1 artworks. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
     boolean didAddCustomer = setCustomer(aCustomer);
     if (!didAddCustomer)
     {
       throw new RuntimeException("Unable to create order due to customer. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
-    boolean didAddArtist = setArtist(aArtist);
-    if (!didAddArtist)
-    {
-      throw new RuntimeException("Unable to create order due to artist. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
     boolean didAddApplication = setApplication(aApplication);
     if (!didAddApplication)
@@ -154,33 +148,33 @@ public class Order
     return order_id;
   }
   /* Code from template association_GetMany */
-  public Art getArtWork(int index)
+  public Artwork getArtwork(int index)
   {
-    Art aArtWork = artWorks.get(index);
-    return aArtWork;
+    Artwork aArtwork = artworks.get(index);
+    return aArtwork;
   }
 
-  public List<Art> getArtWorks()
+  public List<Artwork> getArtworks()
   {
-    List<Art> newArtWorks = Collections.unmodifiableList(artWorks);
-    return newArtWorks;
+    List<Artwork> newArtworks = Collections.unmodifiableList(artworks);
+    return newArtworks;
   }
 
-  public int numberOfArtWorks()
+  public int numberOfArtworks()
   {
-    int number = artWorks.size();
+    int number = artworks.size();
     return number;
   }
 
-  public boolean hasArtWorks()
+  public boolean hasArtworks()
   {
-    boolean has = artWorks.size() > 0;
+    boolean has = artworks.size() > 0;
     return has;
   }
 
-  public int indexOfArtWork(Art aArtWork)
+  public int indexOfArtwork(Artwork aArtwork)
   {
-    int index = artWorks.indexOf(aArtWork);
+    int index = artworks.indexOf(aArtwork);
     return index;
   }
   /* Code from template association_GetOne */
@@ -189,148 +183,143 @@ public class Order
     return customer;
   }
   /* Code from template association_GetOne */
-  public Artist getArtist()
-  {
-    return artist;
-  }
-  /* Code from template association_GetOne */
   public Application getApplication()
   {
     return application;
   }
   /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfArtWorks()
+  public static int minimumNumberOfArtworks()
   {
     return 1;
   }
   /* Code from template association_AddMNToOptionalOne */
-  public boolean addArtWork(Art aArtWork)
+  public boolean addArtwork(Artwork aArtwork)
   {
     boolean wasAdded = false;
-    if (artWorks.contains(aArtWork)) { return false; }
-    Order existingOrder = aArtWork.getOrder();
-    if (existingOrder != null && existingOrder.numberOfArtWorks() <= minimumNumberOfArtWorks())
+    if (artworks.contains(aArtwork)) { return false; }
+    Order existingOrder = aArtwork.getOrder();
+    if (existingOrder != null && existingOrder.numberOfArtworks() <= minimumNumberOfArtworks())
     {
       return wasAdded;
     }
     else if (existingOrder != null)
     {
-      existingOrder.artWorks.remove(aArtWork);
+      existingOrder.artworks.remove(aArtwork);
     }
-    artWorks.add(aArtWork);
-    setOrder(aArtWork,this);
+    artworks.add(aArtwork);
+    setOrder(aArtwork,this);
     wasAdded = true;
     return wasAdded;
   }
 
-  public boolean removeArtWork(Art aArtWork)
+  public boolean removeArtwork(Artwork aArtwork)
   {
     boolean wasRemoved = false;
-    if (artWorks.contains(aArtWork) && numberOfArtWorks() > minimumNumberOfArtWorks())
+    if (artworks.contains(aArtwork) && numberOfArtworks() > minimumNumberOfArtworks())
     {
-      artWorks.remove(aArtWork);
-      setOrder(aArtWork,null);
+      artworks.remove(aArtwork);
+      setOrder(aArtwork,null);
       wasRemoved = true;
     }
     return wasRemoved;
   }
   /* Code from template association_SetMNToOptionalOne */
-  public boolean setArtWorks(Art... newArtWorks)
+  public boolean setArtworks(Artwork... newArtworks)
   {
     boolean wasSet = false;
-    if (newArtWorks.length < minimumNumberOfArtWorks())
+    if (newArtworks.length < minimumNumberOfArtworks())
     {
       return wasSet;
     }
 
-    ArrayList<Art> checkNewArtWorks = new ArrayList<Art>();
-    HashMap<Order,Integer> orderToNewArtWorks = new HashMap<Order,Integer>();
-    for (Art aArtWork : newArtWorks)
+    ArrayList<Artwork> checkNewArtworks = new ArrayList<Artwork>();
+    HashMap<Order,Integer> orderToNewArtworks = new HashMap<Order,Integer>();
+    for (Artwork aArtwork : newArtworks)
     {
-      if (checkNewArtWorks.contains(aArtWork))
+      if (checkNewArtworks.contains(aArtwork))
       {
         return wasSet;
       }
-      else if (aArtWork.getOrder() != null && !this.equals(aArtWork.getOrder()))
+      else if (aArtwork.getOrder() != null && !this.equals(aArtwork.getOrder()))
       {
-        Order existingOrder = aArtWork.getOrder();
-        if (!orderToNewArtWorks.containsKey(existingOrder))
+        Order existingOrder = aArtwork.getOrder();
+        if (!orderToNewArtworks.containsKey(existingOrder))
         {
-          orderToNewArtWorks.put(existingOrder, new Integer(existingOrder.numberOfArtWorks()));
+          orderToNewArtworks.put(existingOrder, new Integer(existingOrder.numberOfArtworks()));
         }
-        Integer currentCount = orderToNewArtWorks.get(existingOrder);
+        Integer currentCount = orderToNewArtworks.get(existingOrder);
         int nextCount = currentCount - 1;
         if (nextCount < 1)
         {
           return wasSet;
         }
-        orderToNewArtWorks.put(existingOrder, new Integer(nextCount));
+        orderToNewArtworks.put(existingOrder, new Integer(nextCount));
       }
-      checkNewArtWorks.add(aArtWork);
+      checkNewArtworks.add(aArtwork);
     }
 
-    artWorks.removeAll(checkNewArtWorks);
+    artworks.removeAll(checkNewArtworks);
 
-    for (Art orphan : artWorks)
+    for (Artwork orphan : artworks)
     {
       setOrder(orphan, null);
     }
-    artWorks.clear();
-    for (Art aArtWork : newArtWorks)
+    artworks.clear();
+    for (Artwork aArtwork : newArtworks)
     {
-      if (aArtWork.getOrder() != null)
+      if (aArtwork.getOrder() != null)
       {
-        aArtWork.getOrder().artWorks.remove(aArtWork);
+        aArtwork.getOrder().artworks.remove(aArtwork);
       }
-      setOrder(aArtWork, this);
-      artWorks.add(aArtWork);
+      setOrder(aArtwork, this);
+      artworks.add(aArtwork);
     }
     wasSet = true;
     return wasSet;
   }
   /* Code from template association_GetPrivate */
-  private void setOrder(Art aArtWork, Order aOrder)
+  private void setOrder(Artwork aArtwork, Order aOrder)
   {
     try
     {
-      java.lang.reflect.Field mentorField = aArtWork.getClass().getDeclaredField("order");
+      java.lang.reflect.Field mentorField = aArtwork.getClass().getDeclaredField("order");
       mentorField.setAccessible(true);
-      mentorField.set(aArtWork, aOrder);
+      mentorField.set(aArtwork, aOrder);
     }
     catch (Exception e)
     {
-      throw new RuntimeException("Issue internally setting aOrder to aArtWork", e);
+      throw new RuntimeException("Issue internally setting aOrder to aArtwork", e);
     }
   }
   /* Code from template association_AddIndexControlFunctions */
-  public boolean addArtWorkAt(Art aArtWork, int index)
+  public boolean addArtworkAt(Artwork aArtwork, int index)
   {  
     boolean wasAdded = false;
-    if(addArtWork(aArtWork))
+    if(addArtwork(aArtwork))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfArtWorks()) { index = numberOfArtWorks() - 1; }
-      artWorks.remove(aArtWork);
-      artWorks.add(index, aArtWork);
+      if(index > numberOfArtworks()) { index = numberOfArtworks() - 1; }
+      artworks.remove(aArtwork);
+      artworks.add(index, aArtwork);
       wasAdded = true;
     }
     return wasAdded;
   }
 
-  public boolean addOrMoveArtWorkAt(Art aArtWork, int index)
+  public boolean addOrMoveArtworkAt(Artwork aArtwork, int index)
   {
     boolean wasAdded = false;
-    if(artWorks.contains(aArtWork))
+    if(artworks.contains(aArtwork))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfArtWorks()) { index = numberOfArtWorks() - 1; }
-      artWorks.remove(aArtWork);
-      artWorks.add(index, aArtWork);
+      if(index > numberOfArtworks()) { index = numberOfArtworks() - 1; }
+      artworks.remove(aArtwork);
+      artworks.add(index, aArtwork);
       wasAdded = true;
     } 
     else 
     {
-      wasAdded = addArtWorkAt(aArtWork, index);
+      wasAdded = addArtworkAt(aArtwork, index);
     }
     return wasAdded;
   }
@@ -350,25 +339,6 @@ public class Order
       existingCustomer.removeOrder(this);
     }
     customer.addOrder(this);
-    wasSet = true;
-    return wasSet;
-  }
-  /* Code from template association_SetOneToMany */
-  public boolean setArtist(Artist aArtist)
-  {
-    boolean wasSet = false;
-    if (aArtist == null)
-    {
-      return wasSet;
-    }
-
-    Artist existingArtist = artist;
-    artist = aArtist;
-    if (existingArtist != null && !existingArtist.equals(aArtist))
-    {
-      existingArtist.removeOrder(this);
-    }
-    artist.addOrder(this);
     wasSet = true;
     return wasSet;
   }
@@ -394,22 +364,16 @@ public class Order
 
   public void delete()
   {
-    for(Art aArtWork : artWorks)
+    for(Artwork aArtwork : artworks)
     {
-      setOrder(aArtWork,null);
+      setOrder(aArtwork,null);
     }
-    artWorks.clear();
+    artworks.clear();
     Customer placeholderCustomer = customer;
     this.customer = null;
     if(placeholderCustomer != null)
     {
       placeholderCustomer.removeOrder(this);
-    }
-    Artist placeholderArtist = artist;
-    this.artist = null;
-    if(placeholderArtist != null)
-    {
-      placeholderArtist.removeOrder(this);
     }
     Application placeholderApplication = application;
     this.application = null;
@@ -430,7 +394,6 @@ public class Order
             "  " + "deliveryMethod" + "=" + (getDeliveryMethod() != null ? !getDeliveryMethod().equals(this)  ? getDeliveryMethod().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "orderStatus" + "=" + (getOrderStatus() != null ? !getOrderStatus().equals(this)  ? getOrderStatus().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "customer = "+(getCustomer()!=null?Integer.toHexString(System.identityHashCode(getCustomer())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "artist = "+(getArtist()!=null?Integer.toHexString(System.identityHashCode(getArtist())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "application = "+(getApplication()!=null?Integer.toHexString(System.identityHashCode(getApplication())):"null");
   }
 }
