@@ -208,9 +208,9 @@ public class Customer extends User
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Order addOrder(float aTotalPrice, Date aDatePlaced, Order.DeliveryMethod aDeliveryMethod, Order.OrderStatus aOrderStatus, Artist aArtist, Application aApplication, Artwork... allArtworks)
+  public Order addOrder(float aTotalPrice, Date aDatePlaced, Order.DeliveryMethod aDeliveryMethod, Order.OrderStatus aOrderStatus, Application aApplication, Artwork... allArtworks)
   {
-    return new Order(aTotalPrice, aDatePlaced, aDeliveryMethod, aOrderStatus, this, aArtist, aApplication, allArtworks);
+    return new Order(aTotalPrice, aDatePlaced, aDeliveryMethod, aOrderStatus, this, aApplication, allArtworks);
   }
 
   public boolean addOrder(Order aOrder)

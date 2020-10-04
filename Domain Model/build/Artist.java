@@ -19,7 +19,6 @@ public class Artist extends User
   //Artist Associations
   private List<Review> reviews;
   private List<Artwork> artworks;
-  private List<Order> orders;
 
   //------------------------
   // CONSTRUCTOR
@@ -31,7 +30,6 @@ public class Artist extends User
     artistDescription = null;
     reviews = new ArrayList<Review>();
     artworks = new ArrayList<Artwork>();
-    orders = new ArrayList<Order>();
   }
 
   //------------------------
@@ -108,36 +106,6 @@ public class Artist extends User
   public int indexOfArtwork(Artwork aArtwork)
   {
     int index = artworks.indexOf(aArtwork);
-    return index;
-  }
-  /* Code from template association_GetMany */
-  public Order getOrder(int index)
-  {
-    Order aOrder = orders.get(index);
-    return aOrder;
-  }
-
-  public List<Order> getOrders()
-  {
-    List<Order> newOrders = Collections.unmodifiableList(orders);
-    return newOrders;
-  }
-
-  public int numberOfOrders()
-  {
-    int number = orders.size();
-    return number;
-  }
-
-  public boolean hasOrders()
-  {
-    boolean has = orders.size() > 0;
-    return has;
-  }
-
-  public int indexOfOrder(Order aOrder)
-  {
-    int index = orders.indexOf(aOrder);
     return index;
   }
   /* Code from template association_MinimumNumberOfMethod */
@@ -284,78 +252,6 @@ public class Artist extends User
     }
     return wasAdded;
   }
-  /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfOrders()
-  {
-    return 0;
-  }
-  /* Code from template association_AddManyToOne */
-  public Order addOrder(float aTotalPrice, Date aDatePlaced, Order.DeliveryMethod aDeliveryMethod, Order.OrderStatus aOrderStatus, Customer aCustomer, Application aApplication, Artwork... allArtworks)
-  {
-    return new Order(aTotalPrice, aDatePlaced, aDeliveryMethod, aOrderStatus, aCustomer, this, aApplication, allArtworks);
-  }
-
-  public boolean addOrder(Order aOrder)
-  {
-    boolean wasAdded = false;
-    if (orders.contains(aOrder)) { return false; }
-    Artist existingArtist = aOrder.getArtist();
-    boolean isNewArtist = existingArtist != null && !this.equals(existingArtist);
-    if (isNewArtist)
-    {
-      aOrder.setArtist(this);
-    }
-    else
-    {
-      orders.add(aOrder);
-    }
-    wasAdded = true;
-    return wasAdded;
-  }
-
-  public boolean removeOrder(Order aOrder)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aOrder, as it must always have a artist
-    if (!this.equals(aOrder.getArtist()))
-    {
-      orders.remove(aOrder);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addOrderAt(Order aOrder, int index)
-  {  
-    boolean wasAdded = false;
-    if(addOrder(aOrder))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfOrders()) { index = numberOfOrders() - 1; }
-      orders.remove(aOrder);
-      orders.add(index, aOrder);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveOrderAt(Order aOrder, int index)
-  {
-    boolean wasAdded = false;
-    if(orders.contains(aOrder))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfOrders()) { index = numberOfOrders() - 1; }
-      orders.remove(aOrder);
-      orders.add(index, aOrder);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addOrderAt(aOrder, index);
-    }
-    return wasAdded;
-  }
 
   public void delete()
   {
@@ -370,11 +266,6 @@ public class Artist extends User
     {
       Artwork aArtwork = artworks.get(i - 1);
       aArtwork.delete();
-    }
-    for(int i=orders.size(); i > 0; i--)
-    {
-      Order aOrder = orders.get(i - 1);
-      aOrder.delete();
     }
     super.delete();
   }

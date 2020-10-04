@@ -42,14 +42,13 @@ public class Order
   //Order Associations
   private List<Artwork> artworks;
   private Customer customer;
-  private Artist artist;
   private Application application;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Order(float aTotalPrice, Date aDatePlaced, DeliveryMethod aDeliveryMethod, OrderStatus aOrderStatus, Customer aCustomer, Artist aArtist, Application aApplication, Artwork... allArtworks)
+  public Order(float aTotalPrice, Date aDatePlaced, DeliveryMethod aDeliveryMethod, OrderStatus aOrderStatus, Customer aCustomer, Application aApplication, Artwork... allArtworks)
   {
     totalPrice = aTotalPrice;
     datePlaced = aDatePlaced;
@@ -67,11 +66,6 @@ public class Order
     if (!didAddCustomer)
     {
       throw new RuntimeException("Unable to create order due to customer. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
-    boolean didAddArtist = setArtist(aArtist);
-    if (!didAddArtist)
-    {
-      throw new RuntimeException("Unable to create order due to artist. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
     boolean didAddApplication = setApplication(aApplication);
     if (!didAddApplication)
@@ -187,11 +181,6 @@ public class Order
   public Customer getCustomer()
   {
     return customer;
-  }
-  /* Code from template association_GetOne */
-  public Artist getArtist()
-  {
-    return artist;
   }
   /* Code from template association_GetOne */
   public Application getApplication()
@@ -354,25 +343,6 @@ public class Order
     return wasSet;
   }
   /* Code from template association_SetOneToMany */
-  public boolean setArtist(Artist aArtist)
-  {
-    boolean wasSet = false;
-    if (aArtist == null)
-    {
-      return wasSet;
-    }
-
-    Artist existingArtist = artist;
-    artist = aArtist;
-    if (existingArtist != null && !existingArtist.equals(aArtist))
-    {
-      existingArtist.removeOrder(this);
-    }
-    artist.addOrder(this);
-    wasSet = true;
-    return wasSet;
-  }
-  /* Code from template association_SetOneToMany */
   public boolean setApplication(Application aApplication)
   {
     boolean wasSet = false;
@@ -405,12 +375,6 @@ public class Order
     {
       placeholderCustomer.removeOrder(this);
     }
-    Artist placeholderArtist = artist;
-    this.artist = null;
-    if(placeholderArtist != null)
-    {
-      placeholderArtist.removeOrder(this);
-    }
     Application placeholderApplication = application;
     this.application = null;
     if(placeholderApplication != null)
@@ -430,7 +394,6 @@ public class Order
             "  " + "deliveryMethod" + "=" + (getDeliveryMethod() != null ? !getDeliveryMethod().equals(this)  ? getDeliveryMethod().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "orderStatus" + "=" + (getOrderStatus() != null ? !getOrderStatus().equals(this)  ? getOrderStatus().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "customer = "+(getCustomer()!=null?Integer.toHexString(System.identityHashCode(getCustomer())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "artist = "+(getArtist()!=null?Integer.toHexString(System.identityHashCode(getArtist())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "application = "+(getApplication()!=null?Integer.toHexString(System.identityHashCode(getApplication())):"null");
   }
 }

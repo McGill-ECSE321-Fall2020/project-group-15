@@ -85,6 +85,5 @@ class Order {
 association {
     0..1 Order order -- 1..* Artwork artworks;
     1 Customer customer -- * Order orders;
-    1 Artist artist -- * Order orders;
     1 Application application <@>- * Order orders;
 }
