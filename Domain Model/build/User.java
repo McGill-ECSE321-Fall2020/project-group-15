@@ -4,7 +4,7 @@
 
 import java.util.*;
 
-// line 17 "ArtGalleryApplication.ump"
+// line 18 "ArtGalleryApplication.ump"
 public abstract class User
 {
 

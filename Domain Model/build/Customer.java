@@ -5,7 +5,7 @@
 import java.util.*;
 import java.sql.Date;
 
-// line 32 "ArtGalleryApplication.ump"
+// line 33 "ArtGalleryApplication.ump"
 public class Customer extends User
 {
 

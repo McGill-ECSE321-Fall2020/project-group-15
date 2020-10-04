@@ -4,7 +4,7 @@
 
 import java.util.*;
 
-// line 35 "ArtGalleryApplication.ump"
+// line 36 "ArtGalleryApplication.ump"
 public class Administrator extends User
 {
 

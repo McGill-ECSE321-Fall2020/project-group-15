@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * buying art
  */
-// line 72 "ArtGalleryApplication.ump"
+// line 74 "ArtGalleryApplication.ump"
 public class Order
 {
 
