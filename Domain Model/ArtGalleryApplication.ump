@@ -5,7 +5,7 @@ class Address {
   String addressLine1;
   String addressLine2;
   String city;
-  String provence;
+  String province;
   String postalCode;
   String country;
 }
@@ -14,31 +14,25 @@ association {
      0..1 Address address -<@> 1 Customer customer;
 }
 
-
 class User {
     abstract;
   
     unique String email;
     String password;
     autounique user_id;
+    String firstname;
+    String lastname;
+    lazy String phoneNumber;
 
     class Artist {
-        String firstname;
-        String lastname;
-        String phoneNumber;
         lazy String artistDescription;
 
     }
 
     class Customer {
-        String firstname;
-        String lastname;
-        lazy String phoneNumber;
     }
 
     class Administrator {
-      String name;
-
     }
 }
 

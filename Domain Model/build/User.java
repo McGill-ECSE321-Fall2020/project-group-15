@@ -4,7 +4,7 @@
 
 import java.util.*;
 
-// line 18 "ArtGalleryApplication.ump"
+// line 17 "ArtGalleryApplication.ump"
 public abstract class User
 {
 
@@ -22,6 +22,9 @@ public abstract class User
   //User Attributes
   private String email;
   private String password;
+  private String firstname;
+  private String lastname;
+  private String phoneNumber;
 
   //Autounique Attributes
   private int user_id;
@@ -33,9 +36,12 @@ public abstract class User
   // CONSTRUCTOR
   //------------------------
 
-  public User(String aEmail, String aPassword, Application aApplication)
+  public User(String aEmail, String aPassword, String aFirstname, String aLastname, Application aApplication)
   {
     password = aPassword;
+    firstname = aFirstname;
+    lastname = aLastname;
+    phoneNumber = null;
     if (!setEmail(aEmail))
     {
       throw new RuntimeException("Cannot create due to duplicate email. See http://manual.umple.org?RE003ViolationofUniqueness.html");
@@ -79,6 +85,30 @@ public abstract class User
     return wasSet;
   }
 
+  public boolean setFirstname(String aFirstname)
+  {
+    boolean wasSet = false;
+    firstname = aFirstname;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setLastname(String aLastname)
+  {
+    boolean wasSet = false;
+    lastname = aLastname;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setPhoneNumber(String aPhoneNumber)
+  {
+    boolean wasSet = false;
+    phoneNumber = aPhoneNumber;
+    wasSet = true;
+    return wasSet;
+  }
+
   public String getEmail()
   {
     return email;
@@ -97,6 +127,21 @@ public abstract class User
   public String getPassword()
   {
     return password;
+  }
+
+  public String getFirstname()
+  {
+    return firstname;
+  }
+
+  public String getLastname()
+  {
+    return lastname;
+  }
+
+  public String getPhoneNumber()
+  {
+    return phoneNumber;
   }
 
   public int getUser_id()
@@ -145,7 +190,10 @@ public abstract class User
     return super.toString() + "["+
             "user_id" + ":" + getUser_id()+ "," +
             "email" + ":" + getEmail()+ "," +
-            "password" + ":" + getPassword()+ "]" + System.getProperties().getProperty("line.separator") +
+            "password" + ":" + getPassword()+ "," +
+            "firstname" + ":" + getFirstname()+ "," +
+            "lastname" + ":" + getLastname()+ "," +
+            "phoneNumber" + ":" + getPhoneNumber()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "application = "+(getApplication()!=null?Integer.toHexString(System.identityHashCode(getApplication())):"null");
   }
 }

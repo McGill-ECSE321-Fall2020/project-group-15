@@ -6,7 +6,7 @@
 /**
  * review
  */
-// line 50 "ArtGalleryApplication.ump"
+// line 44 "ArtGalleryApplication.ump"
 public class Review
 {
 

@@ -15,7 +15,7 @@ public class Address
   private String addressLine1;
   private String addressLine2;
   private String city;
-  private String provence;
+  private String province;
   private String postalCode;
   private String country;
 
@@ -26,12 +26,12 @@ public class Address
   // CONSTRUCTOR
   //------------------------
 
-  public Address(String aAddressLine1, String aAddressLine2, String aCity, String aProvence, String aPostalCode, String aCountry, Customer aCustomer)
+  public Address(String aAddressLine1, String aAddressLine2, String aCity, String aProvince, String aPostalCode, String aCountry, Customer aCustomer)
   {
     addressLine1 = aAddressLine1;
     addressLine2 = aAddressLine2;
     city = aCity;
-    provence = aProvence;
+    province = aProvince;
     postalCode = aPostalCode;
     country = aCountry;
     boolean didAddCustomer = setCustomer(aCustomer);
@@ -69,10 +69,10 @@ public class Address
     return wasSet;
   }
 
-  public boolean setProvence(String aProvence)
+  public boolean setProvince(String aProvince)
   {
     boolean wasSet = false;
-    provence = aProvence;
+    province = aProvince;
     wasSet = true;
     return wasSet;
   }
@@ -108,9 +108,9 @@ public class Address
     return city;
   }
 
-  public String getProvence()
+  public String getProvince()
   {
-    return provence;
+    return province;
   }
 
   public String getPostalCode()
@@ -173,7 +173,7 @@ public class Address
             "addressLine1" + ":" + getAddressLine1()+ "," +
             "addressLine2" + ":" + getAddressLine2()+ "," +
             "city" + ":" + getCity()+ "," +
-            "provence" + ":" + getProvence()+ "," +
+            "province" + ":" + getProvince()+ "," +
             "postalCode" + ":" + getPostalCode()+ "," +
             "country" + ":" + getCountry()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "customer = "+(getCustomer()!=null?Integer.toHexString(System.identityHashCode(getCustomer())):"null");

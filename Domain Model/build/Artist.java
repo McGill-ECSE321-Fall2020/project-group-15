@@ -5,7 +5,7 @@
 import java.util.*;
 import java.sql.Date;
 
-// line 25 "ArtGalleryApplication.ump"
+// line 27 "ArtGalleryApplication.ump"
 public class Artist extends User
 {
 
@@ -14,9 +14,6 @@ public class Artist extends User
   //------------------------
 
   //Artist Attributes
-  private String firstname;
-  private String lastname;
-  private String phoneNumber;
   private String artistDescription;
 
   //Artist Associations
@@ -28,12 +25,9 @@ public class Artist extends User
   // CONSTRUCTOR
   //------------------------
 
-  public Artist(String aEmail, String aPassword, Application aApplication, String aFirstname, String aLastname, String aPhoneNumber)
+  public Artist(String aEmail, String aPassword, String aFirstname, String aLastname, Application aApplication)
   {
-    super(aEmail, aPassword, aApplication);
-    firstname = aFirstname;
-    lastname = aLastname;
-    phoneNumber = aPhoneNumber;
+    super(aEmail, aPassword, aFirstname, aLastname, aApplication);
     artistDescription = null;
     reviews = new ArrayList<Review>();
     artWorks = new ArrayList<Artwork>();
@@ -44,51 +38,12 @@ public class Artist extends User
   // INTERFACE
   //------------------------
 
-  public boolean setFirstname(String aFirstname)
-  {
-    boolean wasSet = false;
-    firstname = aFirstname;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setLastname(String aLastname)
-  {
-    boolean wasSet = false;
-    lastname = aLastname;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setPhoneNumber(String aPhoneNumber)
-  {
-    boolean wasSet = false;
-    phoneNumber = aPhoneNumber;
-    wasSet = true;
-    return wasSet;
-  }
-
   public boolean setArtistDescription(String aArtistDescription)
   {
     boolean wasSet = false;
     artistDescription = aArtistDescription;
     wasSet = true;
     return wasSet;
-  }
-
-  public String getFirstname()
-  {
-    return firstname;
-  }
-
-  public String getLastname()
-  {
-    return lastname;
-  }
-
-  public String getPhoneNumber()
-  {
-    return phoneNumber;
   }
 
   public String getArtistDescription()
@@ -428,9 +383,6 @@ public class Artist extends User
   public String toString()
   {
     return super.toString() + "["+
-            "firstname" + ":" + getFirstname()+ "," +
-            "lastname" + ":" + getLastname()+ "," +
-            "phoneNumber" + ":" + getPhoneNumber()+ "," +
             "artistDescription" + ":" + getArtistDescription()+ "]";
   }
 }
