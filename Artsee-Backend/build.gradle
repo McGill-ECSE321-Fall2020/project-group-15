@@ -6,7 +6,6 @@ plugins {
 }
 
 group = 'com.example'
-version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
@@ -24,11 +23,6 @@ dependencies {
 
 application {
     mainClass = 'com.artsee.ArtSeeApplication'
-}
-
-task zip(type: Zip, group: "Custom", description: "Archives sources in a zip file") {
-	from "src"
-	archiveFileName = "artsee-1.0.zip"
 }
 
 test {

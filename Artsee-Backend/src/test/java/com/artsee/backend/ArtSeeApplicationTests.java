@@ -1,4 +1,4 @@
-package com.artsee;
+package com.artsee.backend;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,4 +1,4 @@
-package com.artsee;
+package com.artsee.backend;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.SpringApplication;
