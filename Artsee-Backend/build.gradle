@@ -22,7 +22,7 @@ dependencies {
 }
 
 application {
-    mainClass = 'com.artsee.ArtSeeApplication'
+    mainClass = 'com.artsee.backend.ArtSeeApplication'
 }
 
 test {
