@@ -10,3 +10,4 @@
 rootProject.name = 'project-group-15'
 
 include ':Artsee-Backend'
+
