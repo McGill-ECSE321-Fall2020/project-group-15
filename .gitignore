@@ -3,4 +3,5 @@
 .project
 bin/
 .classpath
+.vscode/
 build/
