@@ -2,7 +2,7 @@ class Application {
 }
 
 class Address {
-  unique String address_id;
+  autounique address_id;
   String addressLine1;
   String addressLine2;
   String city;
