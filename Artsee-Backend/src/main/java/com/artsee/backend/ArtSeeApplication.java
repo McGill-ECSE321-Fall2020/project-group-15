@@ -2,19 +2,20 @@ package com.artsee.backend;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.SpringApplication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @SpringBootApplication
-public class ArtSeeApplication {
+public class ArtseeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ArtSeeApplication.class, args);
+		SpringApplication.run(ArtseeApplication.class, args);
 	}
 
 	@RequestMapping("/")
-	public String homepage() {
-		return "Hello! This is the Artsee application!";
+	public String greeting(){
+	  return "Hello world!";
 	}
 
 }

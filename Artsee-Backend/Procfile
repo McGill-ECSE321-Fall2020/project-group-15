@@ -1,1 +1,1 @@
-web: java -jar Artsee-Backend/build/libs/Artsee-Backend.jar
+web: java -jar Artsee-Backend/build/libs/Artsee-Backend-0.0.1-SNAPSHOT.jar
