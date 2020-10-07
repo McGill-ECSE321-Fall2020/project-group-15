@@ -20,7 +20,6 @@ class User {
   
     unique String email;
     String password;
-    autounique user_id;
     String firstname;
     String lastname;
     lazy String phoneNumber;
@@ -50,18 +49,18 @@ class Review {
 }
 
 association {
-  1 Customer customer -- * Review reviews;
+  1 Customer customer <- * Review reviews;
   1 Artist artist <@>- * Review reviews;
 }
 
 // art pieces
 class Artwork {
+    autounique artwork_id;
     String name;
     String description;
     Float price;
     Date dateOfCreation;
 	Integer numInStock;
-    unique Integer artwork_id;
 }
 
 association {
@@ -83,7 +82,7 @@ class Order {
 }
 
 association {
-    0..1 Order order -- 1..* Artwork artworks;
-    1 Customer customer -- * Order orders;
+    * Order orders -- 1..* Artwork artworks;
+    1 Customer customer <- * Order orders;
     1 Application application <@>- * Order orders;
 }
