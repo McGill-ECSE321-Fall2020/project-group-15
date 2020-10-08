@@ -4,14 +4,14 @@ import javax.persistence.Id;
 
 @Entity
 public abstract class User{
-private String email;
+private String user_email;
    
-   public void setEmail(String value) {
-this.email = value;
+   public void setUser_email(String value) {
+this.user_email = value;
     }
 @Id
-public String getEmail() {
-return this.email;
+public String getUser_email() {
+return this.user_email;
     }
 private String password;
 

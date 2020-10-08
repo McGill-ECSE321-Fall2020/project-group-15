@@ -3,6 +3,7 @@ import javax.persistence.Entity;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
+import javax.persistence.Id;
 
 @Entity
 public class Artist extends User{
@@ -33,4 +34,13 @@ public void setReviews(Set<Review> reviewss) {
    this.reviews = reviewss;
 }
 
-}
+private String artist_email;
+
+public void setArtist_email(String value) {
+this.artist_email = value;
+    }
+@Id
+public String getArtist_email() {
+return this.artist_email;
+       }
+   }
