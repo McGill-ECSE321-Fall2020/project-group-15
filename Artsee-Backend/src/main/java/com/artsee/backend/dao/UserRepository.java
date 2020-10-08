@@ -1,5 +1,11 @@
 package com.artsee.backend.dao;
 
-public interface UserRepository {
+import org.springframework.data.repository.CrudRepository;
+
+import com.artsee.backend.model.User;
+
+public interface UserRepository extends CrudRepository<User, Integer> {
+	
+	User findUserByUser_id(Integer user_id);
 
 }
