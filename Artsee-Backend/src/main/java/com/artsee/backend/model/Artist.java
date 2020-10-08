@@ -3,8 +3,11 @@ import javax.persistence.Entity;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+
 
 @Entity
+//@PrimaryKeyJoinColumn(name = "artist_Id")
 public class Artist extends User{
 private String artistDescription;
    
