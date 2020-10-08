@@ -4,8 +4,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.artsee.backend.model.Artist;
 
-public interface ArtistRepository extends CrudRepository<Artist, Integer> {
+public interface ArtistRepository extends CrudRepository<Artist, String> {
 	
-	Artist findArtistByUser_id(Integer user_id);
+	Artist findArtistByUser_id(String user_id);
 
 }

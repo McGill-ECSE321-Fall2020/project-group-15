@@ -4,8 +4,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.artsee.backend.model.Administrator;
 
-public interface AdministratorRepository extends CrudRepository<Administrator, Integer> {
+public interface AdministratorRepository extends CrudRepository<Administrator, String> {
 	
-	Administrator findAdministratorByUser_id(Integer user_id);
+	Administrator findAdministratorByUser_id(String user_id);
 
 }
