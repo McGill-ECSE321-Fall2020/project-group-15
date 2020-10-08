@@ -1,3 +1,4 @@
+package com.artsee.backend.model;
 import javax.persistence.Entity;
 import java.util.Set;
 import javax.persistence.CascadeType;

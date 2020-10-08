@@ -1,12 +1,10 @@
 package com.artsee.backend.model;
 
 import javax.persistence.Entity;
-import User;
+
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
-import Order;
-import Artwork;
 
 @Entity
 public class Application{

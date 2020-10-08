@@ -1,5 +1,7 @@
+package com.artsee.backend.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.sql.Date;
 import java.util.Set;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
