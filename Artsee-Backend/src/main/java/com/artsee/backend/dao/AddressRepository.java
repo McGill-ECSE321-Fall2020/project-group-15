@@ -6,6 +6,6 @@ import com.artsee.backend.model.Address;
 
 public interface AddressRepository extends CrudRepository<Address, Integer>{
 
-	Address findAddressByAddress_id(Integer address_id);
-	
+	Address findAddressByAddressID(Integer addressID);
+
 }

@@ -8,14 +8,15 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Order{
-private Integer order_id;
+private Integer orderID;
    
-   public void setOrder_id(Integer value) {
-this.order_id = value;
+
+   public void setOrderID(Integer value) {
+this.orderID = value;
     }
 @Id
-public Integer getOrder_id() {
-return this.order_id;
+public Integer getOrderID() {
+return this.orderID;
     }
 private float totalPrice;
 
@@ -41,6 +42,12 @@ this.dateCompleted = value;
 public Date getDateCompleted() {
 return this.dateCompleted;
     }
+
+public enum DeliveryMethod { 
+	SHIP,
+	PICKUP
+}
+
 private DeliveryMethod deliveryMethod;
 
 public void setDeliveryMethod(DeliveryMethod value) {
@@ -49,6 +56,13 @@ this.deliveryMethod = value;
 public DeliveryMethod getDeliveryMethod() {
 return this.deliveryMethod;
     }
+
+
+public enum OrderStatus { 
+	PROCESSING,
+	DELIVERED
+}
+
 private OrderStatus orderStatus;
 
 public void setOrderStatus(OrderStatus value) {
@@ -78,5 +92,6 @@ public Customer getCustomer() {
 public void setCustomer(Customer customer) {
    this.customer = customer;
 }
+
 
 }

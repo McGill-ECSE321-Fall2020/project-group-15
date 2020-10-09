@@ -5,14 +5,14 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Review{
-private Integer review_id;
+private Integer reviewID;
    
-   public void setReview_id(Integer value) {
-this.review_id = value;
+   public void setReviewID(Integer value) {
+this.reviewID = value;
     }
 @Id
-public Integer getReview_id() {
-return this.review_id;
+public Integer getReviewID() {
+return this.reviewID;
     }
 private Integer rating;
 

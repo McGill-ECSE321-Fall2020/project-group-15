@@ -5,4 +5,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class ArtseeApplicationTests {
+	
+	@Test
+	void contextLoads() {
+	}
+	
 }
+

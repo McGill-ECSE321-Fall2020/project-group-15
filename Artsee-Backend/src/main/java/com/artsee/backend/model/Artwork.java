@@ -6,14 +6,14 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Artwork{
-private Integer artwork_id;
+private Integer artworkID;
    
-   public void setArtwork_id(Integer value) {
-this.artwork_id = value;
+   public void setArtworkID(Integer value) {
+this.artworkID = value;
     }
 @Id
-public Integer getArtwork_id() {
-return this.artwork_id;
+public Integer getArtworkID() {
+return this.artworkID;
     }
 private String name;
 

@@ -6,6 +6,6 @@ import com.artsee.backend.model.Review;
 
 public interface ReviewRepository extends CrudRepository<Review, Integer>{
 
-	Review findReviewByReview_id(Integer review_id);
+	Review findReviewByReviewID(Integer reviewID);
 
 }

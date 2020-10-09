@@ -6,7 +6,7 @@ import com.artsee.backend.model.Artwork;
 
 public interface ArtworkRepository extends CrudRepository<Artwork, Integer> {
 	
-	Artwork findArtworkByArtwork_id(Integer artwork_id);
+	Artwork findArtworkByArtworkID(Integer artworkID);
 
 }
 
