@@ -11,7 +11,7 @@ project description as well as a team introduction can be found in the [wiki](ht
 |        Name       | Student ID | Contribution | Role                       | 
 |:-----------------:|:----------:|:------------:|:--------------------------:|
 |  Matthew Langshur |  260704964 |  20 hours    | Build system and CI, UML model|
-|  Matteo Barbieri  |  260805184 |              |                            |
+|  Matteo Barbieri  |  260805184 |  14 hours    | Build System, Sprint report & Documentation|
 |  Daniel Schwartz  |  260795149 |  18 hours    | Persistence layer implementation and testing, UML model|
 | Enan Ashaduzzaman |  260805923 |  19 hours    | Persistence layer implementation and testing, UML model, Heroku|
 |  Ragheed Qasmieh  |  260780556 |  16  hours   | Requirements, use case diagram and specification, UML model|
