@@ -14,7 +14,7 @@ project description as well as a team introduction can be found in the [wiki](ht
 |  Matteo Barbieri  |  260805184 |              |                            |
 |  Daniel Schwartz  |  260795149 |  18 hours    | Persistence layer implementation and testing, UML model|
 | Enan Ashaduzzaman |  260805923 |  19 hours    | Persistence layer implementation and testing, UML model, Heroku|
-|  Ragheed Qasmieh  |  260780556 |  16  hours   | Requirements, use case specification and diagram, domain model|
+|  Ragheed Qasmieh  |  260780556 |  16  hours   | Requirements, use case diagram and specification, UML model|
 
 **Links to Requirement & Domain Models**<br></br>
 [Requirements Model](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Requirements-Model)<br>
