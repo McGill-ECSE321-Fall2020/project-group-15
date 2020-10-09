@@ -4,9 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.Month;
 
 import org.junit.jupiter.api.AfterEach;
@@ -23,7 +21,6 @@ import com.artsee.backend.model.Artwork;
 import com.artsee.backend.model.Customer;
 import com.artsee.backend.model.ArtworkOrder;
 import com.artsee.backend.model.Review;
-import com.artsee.backend.model.EndUser;
 import com.artsee.backend.model.DeliveryMethod;
 import com.artsee.backend.model.OrderStatus;
 
@@ -49,6 +46,7 @@ public class TestArtseePersistance {
 	@Autowired
 	private EndUserRepository endUserRepository;
 
+	// Clear the database after each test
 	@AfterEach
 	public void clearDatabase() {
 		
@@ -70,8 +68,11 @@ public class TestArtseePersistance {
 		administratorRepository.deleteAll();
 	}
 	
+	// Test for Address persistence 
 	@Test
 	public void testPersistAndLoadAddress() {
+		
+		// Creating Address object with test data
 		Integer addressID = 1;
 		String addressLine1 = "123 Test st.";
 		String addressLine2 = "Apt 102";
@@ -80,12 +81,16 @@ public class TestArtseePersistance {
 		String postalCode = "A1B2C3";
 		String country = "Canada";
 		Address address = createTestAddress(addressID, addressLine1, addressLine2, city, province, postalCode, country);
+		
+		// Saving object to DB
 		addressRepository.save(address);
 		
 		address = null;
 		
+		// Pulling object from DB
 		address = addressRepository.findAddressByAddressID(addressID);
 		
+		// Testing object pulls correctly
 		assertNotNull(address);
 		assertEquals(addressID, address.getAddressID());
 		assertEquals(addressLine1, address.getAddressLine1());
@@ -96,21 +101,27 @@ public class TestArtseePersistance {
 		assertEquals(country, address.getCountry());
 	}
 	
+	// Test for Administrator persistence 
 	@Test
 	public void testPersistAndLoadAdministrator() {
+		
+		// Creating Administrator object with test data
 		String email = "admin@mail.ca";
 		String password = "adminPassword";
 		String firstName = "adminFirst";
 		String lastName = "adminLast";
 		String phoneNumber = "123456";
-		
 		Administrator administrator = createTestAdministrator(email, password, firstName, lastName, phoneNumber);
+		
+		// Saving object to DB
 		administratorRepository.save(administrator);
 		
 		administrator = null;
 		
+		// Pulling object from DB
 		administrator = administratorRepository.findAdministratorByEmail(email);
 		
+		// Testing object pulls correctly
 		assertNotNull(administrator);
 		assertEquals(email, administrator.getEmail());
 		assertEquals(password, administrator.getPassword());
@@ -119,9 +130,11 @@ public class TestArtseePersistance {
 		assertEquals(phoneNumber, administrator.getPhoneNumber());
 	}
 	
+	// Test for Artist persistence 
 	@Test
 	public void testPersistAndLoadArtist() {
 				
+		// Creating Administrator object with test data
 		String email = "artist@mail.ca";
 		String password = "artistPassword";
 		String firstName = "artistfirst";
@@ -132,12 +145,15 @@ public class TestArtseePersistance {
 
 		Artist artist = createTestArtistWithoutReviewOrArtworks(email, password, firstName, lastName, phoneNumber, artistDescription, rating);
 
+		// Saving object to DB
 		artistRepository.save(artist);
 		
 		artist = null;
 		
+		// Pulling object from DB
 		artist = artistRepository.findArtistByEmail(email);
 		
+		// Testing object pulls correctly
 		assertNotNull(artist);
 		assertEquals(email, artist.getEmail());
 		assertEquals(password, artist.getPassword());
@@ -148,9 +164,11 @@ public class TestArtseePersistance {
 
 	}
 	
+	// Test for Artist persistence 
 	@Test
 	public void testPersistAndLoadCustomer() {
 				
+		// Creating Address object with test data and saving to DB
 		Integer addressID = 1;
 		String addressLine1 = "123 Test st.";
 		String addressLine2 = "Apt 102";
@@ -158,10 +176,10 @@ public class TestArtseePersistance {
 		String province = "testProvince";
 		String postalCode = "A1B2C3";
 		String country = "Canada";
-				
 		Address address = createTestAddress(addressID, addressLine1, addressLine2, city, province, postalCode, country);
 		addressRepository.save(address);
 		
+		// Creating Customer object with test data
 		String email = "customer@mail.ca";
 		String password = "customerPassword";
 		String firstName = "customerFirst";
@@ -170,17 +188,23 @@ public class TestArtseePersistance {
 		Customer customer = createTestCustomerWithoutAddress(email ,password , firstName, lastName, phoneNumber);
 		customer.setAddress(address);
 		
+		// Saving object to DB
 		customerRepository.save(customer);
 		
 		customer = null;
 		
+		// Pulling object from DB
 		customer = customerRepository.findCustomerByEmail(email);
+		
+		// Testing object pulls correctly
 		assertNotNull(customer);
 		assertEquals(email, customer.getEmail());
 		assertEquals(password, customer.getPassword());
 		assertEquals(firstName, customer.getFirstName());
 		assertEquals(lastName, customer.getLastName());
 		assertEquals(phoneNumber, customer.getPhoneNumber());
+		
+		// Comparing by keys
 		assertEquals(address.getAddressID(), customer.getAddress().getAddressID());
 
 	}

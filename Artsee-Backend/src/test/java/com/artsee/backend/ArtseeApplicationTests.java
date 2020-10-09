@@ -6,9 +6,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class ArtseeApplicationTests {
 	
-	@Test
-	void contextLoads() {
-	}
+	// To be impplemented in later sprints
+//	@Test
+//	void contextLoads() {
+//	}
 	
 }
 
