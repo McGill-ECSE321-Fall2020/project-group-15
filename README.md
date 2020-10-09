@@ -10,7 +10,7 @@ project description as well as a team introduction can be found in the [wiki](ht
 ## [Deliverable 1](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Sprint-1-Report)
 |        Name       | Student ID | Contribution | Role                       | 
 |:-----------------:|:----------:|:------------:|:--------------------------:|
-|  Matthew Langshur |  260704964 |              |                            |
+|  Matthew Langshur |  260704964 |  20 hours    | Build system and CI, UML model|
 |  Matteo Barbieri  |  260805184 |              |                            |
 |  Daniel Schwartz  |  260795149 |  18 hours    | Persistence layer implementation and testing, UML model|
 | Enan Ashaduzzaman |  260805923 |  19 hours    | Persistence layer implementation and testing, UML model, Heroku|
