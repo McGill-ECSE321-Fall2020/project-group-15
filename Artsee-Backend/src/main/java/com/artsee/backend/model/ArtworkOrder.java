@@ -36,6 +36,8 @@ return this.datePlaced;
     }
 private Date dateCompleted;
 
+
+// TODO SHOULD BE LAZY
 public void setDateCompleted(Date value) {
 this.dateCompleted = value;
     }
