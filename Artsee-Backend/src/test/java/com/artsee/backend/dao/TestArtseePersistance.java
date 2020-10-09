@@ -21,9 +21,9 @@ import com.artsee.backend.model.Administrator;
 import com.artsee.backend.model.Artist;
 import com.artsee.backend.model.Artwork;
 import com.artsee.backend.model.Customer;
-import com.artsee.backend.model.Order;
+import com.artsee.backend.model.ArtworkOrder;
 import com.artsee.backend.model.Review;
-import com.artsee.backend.model.User;
+import com.artsee.backend.model.EndUser;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -40,11 +40,11 @@ public class TestArtseePersistance {
 	@Autowired
 	private CustomerRepository customerRepository;
 	@Autowired
-	private OrderRepository orderRepository;
+	private ArtworkOrderRepository orderRepository;
 	@Autowired
 	private ReviewRepository reviewRepository;
 	@Autowired
-	private UserRepository userRepository;
+	private EndUserRepository userRepository;
 
 	@AfterEach
 	public void clearDatabase() {
@@ -83,6 +83,31 @@ public class TestArtseePersistance {
 		
 		assertNotNull(administrator);
 		assertEquals(email, administrator.getEmail());
+	}
+	
+	@Test
+	public void testPersistAndLoadCustomer() {
+		String email = "123@mail.ca";
+		String password = "password";
+		String firstName = "testfirst";
+		String lastName = "testlast";
+		String phoneNumber = "123456";
+		
+		Customer customer = new Customer();
+		customer.setEmail(email);
+		customer.setPassword(password);
+		customer.setFirstName(firstName);
+		customer.setLastName(lastName);
+		customer.setPhoneNumber(phoneNumber);
+		
+		customerRepository.save(customer);
+		
+		customer = null;
+		
+		customer = customerRepository.findCustomerByEmail(email);
+		
+		assertNotNull(customer);
+		assertEquals(email, customer.getEmail());
 	}
 
 //	@Test

@@ -7,7 +7,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "artistID")
-public class Artist extends User{
+public class Artist extends EndUser{
 private String artistDescription;
    
    public void setArtistDescription(String value) {

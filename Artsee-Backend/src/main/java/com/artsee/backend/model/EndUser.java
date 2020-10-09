@@ -6,7 +6,7 @@ import javax.persistence.Id;
 
 @Entity
 //@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class User{
+public abstract class EndUser{
 	private String email;
 	   
 	public void setEmail(String value) {
