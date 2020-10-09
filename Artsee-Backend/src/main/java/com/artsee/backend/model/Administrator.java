@@ -4,6 +4,6 @@
 //
 //
 //@Entity
-////@PrimaryKeyJoinColumn(name = "administrator_Id")
+//@PrimaryKeyJoinColumn(name = "administrator_Id")
 //public class Administrator extends User{
 //}
