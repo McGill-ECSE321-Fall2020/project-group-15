@@ -12,8 +12,8 @@
 //public class Application{
 //private Set<User> users;
 //
-//@Id
-//private String name; 
+//
+//@Id private String name; 
 //public String getName() {
 //	return this.name;
 //}

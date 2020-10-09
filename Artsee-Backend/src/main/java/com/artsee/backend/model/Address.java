@@ -17,18 +17,6 @@ public class Address{
 	   this.addressID = addressID;
     }
 	
-//	
-//	private Integer address_id;
-//	
-//	@Id
-//	public Integer getAddress_id() {
-//		return this.address_id;
-//	}
-//	
-//   public void setAddress_id(Integer value) {
-//	   this.address_id = value;
-//    }
-
    private String addressLine1;
 
    public void setAddressLine1(String value) {
