@@ -15,6 +15,9 @@ project description as well as a team introduction can be found in the [wiki](ht
 |  Daniel Schwartz  |  260795149 |              |                            |
 | Enan Ashaduzzaman |  260805923 |              |                            |
 |  Ragheed Qasmieh  |  260780556 |              |                            |
+**Links to Requirement & Domain Models**<br></br>
+[Requirements Model](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Requirements-Model)<br>
+[Domain Model](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Domain-Model)
 
 ## Deliverable 2
 |        Name       | Student ID | Contribution | Role                       | 
@@ -55,10 +58,6 @@ project description as well as a team introduction can be found in the [wiki](ht
 
 
 Contribution towards deliverables is measured in number of hours contributed towards the project. 
-
-**Links to Requirement & Domain Models**<br></br>
-[Requirements Model](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Requirements-Model)<br>
-[Domain Model](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Domain-Model)
 
 
 **Links to Sprint reports:**
