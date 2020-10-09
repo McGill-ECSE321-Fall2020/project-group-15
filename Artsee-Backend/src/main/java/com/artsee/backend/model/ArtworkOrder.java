@@ -63,11 +63,6 @@ public void setCustomer(Customer customer) {
    this.customer = customer;
 }
 
-public enum DeliveryMethod { 
-	SHIP,
-	PICKUP
-}
-
 private DeliveryMethod deliveryMethod;
 
 public void setDeliveryMethod(DeliveryMethod value) {
@@ -76,11 +71,6 @@ this.deliveryMethod = value;
 public DeliveryMethod getDeliveryMethod() {
 return this.deliveryMethod;
     }
-
-public enum OrderStatus { 
-	PROCESSING,
-	DELIVERED
-}
 
 private OrderStatus orderStatus;
 
