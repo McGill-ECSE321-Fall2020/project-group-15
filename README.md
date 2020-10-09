@@ -1,16 +1,15 @@
 # ECSE 321 Project Group 15
 
 ## Project Overview
-The art gallery in your neighbourhood has always done business the old-fashioned way: connecting local artists
-with potential customers by showcasing their work at the gallery. The current pandemic is forcing them to change
-their business model and focus their business online. They hired you to help them design a new software system
-for them.
+ArtSee, a local art gallery has always done business in an old-fashioned way; artists would put their art on display
+in a gallery, and customers come and purchase the artwork. The distancing restrictions due to COVID-19 has not allowed 
+them to run their business this way anymore and they plan to move their business online. It is our job to design a new software
+system using both a mobile application and a web page to replace their physical gallery.
 
-The gallery wants to focus on local artists and encourage them to use their website and app to promote and sell
-their work. Artists register, create a profile, and present any pieces they have to sell. Interested customers can
-browse and buy what they like. The gallery can also promote artwork available on their premises. Artists can deliver
-their art to customers by mail or can leave it at the store for pickup. The gallery makes its income on commission
-from sold artwork.
+The platform will allow local artists to promote and sell their artwork. An artist can create a profile with email address and 
+promote and sell their artwork. Customers can then make a profile, browse artwork and purchase what they are interested in. To collect
+the purchased artwork, it can be mailed or picked up at the gallery.
+
 
 ## Team Overview
 |        Name       | Student ID | Team Role | Deliverable 1 Contribution | Deliverable 2 Contribution | Deliverable 3 Contribution |
@@ -23,30 +22,6 @@ from sold artwork.
 
 Contribution towards deliverables is measured in number of hours contributed towards the project. 
 
-# Deliverable 1
+Links to Sprint reports:
 
-Below are the primary tasks that have to be completed for deliverable 1. For each tasks, there are one or two group members responsible for seeing that task completed. 
-More than the listed people may work on those tasks but they are not to be held liable for missed deadlines for that task.
-
-- Project Requirements:
-  - Enan, Ragheed
-
-- Use Case Diagram:
-  - Enan, Ragheed
-
-- Domain Model:
-  - Matt, Ragheed
-
-- Persistance Layer: 
-  - Daniel, Enan
-
-- Persistance Testing: 
-  - Daniel, Enan
-
-- Build System & CI: 
-  - Matt, Matteo
-
-# Meeting Minutes
-Below is a list of meeting minutes taken during team meetings. The minutes are not a complete representation of everything discussed but will convey the primary topics addressed in each meeting. 
-
-- [9/27/20] https://docs.google.com/document/d/12lsN-TVCCejYf-qC-DQxinLZ5yPNsNurwRxDYTOuEH4/edit?usp=sharing
+[Sprint1](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Sprint-1-Report)
