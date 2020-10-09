@@ -5,6 +5,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.ManyToOne;
 
+//Setting the primary key name in the customerrID (this is inherited from endUser as a joined table structure was used)
 @Entity
 @PrimaryKeyJoinColumn(name = "customerID")
 public class Customer extends EndUser{

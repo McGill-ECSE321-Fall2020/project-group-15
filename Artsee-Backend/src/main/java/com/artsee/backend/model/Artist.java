@@ -5,6 +5,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 
+//Setting the primary key name in the artistID (this is inherited from endUser as a joined table structure was used)
 @Entity
 @PrimaryKeyJoinColumn(name = "artistID")
 public class Artist extends EndUser{

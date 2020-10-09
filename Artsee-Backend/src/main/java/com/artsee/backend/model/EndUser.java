@@ -4,6 +4,10 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
+
+// Implemented a joined inheritance for persistence. End user will hold all common info of subclasses
+// Subclass tables will hold properties specific to subclasses
+// Subclasses will inherit the EndUser's Primary key (although the columns are renamed to suit the subclass)
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class EndUser{
