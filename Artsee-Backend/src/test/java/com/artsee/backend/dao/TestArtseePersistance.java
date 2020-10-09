@@ -174,7 +174,7 @@ public class TestArtseePersistance {
 		String name = "ArtworkTestName";
 		String description = "Artwork description test";
 		Float price = 1500.f;
-		Date dateOfCreation = java.sql.Date.valueOf(LocalDate.of(2020, Month.SEPTEMBER, 15));;
+		Date dateOfCreation = java.sql.Date.valueOf(LocalDate.of(2020, Month.SEPTEMBER, 15));
 		Integer numInStock = 3;
 
 		
@@ -235,6 +235,76 @@ public class TestArtseePersistance {
 		assertEquals(phoneNumber, customer.getPhoneNumber());
 	}
 
+	@Test
+	public void testPersistAndLoadOrder() {
+		
+		//TODO ADD IN ORDERSTATUS, DELIVERY METHOD, ARTWORKS, CUSTOMER  **************
+		
+		Integer orderID = 32;
+		Float totalPrice = 12345.f;
+		Date datePlaced = java.sql.Date.valueOf(LocalDate.of(2020, Month.OCTOBER, 15));;
+		Date dateCompleted = java.sql.Date.valueOf(LocalDate.of(2020, Month.OCTOBER, 19));;
+//		DeliveryMethod deliveryMethod = DeliveryMethod.SHIP;
+//		OrderStatus orderStatus = 
+		
+		Order order = new Order();
+		order.setOrderID(orderID);
+		order.setTotalPrice(totalPrice);
+		order.setDatePlaced(datePlaced);
+		order.setDateCompleted(dateCompleted);
+//		order.setDeliveryMethod(deliveryMethod);
+//		order.setOrderStatus(orderStatus);
+//		order.setArtworks(artworks);
+//		order.setCustomer(customer);
+		
+		orderRepository.save(order);
+		
+		order = null;
+		
+		order = orderRepository.findOrderByOrderID(orderID);
+		
+		assertNotNull(order);
+		assertEquals(orderID, order.getOrderID());
+		assertEquals(totalPrice, order.getTotalPrice());
+		assertEquals(datePlaced, order.getDatePlaced());
+		assertEquals(dateCompleted, order.getDateCompleted());
+//		assertEquals(deliveryMethod, order.getDeliveryMethod());
+//		assertEquals(orderStatus, order.getOrderStatus());
+//		assertEquals(artworks, order.getArtworks());
+//		assertEquals(customer, order.getCustomer());
+
+	}
+	
+	@Test
+	public void testPersistAndLoadReview() {
+		
+		//TODO ADD IN CUSTOMER, Artist??  **************
+		
+		Integer reviewID = 39;
+		Integer rating = 4;
+		String comment = "Test Comment 123";
+		Boolean wouldRecommend = true;
+		
+		Review review = new Review();
+		review.setReviewID(reviewID);
+		review.setRating(rating);
+		review.setComment(comment);
+		review.setWouldRecommend(wouldRecommend);
+		
+		reviewRepository.save(review);
+		
+		review = null;
+		
+		review = reviewRepository.findReviewByReviewID(reviewID);
+		
+		assertNotNull(review);
+		assertEquals(reviewID, review.getReviewID());
+		assertEquals(rating, review.getRating());
+		assertEquals(comment, review.getComment());
+		assertEquals(wouldRecommend, review.getWouldRecommend());
+	}
+	
+	
 //	@Test
 //	public void testPersistAndLoadEvent() {
 //		String name = "ECSE321 Tutorial";
