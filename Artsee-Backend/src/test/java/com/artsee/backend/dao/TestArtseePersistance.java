@@ -21,9 +21,9 @@ import com.artsee.backend.model.Administrator;
 import com.artsee.backend.model.Artist;
 import com.artsee.backend.model.Artwork;
 import com.artsee.backend.model.Customer;
-import com.artsee.backend.model.Order;
+import com.artsee.backend.model.ArtworkOrder;
 import com.artsee.backend.model.Review;
-import com.artsee.backend.model.User;
+import com.artsee.backend.model.EndUser;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -40,11 +40,11 @@ public class TestArtseePersistance {
 	@Autowired
 	private CustomerRepository customerRepository;
 	@Autowired
-	private OrderRepository orderRepository;
+	private ArtworkOrderRepository orderRepository;
 	@Autowired
 	private ReviewRepository reviewRepository;
 	@Autowired
-	private UserRepository userRepository;
+	private EndUserRepository userRepository;
 
 	@AfterEach
 	public void clearDatabase() {
@@ -247,7 +247,7 @@ public class TestArtseePersistance {
 //		DeliveryMethod deliveryMethod = DeliveryMethod.SHIP;
 //		OrderStatus orderStatus = 
 		
-		Order order = new Order();
+		ArtworkOrder order = new ArtworkOrder();
 		order.setOrderID(orderID);
 		order.setTotalPrice(totalPrice);
 		order.setDatePlaced(datePlaced);
@@ -303,66 +303,5 @@ public class TestArtseePersistance {
 		assertEquals(comment, review.getComment());
 		assertEquals(wouldRecommend, review.getWouldRecommend());
 	}
-	
-	
-//	@Test
-//	public void testPersistAndLoadEvent() {
-//		String name = "ECSE321 Tutorial";
-//		Date date = java.sql.Date.valueOf(LocalDate.of(2020, Month.JANUARY, 31));
-//		Time startTime = java.sql.Time.valueOf(LocalTime.of(11, 35));
-//		Time endTime = java.sql.Time.valueOf(LocalTime.of(13, 25));
-//		Event event = new Event();
-//		event.setName(name);
-//		event.setDate(date);
-//		event.setStartTime(startTime);
-//		event.setEndTime(endTime);
-//		eventRepository.save(event);
-//
-//		event = null;
-//
-//		event = eventRepository.findEventByName(name);
-//
-//		assertNotNull(event);
-//		assertEquals(name, event.getName());
-//		assertEquals(date, event.getDate());
-//		assertEquals(startTime, event.getStartTime());
-//		assertEquals(endTime, event.getEndTime());
-//	}
-//
-//	@Test
-//	public void testPersistAndLoadRegistration() {
-//		String personName = "TestPerson";
-//		Person person = new Person();
-//		person.setName(personName);
-//		personRepository.save(person);
-//
-//		String eventName = "ECSE321 Tutorial";
-//		Date date = java.sql.Date.valueOf(LocalDate.of(2020, Month.JANUARY, 31));
-//		Time startTime = java.sql.Time.valueOf(LocalTime.of(11, 35));
-//		Time endTime = java.sql.Time.valueOf(LocalTime.of(13, 25));
-//		Event event = new Event();
-//		event.setName(eventName);
-//		event.setDate(date);
-//		event.setStartTime(startTime);
-//		event.setEndTime(endTime);
-//		eventRepository.save(event);
-//
-//		Registration reg = new Registration();
-//		int regId = 1;
-//		// First example for reference save/load
-//		reg.setId(regId);
-//		reg.setPerson(person);
-//		reg.setEvent(event);
-//		registrationRepository.save(reg);
-//
-//		reg = null;
-//
-//		reg = registrationRepository.findByPersonAndEvent(person, event);
-//		assertNotNull(reg);
-//		assertEquals(regId, reg.getId());
-//		// Comparing by keys
-//		assertEquals(person.getName(), reg.getPerson().getName());
-//		assertEquals(event.getName(), reg.getEvent().getName());
-//	}
 
 }

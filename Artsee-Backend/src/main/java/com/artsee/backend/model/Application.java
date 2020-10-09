@@ -23,25 +23,25 @@ public class Application{
 		this.name = name;
 	}
 	
-	private Set<User> users;
+	private Set<EndUser> users;
 
 	@OneToMany(cascade={CascadeType.ALL})
-	public Set<User> getUsers() {
+	public Set<EndUser> getUsers() {
 		return this.users;
 	}
 
-	public void setUsers(Set<User> userss) {
+	public void setUsers(Set<EndUser> userss) {
 	  this.users = userss;
 	}
 	
-	private Set<Order> orders;
+	private Set<ArtworkOrder> orders;
 	
 	@OneToMany(cascade={CascadeType.ALL})
-	public Set<Order> getOrders() {
+	public Set<ArtworkOrder> getOrders() {
 	   return this.orders;
 	}
 	
-	public void setOrders(Set<Order> orderss) {
+	public void setOrders(Set<ArtworkOrder> orderss) {
 	   this.orders = orderss;
 	}
 	

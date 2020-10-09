@@ -7,7 +7,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Order{
+public class ArtworkOrder{
 private Integer orderID;
    
 

@@ -4,6 +4,6 @@ import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "administratorID")
-public class Administrator extends User{
+public class Administrator extends EndUser{
 
 }

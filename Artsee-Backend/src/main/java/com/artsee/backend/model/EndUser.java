@@ -1,12 +1,12 @@
 package com.artsee.backend.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-//import javax.persistence.Inheritance;
-//import javax.persistence.InheritanceType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 @Entity
-//@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class User{
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class EndUser{
 	private String email;
 	   
 	public void setEmail(String value) {

@@ -6,7 +6,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "customerID")
-public class Customer extends User{
+public class Customer extends EndUser{
 	private Address address;
 	
 	@ManyToOne
