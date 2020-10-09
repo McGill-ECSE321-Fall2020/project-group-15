@@ -12,45 +12,48 @@ import javax.persistence.Id;
 public class Application{
 
 
-@Id private String name; 
-public String getName() {
-	return this.name;
-}
-public void setName(String name) {
-	this.name = name;
-}
+	private String name; 
+	
+	@Id 
+	public String getName() {
+		return this.name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	private Set<User> users;
 
-//private Set<User> users;
+	@OneToMany(cascade={CascadeType.ALL})
+	public Set<User> getUsers() {
+		return this.users;
+	}
 
-//@OneToMany(cascade={CascadeType.ALL})
-//public Set<User> getUsers() {
-//   return this.users;
-//}
-//
-//public void setUsers(Set<User> userss) {
-//   this.users = userss;
-//}
-
-//private Set<Order> orders;
-//
-//@OneToMany(cascade={CascadeType.ALL})
-//public Set<Order> getOrders() {
-//   return this.orders;
-//}
-//
-//public void setOrders(Set<Order> orderss) {
-//   this.orders = orderss;
-//}
-
-//private Set<Artwork> artworks;
-//
-//@OneToMany(cascade={CascadeType.ALL})
-//public Set<Artwork> getArtworks() {
-//   return this.artworks;
-//}
-//
-//public void setArtworks(Set<Artwork> artworkss) {
-//   this.artworks = artworkss;
-//}
+	public void setUsers(Set<User> userss) {
+	  this.users = userss;
+	}
+	
+	private Set<Order> orders;
+	
+	@OneToMany(cascade={CascadeType.ALL})
+	public Set<Order> getOrders() {
+	   return this.orders;
+	}
+	
+	public void setOrders(Set<Order> orderss) {
+	   this.orders = orderss;
+	}
+	
+	private Set<Artwork> artworks;
+	
+	@OneToMany(cascade={CascadeType.ALL})
+	public Set<Artwork> getArtworks() {
+	   return this.artworks;
+	}
+	
+	public void setArtworks(Set<Artwork> artworkss) {
+	   this.artworks = artworkss;
+	}
 
 }
