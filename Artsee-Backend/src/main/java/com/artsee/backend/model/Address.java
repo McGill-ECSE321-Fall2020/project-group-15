@@ -4,62 +4,64 @@ import javax.persistence.Id;
 
 @Entity
 public class Address{
-private Integer addressID;
+	private Integer addressID;
    
    public void setAddressID(Integer value) {
-this.addressID = value;
+	   this.addressID = value;
     }
-@Id
-public Integer getAddressID() {
-return this.addressID;
+   //Create primary key called addressID
+   @Id
+	public Integer getAddressID() {
+		return this.addressID;
     }
-private String addressLine1;
+   
+	private String addressLine1;
 
-public void setAddressLine1(String value) {
-this.addressLine1 = value;
+	public void setAddressLine1(String value) {
+		this.addressLine1 = value;
     }
-public String getAddressLine1() {
-return this.addressLine1;
+	public String getAddressLine1() {
+		return this.addressLine1;
     }
-private String addressLine2;
+	private String addressLine2;
 
-public void setAddressLine2(String value) {
-this.addressLine2 = value;
+	public void setAddressLine2(String value) {
+		this.addressLine2 = value;
     }
-public String getAddressLine2() {
-return this.addressLine2;
+	public String getAddressLine2() {
+		return this.addressLine2;
     }
-private String city;
+	private String city;
 
-public void setCity(String value) {
-this.city = value;
+	public void setCity(String value) {
+		this.city = value;
     }
-public String getCity() {
-return this.city;
+	public String getCity() {
+		return this.city;
     }
-private String province;
+	private String province;
 
-public void setProvince(String value) {
-this.province = value;
+	public void setProvince(String value) {
+		this.province = value;
     }
-public String getProvince() {
-return this.province;
+	public String getProvince() {
+		return this.province;
     }
-private String postalCode;
+	private String postalCode;
 
-public void setPostalCode(String value) {
-this.postalCode = value;
+	public void setPostalCode(String value) {
+		this.postalCode = value;
     }
-public String getPostalCode() {
-return this.postalCode;
+	public String getPostalCode() {
+		return this.postalCode;
     }
-private String country;
+	private String country;
 
-public void setCountry(String value) {
-this.country = value;
+	public void setCountry(String value) {
+		this.country = value;
     }
-public String getCountry() {
-return this.country;
-       }
-   }
+	public String getCountry() {
+		return this.country;
+    }
+}
 

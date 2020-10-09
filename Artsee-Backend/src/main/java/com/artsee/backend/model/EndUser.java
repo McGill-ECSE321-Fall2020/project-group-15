@@ -16,6 +16,7 @@ public abstract class EndUser{
 	public void setEmail(String value) {
 		   this.email = value;
 	}
+	//Create primary key called email
 	@Id
 	public String getEmail() {
 		return this.email;

@@ -8,76 +8,77 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Artwork{
-private Set<ArtworkOrder> artworkOrders;
+	private Set<ArtworkOrder> artworkOrders;
+	//Create a many to many relationship with the class ArtworkOrder
+	@ManyToMany
+	public Set<ArtworkOrder> getArtworkOrders() {
+	   return this.artworkOrders;
+	}
+	
+	public void setArtworkOrders(Set<ArtworkOrder> artworkOrderss) {
+	   this.artworkOrders = artworkOrderss;
+	}
+	
+	private Integer artworkID;
 
-@ManyToMany
-public Set<ArtworkOrder> getArtworkOrders() {
-   return this.artworkOrders;
-}
+	public void setArtworkID(Integer value) {
+		this.artworkID = value;
+    }
+	   //Create primary key called artworkID
+	@Id
+	public Integer getArtworkID() {
+		return this.artworkID;
+    }
+	private String name;
+	
+	public void setName(String value) {
+		this.name = value;
+    }
+	public String getName() {
+		return this.name;
+    }
+	private String description;
 
-public void setArtworkOrders(Set<ArtworkOrder> artworkOrderss) {
-   this.artworkOrders = artworkOrderss;
-}
+	public void setDescription(String value) {
+		this.description = value;
+    }
+	public String getDescription() {
+		return this.description;
+    }
+	private float price;
 
-private Integer artworkID;
+	public void setPrice(float value) {
+		this.price = value;
+    }
+	public float getPrice() {
+		return this.price;
+    }
+	private Date dateOfCreation;
 
-public void setArtworkID(Integer value) {
-this.artworkID = value;
+	public void setDateOfCreation(Date value) {
+		this.dateOfCreation = value;
     }
-@Id
-public Integer getArtworkID() {
-return this.artworkID;
+	public Date getDateOfCreation() {
+		return this.dateOfCreation;
     }
-private String name;
+	private Integer numInStock;
 
-public void setName(String value) {
-this.name = value;
+	public void setNumInStock(Integer value) {
+		this.numInStock = value;
     }
-public String getName() {
-return this.name;
+	public Integer getNumInStock() {
+		return this.numInStock;
     }
-private String description;
-
-public void setDescription(String value) {
-this.description = value;
-    }
-public String getDescription() {
-return this.description;
-    }
-private float price;
-
-public void setPrice(float value) {
-this.price = value;
-    }
-public float getPrice() {
-return this.price;
-    }
-private Date dateOfCreation;
-
-public void setDateOfCreation(Date value) {
-this.dateOfCreation = value;
-    }
-public Date getDateOfCreation() {
-return this.dateOfCreation;
-    }
-private Integer numInStock;
-
-public void setNumInStock(Integer value) {
-this.numInStock = value;
-    }
-public Integer getNumInStock() {
-return this.numInStock;
-    }
-private Artist artist;
-
-@ManyToOne(optional=false)
-public Artist getArtist() {
-   return this.artist;
-}
-
-public void setArtist(Artist artist) {
-   this.artist = artist;
-}
-
+	
+	private Artist artist;
+	//Create a many to one relationship with the class Artist
+	@ManyToOne(optional=false)
+	public Artist getArtist() {
+	   return this.artist;
+	}
+	
+	public void setArtist(Artist artist) {
+	   this.artist = artist;
+	}
 }
 
