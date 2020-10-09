@@ -65,5 +65,5 @@ public class Address{
     }
 	public String getCountry() {
 		return this.country;
-       }
-   }
+    }
+}

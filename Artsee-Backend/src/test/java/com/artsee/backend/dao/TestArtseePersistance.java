@@ -261,7 +261,7 @@ public class TestArtseePersistance {
 		
 		order = null;
 		
-		order = orderRepository.findOrderByOrderID(orderID);
+		order = orderRepository.findArtworkOrderByOrderID(orderID);
 		
 		assertNotNull(order);
 		assertEquals(orderID, order.getOrderID());
