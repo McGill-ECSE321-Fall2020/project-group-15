@@ -51,24 +51,22 @@ public class TestArtseePersistance {
 		
 		
 		
-		// Clear Artist before Artwork and Review to avoid inconsistency
-		artistRepository.deleteAll();
+		// Clear Artwork before Artist before Review to avoid inconsistency
 		artworkRepository.deleteAll();
+		artistRepository.deleteAll();
 		reviewRepository.deleteAll();
 
 		//Clear Review before Customer before Address to avoid inconsistency
 		customerRepository.deleteAll();
 		addressRepository.deleteAll();
-
-		
-		// Has no references, can delete in any order
-		administratorRepository.deleteAll();
-				
-		
+			
 		// Then we can clear the other tables
 		artworkOrderRepository.deleteAll();
 		reviewRepository.deleteAll();
 		endUserRepository.deleteAll();
+		
+		// Has no references, can delete in any order
+		administratorRepository.deleteAll();
 	}
 	
 	@Test
@@ -180,24 +178,24 @@ public class TestArtseePersistance {
 	public void testPersistAndLoadArtwork() {
 		
 		//TODO ADD IN ARTIST  **************
-//		String email = "artist@mail.ca";
-//		String password = "artistPassword";
-//		String firstName = "artistfirst";
-//		String lastName = "artistlast";
-//		String phoneNumber = "123456";
-//		String artistDescription = "artistTestDescription";
-//		Float rating = 4.2f;
-//
-//		
-//		Artist artist = new Artist();
-//		artist.setEmail(email);
-//		artist.setPassword(password);
-//		artist.setFirstName(firstName);
-//		artist.setLastName(lastName);
-//		artist.setPhoneNumber(phoneNumber);
-//		artist.setArtistDescription(artistDescription);
-//		artist.setRating(rating);
-//		artistRepository.save(artist);
+		String email = "artist@mail.ca";
+		String password = "artistPassword";
+		String firstName = "artistfirst";
+		String lastName = "artistlast";
+		String phoneNumber = "123456";
+		String artistDescription = "artistTestDescription";
+		Float rating = 4.2f;
+
+		
+		Artist artist = new Artist();
+		artist.setEmail(email);
+		artist.setPassword(password);
+		artist.setFirstName(firstName);
+		artist.setLastName(lastName);
+		artist.setPhoneNumber(phoneNumber);
+		artist.setArtistDescription(artistDescription);
+		artist.setRating(rating);
+		artistRepository.save(artist);
 		
 		Integer artworkID = 122;
 		String name = "ArtworkTestName";
@@ -214,7 +212,7 @@ public class TestArtseePersistance {
 		artwork.setPrice(price);
 		artwork.setDateOfCreation(dateOfCreation);
 		artwork.setNumInStock(numInStock);
-//		artwork.setArtist(artist);
+		artwork.setArtist(artist);
 
 		
 		artworkRepository.save(artwork);
@@ -230,7 +228,7 @@ public class TestArtseePersistance {
 		assertEquals(price, artwork.getPrice());
 		assertEquals(dateOfCreation, artwork.getDateOfCreation());
 		assertEquals(numInStock, artwork.getNumInStock());
-//		assertEquals(artist, artwork.getArtist());
+		assertEquals(artist, artwork.getArtist());
 
 	}
 	
