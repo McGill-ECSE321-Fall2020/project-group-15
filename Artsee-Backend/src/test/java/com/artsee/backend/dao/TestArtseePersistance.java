@@ -209,10 +209,11 @@ public class TestArtseePersistance {
 
 	}
 	
+	// Test for Artwork persistence 
 	@Test
 	public void testPersistAndLoadArtwork() {
 		
-		// creating an artist
+		// Creating Artist object with test data and saving to DB
 		String email = "artist@mail.ca";
 		String password = "artistPassword";
 		String firstName = "artistfirst";
@@ -221,26 +222,27 @@ public class TestArtseePersistance {
 		String artistDescription = "artistTestDescription";
 		Float rating = 4.2f;
 		Artist artist = createTestArtistWithoutReviewOrArtworks(email, password, firstName, lastName, phoneNumber, artistDescription, rating);
-
 		artistRepository.save(artist);
 		
+		// Creating Artwork object with test data
 		Integer artworkID = 122;
 		String name = "ArtworkTestName";
 		String description = "Artwork description test";
 		Float price = 1500.f;
 		Date dateOfCreation = java.sql.Date.valueOf(LocalDate.of(2020, Month.SEPTEMBER, 15));
 		Integer numInStock = 3;
-
-		
 		Artwork artwork = createTestArtworkWithoutArtist(artworkID , name, description, price, dateOfCreation, numInStock);
 		artwork.setArtist(artist);
-
+		
+		// Saving object to DB
 		artworkRepository.save(artwork);
 		
 		artwork = null;
 		
+		// Pulling object from DB
 		artwork = artworkRepository.findArtworkByArtworkID(artworkID);
 		
+		// Testing object pulls correctly
 		assertNotNull(artwork);
 		assertEquals(artworkID, artwork.getArtworkID());
 		assertEquals(name, artwork.getName());
@@ -248,13 +250,17 @@ public class TestArtseePersistance {
 		assertEquals(price, artwork.getPrice());
 		assertEquals(dateOfCreation, artwork.getDateOfCreation());
 		assertEquals(numInStock, artwork.getNumInStock());
+		
+		// Comparing by keys
 		assertEquals(artist.getEmail(), artwork.getArtist().getEmail());
 	}
 	
-	
+	// Test for Review persistence 
+
 	@Test
 	public void testPersistAndLoadReview() {
-				
+		
+		// Creating Customer object with test data and saving to DB
 		String customerEmail = "customer@mail.ca";
 		String customerPassword = "customerPassword";
 		String customerFirstName = "customerFirst";
@@ -263,6 +269,7 @@ public class TestArtseePersistance {
 		Customer customer = createTestCustomerWithoutAddress(customerEmail, customerPassword, customerFirstName, customerLastName, customerPhoneNumber);
 		customerRepository.save(customer);
 		
+		// Creating Artist object with test data and saving to DB
 		String artistEmail = "artist@mail.ca";
 		String artistPassword = "artistPassword";
 		String artistFirstName = "artistfirst";
@@ -273,11 +280,11 @@ public class TestArtseePersistance {
 		Artist artist = createTestArtistWithoutReviewOrArtworks(artistEmail, artistPassword, artistFirstName, artistLastName, artistPhoneNumber, artistDescription, artistRating);
 		artistRepository.save(artist);
 		
+		// Creating Review object with test data
 		Integer reviewID = 39;
 		Integer rating = 4;
 		String comment = "Test Comment 123";
 		Boolean wouldRecommend = true;
-		
 		Review review = new Review();
 		review.setReviewID(reviewID);
 		review.setRating(rating);
@@ -286,27 +293,31 @@ public class TestArtseePersistance {
 		review.setCustomer(customer);
 		review.setArtist(artist);
 
-		
+		// Saving object to DB
 		reviewRepository.save(review);
 		
 		review = null;
 		
+		// Pulling object from DB
 		review = reviewRepository.findReviewByReviewID(reviewID);
 		
+		// Testing object pulls correctly
 		assertNotNull(review);
 		assertEquals(reviewID, review.getReviewID());
 		assertEquals(rating, review.getRating());
 		assertEquals(comment, review.getComment());
 		assertEquals(wouldRecommend, review.getWouldRecommend());
+		
+		// Comparing by keys
 		assertEquals(customer.getEmail(), review.getCustomer().getEmail());
 		assertEquals(artist.getEmail(), review.getArtist().getEmail());
 	}
 		
+	// Test for ArtworkOrder persistence 
 	@Test
 	public void testPersistAndLoadArtworkOrder() {
 		
-		//TODO
-		
+		// Creating Customer object with test data and saving to DB
 		String customerEmail = "customer@mail.ca";
 		String customerPassword = "customerPassword";
 		String customerFirstName = "customerFirst";
@@ -315,6 +326,7 @@ public class TestArtseePersistance {
 		Customer customer = createTestCustomerWithoutAddress(customerEmail, customerPassword, customerFirstName, customerLastName, customerPhoneNumber);
 		customerRepository.save(customer);
 		
+		// Creating an ArtworkOrder object with test data 
 		Integer orderID = 32;
 		Float totalPrice = 12345.f;
 		Date datePlaced = java.sql.Date.valueOf(LocalDate.of(2020, Month.OCTOBER, 15));;
@@ -323,6 +335,7 @@ public class TestArtseePersistance {
 		OrderStatus orderStatus = OrderStatus.PROCESSING;
 		
 		ArtworkOrder order = new ArtworkOrder();
+		
 		order.setOrderID(orderID);
 		order.setTotalPrice(totalPrice);
 		order.setDatePlaced(datePlaced);
@@ -331,18 +344,23 @@ public class TestArtseePersistance {
 		order.setOrderStatus(orderStatus);
 		order.setCustomer(customer);
 		
+		// Saving object to DB
 		artworkOrderRepository.save(order);
 		
 		order = null;
 		
+		// Pulling object from DB
 		order = artworkOrderRepository.findArtworkOrderByOrderID(orderID);
 		
+		// Testing object pulls correctly
 		assertNotNull(order);
 		assertEquals(orderID, order.getOrderID());
 		assertEquals(totalPrice, order.getTotalPrice());
 		assertEquals(datePlaced, order.getDatePlaced());
 		assertEquals(dateCompleted, order.getDateCompleted());
 		assertEquals(deliveryMethod, order.getDeliveryMethod());
+		
+		// Comparing by keys
 		assertEquals(orderStatus, order.getOrderStatus());
 		assertEquals(customer.getEmail(), order.getCustomer().getEmail());
 
@@ -350,6 +368,7 @@ public class TestArtseePersistance {
 
 
 	// Test constructors to simplify object creation for testing
+	
 	public Address createTestAddress(Integer addressID, String addressLine1, String addressLine2, String city, String province, String postalCode, String country) {
 		Address address = new Address();
 		address.setAddressID(addressID);
