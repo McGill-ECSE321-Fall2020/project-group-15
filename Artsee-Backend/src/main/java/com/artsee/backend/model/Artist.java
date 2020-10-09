@@ -8,13 +8,13 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @Entity
 @PrimaryKeyJoinColumn(name = "artistID")
 public class Artist extends EndUser{
-private String artistDescription;
+private String artistDeccription;
    
-   public void setArtistDescription(String value) {
-this.artistDescription = value;
+   public void setArtistDeccription(String value) {
+this.artistDeccription = value;
     }
-public String getArtistDescription() {
-return this.artistDescription;
+public String getArtistDeccription() {
+return this.artistDeccription;
     }
 private float rating;
 
@@ -26,7 +26,7 @@ return this.rating;
     }
 private Set<Review> reviews;
 
-@OneToMany(cascade={CascadeType.ALL})
+@OneToMany(mappedBy="artist", cascade={CascadeType.ALL})
 public Set<Review> getReviews() {
    return this.reviews;
 }
@@ -34,4 +34,16 @@ public Set<Review> getReviews() {
 public void setReviews(Set<Review> reviewss) {
    this.reviews = reviewss;
 }
+
+private Set<Artwork> artworks;
+
+@OneToMany(mappedBy="artist")
+public Set<Artwork> getArtworks() {
+   return this.artworks;
+}
+
+public void setArtworks(Set<Artwork> artworkss) {
+   this.artworks = artworkss;
+}
+
 }

@@ -1,17 +1,27 @@
 package com.artsee.backend.model;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.sql.Date;
 import java.util.Set;
 import javax.persistence.ManyToMany;
+import javax.persistence.Id;
+import java.sql.Date;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class ArtworkOrder{
-private Integer orderID;
-   
+private Set<Artwork> artworks;
 
-   public void setOrderID(Integer value) {
+@ManyToMany(mappedBy="artworkOrders")
+public Set<Artwork> getArtworks() {
+   return this.artworks;
+}
+
+public void setArtworks(Set<Artwork> artworkss) {
+   this.artworks = artworkss;
+}
+
+private Integer orderID;
+
+public void setOrderID(Integer value) {
 this.orderID = value;
     }
 @Id
@@ -36,14 +46,22 @@ return this.datePlaced;
     }
 private Date dateCompleted;
 
-
-// TODO SHOULD BE LAZY
 public void setDateCompleted(Date value) {
 this.dateCompleted = value;
     }
 public Date getDateCompleted() {
 return this.dateCompleted;
     }
+private Customer customer;
+
+@ManyToOne(optional=false)
+public Customer getCustomer() {
+   return this.customer;
+}
+
+public void setCustomer(Customer customer) {
+   this.customer = customer;
+}
 
 public enum DeliveryMethod { 
 	SHIP,
@@ -59,7 +77,6 @@ public DeliveryMethod getDeliveryMethod() {
 return this.deliveryMethod;
     }
 
-
 public enum OrderStatus { 
 	PROCESSING,
 	DELIVERED
@@ -72,28 +89,6 @@ this.orderStatus = value;
     }
 public OrderStatus getOrderStatus() {
 return this.orderStatus;
-    }
-private Set<Artwork> artworks;
+       }
+   }
 
-@ManyToMany
-public Set<Artwork> getArtworks() {
-   return this.artworks;
-}
-
-public void setArtworks(Set<Artwork> artworkss) {
-   this.artworks = artworkss;
-}
-
-private Customer customer;
-
-@ManyToOne(optional=false)
-public Customer getCustomer() {
-   return this.customer;
-}
-
-public void setCustomer(Customer customer) {
-   this.customer = customer;
-}
-
-
-}

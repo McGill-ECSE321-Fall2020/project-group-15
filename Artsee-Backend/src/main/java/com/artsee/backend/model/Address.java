@@ -4,66 +4,62 @@ import javax.persistence.Id;
 
 @Entity
 public class Address{
-
-	
-	private Integer addressID;
-	
-	@Id
-	public Integer getAddressID() {
-		return this.addressID;
-	}
-	
-   public void setAddressID(Integer addressID) {
-	   this.addressID = addressID;
-    }
-	
-   private String addressLine1;
-
-   public void setAddressLine1(String value) {
-	   this.addressLine1 = value;
-   }
-   public String getAddressLine1() {
-	   return this.addressLine1;
-   }
+private Integer addressID;
    
-   private String addressLine2;
+   public void setAddressID(Integer value) {
+this.addressID = value;
+    }
+@Id
+public Integer getAddressID() {
+return this.addressID;
+    }
+private String addressLine1;
 
-	public void setAddressLine2(String value) {
-	this.addressLine2 = value;
+public void setAddressLine1(String value) {
+this.addressLine1 = value;
     }
-	public String getAddressLine2() {
-	return this.addressLine2;
+public String getAddressLine1() {
+return this.addressLine1;
     }
-	private String city;
+private String addressLine2;
 
-	public void setCity(String value) {
-		this.city = value;
+public void setAddressLine2(String value) {
+this.addressLine2 = value;
     }
-	public String getCity() {
-	return this.city;
+public String getAddressLine2() {
+return this.addressLine2;
     }
-	private String province;
+private String city;
 
-	public void setProvince(String value) {
-	this.province = value;
+public void setCity(String value) {
+this.city = value;
     }
-	public String getProvince() {
-	return this.province;
+public String getCity() {
+return this.city;
     }
-	private String postalCode;
+private String province;
 
-	public void setPostalCode(String value) {
-		this.postalCode = value;
+public void setProvince(String value) {
+this.province = value;
     }
-	public String getPostalCode() {
-		return this.postalCode;
+public String getProvince() {
+return this.province;
     }
-	private String country;
+private String postalCode;
 
-	public void setCountry(String value) {
-		this.country = value;
+public void setPostalCode(String value) {
+this.postalCode = value;
     }
-	public String getCountry() {
-		return this.country;
+public String getPostalCode() {
+return this.postalCode;
     }
-}
+private String country;
+
+public void setCountry(String value) {
+this.country = value;
+    }
+public String getCountry() {
+return this.country;
+       }
+   }
+

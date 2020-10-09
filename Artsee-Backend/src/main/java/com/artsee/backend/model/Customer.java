@@ -1,20 +1,33 @@
 package com.artsee.backend.model;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import java.util.Set;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
-
+import javax.persistence.ManyToOne;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "customerID")
 public class Customer extends EndUser{
-	private Address address;
-	
-	@ManyToOne
-	public Address getAddress() {
-	   return this.address;
-	}
-	
-	public void setAddress(Address address) {
-	   this.address = address;
-	}
+private Set<ArtworkOrder> artworkOrders;
+
+@OneToMany(mappedBy="customer")
+public Set<ArtworkOrder> getArtworkOrders() {
+   return this.artworkOrders;
+}
+
+public void setArtworkOrders(Set<ArtworkOrder> artworkOrderss) {
+   this.artworkOrders = artworkOrderss;
+}
+
+private Address address;
+
+@ManyToOne
+public Address getAddress() {
+   return this.address;
+}
+
+public void setAddress(Address address) {
+   this.address = address;
+}
+
 }
