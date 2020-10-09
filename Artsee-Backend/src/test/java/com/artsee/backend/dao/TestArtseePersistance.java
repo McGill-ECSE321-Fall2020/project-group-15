@@ -48,9 +48,6 @@ public class TestArtseePersistance {
 
 	@AfterEach
 	public void clearDatabase() {
-		
-		
-		
 		// Clear Artwork before Artist before Review to avoid inconsistency
 		artworkRepository.deleteAll();
 		artistRepository.deleteAll();
@@ -69,6 +66,52 @@ public class TestArtseePersistance {
 		administratorRepository.deleteAll();
 	}
 	
+	// Making constructors to have easier testing later on
+	public Address createTestAddress(Integer addressID, String addressLine1, String addressLine2, String city, String province, String postalCode, String country) {
+		Address address = new Address();
+		address.setAddressID(addressID);
+		address.setAddressLine1(addressLine1);
+		address.setAddressLine2(addressLine2);
+		address.setCity(city);
+		address.setProvince(province);
+		address.setPostalCode(postalCode);
+		address.setCountry(country);
+		return address;
+	}
+	
+	public Administrator createTestAdministrator(String email, String password, String firstName, String lastName, String phoneNumber){
+		Administrator administrator = new Administrator();
+		administrator.setEmail(email);
+		administrator.setPassword(password);
+		administrator.setFirstName(firstName);
+		administrator.setLastName(lastName);
+		administrator.setPhoneNumber(phoneNumber);
+		return administrator;
+	}
+	
+	public Customer createTestCustomerWithoutAddress(String email, String password, String firstName, String lastName, String phoneNumber){
+		Customer customer = new Customer();
+		customer.setEmail(email);
+		customer.setPassword(password);
+		customer.setFirstName(firstName);
+		customer.setLastName(lastName);
+		customer.setPhoneNumber(phoneNumber);
+		return customer;
+	}
+	
+	public Artist createTestArtistWithoutReviewOrArtworks(String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription, Float rating){
+		Artist artist = new Artist();
+		artist.setEmail(email);
+		artist.setPassword(password);
+		artist.setFirstName(firstName);
+		artist.setLastName(lastName);
+		artist.setPhoneNumber(phoneNumber);
+		artist.setArtistDescription(artistDescription);
+		artist.setRating(rating);
+		return artist;
+	}
+	
+	
 	@Test
 	public void testPersistAndLoadAddress() {
 		Integer addressID = 1;
@@ -78,16 +121,7 @@ public class TestArtseePersistance {
 		String province = "testProvince";
 		String postalCode = "A1B2C3";
 		String country = "Canada";
-				
-		Address address = new Address();
-		address.setAddressID(addressID);
-		address.setAddressLine1(addressLine1);
-		address.setAddressLine2(addressLine2);
-		address.setCity(city);
-		address.setProvince(province);
-		address.setPostalCode(postalCode);
-		address.setCountry(country);
-
+		Address address = createTestAddress(addressID, addressLine1, addressLine2, city, province, postalCode, country);
 		addressRepository.save(address);
 		
 		address = null;
@@ -102,7 +136,6 @@ public class TestArtseePersistance {
 		assertEquals(province, address.getProvince());
 		assertEquals(postalCode, address.getPostalCode());
 		assertEquals(country, address.getCountry());
-
 	}
 	
 	@Test
@@ -113,13 +146,7 @@ public class TestArtseePersistance {
 		String lastName = "adminLast";
 		String phoneNumber = "123456";
 		
-		Administrator administrator = new Administrator();
-		administrator.setEmail(email);
-		administrator.setPassword(password);
-		administrator.setFirstName(firstName);
-		administrator.setLastName(lastName);
-		administrator.setPhoneNumber(phoneNumber);
-		
+		Administrator administrator = createTestAdministrator(email, password, firstName, lastName, phoneNumber);
 		administratorRepository.save(administrator);
 		
 		administrator = null;
@@ -137,7 +164,7 @@ public class TestArtseePersistance {
 	@Test
 	public void testPersistAndLoadArtist() {
 		
-		//TODO ADD IN REVIEWS **************
+		//TODO ADD IN REVIEWS, ORDER **************
 		
 		String email = "artist@mail.ca";
 		String password = "artistPassword";
@@ -147,17 +174,8 @@ public class TestArtseePersistance {
 		String artistDescription = "artistTestDescription";
 		Float rating = 4.2f;
 
-		
-		Artist artist = new Artist();
-		artist.setEmail(email);
-		artist.setPassword(password);
-		artist.setFirstName(firstName);
-		artist.setLastName(lastName);
-		artist.setPhoneNumber(phoneNumber);
-		artist.setArtistDescription(artistDescription);
-		artist.setRating(rating);
+		Artist artist = createTestArtistWithoutReviewOrArtworks(email, password, firstName, lastName, phoneNumber, artistDescription, rating);
 
-		
 		artistRepository.save(artist);
 		
 		artist = null;
@@ -179,6 +197,7 @@ public class TestArtseePersistance {
 		
 		//TODO ARTIST REFERNCE NOT WORKING **************
 		
+		// creating an artist
 		String email = "artist@mail.ca";
 		String password = "artistPassword";
 		String firstName = "artistfirst";
@@ -186,17 +205,10 @@ public class TestArtseePersistance {
 		String phoneNumber = "123456";
 		String artistDescription = "artistTestDescription";
 		Float rating = 4.2f;
+		Artist artist = createTestArtistWithoutReviewOrArtworks(email, password, firstName, lastName, phoneNumber, artistDescription, rating);
 
-		
-		Artist artist = new Artist();
-		artist.setEmail(email);
-		artist.setPassword(password);
-		artist.setFirstName(firstName);
-		artist.setLastName(lastName);
-		artist.setPhoneNumber(phoneNumber);
-		artist.setArtistDescription(artistDescription);
-		artist.setRating(rating);
 		artistRepository.save(artist);
+		
 		
 		Integer artworkID = 122;
 		String name = "ArtworkTestName";
