@@ -177,7 +177,8 @@ public class TestArtseePersistance {
 	@Test
 	public void testPersistAndLoadArtwork() {
 		
-		//TODO ADD IN ARTIST  **************
+		//TODO ARTIST REFERNCE NOT WORKING **************
+		
 		String email = "artist@mail.ca";
 		String password = "artistPassword";
 		String firstName = "artistfirst";
@@ -229,14 +230,11 @@ public class TestArtseePersistance {
 		assertEquals(dateOfCreation, artwork.getDateOfCreation());
 		assertEquals(numInStock, artwork.getNumInStock());
 		assertEquals(artist, artwork.getArtist());
-
 	}
 	
 	@Test
 	public void testPersistAndLoadCustomer() {
-		
-		//TODO ADD IN ADDRESS  **************
-		
+				
 		Integer addressID = 1;
 		String addressLine1 = "123 Test st.";
 		String addressLine2 = "Apt 102";
@@ -275,14 +273,13 @@ public class TestArtseePersistance {
 		customer = null;
 		
 		customer = customerRepository.findCustomerByEmail(email);
-		
-//		assertNotNull(customer);
-//		assertEquals(email, customer.getEmail());
-//		assertEquals(password, customer.getPassword());
-//		assertEquals(firstName, customer.getFirstName());
-//		assertEquals(lastName, customer.getLastName());
-//		assertEquals(phoneNumber, customer.getPhoneNumber());
-//		assertEquals(address.getAddressID(), customer.getAddress().getAddressID());
+		assertNotNull(customer);
+		assertEquals(email, customer.getEmail());
+		assertEquals(password, customer.getPassword());
+		assertEquals(firstName, customer.getFirstName());
+		assertEquals(lastName, customer.getLastName());
+		assertEquals(phoneNumber, customer.getPhoneNumber());
+		assertEquals(address.getAddressID(), customer.getAddress().getAddressID());
 
 	}
 
@@ -329,7 +326,24 @@ public class TestArtseePersistance {
 	@Test
 	public void testPersistAndLoadReview() {
 		
-		//TODO ADD IN CUSTOMER, Artist??  **************
+		//TODO ADD Artist??  **************
+		//TODO CUSTOMER REFERENCE NOT WORKING
+		
+		
+		String email = "customer@mail.ca";
+		String password = "customerPassword";
+		String firstName = "customerFirst";
+		String lastName = "customerLast";
+		String phoneNumber = "123456";
+		
+		Customer customer = new Customer();
+		customer.setEmail(email);
+		customer.setPassword(password);
+		customer.setFirstName(firstName);
+		customer.setLastName(lastName);
+		customer.setPhoneNumber(phoneNumber);
+		
+		customerRepository.save(customer);
 		
 		Integer reviewID = 39;
 		Integer rating = 4;
@@ -341,6 +355,7 @@ public class TestArtseePersistance {
 		review.setRating(rating);
 		review.setComment(comment);
 		review.setWouldRecommend(wouldRecommend);
+		review.setCustomer(customer);
 		
 		reviewRepository.save(review);
 		
@@ -353,6 +368,8 @@ public class TestArtseePersistance {
 		assertEquals(rating, review.getRating());
 		assertEquals(comment, review.getComment());
 		assertEquals(wouldRecommend, review.getWouldRecommend());
+		assertEquals(customer, review.getCustomer());
+
 	}
 
 }

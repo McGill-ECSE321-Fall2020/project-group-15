@@ -8,13 +8,13 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @Entity
 @PrimaryKeyJoinColumn(name = "artistID")
 public class Artist extends EndUser{
-private String artistDeccription;
+private String artistDescription;
    
-   public void setArtistDeccription(String value) {
-this.artistDeccription = value;
+   public void setArtistDescription(String value) {
+this.artistDescription = value;
     }
-public String getArtistDeccription() {
-return this.artistDeccription;
+public String getArtistDescription() {
+return this.artistDescription;
     }
 private float rating;
 

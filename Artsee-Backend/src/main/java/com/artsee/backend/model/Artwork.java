@@ -60,13 +60,13 @@ this.dateOfCreation = value;
 public Date getDateOfCreation() {
 return this.dateOfCreation;
     }
-private Integer numInStocks;
+private Integer numInStock;
 
-public void setNumInStocks(Integer value) {
-this.numInStocks = value;
+public void setNumInStock(Integer value) {
+this.numInStock = value;
     }
-public Integer getNumInStocks() {
-return this.numInStocks;
+public Integer getNumInStock() {
+return this.numInStock;
     }
 private Artist artist;
 
