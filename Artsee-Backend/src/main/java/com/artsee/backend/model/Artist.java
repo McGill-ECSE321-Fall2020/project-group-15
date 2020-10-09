@@ -26,7 +26,7 @@ return this.rating;
     }
 private Set<Review> reviews;
 
-@OneToMany(cascade={CascadeType.ALL})
+@OneToMany(mappedBy="artist", cascade={CascadeType.ALL})
 public Set<Review> getReviews() {
    return this.reviews;
 }
@@ -34,4 +34,16 @@ public Set<Review> getReviews() {
 public void setReviews(Set<Review> reviewss) {
    this.reviews = reviewss;
 }
+
+private Set<Artwork> artworks;
+
+@OneToMany(mappedBy="artist")
+public Set<Artwork> getArtworks() {
+   return this.artworks;
+}
+
+public void setArtworks(Set<Artwork> artworkss) {
+   this.artworks = artworkss;
+}
+
 }

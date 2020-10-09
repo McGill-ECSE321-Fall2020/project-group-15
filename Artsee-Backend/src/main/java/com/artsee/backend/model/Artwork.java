@@ -1,14 +1,27 @@
 package com.artsee.backend.model;
 import javax.persistence.Entity;
+import java.util.Set;
+import javax.persistence.ManyToMany;
 import javax.persistence.Id;
 import java.sql.Date;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class Artwork{
+private Set<ArtworkOrder> artworkOrders;
+
+@ManyToMany
+public Set<ArtworkOrder> getArtworkOrders() {
+   return this.artworkOrders;
+}
+
+public void setArtworkOrders(Set<ArtworkOrder> artworkOrderss) {
+   this.artworkOrders = artworkOrderss;
+}
+
 private Integer artworkID;
-   
-   public void setArtworkID(Integer value) {
+
+public void setArtworkID(Integer value) {
 this.artworkID = value;
     }
 @Id
@@ -67,3 +80,4 @@ public void setArtist(Artist artist) {
 }
 
 }
+
