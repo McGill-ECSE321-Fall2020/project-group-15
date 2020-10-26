@@ -400,6 +400,43 @@ public class TestArtseePersistance {
 		
 		// Comparing by keys
 		assertEquals(artist.getEmail(), artwork.getArtist().getEmail());
+		
+		// Testing update
+		description = "Artwork description test that has more detail";
+		price = 1600.f;
+		numInStock = 2;
+		artistDescription = "new_artistTestDescription";
+		artist.setArtistDescription(artistDescription);
+		artistRepository.save(artist);
+		
+		artwork.setDescription(description);
+		artwork.setPrice(price);
+		artwork.setNumInStock(numInStock);
+		artwork.setArtist(artist);
+		
+		// Saving object to DB
+		artworkRepository.save(artwork);
+				
+		artwork = null;
+				
+		// Pulling object from DB
+		artwork = artworkRepository.findArtworkByArtworkID(artworkID);
+				
+		// Testing object pulls correctly
+		assertNotNull(artwork);
+		assertEquals(artworkID, artwork.getArtworkID());
+		assertEquals(name, artwork.getName());
+		assertEquals(description, artwork.getDescription());
+		assertEquals(price, artwork.getPrice());
+		assertEquals(dateOfCreation, artwork.getDateOfCreation());
+		assertEquals(numInStock, artwork.getNumInStock());
+		
+		// Testing delete
+		artworkRepository.delete(artwork);
+		// Pulling object from DB
+		artwork = artworkRepository.findArtworkByArtworkID(artworkID);
+		assertNull(artwork);
+		
 	}
 	
 	// Test for Review persistence 
@@ -458,6 +495,41 @@ public class TestArtseePersistance {
 		// Comparing by keys
 		assertEquals(customer.getEmail(), review.getCustomer().getEmail());
 		assertEquals(artist.getEmail(), review.getArtist().getEmail());
+		
+		// Testing update
+		artistDescription = "newDesctiption";
+		artist.setArtistDescription(artistDescription);
+		artistRepository.save(artist);
+		customerPhoneNumber = "65432";
+		customer.setPhoneNumber(customerPhoneNumber);
+		customerRepository.save(customer);
+		comment = "New Test Comment 123";
+		
+		review.setComment(comment);
+		
+		// Saving object to DB
+		reviewRepository.save(review);
+				
+		review = null;
+		
+		// Pulling object from DB
+		review = reviewRepository.findReviewByReviewID(reviewID);
+		
+		// Testing object pulls correctly
+		assertNotNull(review);
+		assertEquals(reviewID, review.getReviewID());
+		assertEquals(rating, review.getRating());
+		assertEquals(comment, review.getComment());
+		assertEquals(wouldRecommend, review.getWouldRecommend());
+		
+		// Comparing by keys
+		assertEquals(customer.getEmail(), review.getCustomer().getEmail());
+		assertEquals(artist.getEmail(), review.getArtist().getEmail());
+		
+		// Testing delete
+		reviewRepository.delete(review);
+		review = reviewRepository.findReviewByReviewID(reviewID);
+		assertNull(review);
 	}
 		
 	// Test for ArtworkOrder persistence 
@@ -476,8 +548,8 @@ public class TestArtseePersistance {
 		// Creating an ArtworkOrder object with test data 
 		Integer orderID = 32;
 		Float totalPrice = 12345.f;
-		Date datePlaced = java.sql.Date.valueOf(LocalDate.of(2020, Month.OCTOBER, 15));;
-		Date dateCompleted = java.sql.Date.valueOf(LocalDate.of(2020, Month.OCTOBER, 19));;
+		Date datePlaced = java.sql.Date.valueOf(LocalDate.of(2020, Month.OCTOBER, 15));
+		Date dateCompleted = java.sql.Date.valueOf(LocalDate.of(2020, Month.OCTOBER, 19));
 		DeliveryMethod deliveryMethod = DeliveryMethod.SHIP;
 		OrderStatus orderStatus = OrderStatus.PROCESSING;
 		
@@ -510,7 +582,38 @@ public class TestArtseePersistance {
 		// Comparing by keys
 		assertEquals(orderStatus, order.getOrderStatus());
 		assertEquals(customer.getEmail(), order.getCustomer().getEmail());
-
+		
+		
+		// Testing update
+		customerPhoneNumber= "567890";
+		customer.setPhoneNumber(customerPhoneNumber);
+		dateCompleted = java.sql.Date.valueOf(LocalDate.of(2020, Month.OCTOBER, 23));
+		order.setDateCompleted(dateCompleted);
+		
+		// Saving object to DB
+		artworkOrderRepository.save(order);
+		
+		order = null;
+		
+		// Pulling object from DB
+		order = artworkOrderRepository.findArtworkOrderByOrderID(orderID);
+		
+		// Testing object pulls correctly
+		assertNotNull(order);
+		assertEquals(orderID, order.getOrderID());
+		assertEquals(totalPrice, order.getTotalPrice());
+		assertEquals(datePlaced, order.getDatePlaced());
+		assertEquals(dateCompleted, order.getDateCompleted());
+		assertEquals(deliveryMethod, order.getDeliveryMethod());
+		
+		// Comparing by keys
+		assertEquals(orderStatus, order.getOrderStatus());
+		assertEquals(customer.getEmail(), order.getCustomer().getEmail());
+		
+		// Testing delete
+		artworkOrderRepository.delete(order);
+		order = artworkOrderRepository.findArtworkOrderByOrderID(orderID);
+		assertNull(order);
 	}
 
 
