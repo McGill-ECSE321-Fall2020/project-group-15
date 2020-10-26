@@ -2,6 +2,7 @@ package com.artsee.backend.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -99,6 +100,45 @@ public class TestArtseePersistance {
 		assertEquals(province, address.getProvince());
 		assertEquals(postalCode, address.getPostalCode());
 		assertEquals(country, address.getCountry());
+		
+		// Testing update
+		addressID = 1;
+		addressLine1 = "234 Test st.";
+		addressLine2 = "Apt 301";
+		city = "newTestCity";
+		province = "newTestProvince";
+		postalCode = "newA1B2C3";
+		country = "USA";
+		
+		address.setAddressLine1(addressLine1);
+		address.setAddressLine2(addressLine2);
+		address.setCity(city);
+		address.setCountry(country);
+		address.setPostalCode(postalCode);
+		address.setProvince(province);
+		
+		// Saving object to DB
+		addressRepository.save(address);
+		
+		address = null;
+		
+		// Pulling object from DB
+		address = addressRepository.findAddressByAddressID(addressID);
+		
+		assertNotNull(address);
+		assertEquals(addressID, address.getAddressID());
+		assertEquals(addressLine1, address.getAddressLine1());
+		assertEquals(addressLine2, address.getAddressLine2());
+		assertEquals(city, address.getCity());
+		assertEquals(province, address.getProvince());
+		assertEquals(postalCode, address.getPostalCode());
+		assertEquals(country, address.getCountry());
+		
+		// Testing delete
+		addressRepository.delete(address);
+		address = addressRepository.findAddressByAddressID(addressID);
+		assertNull(address);
+		
 	}
 	
 	// Test for Administrator persistence 
@@ -128,6 +168,37 @@ public class TestArtseePersistance {
 		assertEquals(firstName, administrator.getFirstName());
 		assertEquals(lastName, administrator.getLastName());
 		assertEquals(phoneNumber, administrator.getPhoneNumber());
+		
+		// Testing update
+		email = "newAdmin@mail.ca";
+		password = "newAdminPassword";
+		firstName = "newAdminFirst";
+		lastName = "newAdminLast";
+		phoneNumber = "567890";
+		
+		administrator.setEmail(email);
+		administrator.setFirstName(firstName);
+		administrator.setLastName(lastName);
+		administrator.setPassword(password);
+		administrator.setPhoneNumber(phoneNumber);
+		
+		// Saving object to DB
+		administratorRepository.save(administrator);
+		administrator = null;
+		
+		// Pulling object from DB
+		administrator = administratorRepository.findAdministratorByEmail(email);
+		assertNotNull(administrator);
+		assertEquals(email, administrator.getEmail());
+		assertEquals(password, administrator.getPassword());
+		assertEquals(firstName, administrator.getFirstName());
+		assertEquals(lastName, administrator.getLastName());
+		assertEquals(phoneNumber, administrator.getPhoneNumber());
+		
+		// Testing delete
+		administratorRepository.delete(administrator);
+		administrator = administratorRepository.findAdministratorByEmail(email);
+		assertNull(administrator);
 	}
 	
 	// Test for Artist persistence 
@@ -161,10 +232,47 @@ public class TestArtseePersistance {
 		assertEquals(lastName, artist.getLastName());
 		assertEquals(phoneNumber, artist.getPhoneNumber());
 		assertEquals(rating, artist.getRating());
-
+		
+		// Testing upudate
+		email = "new_artist@mail.ca";
+		password = "new_artistPassword";
+		firstName = "new_artistfirst";
+		lastName = "new_artistlast";
+		phoneNumber = "456789";
+		artistDescription = "new_artistTestDescription";
+		rating = 4.5f;
+		
+		artist.setEmail(email);
+		artist.setFirstName(firstName);
+		artist.setLastName(lastName);
+		artist.setPassword(password);
+		artist.setPhoneNumber(phoneNumber);
+		artist.setArtistDescription(artistDescription);
+		artist.setRating(rating);
+		
+		// Saving object to DB
+		artistRepository.save(artist);
+		
+		artist = null;
+		
+		// Pulling object from DB
+		artist = artistRepository.findArtistByEmail(email);
+		// Testing object pulls correctly
+		assertNotNull(artist);
+		assertEquals(email, artist.getEmail());
+		assertEquals(password, artist.getPassword());
+		assertEquals(firstName, artist.getFirstName());
+		assertEquals(lastName, artist.getLastName());
+		assertEquals(phoneNumber, artist.getPhoneNumber());
+		assertEquals(rating, artist.getRating());
+		
+		// Testing delete
+		artistRepository.delete(artist);
+		artist = artistRepository.findArtistByEmail(email);
+		assertNull(artist);
 	}
 	
-	// Test for Artist persistence 
+	// Test for Customer persistence 
 	@Test
 	public void testPersistAndLoadCustomer() {
 				
@@ -206,7 +314,46 @@ public class TestArtseePersistance {
 		
 		// Comparing by keys
 		assertEquals(address.getAddressID(), customer.getAddress().getAddressID());
-
+		
+		// Testing update
+		email = "new_customer@mail.ca";
+		password = "new_customerPassword";
+		firstName = "new_customerFirst";
+		lastName = "new_customerLast";
+		phoneNumber = "56789";
+		addressLine1 = "123 new Test st.";
+		address = createTestAddress(addressID, addressLine1, addressLine2, city, province, postalCode, country);
+		addressRepository.save(address);
+		
+		customer.setAddress(address);
+		customer.setEmail(email);
+		customer.setFirstName(firstName);
+		customer.setLastName(lastName);
+		customer.setPassword(password);
+		customer.setPhoneNumber(phoneNumber);
+		// Saving object to DB
+		customerRepository.save(customer);
+		
+		customer = null;
+		
+		// Pulling object from DB
+		customer = customerRepository.findCustomerByEmail(email);
+		
+		// Testing object pulls correctly
+		assertNotNull(customer);
+		assertEquals(email, customer.getEmail());
+		assertEquals(password, customer.getPassword());
+		assertEquals(firstName, customer.getFirstName());
+		assertEquals(lastName, customer.getLastName());
+		assertEquals(phoneNumber, customer.getPhoneNumber());
+		
+		// Comparing by keys
+		assertEquals(address.getAddressID(), customer.getAddress().getAddressID());
+		
+		// Testing delete
+		customerRepository.delete(customer);
+		customer = customerRepository.findCustomerByEmail(email);
+		assertNull(customer);
 	}
 	
 	// Test for Artwork persistence 
@@ -253,6 +400,43 @@ public class TestArtseePersistance {
 		
 		// Comparing by keys
 		assertEquals(artist.getEmail(), artwork.getArtist().getEmail());
+		
+		// Testing update
+		description = "Artwork description test that has more detail";
+		price = 1600.f;
+		numInStock = 2;
+		artistDescription = "new_artistTestDescription";
+		artist.setArtistDescription(artistDescription);
+		artistRepository.save(artist);
+		
+		artwork.setDescription(description);
+		artwork.setPrice(price);
+		artwork.setNumInStock(numInStock);
+		artwork.setArtist(artist);
+		
+		// Saving object to DB
+		artworkRepository.save(artwork);
+				
+		artwork = null;
+				
+		// Pulling object from DB
+		artwork = artworkRepository.findArtworkByArtworkID(artworkID);
+				
+		// Testing object pulls correctly
+		assertNotNull(artwork);
+		assertEquals(artworkID, artwork.getArtworkID());
+		assertEquals(name, artwork.getName());
+		assertEquals(description, artwork.getDescription());
+		assertEquals(price, artwork.getPrice());
+		assertEquals(dateOfCreation, artwork.getDateOfCreation());
+		assertEquals(numInStock, artwork.getNumInStock());
+		
+		// Testing delete
+		artworkRepository.delete(artwork);
+		// Pulling object from DB
+		artwork = artworkRepository.findArtworkByArtworkID(artworkID);
+		assertNull(artwork);
+		
 	}
 	
 	// Test for Review persistence 
@@ -311,6 +495,41 @@ public class TestArtseePersistance {
 		// Comparing by keys
 		assertEquals(customer.getEmail(), review.getCustomer().getEmail());
 		assertEquals(artist.getEmail(), review.getArtist().getEmail());
+		
+		// Testing update
+		artistDescription = "newDesctiption";
+		artist.setArtistDescription(artistDescription);
+		artistRepository.save(artist);
+		customerPhoneNumber = "65432";
+		customer.setPhoneNumber(customerPhoneNumber);
+		customerRepository.save(customer);
+		comment = "New Test Comment 123";
+		
+		review.setComment(comment);
+		
+		// Saving object to DB
+		reviewRepository.save(review);
+				
+		review = null;
+		
+		// Pulling object from DB
+		review = reviewRepository.findReviewByReviewID(reviewID);
+		
+		// Testing object pulls correctly
+		assertNotNull(review);
+		assertEquals(reviewID, review.getReviewID());
+		assertEquals(rating, review.getRating());
+		assertEquals(comment, review.getComment());
+		assertEquals(wouldRecommend, review.getWouldRecommend());
+		
+		// Comparing by keys
+		assertEquals(customer.getEmail(), review.getCustomer().getEmail());
+		assertEquals(artist.getEmail(), review.getArtist().getEmail());
+		
+		// Testing delete
+		reviewRepository.delete(review);
+		review = reviewRepository.findReviewByReviewID(reviewID);
+		assertNull(review);
 	}
 		
 	// Test for ArtworkOrder persistence 
@@ -329,8 +548,8 @@ public class TestArtseePersistance {
 		// Creating an ArtworkOrder object with test data 
 		Integer orderID = 32;
 		Float totalPrice = 12345.f;
-		Date datePlaced = java.sql.Date.valueOf(LocalDate.of(2020, Month.OCTOBER, 15));;
-		Date dateCompleted = java.sql.Date.valueOf(LocalDate.of(2020, Month.OCTOBER, 19));;
+		Date datePlaced = java.sql.Date.valueOf(LocalDate.of(2020, Month.OCTOBER, 15));
+		Date dateCompleted = java.sql.Date.valueOf(LocalDate.of(2020, Month.OCTOBER, 19));
 		DeliveryMethod deliveryMethod = DeliveryMethod.SHIP;
 		OrderStatus orderStatus = OrderStatus.PROCESSING;
 		
@@ -363,7 +582,38 @@ public class TestArtseePersistance {
 		// Comparing by keys
 		assertEquals(orderStatus, order.getOrderStatus());
 		assertEquals(customer.getEmail(), order.getCustomer().getEmail());
-
+		
+		
+		// Testing update
+		customerPhoneNumber= "567890";
+		customer.setPhoneNumber(customerPhoneNumber);
+		dateCompleted = java.sql.Date.valueOf(LocalDate.of(2020, Month.OCTOBER, 23));
+		order.setDateCompleted(dateCompleted);
+		
+		// Saving object to DB
+		artworkOrderRepository.save(order);
+		
+		order = null;
+		
+		// Pulling object from DB
+		order = artworkOrderRepository.findArtworkOrderByOrderID(orderID);
+		
+		// Testing object pulls correctly
+		assertNotNull(order);
+		assertEquals(orderID, order.getOrderID());
+		assertEquals(totalPrice, order.getTotalPrice());
+		assertEquals(datePlaced, order.getDatePlaced());
+		assertEquals(dateCompleted, order.getDateCompleted());
+		assertEquals(deliveryMethod, order.getDeliveryMethod());
+		
+		// Comparing by keys
+		assertEquals(orderStatus, order.getOrderStatus());
+		assertEquals(customer.getEmail(), order.getCustomer().getEmail());
+		
+		// Testing delete
+		artworkOrderRepository.delete(order);
+		order = artworkOrderRepository.findArtworkOrderByOrderID(orderID);
+		assertNull(order);
 	}
 
 
