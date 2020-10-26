@@ -26,5 +26,8 @@ public class ArtseeRestController {
 
 	@Autowired
 	private ArtseeService service;
+	
+//	@GetMapping(value = { "/reviews", "/reviews/" })
+	
 
 }

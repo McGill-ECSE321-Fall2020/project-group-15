@@ -31,7 +31,29 @@ public class ArtseeService {
 	@Autowired
 	private EndUserRepository endUserRepository;
 	
-	
+	@Transactional
+	public Review createReview(Integer rating, String comment, Boolean wouldRecommend, Customer customer, Artist artist) {
+		Review review = new Review();
+//		review.setReviewID(reviewID);
+		review.setRating(rating);
+		review.setComment(comment);
+		review.setWouldRecommend(wouldRecommend);
+		review.setCustomer(customer);
+		review.setArtist(artist);
+		reviewRepository.save(review);
+		return review;
+	}
+
+	@Transactional
+	public Review getReview(Integer reviewID) {
+		Review review = reviewRepository.findReviewByReviewID(reviewID);
+		return review;
+	}
+
+	@Transactional
+	public List<Review> getAllReviews() {
+		return toList(reviewRepository.findAll());
+	}
 	
 	private <T> List<T> toList(Iterable<T> iterable){
 		List<T> resultList = new ArrayList<T>();
