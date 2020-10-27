@@ -4,9 +4,9 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.artsee.backend.model.EndUser;
 
-public interface EndUserRepository extends CrudRepository<EndUser, String> {
+public interface EndUserRepository extends CrudRepository<EndUser, Integer> {
 	
 	//Perform CRUD operations by interacting with the EndUser class
-	EndUser findEndUserByEmail(String email);
+	EndUser findEndUserByUserID(Integer userID);
 
 }

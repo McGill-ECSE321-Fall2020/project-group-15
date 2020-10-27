@@ -1,6 +1,10 @@
 package com.artsee.backend.model;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 import java.util.Set;
+
 import javax.persistence.ManyToMany;
 import javax.persistence.Id;
 import java.sql.Date;
@@ -21,14 +25,17 @@ public class ArtworkOrder{
 	
 	private Integer orderID;
 	
-	public void setOrderID(Integer value) {
-		this.orderID = value;
-    }
 	//Create primary key called orderID
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getOrderID() {
 		return this.orderID;
     }
+	
+	public void setOrderID(Integer orderID) {
+		this.orderID = orderID;
+    }
+	
 	private float totalPrice;
 
 	public void setTotalPrice(float value) {

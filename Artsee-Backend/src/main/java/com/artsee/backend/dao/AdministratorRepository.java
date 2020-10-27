@@ -7,6 +7,6 @@ import com.artsee.backend.model.Administrator;
 public interface AdministratorRepository extends CrudRepository<Administrator, String> {
 	
 	//Perform CRUD operations by interacting with the Administrator class
-	Administrator findAdministratorByEmail(String email);
+	Administrator findAdministratorByUserID(String userID);
 
 }
