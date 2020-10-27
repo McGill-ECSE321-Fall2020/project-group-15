@@ -403,7 +403,7 @@ public class TestArtseePersistance {
 		
 		// Testing update
 		description = "Artwork description test that has more detail";
-		price = 1600.f;
+		price = 1600;
 		numInStock = 2;
 		artistDescription = "new_artistTestDescription";
 		artist.setArtistDescription(artistDescription);
