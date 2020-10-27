@@ -1,16 +1,17 @@
 package com.artsee.backend.service;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.artsee.backend.dao.*;
+import com.artsee.backend.model.Artist;
+import com.artsee.backend.model.Artwork;
+import com.artsee.backend.model.Customer;
+import com.artsee.backend.model.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.artsee.backend.model.*;
-
-import com.artsee.backend.dao.*;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ArtseeService {
@@ -33,15 +34,15 @@ public class ArtseeService {
 	private EndUserRepository endUserRepository;
 	
 	@Transactional
-    public Artwork createArtwork(String name, Integer price, String description, Date dateCreated, Integer numInStock, Artist artist) {
+    public Artwork createArtwork(String name, int price, String description, Date dateCreated, int numInStock, Artist artist) {
 		String error = "";
         if (name == null || name.trim().length() == 0) {
             error = error + "Artwork name cannot be empty! ";
         }
-        if (price == null) {
-            error = error + "Artwork price cannot be empty! ";
-        }
-        if (price < 0) {
+//        if (price == null) {
+//            error = error + "Artwork price cannot be empty! ";
+//        }
+        if (price <= 0) {
         	error = error + "Artwork price cannot be less than 0! ";
         }
         if (description == null || description.trim().length() == 0) {
@@ -50,9 +51,9 @@ public class ArtseeService {
         if (dateCreated == null) {
             error = error + "Artwork date of creation cannot be empty! ";
         }
-        if (numInStock == null) {
-            error = error + "Number in stock cannot be empty! ";
-        }
+//        if (numInStock == null) {
+//            error = error + "Number in stock cannot be empty! ";
+//        }
         if (numInStock < 0) {
         	error = error + "Number in stock cannot be less than 0! ";
         }
@@ -60,7 +61,7 @@ public class ArtseeService {
 //        Artist artist = artistRepository.findArtistByEmail();
         
         if (artist == null) {
-            error = error + "Artist needs to be selected for an artwork! ";
+            error = error + "Artist needs to be assigned for an artwork! ";
         } else if (!artistRepository.existsById(artist.getEmail())) {
             error = error + "Artist does not exist! ";
         }
@@ -95,7 +96,10 @@ public class ArtseeService {
 	
 	@Transactional
 	public List<Artwork> getArtworksByArtist(Artist artist) {
+		String error = "";
 		List<Artwork> artworksByArtist = new ArrayList<>();
+		if (artist == null)
+			error = error + "An artist cannot be empty! ";
 		for (Artwork a: artworkRepository.findByArtist(artist)) {
 			artworksByArtist.add(a);
 		}
@@ -117,40 +121,36 @@ public class ArtseeService {
 		}
 		
 		return a;
-		
 	}
 	
 	@Transactional 
-	public Artwork updateArtwork(Artwork artwork, String name, Integer price, 
-			String description, Date dateCreated, Integer numInStock, Artist artist) {
+	public Artwork updateArtwork(Integer id, String name, Integer price,
+			Date date, String description, Integer numInStock, Artist artist) {
 		
 		String error = "";
-		if (artwork == null || !artworkRepository.existsById(artwork.getArtworkID())) {
+		if (!artworkRepository.existsById(id)) {
 			error = error + "Artwork does not exist!";
 		}
         if (name == null || name.trim().length() == 0) {
             error = error + "Artwork name cannot be empty!";
         }
-        if (price == null) {
-            error = error + "Artwork price cannot be empty! ";
-        }
-        if (price < 0) {
+//        if (price == null) {
+//            error = error + "Artwork price cannot be empty! ";
+//        }
+        if (price <= 0) {
         	error = error + "Artwork price cannot be less than 0! ";
         }
         if (description == null || description.trim().length() == 0) {
             error = error + "Artwork description cannot be empty! ";
         }
-        if (dateCreated == null) {
+        if (date == null) {
             error = error + "Artwork date of creation cannot be empty! ";
-        }
-        if (numInStock == null) {
-            error = error + "Number in stock cannot be empty! ";
         }
         if (numInStock < 0) {
         	error = error + "Number in stock cannot be less than 0! ";
         }
         if (artist == null) {
-            error = error + "Artist needs to be selected for an artwork! ";
+            error = error + "Artist needs to be assigned to an artwork! ";
         } else if (!artistRepository.existsById(artist.getEmail())) {
             error = error + "Artist does not exist! ";
         }
@@ -160,16 +160,18 @@ public class ArtseeService {
         if (error.length() > 0) {
             throw new IllegalArgumentException(error);
         }
+
+        Artwork artwork = artworkRepository.findArtworkByArtworkID(id);
         
         artwork.setName(name);
         artwork.setDescription(description);
         artwork.setPrice(price);
-        artwork.setDateOfCreation(dateCreated);
+        artwork.setDateOfCreation(date);
         artwork.setNumInStock(numInStock);
         artwork.setArtist(artist);
         
-        artworkRepository.save(artwork);
-        return artwork;
+        Artwork saved = artworkRepository.save(artwork);
+        return saved;
 	}
 	
 	@Transactional

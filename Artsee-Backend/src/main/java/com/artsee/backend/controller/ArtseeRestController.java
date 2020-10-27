@@ -1,24 +1,9 @@
 package com.artsee.backend.controller;
 
-import java.sql.Date;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.artsee.backend.model.*;
-import com.artsee.backend.dto.*;
-
 import com.artsee.backend.service.ArtseeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @CrossOrigin(origins = "*")
@@ -29,17 +14,39 @@ public class ArtseeRestController {
 	private ArtseeService service;
 		
 //	@GetMapping(value = { "/artworks", "/artworks/" })
-//    public List<ArtworkDto> getAllPersons() {
+//    public List<ArtworkDto> getAllArtworks() {
 //        return service.getAllArtworks().stream().map(a -> convertToDto(a)).collect(Collectors.toList());
+//    }
+//
+//    @GetMapping(value = { "/artworks/{id}", "/artworks/{id}/" })
+//    public ArtworkDto getArtworkById(@PathVariable("id") int id) throws IllegalArgumentException {
+//        return convertToDto(service.getArtworkById(id));
 //    }
 	
 //	@PostMapping(value = { "/artworks", "/artworks/" })
-//    public ArtworkDto createArtwork(@RequestParam String name, @RequestParam(name = "artist") ArtistDto aDto,
-//                                    @RequestParam String description, @RequestParam Integer price,
-//                                    @RequestParam Integer numInStock, ) throws IllegalArgumentException {
+//    public ArtworkDto createArtwork(@RequestParam(name ="name") String name, @RequestParam(name = "artistEmail") String email,
+//                                    @RequestParam(name="description") String description, @RequestParam(name="price") Integer price,
+//                                    @RequestParam(name="numInStock") Integer numInStock, @RequestParam(name="date") Date date)
+//            throws IllegalArgumentException {
+//
+//	    Artist a = service.getArtist(email);
+//
+//    }
+//
+//    private ArtworkDto convertToDto(Artwork artwork, Artist artist) {
+//        ArtistDto aDto = convertToDto()
+//    }
+
+//    private ArtistDto convertToDto(Artist a) {
+//	    if (a == null) {
+//	        throw new IllegalArgumentException("There is no such artist! ");
+//        }
+//	    ArtistDto artistDto = new ArtistDto()
 //    }
 
 //	@GetMapping(value = { "/reviews", "/reviews/" })
+
+
 	
 
 }
