@@ -1,10 +1,7 @@
 package com.artsee.backend.service;
 
 import com.artsee.backend.dao.*;
-import com.artsee.backend.model.Artist;
-import com.artsee.backend.model.Artwork;
-import com.artsee.backend.model.Customer;
-import com.artsee.backend.model.Review;
+import com.artsee.backend.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -192,10 +189,11 @@ public class ArtseeService {
 		
 		return deletedArtwork;
 	}
-	
+
 	public Review createReview(Integer rating, String comment, Boolean wouldRecommend, Customer customer, Artist artist) {
 		Review review = new Review();
-//		review.setReviewID(reviewID);
+		
+//		review.setReviewID();
 		review.setRating(rating);
 		review.setComment(comment);
 		review.setWouldRecommend(wouldRecommend);
