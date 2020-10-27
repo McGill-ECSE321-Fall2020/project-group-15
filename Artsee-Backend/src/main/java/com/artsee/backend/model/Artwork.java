@@ -45,12 +45,12 @@ public class Artwork{
 	public String getDescription() {
 		return this.description;
     }
-	private float price;
+	private Integer price;
 
-	public void setPrice(float value) {
+	public void setPrice(int value) {
 		this.price = value;
     }
-	public float getPrice() {
+	public Integer getPrice() {
 		return this.price;
     }
 	private Date dateOfCreation;

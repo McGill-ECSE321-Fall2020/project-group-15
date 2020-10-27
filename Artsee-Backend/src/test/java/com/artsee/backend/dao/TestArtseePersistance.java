@@ -375,7 +375,7 @@ public class TestArtseePersistance {
 		Integer artworkID = 122;
 		String name = "ArtworkTestName";
 		String description = "Artwork description test";
-		Float price = 1500.f;
+		Integer price = 1500;
 		Date dateOfCreation = java.sql.Date.valueOf(LocalDate.of(2020, Month.SEPTEMBER, 15));
 		Integer numInStock = 3;
 		Artwork artwork = createTestArtworkWithoutArtist(artworkID , name, description, price, dateOfCreation, numInStock);
@@ -403,7 +403,7 @@ public class TestArtseePersistance {
 		
 		// Testing update
 		description = "Artwork description test that has more detail";
-		price = 1600.f;
+		price = 1600;
 		numInStock = 2;
 		artistDescription = "new_artistTestDescription";
 		artist.setArtistDescription(artistDescription);
@@ -663,7 +663,7 @@ public class TestArtseePersistance {
 		return artist;
 	}
 	
-	public Artwork createTestArtworkWithoutArtist(Integer artworkID , String name, String description, Float price, Date dateOfCreation , Integer numInStock){		
+	public Artwork createTestArtworkWithoutArtist(Integer artworkID , String name, String description, Integer price, Date dateOfCreation , Integer numInStock){		
 		Artwork artwork = new Artwork();
 		artwork.setArtworkID(artworkID);
 		artwork.setName(name);

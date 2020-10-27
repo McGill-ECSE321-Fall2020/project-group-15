@@ -20,13 +20,25 @@ import com.artsee.backend.dto.*;
 
 import com.artsee.backend.service.ArtseeService;
 
+
 @CrossOrigin(origins = "*")
 @RestController
 public class ArtseeRestController {
 
 	@Autowired
 	private ArtseeService service;
+		
+//	@GetMapping(value = { "/artworks", "/artworks/" })
+//    public List<ArtworkDto> getAllPersons() {
+//        return service.getAllArtworks().stream().map(a -> convertToDto(a)).collect(Collectors.toList());
+//    }
 	
+//	@PostMapping(value = { "/artworks", "/artworks/" })
+//    public ArtworkDto createArtwork(@RequestParam String name, @RequestParam(name = "artist") ArtistDto aDto,
+//                                    @RequestParam String description, @RequestParam Integer price,
+//                                    @RequestParam Integer numInStock, ) throws IllegalArgumentException {
+//    }
+
 //	@GetMapping(value = { "/reviews", "/reviews/" })
 	
 

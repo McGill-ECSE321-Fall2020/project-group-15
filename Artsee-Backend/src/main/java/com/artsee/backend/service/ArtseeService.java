@@ -34,7 +34,8 @@ public class ArtseeService {
 	@Transactional
 	public Review createReview(Integer rating, String comment, Boolean wouldRecommend, Customer customer, Artist artist) {
 		Review review = new Review();
-//		review.setReviewID(reviewID);
+		
+//		review.setReviewID();
 		review.setRating(rating);
 		review.setComment(comment);
 		review.setWouldRecommend(wouldRecommend);
