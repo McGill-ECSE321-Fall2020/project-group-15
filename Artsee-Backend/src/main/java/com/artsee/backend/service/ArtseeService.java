@@ -36,7 +36,7 @@ public class ArtseeService {
     public Artwork createArtwork(String name, Integer price, String description, Date dateCreated, Integer numInStock, Artist artist) {
 		String error = "";
         if (name == null || name.trim().length() == 0) {
-            error = error + "Artwork name cannot be empty!";
+            error = error + "Artwork name cannot be empty! ";
         }
         if (price == null) {
             error = error + "Artwork price cannot be empty! ";
@@ -56,6 +56,9 @@ public class ArtseeService {
         if (numInStock < 0) {
         	error = error + "Number in stock cannot be less than 0! ";
         }
+        
+//        Artist artist = artistRepository.findArtistByEmail();
+        
         if (artist == null) {
             error = error + "Artist needs to be selected for an artwork! ";
         } else if (!artistRepository.existsById(artist.getEmail())) {
@@ -64,7 +67,7 @@ public class ArtseeService {
         
         Integer id = name.hashCode() * artist.hashCode();
         if (artworkRepository.existsById(id)) {
-            error = error + "An artwork with the same name already exists for this artist!";
+            error = error + "An artwork with the same name already exists for this artist! ";
         }
         error = error.trim();
         
@@ -100,7 +103,7 @@ public class ArtseeService {
 	}
 	
 	@Transactional
-	public Artwork getArworkById(Integer id) {
+	public Artwork getArtworkById(Integer id) {
 		String error = "";
 		
 		Artwork a = artworkRepository.findArtworkByArtworkID(id);
@@ -177,9 +180,8 @@ public class ArtseeService {
 		if (a == null) {
 			error = error + "Artwork with the given Id does not exist! ";
 		}
-		error.trim();
 		
-		if (error.length() > 0) {
+		if (error.trim().length() > 0) {
             throw new IllegalArgumentException(error);
         }
 		
