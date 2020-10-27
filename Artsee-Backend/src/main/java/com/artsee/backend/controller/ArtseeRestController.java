@@ -32,9 +32,9 @@ public class ArtseeRestController {
 //    public List<ArtworkDto> getAllPersons() {
 //        return service.getAllArtworks().stream().map(a -> convertToDto(a)).collect(Collectors.toList());
 //    }
-//	
-//	@PostMapping(value = { "/artworks/{name}", "/artworks/{name}/" })
-//    public ArtworkDto createArtwork(@PathVariable("name") String name, @RequestParam(name = "artist") ArtistDto aDto,
+	
+//	@PostMapping(value = { "/artworks", "/artworks/" })
+//    public ArtworkDto createArtwork(@RequestParam String name, @RequestParam(name = "artist") ArtistDto aDto,
 //                                    @RequestParam String description, @RequestParam Integer price,
 //                                    @RequestParam Integer numInStock, ) throws IllegalArgumentException {
 //    }
