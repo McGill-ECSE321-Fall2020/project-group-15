@@ -22,14 +22,20 @@ public class ArtseeRestController {
 //    public ArtworkDto getArtworkById(@PathVariable("id") int id) throws IllegalArgumentException {
 //        return convertToDto(service.getArtworkById(id));
 //    }
+
+//    @GetMapping(value = { "/artworks/{artist_id}", "/artworks/{artist_id}/" })
+//    public ArtworkDto getArtworkById(@PathVariable("id") String id) throws IllegalArgumentException {
+//    	Artist a = getArtistById(id);
+//        return convertToDto(service.getArtworksByArtist(a));
+//    }
 	
-//	@PostMapping(value = { "/artworks", "/artworks/" })
-//    public ArtworkDto createArtwork(@RequestParam(name ="name") String name, @RequestParam(name = "artistEmail") String email,
+//	@PostMapping(value = { "/artworks/{id}", "/artworks/{id}/" })
+//    public ArtworkDto createArtwork(@PathVariable("id") String id, @RequestParam(name ="name") String name,
 //                                    @RequestParam(name="description") String description, @RequestParam(name="price") Integer price,
 //                                    @RequestParam(name="numInStock") Integer numInStock, @RequestParam(name="date") Date date)
 //            throws IllegalArgumentException {
 //
-//	    Artist a = service.getArtist(email);
+//	    Artist a = service.getArtistById(id);
 //
 //    }
 //
