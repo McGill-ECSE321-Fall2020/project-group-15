@@ -41,11 +41,126 @@ public class ArtseeService {
 		return toList(endUserRepository.findAll());
 	}
 	
-	public void deleteUser(String userID) {
+	public String deleteUser(String userID) {
 		endUserRepository.deleteById(userID);
+		return userID;
 	}
 	
+
+	public EndUser updateUser(String userID, String email, String password, String firstName, String lastName, String phoneNumber){
+		EndUser user = endUserRepository.findById(userID).orElse(null);
+		
+		if (user!=null) {
+			user.setEmail(email);
+			user.setFirstName(firstName);
+			user.setLastName(lastName);
+			user.setPassword(password);
+			user.setPhoneNumber(phoneNumber);
+			endUserRepository.save(user);
+		}
+		
+		return user;
+	}
 	
+	// Customer Service Layer ___________________________________________________________________________________
+	
+	public Customer createCustomer(String customerID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) {
+		Customer customer= new Customer();
+		customer.setUserID(customerID);
+		customer.setEmail(email);
+		customer.setPassword(password);
+		customer.setFirstName(firstName);
+		customer.setLastName(lastName);
+		customer.setPhoneNumber(phoneNumber);
+		customer.setAddress(address);
+		customerRepository.save(customer);
+		return customer;
+	}
+	
+	public Customer getCustomerByID(String customerID) {
+		Customer customer = customerRepository.findById(customerID).orElse(null);
+		return customer;
+	}
+	
+	public Customer getCustomerByEmail(String email) {
+		Customer customer = customerRepository.findByEmail(email);
+		return customer;
+	}
+	
+	public List<Customer> getAllCustomers() {
+		return toList(customerRepository.findAll());
+	}
+	
+	public String deleteCustomer(String customerID) {
+		customerRepository.deleteById(customerID);
+		return customerID;
+	}
+	
+	public Customer updateCustomer(String customerID, String email, String password, String firstName, String lastName, String phoneNumber, Address address){
+		Customer customer = customerRepository.findById(customerID).orElse(null);
+		
+		if (customer!=null) {
+			customer.setEmail(email);
+			customer.setFirstName(firstName);
+			customer.setLastName(lastName);
+			customer.setPassword(password);
+			customer.setPhoneNumber(phoneNumber);
+			customer.setAddress(address);
+			customerRepository.save(customer);
+		}
+		
+		return customer;
+	}
+
+	// Artist Service Layer ___________________________________________________________________________________
+
+	
+	public Artist createArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) {
+		Artist artist= new Artist();
+		artist.setUserID(artistID);
+		artist.setEmail(email);
+		artist.setPassword(password);
+		artist.setFirstName(firstName);
+		artist.setLastName(lastName);
+		artist.setPhoneNumber(phoneNumber);
+		artistRepository.save(artist);
+		return artist;
+	}
+	
+	public Artist getArtistByID(String artistID) {
+		Artist artist = artistRepository.findById(artistID).orElse(null);
+		return artist;
+	}
+	
+	public Artist getArtistByEmail(String email) {
+		Artist artist = artistRepository.findByEmail(email);
+		return artist;
+	}
+	
+	public List<Artist> getAllArtists() {
+		return toList(artistRepository.findAll());
+	}
+	
+	public String deleteArtist(String artistID) {
+		artistRepository.deleteById(artistID);
+		return artistID;
+	}
+	
+	public Artist updateArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber){
+		Artist artist = artistRepository.findById(artistID).orElse(null);
+		
+		if (artist!=null) {
+			artist.setEmail(email);
+			artist.setFirstName(firstName);
+			artist.setLastName(lastName);
+			artist.setPassword(password);
+			artist.setPhoneNumber(phoneNumber);
+			artistRepository.save(artist);
+		}
+		
+		return artist;
+	}
+
 	// Review Service Layer ___________________________________________________________________________________
 	
 	@Transactional
