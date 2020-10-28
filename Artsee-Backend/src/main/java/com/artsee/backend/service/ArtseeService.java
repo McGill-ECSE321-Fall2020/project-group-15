@@ -235,7 +235,7 @@ public class ArtseeService {
 	}
 
 	@Transactional
-	public Review getReview(Integer reviewID) {
+	public Review getReviewbyID(Integer reviewID) {
 		Review review = reviewRepository.findById(reviewID).orElse(null);
 		return review;
 	}
@@ -299,7 +299,7 @@ public class ArtseeService {
 	}
 
 	@Transactional
-	public ArtworkOrder cgetArtworkOrder(Integer orderID) {
+	public ArtworkOrder getArtworkOrderByID(Integer orderID) {
 		ArtworkOrder order = artworkOrderRepository.findById(orderID).orElse(null);
 		return order;
 	}
@@ -355,7 +355,7 @@ public class ArtseeService {
 	}
 
 	@Transactional
-	public Address getAddress(Integer addressID) {
+	public Address getAddressById(Integer addressID) {
 		Address address = addressRepository.findById(addressID).orElse(null);
 		return address;
 	}
