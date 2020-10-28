@@ -2,17 +2,14 @@ package com.artsee.backend.dto;
 
 import java.sql.Date;
 
-import com.artsee.backend.model.DeliveryMethod;
-import com.artsee.backend.model.OrderStatus;
-
 public class ArtworkOrderDto {
 
 	private int orderID;
 	private int totalPrice;
 	private Date datePlaced;
 	private Date dateCompleted;
-	private DeliveryMethod deliveryMethod;
-	private OrderStatus orderStatus;
+	private String deliveryMethodStr;
+	private String orderStatusStr;
 	private CustomerDto customer;
 	
 	
@@ -20,13 +17,13 @@ public class ArtworkOrderDto {
 		
 	}
 	
-	public ArtworkOrderDto(Integer orderID, Integer totalPrice, Date datePlaced, Date dateCompleted, DeliveryMethod deliveryMethod, OrderStatus orderStatus, CustomerDto customer) {
+	public ArtworkOrderDto(Integer orderID, Integer totalPrice, Date datePlaced, Date dateCompleted, String deliveryMethodStr, String orderStatusStr, CustomerDto customer) {
 		this.orderID = orderID;
 		this.totalPrice = totalPrice;
 		this.datePlaced = datePlaced;
 		this.dateCompleted = dateCompleted;
-		this.deliveryMethod = deliveryMethod;
-		this.orderStatus = orderStatus;
+		this.deliveryMethodStr = deliveryMethodStr;
+		this.orderStatusStr = orderStatusStr;
 		this.customer = customer;
 	}
 	
@@ -46,12 +43,12 @@ public class ArtworkOrderDto {
 		return this.dateCompleted;
 	}
 	
-	public DeliveryMethod getDeliveryMethod() {
-		return this.deliveryMethod;
+	public String getDeliveryMethodStr() {
+		return this.deliveryMethodStr;
 	}
 	
-	public OrderStatus getOrderStatus() {
-		return this.orderStatus;
+	public String getOrderStatusStr() {
+		return this.orderStatusStr;
 	}
 	
 	public CustomerDto getCustomer() {

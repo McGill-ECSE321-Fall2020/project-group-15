@@ -8,20 +8,18 @@ public class AdministratorDto {
 	private String firstName;
 	private String lastName;
 	private String phoneNumber;
-	private AddressDto address;
 	
 	public AdministratorDto() {
 		
 	}
 	
-	public AdministratorDto(String administratorID, String email, String password, String firstName, String lastName, String phoneNumber, AddressDto address) {
+	public AdministratorDto(String administratorID, String email, String password, String firstName, String lastName, String phoneNumber) {
 		this.administratorID = administratorID;
 		this.email = email;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
-		this.address = address;
 	}
 	
 	public String getAdministratorID() {
@@ -48,8 +46,5 @@ public class AdministratorDto {
 		return phoneNumber;
 	}
 	
-	public AddressDto getAddress() {
-		return address;
-	}
 	
 }

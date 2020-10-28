@@ -8,20 +8,22 @@ public class ArtistDto {
 	private String firstName;
 	private String lastName;
 	private String phoneNumber;
-	private AddressDto address;
+	private String artistDescription;
+	private Float rating;
 	
 	public ArtistDto() {
 		
 	}
 	
-	public ArtistDto(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, AddressDto address) {
+	public ArtistDto(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription, Float rating) {
 		this.artistID = artistID;
 		this.email = email;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
-		this.address = address;
+		this.artistDescription = artistDescription;
+		this.rating = rating;
 	}
 	
 	public String getArtistID() {
@@ -48,8 +50,12 @@ public class ArtistDto {
 		return phoneNumber;
 	}
 	
-	public AddressDto getAddress() {
-		return address;
+	public Float getRating() {
+		return rating;
+	}
+	
+	public String getArtistDescription() {
+		return artistDescription;
 	}
 	
 }
