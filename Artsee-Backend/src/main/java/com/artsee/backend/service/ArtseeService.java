@@ -125,13 +125,14 @@ public class ArtseeService {
 	// Artist Service Layer ___________________________________________________________________________________
 
 	
-	public Artist createArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) {
+	public Artist createArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber,  String artistDescription){
 		Artist artist= new Artist();
 		artist.setUserID(artistID);
 		artist.setEmail(email);
 		artist.setPassword(password);
 		artist.setFirstName(firstName);
 		artist.setLastName(lastName);
+		artist.setArtistDescription(artistDescription);
 		artist.setPhoneNumber(phoneNumber);
 		artistRepository.save(artist);
 		return artist;
@@ -156,7 +157,7 @@ public class ArtseeService {
 		return artistID;
 	}
 	
-	public Artist updateArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber){
+	public Artist updateArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription){
 		Artist artist = artistRepository.findById(artistID).orElse(null);
 		
 		if (artist!=null) {
@@ -165,6 +166,7 @@ public class ArtseeService {
 			artist.setLastName(lastName);
 			artist.setPassword(password);
 			artist.setPhoneNumber(phoneNumber);
+			artist.setArtistDescription(artistDescription);
 			artistRepository.save(artist);
 		}
 		
