@@ -34,8 +34,6 @@ public class ArtseeService {
 	@Transactional
 	public Review createReview(Integer rating, String comment, Boolean wouldRecommend, Customer customer, Artist artist) {
 		Review review = new Review();
-		
-//		review.setReviewID();
 		review.setRating(rating);
 		review.setComment(comment);
 		review.setWouldRecommend(wouldRecommend);
@@ -47,10 +45,28 @@ public class ArtseeService {
 
 	@Transactional
 	public Review getReview(Integer reviewID) {
-		Review review = reviewRepository.findReviewByReviewID(reviewID);
+		Review review = reviewRepository.findById(reviewID).orElse(null);
 		return review;
 	}
+	
+	@Transactional
+	public Integer deleteReview(Integer reviewID) {
+		reviewRepository.deleteById(reviewID);
+		return reviewID;
+	}
 
+	@Transactional
+	public Review updateReview(Integer reviewID, Integer rating, String comment, Boolean wouldRecommend, Customer customer, Artist artist) {
+		Review review = reviewRepository.findById(reviewID).orElse(null);
+		review.setRating(rating);
+		review.setComment(comment);
+		review.setWouldRecommend(wouldRecommend);
+		review.setCustomer(customer);
+		review.setArtist(artist);
+		reviewRepository.save(review);
+		return review;
+	}
+	
 	@Transactional
 	public List<Review> getAllReviews() {
 		return toList(reviewRepository.findAll());
