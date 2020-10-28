@@ -161,6 +161,55 @@ public class ArtseeService {
 		return artist;
 	}
 
+	
+	// Admin Service Layer ___________________________________________________________________________________
+
+	public Administrator createAdministrator(String administratorID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) {
+		Administrator administrator = new Administrator();
+		administrator.setUserID(administratorID);
+		administrator.setEmail(email);
+		administrator.setPassword(password);
+		administrator.setFirstName(firstName);
+		administrator.setLastName(lastName);
+		administrator.setPhoneNumber(phoneNumber);
+		administratorRepository.save(administrator);
+		return administrator;
+	}
+	
+	public Administrator getAdministratorByID(String administratorID) {
+		Administrator administrator = administratorRepository.findById(administratorID).orElse(null);
+		return administrator;
+	}
+	
+	public Administrator getAdministratorByEmail(String email) {
+		Administrator administrator = administratorRepository.findByEmail(email);
+		return administrator;
+	}
+	
+	public List<Administrator> getAllAdministrators() {
+		return toList(administratorRepository.findAll());
+	}
+	
+	public String deleteAdministrator(String administratorID) {
+		administratorRepository.deleteById(administratorID);
+		return administratorID;
+	}
+	
+	public Administrator updateAdministrator(String administratorID, String email, String password, String firstName, String lastName, String phoneNumber){
+		Administrator administrator = administratorRepository.findById(administratorID).orElse(null);
+		
+		if (administrator!=null) {
+			administrator.setEmail(email);
+			administrator.setFirstName(firstName);
+			administrator.setLastName(lastName);
+			administrator.setPassword(password);
+			administrator.setPhoneNumber(phoneNumber);
+			administratorRepository.save(administrator);
+		}
+		
+		return administrator;
+	}
+	
 	// Review Service Layer ___________________________________________________________________________________
 	
 	@Transactional
