@@ -8,7 +8,8 @@ import com.artsee.backend.model.Review;
 
 //@RepositoryRestResource(collectionResourceRel = "review_data", path = "review_data")
 public interface ReviewRepository extends CrudRepository<Review, Integer>{
-	//Perform CRUD operations by interacting with the Review class
-	Review findReviewByReviewID(Integer reviewID);
+	
+//	//Perform CRUD operations by interacting with the Review class
+//	Review findReviewByReviewID(Integer reviewID);
 
 }

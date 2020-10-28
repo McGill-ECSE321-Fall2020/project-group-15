@@ -31,6 +31,23 @@ public class ArtseeService {
 	@Autowired
 	private EndUserRepository endUserRepository;
 	
+	// End User Service Layer ___________________________________________________________________________________
+	public EndUser getUser(String userID) {
+		EndUser user = endUserRepository.findById(userID).orElse(null);
+		return user;
+	}
+	
+	public List<EndUser> getAllUsers() {
+		return toList(endUserRepository.findAll());
+	}
+	
+	public void deleteUser(String userID) {
+		endUserRepository.deleteById(userID);
+	}
+	
+	
+	// Review Service Layer ___________________________________________________________________________________
+	
 	@Transactional
 	public Review createReview(Integer rating, String comment, Boolean wouldRecommend, Customer customer, Artist artist) {
 		Review review = new Review();
