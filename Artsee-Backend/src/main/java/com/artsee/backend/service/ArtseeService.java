@@ -42,6 +42,7 @@ public class ArtseeService {
 	private EndUserRepository endUserRepository;
 	
 	// End User Service Layer ___________________________________________________________________________________
+	
 	public EndUser getUser(String userID) {
 		EndUser user = endUserRepository.findById(userID).orElse(null);
 		return user;
@@ -170,7 +171,7 @@ public class ArtseeService {
 		return totalRatings;
 	}
 	
-public Artist updateArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription){
+	public Artist updateArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription){
 		Artist artist = artistRepository.findById(artistID).orElse(null);
 		
 		if (artist!=null) {

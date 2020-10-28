@@ -1,5 +1,5 @@
 package com.artsee.backend.dto;
 
-public class AdressDto {
-
+public class AddressDto {
+	
 }
