@@ -256,18 +256,18 @@ public class ArtseeService {
 	}
 	
 	@Transactional
-	public List<Review> getAllReviewsOnArtist(String artistID) {
+	public List<Review> getAllReviewsOnArtist(Artist artist) {
 		List<Review> reviewsOnArtist = new ArrayList<>();
-		for (Review r : reviewRepository.findByArtistID(artistID)) {
+		for (Review r : reviewRepository.findByArtist(artist)) {
 			reviewsOnArtist.add(r);
 		}
 		return reviewsOnArtist;
 	}
 	
 	@Transactional
-	public List<Review> getAllReviewsByCustomer(String customerID) {
+	public List<Review> getAllReviewsByCustomer(Customer customer) {
 		List<Review> reviewsByCustomer = new ArrayList<>();
-		for (Review r : reviewRepository.findByCustomerID(customerID)) {
+		for (Review r : reviewRepository.findByCustomer(customer)) {
 			reviewsByCustomer.add(r);
 		}
 		return reviewsByCustomer;
@@ -321,9 +321,9 @@ public class ArtseeService {
 	}
 	
 	@Transactional
-	public List<ArtworkOrder> getAllArtworkOrdersByCustomer(String customerID) {
+	public List<ArtworkOrder> getAllArtworkOrdersByCustomer(Customer customer) {
 		List<ArtworkOrder> artworkOrdersByCustomer = new ArrayList<>();
-		for (ArtworkOrder r : artworkOrderRepository.findByCustomerID(customerID)) {
+		for (ArtworkOrder r : artworkOrderRepository.findByCustomer(customer)) {
 			artworkOrdersByCustomer.add(r);
 		}
 		return artworkOrdersByCustomer;
