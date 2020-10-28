@@ -8,7 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.artsee.backend.model.*;
+import com.artsee.backend.model.Address;
+import com.artsee.backend.model.Administrator;
+import com.artsee.backend.model.Artist;
+import com.artsee.backend.model.Artwork;
+import com.artsee.backend.model.ArtworkOrder;
+import com.artsee.backend.model.Customer;
+import com.artsee.backend.model.EndUser;
+import com.artsee.backend.model.Review;
+import com.artsee.backend.model.DeliveryMethod;
+import com.artsee.backend.model.OrderStatus;
+
 import com.artsee.backend.dao.*;
 
 @Service
