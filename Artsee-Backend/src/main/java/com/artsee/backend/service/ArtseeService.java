@@ -97,7 +97,7 @@ public class ArtseeService {
 	}
 	
 	public String deleteCustomer(String customerID) {
-		endUserRepository.deleteById(customerID);
+		customerRepository.deleteById(customerID);
 		return customerID;
 	}
 	
@@ -111,13 +111,60 @@ public class ArtseeService {
 			customer.setPassword(password);
 			customer.setPhoneNumber(phoneNumber);
 			customer.setAddress(address);
-			endUserRepository.save(customer);
+			customerRepository.save(customer);
 		}
 		
 		return customer;
 	}
 
+	// Artist Service Layer ___________________________________________________________________________________
 	
+	public Artist createArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) {
+		Artist artist= new Artist();
+		artist.setUserID(artistID);
+		artist.setEmail(email);
+		artist.setPassword(password);
+		artist.setFirstName(firstName);
+		artist.setLastName(lastName);
+		artist.setPhoneNumber(phoneNumber);
+		artistRepository.save(artist);
+		return artist;
+	}
+	
+	public Artist getArtistByID(String artistID) {
+		Artist artist = artistRepository.findById(artistID).orElse(null);
+		return artist;
+	}
+	
+	public Artist getArtistByEmail(String email) {
+		Artist artist = artistRepository.findByEmail(email);
+		return artist;
+	}
+	
+	public List<Artist> getAllArtists() {
+		return toList(artistRepository.findAll());
+	}
+	
+	public String deleteArtist(String artistID) {
+		artistRepository.deleteById(artistID);
+		return artistID;
+	}
+	
+	public Artist updateArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber){
+		Artist artist = artistRepository.findById(artistID).orElse(null);
+		
+		if (artist!=null) {
+			artist.setEmail(email);
+			artist.setFirstName(firstName);
+			artist.setLastName(lastName);
+			artist.setPassword(password);
+			artist.setPhoneNumber(phoneNumber);
+			artistRepository.save(artist);
+		}
+		
+		return artist;
+	}
+
 	// Review Service Layer ___________________________________________________________________________________
 	
 	@Transactional
