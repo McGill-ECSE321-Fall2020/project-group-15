@@ -32,14 +32,8 @@ public class ArtseeService {
 	private EndUserRepository endUserRepository;
 	
 	// End User Service Layer ___________________________________________________________________________________
-	
-	public EndUser getUserByID(String userID) {
+	public EndUser getUser(String userID) {
 		EndUser user = endUserRepository.findById(userID).orElse(null);
-		return user;
-	}
-	
-	public EndUser getUserByEmail(String email) {
-		EndUser user = endUserRepository.findByEmail(email);
 		return user;
 	}
 	
@@ -51,22 +45,6 @@ public class ArtseeService {
 		endUserRepository.deleteById(userID);
 	}
 	
-	public EndUser updateUser(String userID, String email, String password, String firstName, String lastName, String phoneNumber){
-		EndUser user = endUserRepository.findById(userID).orElse(null);
-		
-		if (user!=null) {
-			user.setEmail(email);
-			user.setFirstName(firstName);
-			user.setLastName(lastName);
-			user.setPassword(password);
-			user.setPhoneNumber(phoneNumber);
-			endUserRepository.save(user);
-		}
-		
-		return user;
-	}
-	
-
 	
 	// Review Service Layer ___________________________________________________________________________________
 	
@@ -185,6 +163,53 @@ public class ArtseeService {
 			artworkOrdersByCustomer.add(r);
 		}
 		return artworkOrdersByCustomer;
+	}
+	
+	// Address Service Layer ___________________________________________________________________________________
+	
+	@Transactional
+	public Address createAddress(String addressLine1, String addressLine2, String city, String province, String postalCode, String country) {
+		Address address = new Address();
+		address.setAddressLine1(addressLine1);
+		address.setAddressLine2(addressLine2);
+		address.setCity(city);
+		address.setProvince(province);
+		address.setPostalCode(postalCode);
+		address.setCountry(country);
+		addressRepository.save(address);
+		return address;
+	}
+
+	@Transactional
+	public Address getAddress(Integer addressID) {
+		Address address = addressRepository.findById(addressID).orElse(null);
+		return address;
+	}
+	
+	@Transactional
+	public Integer deleteAddress(Integer addressID) {
+		addressRepository.deleteById(addressID);
+		return addressID;
+	}
+
+	@Transactional
+	public Address updateAddress(Integer addressID, String addressLine1, String addressLine2, String city, String province, String postalCode, String country) {
+		Address address = addressRepository.findById(addressID).orElse(null);
+		if(address != null) {
+			address.setAddressLine1(addressLine1);
+			address.setAddressLine2(addressLine2);
+			address.setCity(city);
+			address.setProvince(province);
+			address.setPostalCode(postalCode);
+			address.setCountry(country);
+			addressRepository.save(address);
+		}
+		return address;
+	}
+	
+	@Transactional
+	public List<Address> getAllAddresses() {
+		return toList(addressRepository.findAll());
 	}
 	
 	// Helper Method ___________________________________________________________________________________
