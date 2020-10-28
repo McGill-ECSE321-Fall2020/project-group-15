@@ -47,8 +47,9 @@ public class ArtseeService {
 		return toList(endUserRepository.findAll());
 	}
 	
-	public void deleteUser(String userID) {
+	public String deleteUser(String userID) {
 		endUserRepository.deleteById(userID);
+		return userID;
 	}
 	
 	public EndUser updateUser(String userID, String email, String password, String firstName, String lastName, String phoneNumber){
@@ -66,6 +67,55 @@ public class ArtseeService {
 		return user;
 	}
 	
+	// Customer Service Layer ___________________________________________________________________________________
+	
+	public Customer createCustomer(String customerID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) {
+		Customer customer= new Customer();
+		customer.setUserID(customerID);
+		customer.setEmail(email);
+		customer.setPassword(password);
+		customer.setFirstName(firstName);
+		customer.setLastName(lastName);
+		customer.setPhoneNumber(phoneNumber);
+		customer.setAddress(address);
+		customerRepository.save(customer);
+		return customer;
+	}
+	
+	public Customer getCustomerByID(String customerID) {
+		Customer customer = customerRepository.findById(customerID).orElse(null);
+		return customer;
+	}
+	
+	public Customer getCustomerByEmail(String email) {
+		Customer customer = customerRepository.findByEmail(email);
+		return customer;
+	}
+	
+	public List<Customer> getAllCustomers() {
+		return toList(customerRepository.findAll());
+	}
+	
+	public String deleteCustomer(String customerID) {
+		endUserRepository.deleteById(customerID);
+		return customerID;
+	}
+	
+	public Customer updateCustomer(String customerID, String email, String password, String firstName, String lastName, String phoneNumber, Address address){
+		Customer customer = customerRepository.findById(customerID).orElse(null);
+		
+		if (customer!=null) {
+			customer.setEmail(email);
+			customer.setFirstName(firstName);
+			customer.setLastName(lastName);
+			customer.setPassword(password);
+			customer.setPhoneNumber(phoneNumber);
+			customer.setAddress(address);
+			endUserRepository.save(customer);
+		}
+		
+		return customer;
+	}
 
 	
 	// Review Service Layer ___________________________________________________________________________________
