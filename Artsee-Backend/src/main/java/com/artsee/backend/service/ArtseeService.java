@@ -75,12 +75,14 @@ public class ArtseeService {
 	@Transactional
 	public Review updateReview(Integer reviewID, Integer rating, String comment, Boolean wouldRecommend, Customer customer, Artist artist) {
 		Review review = reviewRepository.findById(reviewID).orElse(null);
-		review.setRating(rating);
-		review.setComment(comment);
-		review.setWouldRecommend(wouldRecommend);
-		review.setCustomer(customer);
-		review.setArtist(artist);
-		reviewRepository.save(review);
+		if(review != null) {
+			review.setRating(rating);
+			review.setComment(comment);
+			review.setWouldRecommend(wouldRecommend);
+			review.setCustomer(customer);
+			review.setArtist(artist);
+			reviewRepository.save(review);
+		}
 		return review;
 	}
 	
@@ -88,6 +90,82 @@ public class ArtseeService {
 	public List<Review> getAllReviews() {
 		return toList(reviewRepository.findAll());
 	}
+	
+	@Transactional
+	public List<Review> getAllReviewsOnArtist(String artistID) {
+		List<Review> reviewsOnArtist = new ArrayList<>();
+		for (Review r : reviewRepository.findByArtistID(artistID)) {
+			reviewsOnArtist.add(r);
+		}
+		return reviewsOnArtist;
+	}
+	
+	@Transactional
+	public List<Review> getAllReviewsByCustomer(String customerID) {
+		List<Review> reviewsByCustomer = new ArrayList<>();
+		for (Review r : reviewRepository.findByCustomerID(customerID)) {
+			reviewsByCustomer.add(r);
+		}
+		return reviewsByCustomer;
+	}
+	
+	// Artwork Order Service Layer ___________________________________________________________________________________
+	
+	@Transactional
+	public ArtworkOrder createArtworkOrder(Integer totalPrice, Date datePlaced, Date dateCompleted, DeliveryMethod deliveryMethod, OrderStatus orderStatus, Customer customer) {
+		ArtworkOrder order = new ArtworkOrder();
+		order.setTotalPrice(totalPrice);
+		order.setDatePlaced(datePlaced);
+		order.setDateCompleted(dateCompleted);
+		order.setDeliveryMethod(deliveryMethod);
+		order.setOrderStatus(orderStatus);
+		order.setCustomer(customer);
+		artworkOrderRepository.save(order);
+		return order;
+	}
+
+	@Transactional
+	public ArtworkOrder cgetArtworkOrder(Integer orderID) {
+		ArtworkOrder order = artworkOrderRepository.findById(orderID).orElse(null);
+		return order;
+	}
+	
+	@Transactional
+	public Integer deleteArtworkOrder(Integer orderID) {
+		artworkOrderRepository.deleteById(orderID);
+		return orderID;
+	}
+
+	@Transactional
+	public ArtworkOrder updateArtworkOrder(Integer orderID, Integer totalPrice, Date datePlaced, Date dateCompleted, DeliveryMethod deliveryMethod, OrderStatus orderStatus, Customer customer) {
+		ArtworkOrder order = artworkOrderRepository.findById(orderID).orElse(null);
+		if (order != null) {
+			order.setTotalPrice(totalPrice);
+			order.setDatePlaced(datePlaced);
+			order.setDateCompleted(dateCompleted);
+			order.setDeliveryMethod(deliveryMethod);
+			order.setOrderStatus(orderStatus);
+			order.setCustomer(customer);
+			artworkOrderRepository.save(order);
+		}
+		return order;
+	}
+	
+	@Transactional
+	public List<ArtworkOrder> getAllArtworkOrders() {
+		return toList(artworkOrderRepository.findAll());
+	}
+	
+	@Transactional
+	public List<ArtworkOrder> getAllArtworkOrdersByCustomer(String customerID) {
+		List<ArtworkOrder> artworkOrdersByCustomer = new ArrayList<>();
+		for (ArtworkOrder r : artworkOrderRepository.findByCustomerID(customerID)) {
+			artworkOrdersByCustomer.add(r);
+		}
+		return artworkOrdersByCustomer;
+	}
+	
+	// Helper Method ___________________________________________________________________________________
 	
 	private <T> List<T> toList(Iterable<T> iterable){
 		List<T> resultList = new ArrayList<T>();
