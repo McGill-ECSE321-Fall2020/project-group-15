@@ -32,8 +32,14 @@ public class ArtseeService {
 	private EndUserRepository endUserRepository;
 	
 	// End User Service Layer ___________________________________________________________________________________
-	public EndUser getUser(String userID) {
+	
+	public EndUser getUserByID(String userID) {
 		EndUser user = endUserRepository.findById(userID).orElse(null);
+		return user;
+	}
+	
+	public EndUser getUserByEmail(String email) {
+		EndUser user = endUserRepository.findByEmail(email);
 		return user;
 	}
 	
@@ -45,6 +51,22 @@ public class ArtseeService {
 		endUserRepository.deleteById(userID);
 	}
 	
+	public EndUser updateUser(String userID, String email, String password, String firstName, String lastName, String phoneNumber){
+		EndUser user = endUserRepository.findById(userID).orElse(null);
+		
+		if (user!=null) {
+			user.setEmail(email);
+			user.setFirstName(firstName);
+			user.setLastName(lastName);
+			user.setPassword(password);
+			user.setPhoneNumber(phoneNumber);
+			endUserRepository.save(user);
+		}
+		
+		return user;
+	}
+	
+
 	
 	// Review Service Layer ___________________________________________________________________________________
 	
