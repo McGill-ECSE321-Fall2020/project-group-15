@@ -157,7 +157,20 @@ public class ArtseeService {
 		return artistID;
 	}
 	
-	public Artist updateArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription){
+	public Float getArtistRating(String artistID) {
+		Artist artist = artistRepository.findById(artistID).orElse(null);
+		Float totalRatings = 0f;
+		if(artist != null) {
+			for (Review r : reviewRepository.findByArtist(artist)) {
+				totalRatings += (float)r.getRating();
+			}
+			totalRatings = totalRatings/((float)reviewRepository.findByArtist(artist).size());
+		}
+		
+		return totalRatings;
+	}
+	
+public Artist updateArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription){
 		Artist artist = artistRepository.findById(artistID).orElse(null);
 		
 		if (artist!=null) {
