@@ -46,7 +46,8 @@ public class TestArtseePersistance {
 	private ReviewRepository reviewRepository;
 	@Autowired
 	private EndUserRepository endUserRepository;
-
+	
+	
 	// Clear the database after each test
 	@AfterEach
 	public void clearDatabase() {
@@ -89,7 +90,7 @@ public class TestArtseePersistance {
 		address = null;
 		
 		// Pulling object from DB
-		address = addressRepository.findAddressByAddressID(addressID);
+		address = addressRepository.findById(addressID).orElse(null);
 		
 		// Testing object pulls correctly
 		assertNotNull(address);
@@ -122,7 +123,7 @@ public class TestArtseePersistance {
 		address = null;
 		
 		// Pulling object from DB
-		address = addressRepository.findAddressByAddressID(addressID);
+		address = addressRepository.findById(addressID).orElse(null);
 		
 		assertNotNull(address);
 		assertEquals(addressID, address.getAddressID());
@@ -135,7 +136,7 @@ public class TestArtseePersistance {
 		
 		// Testing delete
 		addressRepository.delete(address);
-		address = addressRepository.findAddressByAddressID(addressID);
+		address = addressRepository.findById(addressID).orElse(null);
 		assertNull(address);
 		
 	}
@@ -159,7 +160,7 @@ public class TestArtseePersistance {
 		administrator = null;
 		
 		// Pulling object from DB
-		administrator = administratorRepository.findAdministratorByUserID(adminID);
+		administrator = administratorRepository.findById(adminID).orElse(null);
 		
 		// Testing object pulls correctly
 		assertNotNull(administrator);
@@ -187,7 +188,7 @@ public class TestArtseePersistance {
 		administrator = null;
 		
 		// Pulling object from DB
-		administrator = administratorRepository.findAdministratorByUserID(adminID);
+		administrator = administratorRepository.findById(adminID).orElse(null);
 		assertNotNull(administrator);
 		assertEquals(email, administrator.getEmail());
 		assertEquals(password, administrator.getPassword());
@@ -197,7 +198,7 @@ public class TestArtseePersistance {
 		
 		// Testing delete
 		administratorRepository.delete(administrator);
-		administrator = administratorRepository.findAdministratorByUserID(adminID);
+		administrator = administratorRepository.findById(adminID).orElse(null);
 		assertNull(administrator);
 	}
 	
@@ -223,7 +224,7 @@ public class TestArtseePersistance {
 		artist = null;
 		
 		// Pulling object from DB
-		artist = artistRepository.findArtistByUserID(artistID);
+		artist = artistRepository.findById(artistID).orElse(null);
 		
 		// Testing object pulls correctly
 		assertNotNull(artist);
@@ -257,7 +258,7 @@ public class TestArtseePersistance {
 		artist = null;
 		
 		// Pulling object from DB
-		artist = artistRepository.findArtistByUserID(artistID);
+		artist = artistRepository.findById(artistID).orElse(null);
 		// Testing object pulls correctly
 		assertNotNull(artist);
 		assertEquals(email, artist.getEmail());
@@ -269,7 +270,7 @@ public class TestArtseePersistance {
 		
 		// Testing delete
 		artistRepository.delete(artist);
-		artist = artistRepository.findArtistByUserID(artistID);
+		artist = artistRepository.findById(artistID).orElse(null);
 		assertNull(artist);
 	}
 	
@@ -303,7 +304,7 @@ public class TestArtseePersistance {
 		customer = null;
 		
 		// Pulling object from DB
-		customer = customerRepository.findCustomerByUserID(customerID);
+		customer = customerRepository.findById(customerID).orElse(null);
 		
 		// Testing object pulls correctly
 		assertNotNull(customer);
@@ -338,7 +339,7 @@ public class TestArtseePersistance {
 		customer = null;
 		
 		// Pulling object from DB
-		customer = customerRepository.findCustomerByUserID(customerID);
+		customer = customerRepository.findById(customerID).orElse(null);
 		
 		// Testing object pulls correctly
 		assertNotNull(customer);
@@ -353,7 +354,7 @@ public class TestArtseePersistance {
 		
 		// Testing delete
 		customerRepository.delete(customer);
-		customer = customerRepository.findCustomerByUserID(customerID);
+		customer = customerRepository.findById(customerID).orElse(null);
 		assertNull(customer);
 	}
 	
@@ -388,7 +389,7 @@ public class TestArtseePersistance {
 		artwork = null;
 		
 		// Pulling object from DB
-		artwork = artworkRepository.findArtworkByArtworkID(artworkID);
+		artwork = artworkRepository.findById(artworkID).orElse(null);
 		
 		// Testing object pulls correctly
 		assertNotNull(artwork);
@@ -421,7 +422,7 @@ public class TestArtseePersistance {
 		artwork = null;
 				
 		// Pulling object from DB
-		artwork = artworkRepository.findArtworkByArtworkID(artworkID);
+		artwork = artworkRepository.findById(artworkID).orElse(null);
 				
 		// Testing object pulls correctly
 		assertNotNull(artwork);
@@ -435,7 +436,7 @@ public class TestArtseePersistance {
 		// Testing delete
 		artworkRepository.delete(artwork);
 		// Pulling object from DB
-		artwork = artworkRepository.findArtworkByArtworkID(artworkID);
+		artwork = artworkRepository.findById(artworkID).orElse(null);
 		assertNull(artwork);
 		
 	}
@@ -485,7 +486,7 @@ public class TestArtseePersistance {
 		review = null;
 		
 		// Pulling object from DB
-		review = reviewRepository.findReviewByReviewID(reviewID);
+		review = reviewRepository.findById(reviewID).orElse(null);
 		
 		// Testing object pulls correctly
 		assertNotNull(review);
@@ -514,7 +515,7 @@ public class TestArtseePersistance {
 		review = null;
 		
 		// Pulling object from DB
-		review = reviewRepository.findReviewByReviewID(reviewID);
+		review = reviewRepository.findById(reviewID).orElse(null);
 		
 		// Testing object pulls correctly
 		assertNotNull(review);
@@ -528,7 +529,7 @@ public class TestArtseePersistance {
 		
 		// Testing delete
 		reviewRepository.delete(review);
-		review = reviewRepository.findReviewByReviewID(reviewID);
+		review = reviewRepository.findById(reviewID).orElse(null);
 		assertNull(review);
 	}
 		
@@ -569,7 +570,7 @@ public class TestArtseePersistance {
 		order = null;
 		
 		// Pulling object from DB
-		order = artworkOrderRepository.findArtworkOrderByOrderID(orderID);
+		order = artworkOrderRepository.findById(orderID).orElse(null);
 		
 		// Testing object pulls correctly
 		assertNotNull(order);
@@ -596,7 +597,7 @@ public class TestArtseePersistance {
 		order = null;
 		
 		// Pulling object from DB
-		order = artworkOrderRepository.findArtworkOrderByOrderID(orderID);
+		order = artworkOrderRepository.findById(orderID).orElse(null);
 		
 		// Testing object pulls correctly
 		assertNotNull(order);
@@ -612,7 +613,7 @@ public class TestArtseePersistance {
 		
 		// Testing delete
 		artworkOrderRepository.delete(order);
-		order = artworkOrderRepository.findArtworkOrderByOrderID(orderID);
+		order = artworkOrderRepository.findById(orderID).orElse(null);
 		assertNull(order);
 	}
 
