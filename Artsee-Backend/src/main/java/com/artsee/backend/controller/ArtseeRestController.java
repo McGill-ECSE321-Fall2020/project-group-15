@@ -61,7 +61,7 @@ public class ArtseeRestController {
 	}
 	
 	@DeleteMapping(value = {"/users/{userID}","/users/{userID}/"})
-	public String deleteUser(@PathVariable("userID") String userID){
+	public EndUser deleteUser(@PathVariable("userID") String userID){
 		return service.deleteUser(userID);
 	}
 	
@@ -99,7 +99,7 @@ public class ArtseeRestController {
 	}
 	
 	@DeleteMapping(value = {"/customers/{userID}","/customers/{userID}/"})
-	public String deleteCustomer(@PathVariable("userID") String userID){
+	public Customer deleteCustomer(@PathVariable("userID") String userID){
 		return service.deleteCustomer(userID);
 	}
 	
@@ -115,9 +115,41 @@ public class ArtseeRestController {
 	
 	// REST api for Artist __________________________________________________________
 
+	@PostMapping(value = {"/artists"}, consumes = "application/json", produces = "application/json")
+	public ArtistDto createArtist(@RequestBody ArtistDto artistDto) {
+		Artist artist = service.createArtist(artistDto.getUserID(), artistDto.getEmail(), artistDto.getPassword(), artistDto.getFirstName(), artistDto.getLastName(), artistDto.getPhoneNumber(), artistDto.getArtistDescription());
+		return convertToDto(artist);
+	}
+	
+	@GetMapping(value = {"/artists/{userID}","/artists/{userID}/"})
+	public ArtistDto getArtistByID(@PathVariable("userID") String userID){
+		return convertToDto(service.getArtistByID(userID));
+	}
+	
+	@GetMapping(value = {"/artists/{email}","/artists/{email}/"})
+	public ArtistDto getArtistByEmail(@PathVariable("email") String email){
+		return convertToDto(service.getArtistByEmail(email));
+	}
+	
 	@GetMapping(value = {"/artists", "/artists/"})
 	public List<ArtistDto> getAllArtists(){
 		return service.getAllArtists().stream().map(a -> convertToDto(a)).collect(Collectors.toList());
+	}
+
+	@DeleteMapping(value = {"/artists/{userID}", "/artists/{userID}/"})
+	public Artist deleteArtist(@PathVariable("userID") String userID){
+		return service.deleteArtist(userID);
+	}
+	
+	@PutMapping(value = {"/artists/"}, consumes = "application/json", produces = "application/json")
+	public ArtistDto updateArtist(@RequestBody ArtistDto artistDto) {
+		Artist artist = service.updateArtist(artistDto.getUserID(), artistDto.getEmail(), artistDto.getPassword(), artistDto.getFirstName(), artistDto.getLastName(), artistDto.getPhoneNumber(), artistDto.getArtistDescription());
+		return convertToDto(artist);
+	}
+	
+	@GetMapping(value = {"/artists/{userID}/rating","/artists/{userID}/rating/"})
+	public Float getArtistRating(@PathVariable("userID") String userID) {
+		return service.getArtistRating(userID);
 	}
 	
 	// REST api for Administrator  __________________________________________________________
