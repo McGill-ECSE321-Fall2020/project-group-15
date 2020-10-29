@@ -548,21 +548,21 @@ public class TestArtseePersistance {
 		customerRepository.save(customer);
 		
 		// Creating an ArtworkOrder object with test data 
-		Float totalPrice = 12345.f;
 		Date datePlaced = java.sql.Date.valueOf(LocalDate.of(2020, Month.OCTOBER, 15));
 		Date dateCompleted = java.sql.Date.valueOf(LocalDate.of(2020, Month.OCTOBER, 19));
 		DeliveryMethod deliveryMethod = DeliveryMethod.SHIP;
 		OrderStatus orderStatus = OrderStatus.PROCESSING;
-		
+		int totalPrice =12;
+
 		ArtworkOrder order = new ArtworkOrder();
 		
-		order.setTotalPrice(totalPrice);
 		order.setDatePlaced(datePlaced);
 		order.setDateCompleted(dateCompleted);
 		order.setDeliveryMethod(deliveryMethod);
 		order.setOrderStatus(orderStatus);
 		order.setCustomer(customer);
-		
+		order.setTotalPrice(totalPrice);
+
 		// Saving object to DB
 		artworkOrderRepository.save(order);
 		Integer orderID = order.getOrderID();
