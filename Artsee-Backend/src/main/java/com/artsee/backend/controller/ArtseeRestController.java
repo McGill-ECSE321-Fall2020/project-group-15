@@ -1,10 +1,26 @@
 package com.artsee.backend.controller;
 
+import com.artsee.backend.dao.EndUserRepository;
+import com.artsee.backend.dto.EndUserDto;
+import com.artsee.backend.dto.SignInDto;
+import com.artsee.backend.model.EndUser;
 import com.artsee.backend.service.ArtseeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -12,7 +28,21 @@ public class ArtseeRestController {
 
 	@Autowired
 	private ArtseeService service;
-		
+	@Autowired
+	private EndUserRepository endUserRepository;
+	
+	@PostMapping(value = {"/signIn"})
+	public EndUserDto signIn(SignInDto signInDto) {
+		EndUser user = service.signIn(signInDto.getUserID(), signInDto.getPassword());
+		return covertToDto(user);
+	}
+	
+	
+	public EndUserDto covertToDto(EndUser user) {
+		return new EndUserDto(user.getUserID(), user.getEmail(), user.getPassword(), user.getFirstName(),user.getLastName(), user.getPhoneNumber());
+	}
+	
+	
 //	@GetMapping(value = { "/artworks", "/artworks/" })
 //    public List<ArtworkDto> getAllArtworks() {
 //        return service.getAllArtworks().stream().map(a -> convertToDto(a)).collect(Collectors.toList());
