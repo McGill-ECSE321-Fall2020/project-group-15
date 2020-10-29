@@ -2,19 +2,15 @@ package com.artsee.backend.dto;
 
 public class AdministratorDto {
 	
-	private String administratorID;
+	private String userID;
 	private String email;
 	private String password;
 	private String firstName;
 	private String lastName;
 	private String phoneNumber;
 	
-	public AdministratorDto() {
-		
-	}
-	
-	public AdministratorDto(String administratorID, String email, String password, String firstName, String lastName, String phoneNumber) {
-		this.administratorID = administratorID;
+	public AdministratorDto(String userID, String email, String password, String firstName, String lastName, String phoneNumber) {
+		this.userID = userID;
 		this.email = email;
 		this.password = password;
 		this.firstName = firstName;
@@ -22,8 +18,8 @@ public class AdministratorDto {
 		this.phoneNumber = phoneNumber;
 	}
 	
-	public String getAdministratorID() {
-		return administratorID;
+	public String getUserID() {
+		return userID;
 	}
 	
 	public String getEmail() {

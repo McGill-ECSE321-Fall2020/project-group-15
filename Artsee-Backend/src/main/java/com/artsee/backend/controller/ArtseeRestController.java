@@ -71,21 +71,53 @@ public class ArtseeRestController {
 		return service.deleteUser(userID);
 	}
 	
-	@PutMapping(value = {"/users/{userID}","/users/{userID}/"})
+	@PutMapping(value = {"/users/"}, consumes = "application/json", produces = "application/json")
 	public EndUserDto updateUser(@RequestBody EndUserDto userDto) {
-		
-		return convertToDto(service.updateUser(userDto.getUserID(), userDto.getEmail(), userDto.getPassword(), userDto.getFirstName(), userDto.getLastName(), userDto.getPhoneNumber()));
+		EndUser user = service.updateUser(userDto.getUserID(), userDto.getEmail(), userDto.getPassword(), userDto.getFirstName(), userDto.getLastName(), userDto.getPhoneNumber());
+		return convertToDto(user);
 	}
 	
 	// REST api for Customer __________________________________________________________
 
+	@PostMapping(value = {"/customers"}, consumes = "application/json", produces = "application/json")
+	public CustomerDto createCustomer(@RequestBody CustomerDto customerDto) {
+		
+		AddressDto addressDto = customerDto.getAddress();
+		Address address = service.createAddress(addressDto.getAddressLine1(), addressDto.getAddressLine2(), addressDto.getCity(), addressDto.getProvince(), addressDto.getPostalCode(), addressDto.getCountry());
+		Customer customer = service.createCustomer(customerDto.getUserID(), customerDto.getEmail(), customerDto.getPassword(), customerDto.getFirstName(), customerDto.getLastName(), customerDto.getPhoneNumber(), address);
+		
+		return convertToDto(customer);
+	}
+	
+	@GetMapping(value = {"/customers/{userID}","/customers/{userID}/"})
+	public CustomerDto getCustomerByID(@PathVariable("userID") String userID){
+		return convertToDto(service.getCustomerByID(userID));
+	}
+	
+	@GetMapping(value = {"/customers/{email}","/customers/{email}/"})
+	public CustomerDto getCustomerByEmail(@PathVariable("email") String email){
+		return convertToDto(service.getCustomerByEmail(email));
+	}
+	
 	@GetMapping(value = {"/customers", "/customers/"})
 	public List<CustomerDto> getAllCustomers(){
 		return service.getAllCustomers().stream().map(c -> convertToDto(c)).collect(Collectors.toList());
 	}
 	
+	@DeleteMapping(value = {"/customers/{userID}","/customers/{userID}/"})
+	public String deleteCustomer(@PathVariable("userID") String userID){
+		return service.deleteCustomer(userID);
+	}
 	
-	
+	@PutMapping(value = {"/customers/"}, consumes = "application/json", produces = "application/json")
+	public CustomerDto updateCustomer(@RequestBody CustomerDto customerDto) {
+		
+		AddressDto addressDto = customerDto.getAddress();
+		Address address = service.createAddress(addressDto.getAddressLine1(), addressDto.getAddressLine2(), addressDto.getCity(), addressDto.getProvince(), addressDto.getPostalCode(), addressDto.getCountry());
+		Customer customer = service.updateCustomer(customerDto.getUserID(), customerDto.getEmail(), customerDto.getPassword(), customerDto.getFirstName(), customerDto.getLastName(), customerDto.getPhoneNumber(), address);
+		
+		return convertToDto(customer);
+	}
 	
 	// REST api for Artist __________________________________________________________
 
