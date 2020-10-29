@@ -1,15 +1,26 @@
 package com.artsee.backend.service;
 
-import com.artsee.backend.dao.*;
-import com.artsee.backend.model.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.artsee.backend.model.Address;
+import com.artsee.backend.model.Administrator;
+import com.artsee.backend.model.Artist;
+import com.artsee.backend.model.Artwork;
+import com.artsee.backend.model.ArtworkOrder;
+import com.artsee.backend.model.Customer;
+import com.artsee.backend.model.EndUser;
+import com.artsee.backend.model.Review;
+import com.artsee.backend.model.DeliveryMethod;
+import com.artsee.backend.model.OrderStatus;
+
+import com.artsee.backend.dao.*;
 
 @Service
 public class ArtseeService {
@@ -87,19 +98,19 @@ public class ArtseeService {
 			e += "Email already exists. ";
 		}
 		
-		if (password.isBlank()) {
+		if (isBlank(password)) {
 			e += "Must enter a password. ";
 		}
 		
-		if (firstName.isBlank()) {
+		if (isBlank(firstName)) {
 			e += "Must enter a first name. ";
 		}
 		
-		if (lastName.isBlank()) {
+		if (isBlank(lastName)) {
 			e += "Must enter a last name. ";
 		}
 		
-		if (!e.isBlank()) {
+		if (!isBlank(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -130,19 +141,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if (password.isBlank()) {
+		if (isBlank(password)) {
 			e+="Must enter a password. ";
 		}
 		
-		if (firstName.isBlank()) {
+		if (isBlank(firstName)) {
 			e+="Must enter a first name. ";
 		}
 		
-		if (lastName.isBlank()) {
+		if (isBlank(lastName)) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!e.isBlank()) {
+		if (!isBlank(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -209,19 +220,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if (password.isBlank()) {
+		if (isBlank(password)) {
 			e+="Must enter a password. ";
 		}
 		
-		if (firstName.isBlank()) {
+		if (isBlank(firstName)) {
 			e+="Must enter a first name. ";
 		}
 		
-		if (lastName.isBlank()) {
+		if (isBlank(lastName)) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!e.isBlank()) {
+		if (!isBlank(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -252,19 +263,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if (password.isBlank()) {
+		if (isBlank(password)) {
 			e+="Must enter a password. ";
 		}
 		
-		if (firstName.isBlank()) {
+		if (isBlank(firstName)) {
 			e+="Must enter a first name. ";
 		}
 		
-		if (lastName.isBlank()) {
+		if (isBlank(lastName)) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!e.isBlank()) {
+		if (!isBlank(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -351,19 +362,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if (password.isBlank()) {
+		if (isBlank(password)) {
 			e+="Must enter a password. ";
 		}
 		
-		if (firstName.isBlank()) {
+		if (isBlank(firstName)) {
 			e+="Must enter a first name. ";
 		}
 		
-		if (lastName.isBlank()) {
+		if (isBlank(lastName)) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!e.isBlank()) {
+		if (!isBlank(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -395,19 +406,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if (password.isBlank()) {
+		if (isBlank(password)) {
 			e+="Must enter a password. ";
 		}
 		
-		if (firstName.isBlank()) {
+		if (isBlank(firstName)) {
 			e+="Must enter a first name. ";
 		}
 		
-		if (lastName.isBlank()) {
+		if (isBlank(lastName)) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!e.isBlank()) {
+		if (!isBlank(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -473,19 +484,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if (password.isBlank()) {
+		if (isBlank(password)) {
 			e+="Must enter a password. ";
 		}
 		
-		if (firstName.isBlank()) {
+		if (isBlank(firstName)) {
 			e+="Must enter a first name. ";
 		}
 		
-		if (lastName.isBlank()) {
+		if (isBlank(lastName)) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!e.isBlank()) {
+		if (!isBlank(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 
@@ -843,19 +854,19 @@ public class ArtseeService {
 	@Transactional
 	public Address createAddress(String addressLine1, String addressLine2, String city, String province, String postalCode, String country) throws IllegalArgumentException {
 		String e = "";
-		if(addressLine1.isBlank()) {
+		if(isBlank(addressLine1)) {
 			e += "Address cannot be empty. ";
 		}
-		if(city.isBlank()) {
+		if(isBlank(city)) {
 			e += "City cannot be empty. ";
 		}
-		if(province.isBlank()) {
+		if(isBlank(province)) {
 			e += "Province cannot be empty. ";
 		}
-		if(postalCode.isBlank()) {
+		if(isBlank(postalCode)) {
 			e += "Postal code cannot be empty. ";
 		}
-		if(country.isBlank()) {
+		if(isBlank(country)) {
 			e += "Country cannot be empty.";
 		}
 		
@@ -923,6 +934,10 @@ public class ArtseeService {
 			resultList.add(t);
 		}
 		return resultList;
+	}
+	
+	private boolean isBlank(String string) {
+		return string.trim().isEmpty();
 	}
 	
 }
