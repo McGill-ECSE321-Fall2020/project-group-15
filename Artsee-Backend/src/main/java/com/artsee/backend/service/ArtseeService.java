@@ -31,42 +31,121 @@ public class ArtseeService {
 	@Autowired
 	private EndUserRepository endUserRepository;
 	
-	// End User Service Layer ___________________________________________________________________________________
-	
-	public EndUser getUser(String userID) {
+	@Transactional
+	public EndUser signIn(String userID, String password) throws IllegalArgumentException {
 		EndUser user = endUserRepository.findById(userID).orElse(null);
+		if(user == null) {
+			throw new IllegalArgumentException("Username cannot be found.");
+		} else if(!user.getPassword().equals(password)) {
+			throw new IllegalArgumentException("Password is incorrect.");
+		}
 		return user;
 	}
 	
-	public List<EndUser> getAllUsers() {
+	// End User Service Layer ___________________________________________________________________________________
+	
+	@Transactional
+	public EndUser getUser(String userID) throws IllegalArgumentException {
+		EndUser user = endUserRepository.findById(userID).orElse(null);
+		
+		if (user == null) {
+			throw new IllegalArgumentException("Username cannot be found.");
+		}
+		
+		return user;
+	}
+	
+	@Transactional
+	public List<EndUser> getAllUsers(){
 		return toList(endUserRepository.findAll());
 	}
 	
-	public String deleteUser(String userID) {
-		endUserRepository.deleteById(userID);
+	@Transactional
+	public String deleteUser(String userID) throws IllegalArgumentException{
+		EndUser user = endUserRepository.findById(userID).orElse(null);
+		
+		if (user == null) {
+			throw new IllegalArgumentException("Username cannot be found.");
+		}
+		
+		endUserRepository.delete(user);
+		
 		return userID;
 	}
 	
-
-	public EndUser updateUser(String userID, String email, String password, String firstName, String lastName, String phoneNumber){
-		EndUser user = endUserRepository.findById(userID).orElse(null);
+	@Transactional
+	public EndUser updateUser(String userID, String email, String password, String firstName, String lastName, String phoneNumber) throws IllegalArgumentException {
 		
-		if (user!=null) {
-			user.setEmail(email);
-			user.setFirstName(firstName);
-			user.setLastName(lastName);
-			user.setPassword(password);
-			user.setPhoneNumber(phoneNumber);
-			endUserRepository.save(user);
+		EndUser user = endUserRepository.findById(userID).orElse(null);
+		String e = "";
+		
+		if (user == null) {
+			e += "Username cannot be found.";
 		}
+		
+		if ((!email.equals(user.getEmail())&&(endUserRepository.findByEmail(email) != null))) {
+			e += "Email already exists. ";
+		}
+		
+		if (password.isBlank()) {
+			e += "Must enter a password. ";
+		}
+		
+		if (firstName.isBlank()) {
+			e += "Must enter a first name. ";
+		}
+		
+		if (lastName.isBlank()) {
+			e += "Must enter a last name. ";
+		}
+		
+		if (!e.isBlank()) {
+			throw new IllegalArgumentException(e.trim());
+		}
+		
+		
+		user.setEmail(email);
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setPassword(password);
+		user.setPhoneNumber(phoneNumber);
+		endUserRepository.save(user);
+		
 		
 		return user;
 	}
 	
 	// Customer Service Layer ___________________________________________________________________________________
 	
-	public Customer createCustomer(String customerID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) {
+	@Transactional
+	public Customer createCustomer(String customerID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) throws IllegalArgumentException{
 		Customer customer= new Customer();
+		String e = "";
+		
+		if (endUserRepository.findById(customerID).orElse(null) != null) {
+			e+="Username already exists. ";
+		}
+		
+		if (endUserRepository.findByEmail(email) != null) {
+			e+="Email already exists. ";
+		}
+		
+		if (password.isBlank()) {
+			e+="Must enter a password. ";
+		}
+		
+		if (firstName.isBlank()) {
+			e+="Must enter a first name. ";
+		}
+		
+		if (lastName.isBlank()) {
+			e+= "Must enter a last name. ";
+		}
+		
+		if (!e.isBlank()) {
+			throw new IllegalArgumentException(e.trim());
+		}
+		
 		customer.setUserID(customerID);
 		customer.setEmail(email);
 		customer.setPassword(password);
@@ -78,46 +157,117 @@ public class ArtseeService {
 		return customer;
 	}
 	
-	public Customer getCustomerByID(String customerID) {
+	@Transactional
+	public Customer getCustomerByID(String customerID) throws IllegalArgumentException{
 		Customer customer = customerRepository.findById(customerID).orElse(null);
+		
+		if (customer == null) {
+			throw new IllegalArgumentException("Username cannot be found.");
+		}
+		
 		return customer;
 	}
 	
-	public Customer getCustomerByEmail(String email) {
+	@Transactional
+	public Customer getCustomerByEmail(String email) throws IllegalArgumentException{
 		Customer customer = customerRepository.findByEmail(email);
+		
+		if (customer == null) {
+			throw new IllegalArgumentException("Email cannot be found.");
+		}
+		
 		return customer;
 	}
 	
-	public List<Customer> getAllCustomers() {
+	@Transactional
+	public List<Customer> getAllCustomers(){
 		return toList(customerRepository.findAll());
 	}
 	
-	public String deleteCustomer(String customerID) {
-		customerRepository.deleteById(customerID);
+	@Transactional
+	public String deleteCustomer(String customerID) throws IllegalArgumentException{
+		Customer customer = customerRepository.findById(customerID).orElse(null);
+
+		if (customer == null) {
+			throw new IllegalArgumentException("Username cannot be found.");
+		}
+		
+		customerRepository.delete(customer);
 		return customerID;
 	}
 	
-	public Customer updateCustomer(String customerID, String email, String password, String firstName, String lastName, String phoneNumber, Address address){
+	@Transactional
+	public Customer updateCustomer(String customerID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) throws IllegalArgumentException{
 		Customer customer = customerRepository.findById(customerID).orElse(null);
+		String e="";
 		
-		if (customer!=null) {
-			customer.setEmail(email);
-			customer.setFirstName(firstName);
-			customer.setLastName(lastName);
-			customer.setPassword(password);
-			customer.setPhoneNumber(phoneNumber);
-			customer.setAddress(address);
-			customerRepository.save(customer);
+		if (customer == null) {
+			e += "Username cannot be found.";
 		}
+		
+		if (!email.equals(customer.getEmail())&&(endUserRepository.findByEmail(email) != null)) {
+			e+="Email already exists. ";
+		}
+		
+		if (password.isBlank()) {
+			e+="Must enter a password. ";
+		}
+		
+		if (firstName.isBlank()) {
+			e+="Must enter a first name. ";
+		}
+		
+		if (lastName.isBlank()) {
+			e+= "Must enter a last name. ";
+		}
+		
+		if (!e.isBlank()) {
+			throw new IllegalArgumentException(e.trim());
+		}
+		
+		customer.setEmail(email);
+		customer.setFirstName(firstName);
+		customer.setLastName(lastName);
+		customer.setPassword(password);
+		customer.setPhoneNumber(phoneNumber);
+		customer.setAddress(address);
+		customerRepository.save(customer);
+		
 		
 		return customer;
 	}
 
 	// Artist Service Layer ___________________________________________________________________________________
 
-	
-	public Artist createArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber,  String artistDescription){
+	@Transactional
+	public Artist createArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber,  String artistDescription) throws IllegalArgumentException{
 		Artist artist= new Artist();
+		String e = "";
+		
+		if (endUserRepository.findById(artistID).orElse(null) != null) {
+			e+="Username already exists. ";
+		}
+		
+		if (endUserRepository.findByEmail(email) != null) {
+			e+="Email already exists. ";
+		}
+		
+		if (password.isBlank()) {
+			e+="Must enter a password. ";
+		}
+		
+		if (firstName.isBlank()) {
+			e+="Must enter a first name. ";
+		}
+		
+		if (lastName.isBlank()) {
+			e+= "Must enter a last name. ";
+		}
+		
+		if (!e.isBlank()) {
+			throw new IllegalArgumentException(e.trim());
+		}
+		
 		artist.setUserID(artistID);
 		artist.setEmail(email);
 		artist.setPassword(password);
@@ -129,50 +279,102 @@ public class ArtseeService {
 		return artist;
 	}
 	
-	public Artist getArtistByID(String artistID) {
+	@Transactional
+	public Artist getArtistByID(String artistID) throws IllegalArgumentException{
 		Artist artist = artistRepository.findById(artistID).orElse(null);
+		
+		if (artist == null) {
+			throw new IllegalArgumentException("Username cannot be found.");
+		}
+		
 		return artist;
 	}
 	
-	public Artist getArtistByEmail(String email) {
+	@Transactional
+	public Artist getArtistByEmail(String email) throws IllegalArgumentException{
 		Artist artist = artistRepository.findByEmail(email);
+		
+		if (artist == null) {
+			throw new IllegalArgumentException("Email cannot be found.");
+		}
+		
 		return artist;
 	}
 	
-	public List<Artist> getAllArtists() {
+	@Transactional
+	public List<Artist> getAllArtists(){
 		return toList(artistRepository.findAll());
 	}
 	
-	public String deleteArtist(String artistID) {
-		artistRepository.deleteById(artistID);
+	@Transactional
+	public String deleteArtist(String artistID) throws IllegalArgumentException{
+		Artist artist = artistRepository.findById(artistID).orElse(null);
+		
+		if (artist == null) {
+			throw new IllegalArgumentException("Username cannot be found.");
+		}
+		
+		artistRepository.delete(artist);
+		
 		return artistID;
 	}
 	
-	public Float getArtistRating(String artistID) {
+	@Transactional
+	public Float getArtistRating(String artistID) throws IllegalArgumentException{
 		Artist artist = artistRepository.findById(artistID).orElse(null);
 		Float totalRatings = 0f;
-		if(artist != null) {
-			for (Review r : reviewRepository.findByArtist(artist)) {
-				totalRatings += (float)r.getRating();
-			}
-			totalRatings = totalRatings/((float)reviewRepository.findByArtist(artist).size());
+		
+		if (artist == null) {
+			throw new IllegalArgumentException("Username cannot be found.");
 		}
+		
+		for (Review r : reviewRepository.findByArtist(artist)) {
+			totalRatings += (float)r.getRating();
+		}
+		
+		totalRatings = totalRatings/((float)reviewRepository.findByArtist(artist).size());
+		
 		
 		return totalRatings;
 	}
 	
-	public Artist updateArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription){
+	@Transactional
+	public Artist updateArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription) throws IllegalArgumentException{
 		Artist artist = artistRepository.findById(artistID).orElse(null);
+		String e = "";
 		
-		if (artist!=null) {
-			artist.setEmail(email);
-			artist.setFirstName(firstName);
-			artist.setLastName(lastName);
-			artist.setPassword(password);
-			artist.setPhoneNumber(phoneNumber);
-			artist.setArtistDescription(artistDescription);
-			artistRepository.save(artist);
+		if (endUserRepository.findById(artistID).orElse(null) != null) {
+			e+="Username already exists. ";
 		}
+		
+		if (!email.equals(artist.getEmail())&&(endUserRepository.findByEmail(email) != null)) {
+			e+="Email already exists. ";
+		}
+		
+		if (password.isBlank()) {
+			e+="Must enter a password. ";
+		}
+		
+		if (firstName.isBlank()) {
+			e+="Must enter a first name. ";
+		}
+		
+		if (lastName.isBlank()) {
+			e+= "Must enter a last name. ";
+		}
+		
+		if (!e.isBlank()) {
+			throw new IllegalArgumentException(e.trim());
+		}
+		
+		artist.setEmail(email);
+		artist.setFirstName(firstName);
+		artist.setLastName(lastName);
+		artist.setPassword(password);
+		artist.setPhoneNumber(phoneNumber);
+		artist.setArtistDescription(artistDescription);
+		artistRepository.save(artist);
+		
 		
 		return artist;
 	}
@@ -180,8 +382,35 @@ public class ArtseeService {
 	
 	// Admin Service Layer ___________________________________________________________________________________
 
-	public Administrator createAdministrator(String administratorID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) {
+	@Transactional
+	public Administrator createAdministrator(String administratorID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) throws IllegalArgumentException{
 		Administrator administrator = new Administrator();
+		String e = "";
+		
+		if (endUserRepository.findById(administratorID).orElse(null) != null) {
+			e+="Username already exists. ";
+		}
+		
+		if (endUserRepository.findByEmail(email) != null) {
+			e+="Email already exists. ";
+		}
+		
+		if (password.isBlank()) {
+			e+="Must enter a password. ";
+		}
+		
+		if (firstName.isBlank()) {
+			e+="Must enter a first name. ";
+		}
+		
+		if (lastName.isBlank()) {
+			e+= "Must enter a last name. ";
+		}
+		
+		if (!e.isBlank()) {
+			throw new IllegalArgumentException(e.trim());
+		}
+		
 		administrator.setUserID(administratorID);
 		administrator.setEmail(email);
 		administrator.setPassword(password);
@@ -192,36 +421,81 @@ public class ArtseeService {
 		return administrator;
 	}
 	
-	public Administrator getAdministratorByID(String administratorID) {
+	@Transactional
+	public Administrator getAdministratorByID(String administratorID) throws IllegalArgumentException{
 		Administrator administrator = administratorRepository.findById(administratorID).orElse(null);
+		
+		if (administrator == null) {
+			throw new IllegalArgumentException("Username cannot be found.");
+		}
+		
 		return administrator;
 	}
 	
-	public Administrator getAdministratorByEmail(String email) {
+	@Transactional
+	public Administrator getAdministratorByEmail(String email) throws IllegalArgumentException{
 		Administrator administrator = administratorRepository.findByEmail(email);
+		
+		if (administrator == null) {
+			throw new IllegalArgumentException("Email cannot be found.");
+		}
+		
 		return administrator;
 	}
 	
-	public List<Administrator> getAllAdministrators() {
+	@Transactional
+	public List<Administrator> getAllAdministrators(){
 		return toList(administratorRepository.findAll());
 	}
 	
-	public String deleteAdministrator(String administratorID) {
+	@Transactional
+	public String deleteAdministrator(String administratorID) throws IllegalArgumentException{
+		Administrator administrator = administratorRepository.findById(administratorID).orElse(null);
+
+		if (administrator == null) {
+			throw new IllegalArgumentException("Username cannot be found.");
+		}
+		
 		administratorRepository.deleteById(administratorID);
 		return administratorID;
 	}
 	
-	public Administrator updateAdministrator(String administratorID, String email, String password, String firstName, String lastName, String phoneNumber){
+	@Transactional
+	public Administrator updateAdministrator(String administratorID, String email, String password, String firstName, String lastName, String phoneNumber) throws IllegalArgumentException{
 		Administrator administrator = administratorRepository.findById(administratorID).orElse(null);
+		String e = "";
 		
-		if (administrator!=null) {
-			administrator.setEmail(email);
-			administrator.setFirstName(firstName);
-			administrator.setLastName(lastName);
-			administrator.setPassword(password);
-			administrator.setPhoneNumber(phoneNumber);
-			administratorRepository.save(administrator);
+		if (endUserRepository.findById(administratorID).orElse(null) != null) {
+			e+="Username already exists. ";
 		}
+		
+		if (!email.equals(administrator.getEmail())&&(endUserRepository.findByEmail(email) != null)) {
+			e+="Email already exists. ";
+		}
+		
+		if (password.isBlank()) {
+			e+="Must enter a password. ";
+		}
+		
+		if (firstName.isBlank()) {
+			e+="Must enter a first name. ";
+		}
+		
+		if (lastName.isBlank()) {
+			e+= "Must enter a last name. ";
+		}
+		
+		if (!e.isBlank()) {
+			throw new IllegalArgumentException(e.trim());
+		}
+
+		administrator.setEmail(email);
+		administrator.setFirstName(firstName);
+		administrator.setLastName(lastName);
+		administrator.setPassword(password);
+		administrator.setPhoneNumber(phoneNumber);
+		administratorRepository.save(administrator);
+		
 		
 		return administrator;
 	}
@@ -372,7 +646,23 @@ public class ArtseeService {
 	
 	// Review Service Layer ___________________________________________________________________________________
 
-	public Review createReview(Integer rating, String comment, Boolean wouldRecommend, Customer customer, Artist artist) {
+	public Review createReview(Integer rating, String comment, Boolean wouldRecommend, Customer customer, Artist artist) throws IllegalArgumentException {
+		String e = "";
+		if(rating == null) {
+			e += "Review needs a rating. ";
+		}
+		if(customer == null) {
+			e += "Review needs a customer. ";
+		}
+		if(artist == null) {
+			e += "AReview needs an artist.";
+		}
+		
+		e = e.trim();
+		
+		if (e.length() > 0) {
+			throw new IllegalArgumentException(e);
+		}
 		Review review = new Review();
 		review.setRating(rating);
 		review.setComment(comment);
@@ -384,28 +674,35 @@ public class ArtseeService {
 	}
 
 	@Transactional
-	public Review getReviewbyID(Integer reviewID) {
+	public Review getReviewbyID(Integer reviewID) throws IllegalArgumentException {
 		Review review = reviewRepository.findById(reviewID).orElse(null);
+		if(review == null) {
+			throw new IllegalArgumentException("Review does not exist.");
+		}
 		return review;
 	}
 	
 	@Transactional
-	public Integer deleteReview(Integer reviewID) {
+	public Integer deleteReview(Integer reviewID) throws IllegalArgumentException {
+		if(reviewRepository.findById(reviewID).orElse(null) == null) {
+			throw new IllegalArgumentException("Review does not exist.");
+		}
 		reviewRepository.deleteById(reviewID);
 		return reviewID;
 	}
 
 	@Transactional
-	public Review updateReview(Integer reviewID, Integer rating, String comment, Boolean wouldRecommend, Customer customer, Artist artist) {
+	public Review updateReview(Integer reviewID, Integer rating, String comment, Boolean wouldRecommend, Customer customer, Artist artist) throws IllegalArgumentException {
 		Review review = reviewRepository.findById(reviewID).orElse(null);
-		if(review != null) {
-			review.setRating(rating);
-			review.setComment(comment);
-			review.setWouldRecommend(wouldRecommend);
-			review.setCustomer(customer);
-			review.setArtist(artist);
-			reviewRepository.save(review);
+		if(review == null) {
+			throw new IllegalArgumentException("Review does not exist.");
 		}
+		review.setRating(rating);
+		review.setComment(comment);
+		review.setWouldRecommend(wouldRecommend);
+		review.setCustomer(customer);
+		review.setArtist(artist);
+		reviewRepository.save(review);
 		return review;
 	}
 	
@@ -435,7 +732,30 @@ public class ArtseeService {
 	// Artwork Order Service Layer ___________________________________________________________________________________
 	
 	@Transactional
-	public ArtworkOrder createArtworkOrder(Integer totalPrice, Date datePlaced, Date dateCompleted, DeliveryMethod deliveryMethod, OrderStatus orderStatus, Customer customer) {
+	public ArtworkOrder createArtworkOrder(Integer totalPrice, Date datePlaced, Date dateCompleted, DeliveryMethod deliveryMethod, OrderStatus orderStatus, Customer customer) throws IllegalArgumentException {
+		String e = "";
+		if(totalPrice == null) {
+			e += "Artwork Order needs a total price. ";
+		}
+		if(datePlaced == null) {
+			e += "Artwork order needs a date placed. ";
+		}
+		if(deliveryMethod == null) {
+			e += "Artwork order needs a delivery method. ";
+		}
+		if(orderStatus == null) {
+			e += "Artwork order needs an order status. ";
+		}
+		if(customer == null) {
+			e += "Artwork order needs a customer.";
+		}
+		
+		e = e.trim();
+		
+		if (e.length() > 0) {
+			throw new IllegalArgumentException(e);
+		}
+		
 		ArtworkOrder order = new ArtworkOrder();
 		order.setTotalPrice(totalPrice);
 		order.setDatePlaced(datePlaced);
@@ -448,29 +768,40 @@ public class ArtseeService {
 	}
 
 	@Transactional
-	public ArtworkOrder getArtworkOrderByID(Integer orderID) {
+	public ArtworkOrder getArtworkOrderByID(Integer orderID) throws IllegalArgumentException {
 		ArtworkOrder order = artworkOrderRepository.findById(orderID).orElse(null);
+		if(order == null) {
+			throw new IllegalArgumentException("Artwork Order does not exist.");
+		}
 		return order;
 	}
 	
 	@Transactional
-	public Integer deleteArtworkOrder(Integer orderID) {
+	public Integer deleteArtworkOrder(Integer orderID) throws IllegalArgumentException {
+		if(artworkOrderRepository.findById(orderID).orElse(null) == null) {
+			throw new IllegalArgumentException("Artwork Order does not exist.");
+		}
 		artworkOrderRepository.deleteById(orderID);
 		return orderID;
 	}
 
 	@Transactional
-	public ArtworkOrder updateArtworkOrder(Integer orderID, Integer totalPrice, Date datePlaced, Date dateCompleted, DeliveryMethod deliveryMethod, OrderStatus orderStatus, Customer customer) {
+	public ArtworkOrder updateArtworkOrder(Integer orderID, Integer totalPrice,
+										   Date datePlaced, Date dateCompleted,
+										   DeliveryMethod deliveryMethod, OrderStatus orderStatus,
+										   Customer customer, Artwork artwork) throws IllegalArgumentException {
 		ArtworkOrder order = artworkOrderRepository.findById(orderID).orElse(null);
-		if (order != null) {
-			order.setTotalPrice(totalPrice);
-			order.setDatePlaced(datePlaced);
-			order.setDateCompleted(dateCompleted);
-			order.setDeliveryMethod(deliveryMethod);
-			order.setOrderStatus(orderStatus);
-			order.setCustomer(customer);
-			artworkOrderRepository.save(order);
+		if(order == null) {
+			throw new IllegalArgumentException("Artwork Order does not exist.");
 		}
+		addArtworkToOrder(orderID, artwork);
+		order.setTotalPrice(totalPrice);
+		order.setDatePlaced(datePlaced);
+		order.setDateCompleted(dateCompleted);
+		order.setDeliveryMethod(deliveryMethod);
+		order.setOrderStatus(orderStatus);
+		order.setCustomer(customer);
+		artworkOrderRepository.save(order);
 		return order;
 	}
 	
@@ -498,6 +829,10 @@ public class ArtseeService {
 		}
 
 		Set<Artwork> artworks = order.getArtworks();
+		if (artwork.getNumInStock() == 0) {
+			throw new IllegalArgumentException("Artwork is out of stock! ");
+		}
+		artwork.setNumInStock(artwork.getNumInStock() - 1);
 		artworks.add(artwork);
 
 		order.setArtworks(artworks);
@@ -506,7 +841,30 @@ public class ArtseeService {
 	// Address Service Layer ___________________________________________________________________________________
 	
 	@Transactional
-	public Address createAddress(String addressLine1, String addressLine2, String city, String province, String postalCode, String country) {
+	public Address createAddress(String addressLine1, String addressLine2, String city, String province, String postalCode, String country) throws IllegalArgumentException {
+		String e = "";
+		if(addressLine1.isBlank()) {
+			e += "Address cannot be empty. ";
+		}
+		if(city.isBlank()) {
+			e += "City cannot be empty. ";
+		}
+		if(province.isBlank()) {
+			e += "Province cannot be empty. ";
+		}
+		if(postalCode.isBlank()) {
+			e += "Postal code cannot be empty. ";
+		}
+		if(country.isBlank()) {
+			e += "Country cannot be empty.";
+		}
+		
+		e = e.trim();
+		
+		if (e.length() > 0) {
+			throw new IllegalArgumentException(e);
+		}
+		
 		Address address = new Address();
 		address.setAddressLine1(addressLine1);
 		address.setAddressLine2(addressLine2);
@@ -519,29 +877,36 @@ public class ArtseeService {
 	}
 
 	@Transactional
-	public Address getAddressById(Integer addressID) {
+	public Address getAddressById(Integer addressID) throws IllegalArgumentException {
 		Address address = addressRepository.findById(addressID).orElse(null);
+		if(address == null) {
+			throw new IllegalArgumentException("Address does not exist.");
+		}
 		return address;
 	}
 	
 	@Transactional
-	public Integer deleteAddress(Integer addressID) {
+	public Integer deleteAddress(Integer addressID) throws IllegalArgumentException {
+		if(addressRepository.findById(addressID).orElse(null) == null) {
+			throw new IllegalArgumentException("Address does not exist.");
+		}
 		addressRepository.deleteById(addressID);
 		return addressID;
 	}
 
 	@Transactional
-	public Address updateAddress(Integer addressID, String addressLine1, String addressLine2, String city, String province, String postalCode, String country) {
+	public Address updateAddress(Integer addressID, String addressLine1, String addressLine2, String city, String province, String postalCode, String country) throws IllegalArgumentException {
 		Address address = addressRepository.findById(addressID).orElse(null);
-		if(address != null) {
-			address.setAddressLine1(addressLine1);
-			address.setAddressLine2(addressLine2);
-			address.setCity(city);
-			address.setProvince(province);
-			address.setPostalCode(postalCode);
-			address.setCountry(country);
-			addressRepository.save(address);
+		if(address == null) {
+			throw new IllegalArgumentException("Address does not exist.");
 		}
+		address.setAddressLine1(addressLine1);
+		address.setAddressLine2(addressLine2);
+		address.setCity(city);
+		address.setProvince(province);
+		address.setPostalCode(postalCode);
+		address.setCountry(country);
+		addressRepository.save(address);
 		return address;
 	}
 	
