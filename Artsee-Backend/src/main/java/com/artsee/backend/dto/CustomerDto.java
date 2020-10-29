@@ -2,7 +2,7 @@ package com.artsee.backend.dto;
 
 public class CustomerDto {
 	
-	private String customerID;
+	private String userID;
 	private String email;
 	private String password;
 	private String firstName;
@@ -14,8 +14,8 @@ public class CustomerDto {
 		
 	}
 	
-	public CustomerDto(String customerID, String email, String password, String firstName, String lastName, String phoneNumber, AddressDto address) {
-		this.customerID = customerID;
+	public CustomerDto(String userID, String email, String password, String firstName, String lastName, String phoneNumber, AddressDto address) {
+		this.userID = userID;
 		this.email = email;
 		this.password = password;
 		this.firstName = firstName;
@@ -24,8 +24,8 @@ public class CustomerDto {
 		this.address = address;
 	}
 	
-	public String getCustomerID() {
-		return customerID;
+	public String getUserID() {
+		return userID;
 	}
 	
 	public String getEmail() {

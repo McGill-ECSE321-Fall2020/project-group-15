@@ -10,18 +10,18 @@ public class ArtworkOrderDto {
 	private int totalPrice;
 	private Date datePlaced;
 	private Date dateCompleted;
-	private String deliveryMethodStr;
-	private String orderStatusStr;
+	private DeliveryMethodDto deliveryMethodDto;
+	private OrderStatusDto orderStatusDto;
 	private CustomerDto customer;
 	private List<ArtworkDto> artworks;
 	
-	public ArtworkOrderDto(Integer orderID, Integer totalPrice, Date datePlaced, Date dateCompleted, String deliveryMethodStr, String orderStatusStr, CustomerDto customer, List<ArtworkDto> artworks) {
+	public ArtworkOrderDto(Integer orderID, Integer totalPrice, Date datePlaced, Date dateCompleted, DeliveryMethodDto deliveryMethodDto, OrderStatusDto orderStatusDto, CustomerDto customer, List<ArtworkDto> artworks) {
 		this.orderID = orderID;
 		this.totalPrice = totalPrice;
 		this.datePlaced = datePlaced;
 		this.dateCompleted = dateCompleted;
-		this.deliveryMethodStr = deliveryMethodStr;
-		this.orderStatusStr = orderStatusStr;
+		this.deliveryMethodDto = deliveryMethodDto;
+		this.orderStatusDto = orderStatusDto;
 		this.customer = customer;
 		this.artworks = artworks;
 	}
@@ -42,12 +42,12 @@ public class ArtworkOrderDto {
 		return this.dateCompleted;
 	}
 	
-	public String getDeliveryMethodStr() {
-		return this.deliveryMethodStr;
+	public DeliveryMethodDto getDeliveryMethodStr() {
+		return this.deliveryMethodDto;
 	}
 	
-	public String getOrderStatusStr() {
-		return this.orderStatusStr;
+	public OrderStatusDto getOrderStatusStr() {
+		return this.orderStatusDto;
 	}
 	
 	public CustomerDto getCustomer() {
