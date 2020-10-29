@@ -11,11 +11,7 @@ public class ArtworkOrderDto {
 	private String deliveryMethodStr;
 	private String orderStatusStr;
 	private CustomerDto customer;
-	
-	
-	public ArtworkOrderDto() {
-		
-	}
+//	private List<ArtworkDto> artworks;
 	
 	public ArtworkOrderDto(Integer orderID, Integer totalPrice, Date datePlaced, Date dateCompleted, String deliveryMethodStr, String orderStatusStr, CustomerDto customer) {
 		this.orderID = orderID;
