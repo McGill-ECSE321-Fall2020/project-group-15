@@ -758,17 +758,11 @@ public class ArtseeService {
 	// Artwork Order Service Layer ___________________________________________________________________________________
 	
 	@Transactional
-	public ArtworkOrder createArtworkOrder(Integer totalPrice, Date datePlaced, Date dateCompleted, DeliveryMethod deliveryMethod, OrderStatus orderStatus, Customer customer) throws IllegalArgumentException {
+	public ArtworkOrder createArtworkOrder(Date datePlaced, Date dateCompleted, DeliveryMethod deliveryMethod, OrderStatus orderStatus, Customer customer, List<Artwork> artworks) throws IllegalArgumentException {
 		String e = "";
-		if(totalPrice == null) {
-			e += "Artwork Order needs a total price. ";
-		}
 		if(datePlaced == null) {
 			e += "Artwork order needs a date placed. ";
 		}
-        if (totalPrice < 0) {
-        	e += "Order price cannot be less than 0. ";
-        }
 		if(deliveryMethod == null) {
 			e += "Artwork order needs a delivery method. ";
 		}
@@ -778,11 +772,20 @@ public class ArtseeService {
 		if(customer == null) {
 			e += "Artwork order needs a customer.";
 		}
+		if(artworks.size() == 0) {
+			
+		}
 		
 		e = e.trim();
 		
 		if (e.length() > 0) {
 			throw new IllegalArgumentException(e);
+		}
+		
+		int totalPrice = 0;
+		
+		for(Artwork art : artworks) {
+			totalPrice += art.getPrice();
 		}
 		
 		ArtworkOrder order = new ArtworkOrder();
@@ -815,7 +818,7 @@ public class ArtseeService {
 	}
 
 	@Transactional
-	public ArtworkOrder updateArtworkOrder(Integer orderID, Integer totalPrice,
+	public ArtworkOrder updateArtworkOrder(Integer orderID,
 										   Date datePlaced, Date dateCompleted,
 										   DeliveryMethod deliveryMethod, OrderStatus orderStatus,
 										   Customer customer, Artwork artwork) throws IllegalArgumentException {
@@ -825,15 +828,9 @@ public class ArtseeService {
 		}
 		
 		String e = "";
-		if(totalPrice == null) {
-			e += "Artwork Order needs a total price. ";
-		}
 		if(datePlaced == null) {
 			e += "Artwork order needs a date placed. ";
 		}
-        if (totalPrice < 0) {
-        	e += "Order price cannot be less than 0. ";
-        }
 		if(deliveryMethod == null) {
 			e += "Artwork order needs a delivery method. ";
 		}
@@ -850,8 +847,11 @@ public class ArtseeService {
 			throw new IllegalArgumentException(e);
 		}
 		
+		int totalPrice = order.getTotalPrice();
+		
 		if(artwork != null) {
 			addArtworkToOrder(orderID, artwork);
+			totalPrice += artwork.getPrice();
 		}
 		
 		order.setTotalPrice(totalPrice);

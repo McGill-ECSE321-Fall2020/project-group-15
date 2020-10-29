@@ -36,12 +36,12 @@ public class ArtworkOrder{
 		this.orderID = orderID;
     }
 	
-	private float totalPrice;
+	private Integer totalPrice;
 
-	public void setTotalPrice(float value) {
+	public void setTotalPrice(Integer value) {
 		this.totalPrice = value;
     }
-	public float getTotalPrice() {
+	public Integer getTotalPrice() {
 		return this.totalPrice;
     }
 	private Date datePlaced;
