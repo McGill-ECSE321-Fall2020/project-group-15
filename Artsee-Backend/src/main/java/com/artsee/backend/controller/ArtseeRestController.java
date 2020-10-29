@@ -216,6 +216,36 @@ public class ArtseeRestController {
 //	    ArtistDto artistDto = new ArtistDto()
 //    }
 
-//	@GetMapping(value = { "/reviews", "/reviews/" })
-
+	// REST api for Review  __________________________________________________________
+	
+	@GetMapping(value = { "/reviews", "/reviews/" })
+	public List<ReviewDto> getAllReviews(){
+		return service.getAllReviews().stream().map(u -> convertToDto(u)).collect(Collectors.toList());
+	}
+	
+	@PostMapping(value = { "/reviews" }, consumes = "application/json", produces = "application/json")
+	public ReviewDto createReview(@RequestBody ReviewDto reviewDto) {
+		Customer customer = service.getCustomerByID(reviewDto.getCustomer().getCustomerID());
+		Artist artist = service.getArtistByID(reviewDto.getArtist().getArtistID());
+		Review review = service.createReview(reviewDto.getRating(), reviewDto.getComment(), reviewDto.getRecomendation(), customer, artist);
+		return convertToDto(review);
+	}
+	
+	@PutMapping(value = { "/reviews" }, consumes = "application/json", produces = "application/json")
+	public ReviewDto updateReview(@RequestBody ReviewDto reviewDto) {
+		Customer customer = service.getCustomerByID(reviewDto.getCustomer().getCustomerID());
+		Artist artist = service.getArtistByID(reviewDto.getArtist().getArtistID());
+		Review review = service.updateReview(reviewDto.getReviewID(), reviewDto.getRating(), reviewDto.getComment(), reviewDto.getRecomendation(), customer, artist);
+		return convertToDto(review);
+	}
+	
+	@DeleteMapping(value = { "/reviews/{id}" })
+	public ReviewDto deleteReview(@PathVariable("id") Integer id) {
+		Review review = service.deleteReview(id);
+		return convertToDto(review);
+	}
+	
+	
+	
+	
 }

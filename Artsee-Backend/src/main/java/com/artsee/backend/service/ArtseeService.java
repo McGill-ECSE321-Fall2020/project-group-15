@@ -691,12 +691,13 @@ public class ArtseeService {
 	}
 	
 	@Transactional
-	public Integer deleteReview(Integer reviewID) throws IllegalArgumentException {
-		if(reviewRepository.findById(reviewID).orElse(null) == null) {
+	public Review deleteReview(Integer reviewID) throws IllegalArgumentException {
+		Review review = reviewRepository.findById(reviewID).orElse(null);
+		if(review == null) {
 			throw new IllegalArgumentException("Review does not exist.");
 		}
 		reviewRepository.deleteById(reviewID);
-		return reviewID;
+		return review;
 	}
 
 	@Transactional
