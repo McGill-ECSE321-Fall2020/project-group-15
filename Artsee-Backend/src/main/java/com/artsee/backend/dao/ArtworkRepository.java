@@ -9,9 +9,6 @@ import com.artsee.backend.model.Artist;
 
 
 public interface ArtworkRepository extends CrudRepository<Artwork,Integer> {
-	//Perform CRUD operations by interacting with the Artowrk class
-	
-//	Artwork findArtworkByArtworkID(Integer artworkID);
 	
 	boolean existsByNameAndArtist(String name, Artist artist);
 	
