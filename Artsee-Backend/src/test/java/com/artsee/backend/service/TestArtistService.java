@@ -30,7 +30,7 @@ import com.artsee.backend.dao.*;
 
 
 @ExtendWith(MockitoExtension.class)
-public class TestArtseeService {
+public class TestArtistService {
 
     @Mock
     private ArtistRepository artistDao;
@@ -56,6 +56,9 @@ public class TestArtseeService {
     @Test
     public void testCreateArtist() {
         assertEquals(0, service.getAllArtists().size());
+
+
+        
     }
     
 }
