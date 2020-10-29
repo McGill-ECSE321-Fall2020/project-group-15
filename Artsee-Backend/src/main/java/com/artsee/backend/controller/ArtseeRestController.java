@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.artsee.backend.model.*;
+import com.artsee.backend.dto.*;
+
 @CrossOrigin(origins = "*")
 @RestController
 public class ArtseeRestController {
@@ -83,6 +86,12 @@ public class ArtseeRestController {
 //	@GetMapping(value = { "/reviews", "/reviews/" })
 
 
-	
+	private ReviewDto convertToDto(Review r) {
+		if(r==null) {
+			throw new IllegalArgumentException("There is no such Review.");
+		}
+		ReviewDto reviewDto = new ReviewDto(r.getReviewID(), r.getRating(), r.getComment(), r.getWouldRecommend(), r.getCustomer(), r.getArtist());
+		return reviewDto;
+	}
 
 }
