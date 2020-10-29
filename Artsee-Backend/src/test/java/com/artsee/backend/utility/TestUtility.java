@@ -19,6 +19,18 @@ public class TestUtility {
 		return artist;
     }
 
+    public static Administrator createAdmin(String administratorID, String email, String password, String firstName, String lastName, String phoneNumber) { 
+        Administrator administrator = new Administrator();
+
+        administrator.setUserID(administratorID);
+		administrator.setEmail(email);
+		administrator.setPassword(password);
+		administrator.setFirstName(firstName);
+		administrator.setLastName(lastName);
+		administrator.setPhoneNumber(phoneNumber);
+		return administrator;
+    }
+
 
     
 }

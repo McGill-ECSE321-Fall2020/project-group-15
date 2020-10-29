@@ -394,7 +394,7 @@ public class ArtseeService {
 	// Admin Service Layer ___________________________________________________________________________________
 
 	@Transactional
-	public Administrator createAdministrator(String administratorID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) throws IllegalArgumentException{
+	public Administrator createAdministrator(String administratorID, String email, String password, String firstName, String lastName, String phoneNumber) throws IllegalArgumentException{
 		Administrator administrator = new Administrator();
 		String e = "";
 		
