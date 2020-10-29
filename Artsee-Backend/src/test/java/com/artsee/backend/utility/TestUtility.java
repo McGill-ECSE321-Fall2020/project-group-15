@@ -31,6 +31,18 @@ public class TestUtility {
 		return administrator;
     }
 
+    public static Address createAddress(int id, String addressLine1, String addressLine2, String city, String province, String postalCode, String country) {
+        Address address = new Address();
+		address.setAddressLine1(addressLine1);
+		address.setAddressLine2(addressLine2);
+		address.setCity(city);
+		address.setProvince(province);
+		address.setPostalCode(postalCode);
+        address.setCountry(country);
+        address.setAddressID(id);
+		return address;
+    }
+
 
     
 }
