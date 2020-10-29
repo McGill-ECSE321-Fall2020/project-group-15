@@ -280,16 +280,16 @@ public class ArtseeRestController {
 	
 	@PostMapping(value = { "/reviews" }, consumes = "application/json", produces = "application/json")
 	public ReviewDto createReview(@RequestBody ReviewDto reviewDto) {
-		Customer customer = service.getCustomerByID(reviewDto.getCustomer().getCustomerID());
-		Artist artist = service.getArtistByID(reviewDto.getArtist().getArtistID());
+		Customer customer = service.getCustomerByID(reviewDto.getCustomer().getUserID());
+		Artist artist = service.getArtistByID(reviewDto.getArtist().getUserID());
 		Review review = service.createReview(reviewDto.getRating(), reviewDto.getComment(), reviewDto.getRecomendation(), customer, artist);
 		return convertToDto(review);
 	}
 	
 	@PutMapping(value = { "/reviews" }, consumes = "application/json", produces = "application/json")
 	public ReviewDto updateReview(@RequestBody ReviewDto reviewDto) {
-		Customer customer = service.getCustomerByID(reviewDto.getCustomer().getCustomerID());
-		Artist artist = service.getArtistByID(reviewDto.getArtist().getArtistID());
+		Customer customer = service.getCustomerByID(reviewDto.getCustomer().getUserID());
+		Artist artist = service.getArtistByID(reviewDto.getArtist().getUserID());
 		Review review = service.updateReview(reviewDto.getReviewID(), reviewDto.getRating(), reviewDto.getComment(), reviewDto.getRecomendation(), customer, artist);
 		return convertToDto(review);
 	}
@@ -309,14 +309,14 @@ public class ArtseeRestController {
 	
 	@PostMapping(value = { "/artwork" }, consumes = "application/json", produces = "application/json")
 	public ArtworkDto createArtwork(@RequestBody ArtworkDto artworkDto) {
-		Artist artist = service.getArtistByID(artworkDto.getArtist().getArtistID());
+		Artist artist = service.getArtistByID(artworkDto.getArtist().getUserID());
 		Artwork artwork = service.createArtwork(artworkDto.getName(), artworkDto.getPrice(), artworkDto.getDescription(), artworkDto.getDateOfCreation(), artworkDto.getNumInStock(), artist);
 		return convertToDto(artwork);
 	}
 	
 	@PutMapping(value = { "/artwork" }, consumes = "application/json", produces = "application/json")
 	public ArtworkDto updateArtwork(@RequestBody ArtworkDto artworkDto) {
-		Artist artist = service.getArtistByID(artworkDto.getArtist().getArtistID());
+		Artist artist = service.getArtistByID(artworkDto.getArtist().getUserID());
 		Artwork artwork = service.createArtwork(artworkDto.getName(), artworkDto.getPrice(), artworkDto.getDescription(), artworkDto.getDateOfCreation(), artworkDto.getNumInStock(), artist);
 		return convertToDto(artwork);
 	}
@@ -336,7 +336,7 @@ public class ArtseeRestController {
 	
 	@PostMapping(value = { "/artworkOrder" }, consumes = "application/json", produces = "application/json")
 	public ArtworkOrderDto createArtworkOrder(@RequestBody ArtworkOrderDto artworkOrderDto) {
-		Customer customer = service.getCustomerByID(artworkOrderDto.getCustomer().getCustomerID());
+		Customer customer = service.getCustomerByID(artworkOrderDto.getCustomer().getUserID());
 		List<Artwork> artworks = new ArrayList<>();
 		artworks = convertFromDto(artworkOrderDto.getArtworks());
 		DeliveryMethod deliveryMethod = convertFromDto(artworkOrderDto.getDeliveryMethod());
