@@ -129,11 +129,11 @@ public class ArtseeService {
 	// Customer Service Layer ___________________________________________________________________________________
 	
 	@Transactional
-	public Customer createCustomer(String customerID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) throws IllegalArgumentException{
+	public Customer createCustomer(String userID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) throws IllegalArgumentException{
 		Customer customer= new Customer();
 		String e = "";
 		
-		if (endUserRepository.findById(customerID).orElse(null) != null) {
+		if (endUserRepository.findById(userID).orElse(null) != null) {
 			e+="Username already exists. ";
 		}
 		
@@ -157,7 +157,7 @@ public class ArtseeService {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
-		customer.setUserID(customerID);
+		customer.setUserID(userID);
 		customer.setEmail(email);
 		customer.setPassword(password);
 		customer.setFirstName(firstName);
@@ -169,8 +169,8 @@ public class ArtseeService {
 	}
 	
 	@Transactional
-	public Customer getCustomerByID(String customerID) throws IllegalArgumentException{
-		Customer customer = customerRepository.findById(customerID).orElse(null);
+	public Customer getCustomerByID(String userID) throws IllegalArgumentException{
+		Customer customer = customerRepository.findById(userID).orElse(null);
 		
 		if (customer == null) {
 			throw new IllegalArgumentException("Username cannot be found.");
@@ -196,20 +196,20 @@ public class ArtseeService {
 	}
 	
 	@Transactional
-	public String deleteCustomer(String customerID) throws IllegalArgumentException{
-		Customer customer = customerRepository.findById(customerID).orElse(null);
+	public String deleteCustomer(String userID) throws IllegalArgumentException{
+		Customer customer = customerRepository.findById(userID).orElse(null);
 
 		if (customer == null) {
 			throw new IllegalArgumentException("Username cannot be found.");
 		}
 		
 		customerRepository.delete(customer);
-		return customerID;
+		return userID;
 	}
 	
 	@Transactional
-	public Customer updateCustomer(String customerID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) throws IllegalArgumentException{
-		Customer customer = customerRepository.findById(customerID).orElse(null);
+	public Customer updateCustomer(String userID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) throws IllegalArgumentException{
+		Customer customer = customerRepository.findById(userID).orElse(null);
 		String e="";
 		
 		if (customer == null) {
@@ -251,11 +251,11 @@ public class ArtseeService {
 	// Artist Service Layer ___________________________________________________________________________________
 
 	@Transactional
-	public Artist createArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber,  String artistDescription) throws IllegalArgumentException{
+	public Artist createArtist(String userID, String email, String password, String firstName, String lastName, String phoneNumber,  String artistDescription) throws IllegalArgumentException{
 		Artist artist= new Artist();
 		String e = "";
 		
-		if (endUserRepository.findById(artistID).orElse(null) != null) {
+		if (endUserRepository.findById(userID).orElse(null) != null) {
 			e+="Username already exists. ";
 		}
 		
@@ -279,7 +279,7 @@ public class ArtseeService {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
-		artist.setUserID(artistID);
+		artist.setUserID(userID);
 		artist.setEmail(email);
 		artist.setPassword(password);
 		artist.setFirstName(firstName);
@@ -291,8 +291,8 @@ public class ArtseeService {
 	}
 	
 	@Transactional
-	public Artist getArtistByID(String artistID) throws IllegalArgumentException{
-		Artist artist = artistRepository.findById(artistID).orElse(null);
+	public Artist getArtistByID(String userID) throws IllegalArgumentException{
+		Artist artist = artistRepository.findById(userID).orElse(null);
 		
 		if (artist == null) {
 			throw new IllegalArgumentException("Username cannot be found.");
@@ -318,8 +318,8 @@ public class ArtseeService {
 	}
 	
 	@Transactional
-	public String deleteArtist(String artistID) throws IllegalArgumentException{
-		Artist artist = artistRepository.findById(artistID).orElse(null);
+	public String deleteArtist(String userID) throws IllegalArgumentException{
+		Artist artist = artistRepository.findById(userID).orElse(null);
 		
 		if (artist == null) {
 			throw new IllegalArgumentException("Username cannot be found.");
@@ -327,12 +327,12 @@ public class ArtseeService {
 		
 		artistRepository.delete(artist);
 		
-		return artistID;
+		return userID;
 	}
 	
 	@Transactional
-	public Float getArtistRating(String artistID) throws IllegalArgumentException{
-		Artist artist = artistRepository.findById(artistID).orElse(null);
+	public Float getArtistRating(String userID) throws IllegalArgumentException{
+		Artist artist = artistRepository.findById(userID).orElse(null);
 		Float totalRatings = 0f;
 		
 		if (artist == null) {
@@ -350,11 +350,11 @@ public class ArtseeService {
 	}
 	
 	@Transactional
-	public Artist updateArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription) throws IllegalArgumentException{
-		Artist artist = artistRepository.findById(artistID).orElse(null);
+	public Artist updateArtist(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription) throws IllegalArgumentException{
+		Artist artist = artistRepository.findById(userID).orElse(null);
 		String e = "";
 		
-		if (endUserRepository.findById(artistID).orElse(null) != null) {
+		if (endUserRepository.findById(userID).orElse(null) != null) {
 			e+="Username already exists. ";
 		}
 		
@@ -394,11 +394,11 @@ public class ArtseeService {
 	// Admin Service Layer ___________________________________________________________________________________
 
 	@Transactional
-	public Administrator createAdministrator(String administratorID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) throws IllegalArgumentException{
+	public Administrator createAdministrator(String userID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) throws IllegalArgumentException{
 		Administrator administrator = new Administrator();
 		String e = "";
 		
-		if (endUserRepository.findById(administratorID).orElse(null) != null) {
+		if (endUserRepository.findById(userID).orElse(null) != null) {
 			e+="Username already exists. ";
 		}
 		
@@ -422,7 +422,7 @@ public class ArtseeService {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
-		administrator.setUserID(administratorID);
+		administrator.setUserID(userID);
 		administrator.setEmail(email);
 		administrator.setPassword(password);
 		administrator.setFirstName(firstName);
@@ -433,8 +433,8 @@ public class ArtseeService {
 	}
 	
 	@Transactional
-	public Administrator getAdministratorByID(String administratorID) throws IllegalArgumentException{
-		Administrator administrator = administratorRepository.findById(administratorID).orElse(null);
+	public Administrator getAdministratorByID(String userID) throws IllegalArgumentException{
+		Administrator administrator = administratorRepository.findById(userID).orElse(null);
 		
 		if (administrator == null) {
 			throw new IllegalArgumentException("Username cannot be found.");
@@ -460,23 +460,23 @@ public class ArtseeService {
 	}
 	
 	@Transactional
-	public String deleteAdministrator(String administratorID) throws IllegalArgumentException{
-		Administrator administrator = administratorRepository.findById(administratorID).orElse(null);
+	public String deleteAdministrator(String userID) throws IllegalArgumentException{
+		Administrator administrator = administratorRepository.findById(userID).orElse(null);
 
 		if (administrator == null) {
 			throw new IllegalArgumentException("Username cannot be found.");
 		}
 		
-		administratorRepository.deleteById(administratorID);
-		return administratorID;
+		administratorRepository.deleteById(userID);
+		return userID;
 	}
 	
 	@Transactional
-	public Administrator updateAdministrator(String administratorID, String email, String password, String firstName, String lastName, String phoneNumber) throws IllegalArgumentException{
-		Administrator administrator = administratorRepository.findById(administratorID).orElse(null);
+	public Administrator updateAdministrator(String userID, String email, String password, String firstName, String lastName, String phoneNumber) throws IllegalArgumentException{
+		Administrator administrator = administratorRepository.findById(userID).orElse(null);
 		String e = "";
 		
-		if (endUserRepository.findById(administratorID).orElse(null) != null) {
+		if (endUserRepository.findById(userID).orElse(null) != null) {
 			e+="Username already exists. ";
 		}
 		
