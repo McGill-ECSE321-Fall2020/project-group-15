@@ -705,6 +705,24 @@ public class ArtseeService {
 		if(review == null) {
 			throw new IllegalArgumentException("Review does not exist.");
 		}
+		
+		String e = "";
+		if(rating == null) {
+			e += "Review needs a rating. ";
+		}
+		if(customer == null) {
+			e += "Review needs a customer. ";
+		}
+		if(artist == null) {
+			e += "AReview needs an artist.";
+		}
+		
+		e = e.trim();
+		
+		if (e.length() > 0) {
+			throw new IllegalArgumentException(e);
+		}
+		
 		review.setRating(rating);
 		review.setComment(comment);
 		review.setWouldRecommend(wouldRecommend);
@@ -805,7 +823,37 @@ public class ArtseeService {
 		if(order == null) {
 			throw new IllegalArgumentException("Artwork Order does not exist.");
 		}
-		addArtworkToOrder(orderID, artwork);
+		
+		String e = "";
+		if(totalPrice == null) {
+			e += "Artwork Order needs a total price. ";
+		}
+		if(datePlaced == null) {
+			e += "Artwork order needs a date placed. ";
+		}
+        if (totalPrice < 0) {
+        	e += "Order price cannot be less than 0. ";
+        }
+		if(deliveryMethod == null) {
+			e += "Artwork order needs a delivery method. ";
+		}
+		if(orderStatus == null) {
+			e += "Artwork order needs an order status. ";
+		}
+		if(customer == null) {
+			e += "Artwork order needs a customer.";
+		}
+		
+		e = e.trim();
+		
+		if (e.length() > 0) {
+			throw new IllegalArgumentException(e);
+		}
+		
+		if(artwork != null) {
+			addArtworkToOrder(orderID, artwork);
+		}
+		
 		order.setTotalPrice(totalPrice);
 		order.setDatePlaced(datePlaced);
 		order.setDateCompleted(dateCompleted);
@@ -831,7 +879,7 @@ public class ArtseeService {
 	}
 
 	@Transactional
-	public void addArtworkToOrder(Integer orderId, Artwork artwork) {
+	public void addArtworkToOrder(Integer orderId, Artwork artwork) throws IllegalArgumentException {
 		String error = "";
 		ArtworkOrder order = getArtworkOrderByID(orderId);
 
@@ -911,6 +959,30 @@ public class ArtseeService {
 		if(address == null) {
 			throw new IllegalArgumentException("Address does not exist.");
 		}
+		
+		String e = "";
+		if(isBlank(addressLine1)) {
+			e += "Address cannot be empty. ";
+		}
+		if(isBlank(city)) {
+			e += "City cannot be empty. ";
+		}
+		if(isBlank(province)) {
+			e += "Province cannot be empty. ";
+		}
+		if(isBlank(postalCode)) {
+			e += "Postal code cannot be empty. ";
+		}
+		if(isBlank(country)) {
+			e += "Country cannot be empty.";
+		}
+		
+		e = e.trim();
+		
+		if (e.length() > 0) {
+			throw new IllegalArgumentException(e);
+		}
+		
 		address.setAddressLine1(addressLine1);
 		address.setAddressLine2(addressLine2);
 		address.setCity(city);
