@@ -5,6 +5,8 @@ import com.artsee.backend.model.*;
 
 public class TestUtility {
 
+
+    // ---------- Artist Methods ----------------------------------------------------------------------------------------------------------------------------------
     public static Artist createArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber,  String artistDescription) {
         Artist artist = new Artist(); 
         artist.setUserID(artistID);
@@ -16,5 +18,7 @@ public class TestUtility {
 		artist.setPhoneNumber(phoneNumber);
 		return artist;
     }
+
+
     
 }
