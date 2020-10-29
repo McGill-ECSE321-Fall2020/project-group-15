@@ -18,6 +18,18 @@ public class TestUtility {
 		artist.setPhoneNumber(phoneNumber);
 		return artist;
     }
+    
+    public static Customer createCustomer(String customerID, String email, String password, String firstName, String lastName, String phoneNumber,  Address customerAddress) {
+    	Customer customer = new Customer();
+    	customer.setUserID(customerID);
+		customer.setEmail(email);
+		customer.setPassword(password);
+		customer.setFirstName(firstName);
+		customer.setLastName(lastName);
+		customer.setAddress(customerAddress);
+		customer.setPhoneNumber(phoneNumber);
+		return customer;
+    }
 
 
     
