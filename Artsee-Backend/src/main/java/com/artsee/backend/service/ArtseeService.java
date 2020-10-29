@@ -394,11 +394,11 @@ public class ArtseeService {
 	// Admin Service Layer ___________________________________________________________________________________
 
 	@Transactional
-	public Administrator createAdministrator(String userID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) throws IllegalArgumentException{
+	public Administrator createAdministrator(String administratorID, String email, String password, String firstName, String lastName, String phoneNumber) throws IllegalArgumentException{
 		Administrator administrator = new Administrator();
 		String e = "";
 		
-		if (endUserRepository.findById(userID).orElse(null) != null) {
+		if (endUserRepository.findById(administratorID).orElse(null) != null) {
 			e+="Username already exists. ";
 		}
 		
@@ -422,7 +422,7 @@ public class ArtseeService {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
-		administrator.setUserID(userID);
+		administrator.setUserID(administratorID);
 		administrator.setEmail(email);
 		administrator.setPassword(password);
 		administrator.setFirstName(firstName);
@@ -592,8 +592,8 @@ public class ArtseeService {
 	}
 	
 	@Transactional 
-	public Artwork updateArtwork(Artwork artwork, String name, Integer price,
-			Date date, String description, Integer numInStock, Artist artist) {
+	public Artwork updateArtwork(Artwork artwork, String name, Integer price, String description,
+			Date date, Integer numInStock, Artist artist) {
 		
 		String error = "";
         if (name == null || name.trim().length() == 0) {
