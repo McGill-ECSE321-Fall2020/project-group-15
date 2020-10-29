@@ -2,7 +2,7 @@ package com.artsee.backend.dto;
 
 public class ArtistDto {
 
-	private String artistID;
+	private String userID;
 	private String email;
 	private String password;
 	private String firstName;
@@ -11,8 +11,8 @@ public class ArtistDto {
 	private String artistDescription;
 	private Float rating;
 	
-	public ArtistDto(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription, Float rating) {
-		this.artistID = artistID;
+	public ArtistDto(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription, Float rating) {
+		this.userID = userID;
 		this.email = email;
 		this.password = password;
 		this.firstName = firstName;
@@ -22,8 +22,8 @@ public class ArtistDto {
 		this.rating = rating;
 	}
 	
-	public String getArtistID() {
-		return artistID;
+	public String getUserID() {
+		return userID;
 	}
 	
 	public String getEmail() {

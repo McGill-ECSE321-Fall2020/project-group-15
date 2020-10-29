@@ -17,6 +17,7 @@ public class ReviewDto {
 		this.reviewID = reviewID;
 		this.rating = rating;
 		this.comment = comment;
+		this.wouldRecommend = wouldRecommend;
 		this.customer = customer;
 		this.artist = artist;
 	}
