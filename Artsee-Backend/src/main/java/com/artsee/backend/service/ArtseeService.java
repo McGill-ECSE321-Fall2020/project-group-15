@@ -272,7 +272,23 @@ public class ArtseeService {
 	// Review Service Layer ___________________________________________________________________________________
 	
 	@Transactional
-	public Review createReview(Integer rating, String comment, Boolean wouldRecommend, Customer customer, Artist artist) {
+	public Review createReview(Integer rating, String comment, Boolean wouldRecommend, Customer customer, Artist artist) throws IllegalArgumentException {
+		String e = "";
+		if(rating == null) {
+			e += "Review needs a rating. ";
+		}
+		if(customer == null) {
+			e += "Review needs a customer. ";
+		}
+		if(artist == null) {
+			e += "AReview needs an artist.";
+		}
+		
+		e = e.trim();
+		
+		if (e.length() > 0) {
+			throw new IllegalArgumentException(e);
+		}
 		Review review = new Review();
 		review.setRating(rating);
 		review.setComment(comment);
@@ -284,28 +300,35 @@ public class ArtseeService {
 	}
 
 	@Transactional
-	public Review getReviewbyID(Integer reviewID) {
+	public Review getReviewbyID(Integer reviewID) throws IllegalArgumentException {
 		Review review = reviewRepository.findById(reviewID).orElse(null);
+		if(review == null) {
+			throw new IllegalArgumentException("Review does not exist.");
+		}
 		return review;
 	}
 	
 	@Transactional
-	public Integer deleteReview(Integer reviewID) {
+	public Integer deleteReview(Integer reviewID) throws IllegalArgumentException {
+		if(reviewRepository.findById(reviewID).orElse(null) == null) {
+			throw new IllegalArgumentException("Review does not exist.");
+		}
 		reviewRepository.deleteById(reviewID);
 		return reviewID;
 	}
 
 	@Transactional
-	public Review updateReview(Integer reviewID, Integer rating, String comment, Boolean wouldRecommend, Customer customer, Artist artist) {
+	public Review updateReview(Integer reviewID, Integer rating, String comment, Boolean wouldRecommend, Customer customer, Artist artist) throws IllegalArgumentException {
 		Review review = reviewRepository.findById(reviewID).orElse(null);
-		if(review != null) {
-			review.setRating(rating);
-			review.setComment(comment);
-			review.setWouldRecommend(wouldRecommend);
-			review.setCustomer(customer);
-			review.setArtist(artist);
-			reviewRepository.save(review);
+		if(review == null) {
+			throw new IllegalArgumentException("Review does not exist.");
 		}
+		review.setRating(rating);
+		review.setComment(comment);
+		review.setWouldRecommend(wouldRecommend);
+		review.setCustomer(customer);
+		review.setArtist(artist);
+		reviewRepository.save(review);
 		return review;
 	}
 	
@@ -335,7 +358,30 @@ public class ArtseeService {
 	// Artwork Order Service Layer ___________________________________________________________________________________
 	
 	@Transactional
-	public ArtworkOrder createArtworkOrder(Integer totalPrice, Date datePlaced, Date dateCompleted, DeliveryMethod deliveryMethod, OrderStatus orderStatus, Customer customer) {
+	public ArtworkOrder createArtworkOrder(Integer totalPrice, Date datePlaced, Date dateCompleted, DeliveryMethod deliveryMethod, OrderStatus orderStatus, Customer customer) throws IllegalArgumentException {
+		String e = "";
+		if(totalPrice == null) {
+			e += "Artwork Order needs a total price. ";
+		}
+		if(datePlaced == null) {
+			e += "Artwork order needs a date placed. ";
+		}
+		if(deliveryMethod == null) {
+			e += "Artwork order needs a delivery method. ";
+		}
+		if(orderStatus == null) {
+			e += "Artwork order needs an order status. ";
+		}
+		if(customer == null) {
+			e += "Artwork order needs a customer.";
+		}
+		
+		e = e.trim();
+		
+		if (e.length() > 0) {
+			throw new IllegalArgumentException(e);
+		}
+		
 		ArtworkOrder order = new ArtworkOrder();
 		order.setTotalPrice(totalPrice);
 		order.setDatePlaced(datePlaced);
@@ -348,29 +394,36 @@ public class ArtseeService {
 	}
 
 	@Transactional
-	public ArtworkOrder getArtworkOrderByID(Integer orderID) {
+	public ArtworkOrder getArtworkOrderByID(Integer orderID) throws IllegalArgumentException {
 		ArtworkOrder order = artworkOrderRepository.findById(orderID).orElse(null);
+		if(order == null) {
+			throw new IllegalArgumentException("Artwork Order does not exist.");
+		}
 		return order;
 	}
 	
 	@Transactional
-	public Integer deleteArtworkOrder(Integer orderID) {
+	public Integer deleteArtworkOrder(Integer orderID) throws IllegalArgumentException {
+		if(artworkOrderRepository.findById(orderID).orElse(null) == null) {
+			throw new IllegalArgumentException("Artwork Order does not exist.");
+		}
 		artworkOrderRepository.deleteById(orderID);
 		return orderID;
 	}
 
 	@Transactional
-	public ArtworkOrder updateArtworkOrder(Integer orderID, Integer totalPrice, Date datePlaced, Date dateCompleted, DeliveryMethod deliveryMethod, OrderStatus orderStatus, Customer customer) {
+	public ArtworkOrder updateArtworkOrder(Integer orderID, Integer totalPrice, Date datePlaced, Date dateCompleted, DeliveryMethod deliveryMethod, OrderStatus orderStatus, Customer customer) throws IllegalArgumentException {
 		ArtworkOrder order = artworkOrderRepository.findById(orderID).orElse(null);
-		if (order != null) {
-			order.setTotalPrice(totalPrice);
-			order.setDatePlaced(datePlaced);
-			order.setDateCompleted(dateCompleted);
-			order.setDeliveryMethod(deliveryMethod);
-			order.setOrderStatus(orderStatus);
-			order.setCustomer(customer);
-			artworkOrderRepository.save(order);
+		if(order == null) {
+			throw new IllegalArgumentException("Artwork Order does not exist.");
 		}
+		order.setTotalPrice(totalPrice);
+		order.setDatePlaced(datePlaced);
+		order.setDateCompleted(dateCompleted);
+		order.setDeliveryMethod(deliveryMethod);
+		order.setOrderStatus(orderStatus);
+		order.setCustomer(customer);
+		artworkOrderRepository.save(order);
 		return order;
 	}
 	
@@ -391,7 +444,30 @@ public class ArtseeService {
 	// Address Service Layer ___________________________________________________________________________________
 	
 	@Transactional
-	public Address createAddress(String addressLine1, String addressLine2, String city, String province, String postalCode, String country) {
+	public Address createAddress(String addressLine1, String addressLine2, String city, String province, String postalCode, String country) throws IllegalArgumentException {
+		String e = "";
+		if(addressLine1.isBlank()) {
+			e += "Address cannot be empty. ";
+		}
+		if(city.isBlank()) {
+			e += "City cannot be empty. ";
+		}
+		if(province.isBlank()) {
+			e += "Province cannot be empty. ";
+		}
+		if(postalCode.isBlank()) {
+			e += "Postal code cannot be empty. ";
+		}
+		if(country.isBlank()) {
+			e += "Country cannot be empty.";
+		}
+		
+		e = e.trim();
+		
+		if (e.length() > 0) {
+			throw new IllegalArgumentException(e);
+		}
+		
 		Address address = new Address();
 		address.setAddressLine1(addressLine1);
 		address.setAddressLine2(addressLine2);
@@ -404,29 +480,36 @@ public class ArtseeService {
 	}
 
 	@Transactional
-	public Address getAddressById(Integer addressID) {
+	public Address getAddressById(Integer addressID) throws IllegalArgumentException {
 		Address address = addressRepository.findById(addressID).orElse(null);
+		if(address == null) {
+			throw new IllegalArgumentException("Address does not exist.");
+		}
 		return address;
 	}
 	
 	@Transactional
-	public Integer deleteAddress(Integer addressID) {
+	public Integer deleteAddress(Integer addressID) throws IllegalArgumentException {
+		if(addressRepository.findById(addressID).orElse(null) == null) {
+			throw new IllegalArgumentException("Address does not exist.");
+		}
 		addressRepository.deleteById(addressID);
 		return addressID;
 	}
 
 	@Transactional
-	public Address updateAddress(Integer addressID, String addressLine1, String addressLine2, String city, String province, String postalCode, String country) {
+	public Address updateAddress(Integer addressID, String addressLine1, String addressLine2, String city, String province, String postalCode, String country) throws IllegalArgumentException {
 		Address address = addressRepository.findById(addressID).orElse(null);
-		if(address != null) {
-			address.setAddressLine1(addressLine1);
-			address.setAddressLine2(addressLine2);
-			address.setCity(city);
-			address.setProvince(province);
-			address.setPostalCode(postalCode);
-			address.setCountry(country);
-			addressRepository.save(address);
+		if(address == null) {
+			throw new IllegalArgumentException("Address does not exist.");
 		}
+		address.setAddressLine1(addressLine1);
+		address.setAddressLine2(addressLine2);
+		address.setCity(city);
+		address.setProvince(province);
+		address.setPostalCode(postalCode);
+		address.setCountry(country);
+		addressRepository.save(address);
 		return address;
 	}
 	
