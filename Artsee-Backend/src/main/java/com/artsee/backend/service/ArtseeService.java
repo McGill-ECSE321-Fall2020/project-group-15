@@ -511,7 +511,7 @@ public class ArtseeService {
 	@Transactional
 	public void addArtworkToOrder(Integer orderId, Artwork artwork) {
 		String error = "";
-		ArtworkOrder order = getArtworkOrder(orderId);
+		ArtworkOrder order = getArtworkOrderByID(orderId);
 
 		if (artwork == null) {
 			throw new IllegalArgumentException(error + "Artwork cannot be empty! ");
