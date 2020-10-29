@@ -592,8 +592,8 @@ public class ArtseeService {
 	}
 	
 	@Transactional 
-	public Artwork updateArtwork(Artwork artwork, String name, Integer price,
-			Date date, String description, Integer numInStock, Artist artist) {
+	public Artwork updateArtwork(Artwork artwork, String name, Integer price, String description,
+			Date date, Integer numInStock, Artist artist) {
 		
 		String error = "";
         if (name == null || name.trim().length() == 0) {

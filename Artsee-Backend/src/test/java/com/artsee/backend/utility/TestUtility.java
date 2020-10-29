@@ -1,5 +1,7 @@
 package com.artsee.backend.utility;
 
+import java.sql.Date;
+
 import com.artsee.backend.model.*;
 
 
@@ -55,6 +57,18 @@ public class TestUtility {
 		return address;
     }
 
+    public static Artwork createArtwork(int id, String name, int price, String description, Date dateCreated, int numInStock, Artist artist) {
+        Artwork artwork = new Artwork();
+        artwork.setName(name);
+        artwork.setDescription(description);
+        artwork.setPrice(price);
+        artwork.setDateOfCreation(dateCreated);
+        artwork.setNumInStock(numInStock);
+        artwork.setArtist(artist);
+        artwork.setArtworkID(id);
+        
+        return artwork;
+    }
 
     
 }
