@@ -31,5 +31,31 @@ import com.artsee.backend.dao.*;
 
 @ExtendWith(MockitoExtension.class)
 public class TestArtseeService {
+
+    @Mock
+    private ArtistRepository artistDao;
+
+    @InjectMocks
+    private ArtseeService service;
+
+    private static final String ARTIST_KEY = "TestArtist";
+
+    @BeforeEach
+    public void setMockOutput() {
+        lenient().when(artistDao.findById(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
+            if(invocation.getArgument(0).equals(ARTIST_KEY)) {
+                Artist artist = new Artist();
+                artist.setUserID(ARTIST_KEY);
+                return artist;
+            } else {
+                return null;
+            }
+        });
+    }
+    
+    @Test
+    public void testCreateArtist() {
+        assertEquals(0, service.getAllArtists().size());
+    }
     
 }
