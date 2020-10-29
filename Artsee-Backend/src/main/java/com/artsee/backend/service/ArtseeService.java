@@ -234,9 +234,6 @@ public class ArtseeService {
         if (name == null || name.trim().length() == 0) {
             error = error + "Artwork name cannot be empty! ";
         }
-//        if (price == null) {
-//            error = error + "Artwork price cannot be empty! ";
-//        }
         if (price <= 0) {
         	error = error + "Artwork price cannot be less than 0! ";
         }
@@ -249,8 +246,6 @@ public class ArtseeService {
         if (numInStock < 0) {
         	error = error + "Number in stock cannot be less than 0! ";
         }
-        
-//        Artist artist = artistRepository.findArtistByEmail();
         
         if (artist == null) {
             error = error + "Artist needs to be assigned for an artwork! ";
@@ -319,9 +314,6 @@ public class ArtseeService {
         if (name == null || name.trim().length() == 0) {
             error = error + "Artwork name cannot be empty!";
         }
-//        if (price == null) {
-//            error = error + "Artwork price cannot be empty! ";
-//        }
         if (price <= 0) {
         	error = error + "Artwork price cannot be less than 0! ";
         }
@@ -339,8 +331,6 @@ public class ArtseeService {
         } else if (!artistRepository.existsById(artist.getUserID())) {
             error += "Artist does not exist! ";
         }
-
-//		Artwork artwork = artworkRepository.findById(id).orElse(null);
 
 		if (artwork == null) {
 			error += "Artwork does not exist! ";
