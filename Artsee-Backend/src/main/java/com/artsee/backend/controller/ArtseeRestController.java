@@ -13,6 +13,10 @@ import com.artsee.backend.model.Artist;
 import com.artsee.backend.model.Customer;
 import com.artsee.backend.model.EndUser;
 import com.artsee.backend.service.ArtseeService;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,11 +41,62 @@ public class ArtseeRestController {
 	@Autowired
 	private ArtseeService service;
 	
+	// REST api for user authentication __________________________________________________________
+	
 	@PostMapping(value = {"/signIn"})
-	public EndUserDto signIn(SignInDto signInDto) {
+	public EndUserDto signIn(@RequestBody SignInDto signInDto) {
 		EndUser user = service.signIn(signInDto.getUserID(), signInDto.getPassword());
 		return convertToDto(user);
 	}
+	
+	// REST api for EndUser  __________________________________________________________
+
+	@GetMapping(value = {"/users", "/users/"})
+	public List<EndUserDto> getAllUsers(){
+		return service.getAllUsers().stream().map(u -> convertToDto(u)).collect(Collectors.toList());
+	}
+	
+	@GetMapping(value = {"/users/{userID}","/users/{userID}/"})
+	public EndUserDto getUser(@PathVariable("userID") String userID){
+		return convertToDto(service.getUser(userID));
+	}
+	
+	@DeleteMapping(value = {"/users/{userID}","/users/{userID}/"})
+	public String deleteUser(@PathVariable("userID") String userID){
+		return service.deleteUser(userID);
+	}
+	
+	@PutMapping(value = {"/users/{userID}","/users/{userID}/"})
+	public EndUserDto updateUser(@RequestBody EndUserDto userDto) {
+		
+		return convertToDto(service.updateUser(userDto.getUserID(), userDto.getEmail(), userDto.getPassword(), userDto.getFirstName(), userDto.getLastName(), userDto.getPhoneNumber()));
+	}
+	
+	// REST api for Customer __________________________________________________________
+
+	@GetMapping(value = {"/customers", "/customers/"})
+	public List<CustomerDto> getAllCustomers(){
+		return service.getAllCustomers().stream().map(c -> convertToDto(c)).collect(Collectors.toList());
+	}
+	
+	
+	
+	
+	// REST api for Artist __________________________________________________________
+
+	@GetMapping(value = {"/artists", "/artists/"})
+	public List<ArtistDto> getAllArtists(){
+		return service.getAllArtists().stream().map(a -> convertToDto(a)).collect(Collectors.toList());
+	}
+	
+	// REST api for Administrator  __________________________________________________________
+
+	@GetMapping(value = {"/administrators", "/administrators/"})
+	public List<AdministratorDto> getAllAdministrators(){
+		return service.getAllAdministrators().stream().map(a -> convertToDto(a)).collect(Collectors.toList());
+	}
+	
+	
 	
 	
 	// Convert to Dto Methods _______________________
