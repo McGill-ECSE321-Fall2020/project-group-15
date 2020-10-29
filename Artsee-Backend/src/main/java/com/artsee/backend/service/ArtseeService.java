@@ -98,16 +98,16 @@ public class ArtseeService {
 			e += "Email already exists. ";
 		}
 		
-		if (isBlank(password)) {
+		if ((password==null) ||(isBlank(password))) {
 			e += "Must enter a password. ";
 		}
 		
-		if (isBlank(firstName)) {
-			e += "Must enter a first name. ";
+		if ((firstName==null) ||(isBlank(firstName))) {
+			e+="Must enter a first name. ";
 		}
 		
-		if (isBlank(lastName)) {
-			e += "Must enter a last name. ";
+		if ((lastName==null) ||(isBlank(lastName))) {
+			e+= "Must enter a last name. ";
 		}
 		
 		if (!isBlank(e)) {
@@ -141,15 +141,15 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if (isBlank(password)) {
-			e+="Must enter a password. ";
+		if ((password==null) ||(isBlank(password))) {
+			e += "Must enter a password. ";
 		}
 		
-		if (isBlank(firstName)) {
+		if ((firstName==null) ||(isBlank(firstName))) {
 			e+="Must enter a first name. ";
 		}
 		
-		if (isBlank(lastName)) {
+		if ((lastName==null) ||(isBlank(lastName))) {
 			e+= "Must enter a last name. ";
 		}
 		
@@ -220,15 +220,15 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if (isBlank(password)) {
-			e+="Must enter a password. ";
+		if ((password==null) ||(isBlank(password))) {
+			e += "Must enter a password. ";
 		}
 		
-		if (isBlank(firstName)) {
+		if ((firstName==null) ||(isBlank(firstName))) {
 			e+="Must enter a first name. ";
 		}
 		
-		if (isBlank(lastName)) {
+		if ((lastName==null) ||(isBlank(lastName))) {
 			e+= "Must enter a last name. ";
 		}
 		
@@ -263,15 +263,15 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if (isBlank(password)) {
-			e+="Must enter a password. ";
+		if ((password==null) ||(isBlank(password))) {
+			e += "Must enter a password. ";
 		}
 		
-		if (isBlank(firstName)) {
+		if ((firstName==null) ||(isBlank(firstName))) {
 			e+="Must enter a first name. ";
 		}
 		
-		if (isBlank(lastName)) {
+		if ((lastName==null) ||(isBlank(lastName))) {
 			e+= "Must enter a last name. ";
 		}
 		
@@ -362,15 +362,15 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if (isBlank(password)) {
-			e+="Must enter a password. ";
+		if ((password==null) ||(isBlank(password))) {
+			e += "Must enter a password. ";
 		}
 		
-		if (isBlank(firstName)) {
+		if ((firstName==null) ||(isBlank(firstName))) {
 			e+="Must enter a first name. ";
 		}
 		
-		if (isBlank(lastName)) {
+		if ((lastName==null) ||(isBlank(lastName))) {
 			e+= "Must enter a last name. ";
 		}
 		
@@ -406,15 +406,15 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if (isBlank(password)) {
-			e+="Must enter a password. ";
+		if ((password==null) ||(isBlank(password))) {
+			e += "Must enter a password. ";
 		}
 		
-		if (isBlank(firstName)) {
+		if ((firstName==null) ||(isBlank(firstName))) {
 			e+="Must enter a first name. ";
 		}
 		
-		if (isBlank(lastName)) {
+		if ((lastName==null) ||(isBlank(lastName))) {
 			e+= "Must enter a last name. ";
 		}
 		
@@ -484,15 +484,15 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if (isBlank(password)) {
-			e+="Must enter a password. ";
+		if ((password==null) ||(isBlank(password))) {
+			e += "Must enter a password. ";
 		}
 		
-		if (isBlank(firstName)) {
+		if ((firstName==null) ||(isBlank(firstName))) {
 			e+="Must enter a first name. ";
 		}
 		
-		if (isBlank(lastName)) {
+		if ((lastName==null) ||(isBlank(lastName))) {
 			e+= "Must enter a last name. ";
 		}
 		
@@ -519,7 +519,7 @@ public class ArtseeService {
         if (name == null || name.trim().length() == 0) {
             error = error + "Artwork name cannot be empty! ";
         }
-        if (price <= 0) {
+        if (price < 0) {
         	error = error + "Artwork price cannot be less than 0! ";
         }
         if (description == null || description.trim().length() == 0) {
@@ -599,11 +599,8 @@ public class ArtseeService {
         if (name == null || name.trim().length() == 0) {
             error = error + "Artwork name cannot be empty!";
         }
-        if (price <= 0) {
+        if (price < 0) {
         	error = error + "Artwork price cannot be less than 0! ";
-        }
-        if (description == null || description.trim().length() == 0) {
-            error = error + "Artwork description cannot be empty! ";
         }
         if (date == null) {
             error = error + "Artwork date of creation cannot be empty! ";
@@ -751,6 +748,9 @@ public class ArtseeService {
 		if(datePlaced == null) {
 			e += "Artwork order needs a date placed. ";
 		}
+        if (totalPrice < 0) {
+        	e += "Order price cannot be less than 0. ";
+        }
 		if(deliveryMethod == null) {
 			e += "Artwork order needs a delivery method. ";
 		}
