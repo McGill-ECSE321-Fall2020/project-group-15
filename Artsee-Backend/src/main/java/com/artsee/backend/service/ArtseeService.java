@@ -3,6 +3,7 @@ package com.artsee.backend.service;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -97,19 +98,19 @@ public class ArtseeService {
 			e += "Email already exists. ";
 		}
 		
-		if (password.isBlank()) {
+		if ((password==null) ||(isBlank(password))) {
 			e += "Must enter a password. ";
 		}
 		
-		if (firstName.isBlank()) {
-			e += "Must enter a first name. ";
+		if ((firstName==null) ||(isBlank(firstName))) {
+			e+="Must enter a first name. ";
 		}
 		
-		if (lastName.isBlank()) {
-			e += "Must enter a last name. ";
+		if ((lastName==null) ||(isBlank(lastName))) {
+			e+= "Must enter a last name. ";
 		}
 		
-		if (!e.isBlank()) {
+		if (!isBlank(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -140,19 +141,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if (password.isBlank()) {
-			e+="Must enter a password. ";
+		if ((password==null) ||(isBlank(password))) {
+			e += "Must enter a password. ";
 		}
 		
-		if (firstName.isBlank()) {
+		if ((firstName==null) ||(isBlank(firstName))) {
 			e+="Must enter a first name. ";
 		}
 		
-		if (lastName.isBlank()) {
+		if ((lastName==null) ||(isBlank(lastName))) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!e.isBlank()) {
+		if (!isBlank(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -219,19 +220,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if (password.isBlank()) {
-			e+="Must enter a password. ";
+		if ((password==null) ||(isBlank(password))) {
+			e += "Must enter a password. ";
 		}
 		
-		if (firstName.isBlank()) {
+		if ((firstName==null) ||(isBlank(firstName))) {
 			e+="Must enter a first name. ";
 		}
 		
-		if (lastName.isBlank()) {
+		if ((lastName==null) ||(isBlank(lastName))) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!e.isBlank()) {
+		if (!isBlank(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -262,19 +263,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if (password.isBlank()) {
-			e+="Must enter a password. ";
+		if ((password==null) ||(isBlank(password))) {
+			e += "Must enter a password. ";
 		}
 		
-		if (firstName.isBlank()) {
+		if ((firstName==null) ||(isBlank(firstName))) {
 			e+="Must enter a first name. ";
 		}
 		
-		if (lastName.isBlank()) {
+		if ((lastName==null) ||(isBlank(lastName))) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!e.isBlank()) {
+		if (!isBlank(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -361,19 +362,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if (password.isBlank()) {
-			e+="Must enter a password. ";
+		if ((password==null) ||(isBlank(password))) {
+			e += "Must enter a password. ";
 		}
 		
-		if (firstName.isBlank()) {
+		if ((firstName==null) ||(isBlank(firstName))) {
 			e+="Must enter a first name. ";
 		}
 		
-		if (lastName.isBlank()) {
+		if ((lastName==null) ||(isBlank(lastName))) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!e.isBlank()) {
+		if (!isBlank(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -405,19 +406,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if (password.isBlank()) {
-			e+="Must enter a password. ";
+		if ((password==null) ||(isBlank(password))) {
+			e += "Must enter a password. ";
 		}
 		
-		if (firstName.isBlank()) {
+		if ((firstName==null) ||(isBlank(firstName))) {
 			e+="Must enter a first name. ";
 		}
 		
-		if (lastName.isBlank()) {
+		if ((lastName==null) ||(isBlank(lastName))) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!e.isBlank()) {
+		if (!isBlank(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -483,19 +484,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if (password.isBlank()) {
-			e+="Must enter a password. ";
+		if ((password==null) ||(isBlank(password))) {
+			e += "Must enter a password. ";
 		}
 		
-		if (firstName.isBlank()) {
+		if ((firstName==null) ||(isBlank(firstName))) {
 			e+="Must enter a first name. ";
 		}
 		
-		if (lastName.isBlank()) {
+		if ((lastName==null) ||(isBlank(lastName))) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!e.isBlank()) {
+		if (!isBlank(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 
@@ -510,9 +511,149 @@ public class ArtseeService {
 		return administrator;
 	}
 	
-	// Review Service Layer ___________________________________________________________________________________
+	// Artwork Service Layer ___________________________________________________________________________________
 	
 	@Transactional
+    public Artwork createArtwork(String name, int price, String description, Date dateCreated, int numInStock, Artist artist) {
+		String error = "";
+        if (name == null || name.trim().length() == 0) {
+            error = error + "Artwork name cannot be empty! ";
+        }
+        if (price < 0) {
+        	error = error + "Artwork price cannot be less than 0! ";
+        }
+        if (description == null || description.trim().length() == 0) {
+            error = error + "Artwork description cannot be empty! ";
+        }
+        if (dateCreated == null) {
+            error = error + "Artwork date of creation cannot be empty! ";
+        }
+        if (numInStock < 0) {
+        	error = error + "Number in stock cannot be less than 0! ";
+        }
+        
+        if (artist == null) {
+            error = error + "Artist needs to be assigned for an artwork! ";
+        } else if (!artistRepository.existsById(artist.getUserID())) {
+            error = error + "Artist does not exist! ";
+        }
+
+        error = error.trim();
+        
+        if (error.length() > 0) {
+            throw new IllegalArgumentException(error);
+        }
+        
+        Artwork artwork = new Artwork();
+        artwork.setName(name);
+        artwork.setDescription(description);
+        artwork.setPrice(price);
+        artwork.setDateOfCreation(dateCreated);
+        artwork.setNumInStock(numInStock);
+        artwork.setArtist(artist);
+        
+        artworkRepository.save(artwork);
+        return artwork;
+    }
+	
+	@Transactional
+	public List<Artwork> getAllArtworks() {
+		return toList(artworkRepository.findAll());
+	}
+	
+	@Transactional
+	public List<Artwork> getArtworksByArtist(Artist artist) {
+		String error = "";
+
+		List<Artwork> artworksByArtist = new ArrayList<>();
+		if (artist == null)
+			error = error + "An artist cannot be empty! ";
+		for (Artwork a: artworkRepository.findByArtist(artist)) {
+			artworksByArtist.add(a);
+		}
+		return artworksByArtist;
+	}
+	
+	@Transactional
+	public Artwork getArtworkById(Integer id) {
+		String error = "";
+		
+		Artwork a = artworkRepository.findById(id).orElse(null);
+		
+		if (a == null) {
+			error = error + "Artwork with the given Id does not exist! ";
+		}
+		
+		if (error.trim().length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		
+		return a;
+	}
+	
+	@Transactional 
+	public Artwork updateArtwork(Artwork artwork, String name, Integer price,
+			Date date, String description, Integer numInStock, Artist artist) {
+		
+		String error = "";
+        if (name == null || name.trim().length() == 0) {
+            error = error + "Artwork name cannot be empty!";
+        }
+        if (price < 0) {
+        	error = error + "Artwork price cannot be less than 0! ";
+        }
+        if (date == null) {
+            error = error + "Artwork date of creation cannot be empty! ";
+        }
+        if (numInStock < 0) {
+        	error = error + "Number in stock cannot be less than 0! ";
+        }
+        if (artist == null) {
+            error += "Artist needs to be assigned to an artwork! ";
+        } else if (!artistRepository.existsById(artist.getUserID())) {
+            error += "Artist does not exist! ";
+        }
+
+		if (artwork == null) {
+			error += "Artwork does not exist! ";
+		}
+        
+        if (error.trim().length() > 0) {
+            throw new IllegalArgumentException(error);
+        }
+        
+        artwork.setName(name);
+        artwork.setDescription(description);
+        artwork.setPrice(price);
+        artwork.setDateOfCreation(date);
+        artwork.setNumInStock(numInStock);
+        artwork.setArtist(artist);
+        
+        Artwork saved = artworkRepository.save(artwork);
+        return saved;
+	}
+	
+	@Transactional
+	public Artwork deleteArtwork(Integer id) {
+		String error = "";
+		Artwork a = artworkRepository.findById(id).orElse(null);
+		
+		if (a == null) {
+			error +=  "Artwork with the given Id does not exist! ";
+		}
+		
+		if (error.trim().length() > 0) {
+            throw new IllegalArgumentException(error);
+        }
+		
+		Artwork deletedArtwork = a;
+		artworkRepository.delete(a);
+		
+		return deletedArtwork;
+	}
+	
+	// Review Service Layer ___________________________________________________________________________________
+
 	public Review createReview(Integer rating, String comment, Boolean wouldRecommend, Customer customer, Artist artist) throws IllegalArgumentException {
 		String e = "";
 		if(rating == null) {
@@ -564,6 +705,24 @@ public class ArtseeService {
 		if(review == null) {
 			throw new IllegalArgumentException("Review does not exist.");
 		}
+		
+		String e = "";
+		if(rating == null) {
+			e += "Review needs a rating. ";
+		}
+		if(customer == null) {
+			e += "Review needs a customer. ";
+		}
+		if(artist == null) {
+			e += "AReview needs an artist.";
+		}
+		
+		e = e.trim();
+		
+		if (e.length() > 0) {
+			throw new IllegalArgumentException(e);
+		}
+		
 		review.setRating(rating);
 		review.setComment(comment);
 		review.setWouldRecommend(wouldRecommend);
@@ -599,11 +758,8 @@ public class ArtseeService {
 	// Artwork Order Service Layer ___________________________________________________________________________________
 	
 	@Transactional
-	public ArtworkOrder createArtworkOrder(Integer totalPrice, Date datePlaced, Date dateCompleted, DeliveryMethod deliveryMethod, OrderStatus orderStatus, Customer customer) throws IllegalArgumentException {
+	public ArtworkOrder createArtworkOrder(Date datePlaced, Date dateCompleted, DeliveryMethod deliveryMethod, OrderStatus orderStatus, Customer customer, List<Artwork> artworks) throws IllegalArgumentException {
 		String e = "";
-		if(totalPrice == null) {
-			e += "Artwork Order needs a total price. ";
-		}
 		if(datePlaced == null) {
 			e += "Artwork order needs a date placed. ";
 		}
@@ -616,11 +772,20 @@ public class ArtseeService {
 		if(customer == null) {
 			e += "Artwork order needs a customer.";
 		}
+		if(artworks.size() == 0) {
+			
+		}
 		
 		e = e.trim();
 		
 		if (e.length() > 0) {
 			throw new IllegalArgumentException(e);
+		}
+		
+		int totalPrice = 0;
+		
+		for(Artwork art : artworks) {
+			totalPrice += art.getPrice();
 		}
 		
 		ArtworkOrder order = new ArtworkOrder();
@@ -653,11 +818,42 @@ public class ArtseeService {
 	}
 
 	@Transactional
-	public ArtworkOrder updateArtworkOrder(Integer orderID, Integer totalPrice, Date datePlaced, Date dateCompleted, DeliveryMethod deliveryMethod, OrderStatus orderStatus, Customer customer) throws IllegalArgumentException {
+	public ArtworkOrder updateArtworkOrder(Integer orderID,
+										   Date datePlaced, Date dateCompleted,
+										   DeliveryMethod deliveryMethod, OrderStatus orderStatus,
+										   Customer customer, Artwork artwork) throws IllegalArgumentException {
 		ArtworkOrder order = artworkOrderRepository.findById(orderID).orElse(null);
 		if(order == null) {
 			throw new IllegalArgumentException("Artwork Order does not exist.");
 		}
+		
+		String e = "";
+		if(datePlaced == null) {
+			e += "Artwork order needs a date placed. ";
+		}
+		if(deliveryMethod == null) {
+			e += "Artwork order needs a delivery method. ";
+		}
+		if(orderStatus == null) {
+			e += "Artwork order needs an order status. ";
+		}
+		if(customer == null) {
+			e += "Artwork order needs a customer.";
+		}
+		
+		e = e.trim();
+		
+		if (e.length() > 0) {
+			throw new IllegalArgumentException(e);
+		}
+		
+		int totalPrice = order.getTotalPrice();
+		
+		if(artwork != null) {
+			addArtworkToOrder(orderID, artwork);
+			totalPrice += artwork.getPrice();
+		}
+		
 		order.setTotalPrice(totalPrice);
 		order.setDatePlaced(datePlaced);
 		order.setDateCompleted(dateCompleted);
@@ -681,25 +877,44 @@ public class ArtseeService {
 		}
 		return artworkOrdersByCustomer;
 	}
+
+	@Transactional
+	public void addArtworkToOrder(Integer orderId, Artwork artwork) throws IllegalArgumentException {
+		String error = "";
+		ArtworkOrder order = getArtworkOrderByID(orderId);
+
+		if (artwork == null) {
+			throw new IllegalArgumentException(error + "Artwork cannot be empty! ");
+		}
+
+		Set<Artwork> artworks = order.getArtworks();
+		if (artwork.getNumInStock() == 0) {
+			throw new IllegalArgumentException("Artwork is out of stock! ");
+		}
+		artwork.setNumInStock(artwork.getNumInStock() - 1);
+		artworks.add(artwork);
+
+		order.setArtworks(artworks);
+	}
 	
 	// Address Service Layer ___________________________________________________________________________________
 	
 	@Transactional
 	public Address createAddress(String addressLine1, String addressLine2, String city, String province, String postalCode, String country) throws IllegalArgumentException {
 		String e = "";
-		if(addressLine1.isBlank()) {
+		if(isBlank(addressLine1)) {
 			e += "Address cannot be empty. ";
 		}
-		if(city.isBlank()) {
+		if(isBlank(city)) {
 			e += "City cannot be empty. ";
 		}
-		if(province.isBlank()) {
+		if(isBlank(province)) {
 			e += "Province cannot be empty. ";
 		}
-		if(postalCode.isBlank()) {
+		if(isBlank(postalCode)) {
 			e += "Postal code cannot be empty. ";
 		}
-		if(country.isBlank()) {
+		if(isBlank(country)) {
 			e += "Country cannot be empty.";
 		}
 		
@@ -744,6 +959,30 @@ public class ArtseeService {
 		if(address == null) {
 			throw new IllegalArgumentException("Address does not exist.");
 		}
+		
+		String e = "";
+		if(isBlank(addressLine1)) {
+			e += "Address cannot be empty. ";
+		}
+		if(isBlank(city)) {
+			e += "City cannot be empty. ";
+		}
+		if(isBlank(province)) {
+			e += "Province cannot be empty. ";
+		}
+		if(isBlank(postalCode)) {
+			e += "Postal code cannot be empty. ";
+		}
+		if(isBlank(country)) {
+			e += "Country cannot be empty.";
+		}
+		
+		e = e.trim();
+		
+		if (e.length() > 0) {
+			throw new IllegalArgumentException(e);
+		}
+		
 		address.setAddressLine1(addressLine1);
 		address.setAddressLine2(addressLine2);
 		address.setCity(city);
@@ -767,6 +1006,10 @@ public class ArtseeService {
 			resultList.add(t);
 		}
 		return resultList;
+	}
+	
+	private boolean isBlank(String string) {
+		return string.trim().isEmpty();
 	}
 	
 }

@@ -1,11 +1,10 @@
 package com.artsee.backend.dao;
 
-import java.util.List;
-
+import com.artsee.backend.model.Artist;
+import com.artsee.backend.model.Artwork;
 import org.springframework.data.repository.CrudRepository;
 
-import com.artsee.backend.model.Artwork;
-import com.artsee.backend.model.Artist;
+import java.util.List;
 
 
 public interface ArtworkRepository extends CrudRepository<Artwork,Integer> {
