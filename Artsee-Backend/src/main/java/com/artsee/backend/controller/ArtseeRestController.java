@@ -16,6 +16,8 @@ import com.artsee.backend.service.ArtseeService;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -33,6 +35,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.artsee.backend.model.*;
+import com.artsee.backend.dto.*;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -101,25 +106,78 @@ public class ArtseeRestController {
 	
 	// Convert to Dto Methods _______________________
 	
-	public EndUserDto convertToDto(EndUser user) {
+	private EndUserDto convertToDto(EndUser user) {
 		return new EndUserDto(user.getUserID(), user.getEmail(), user.getPassword(), user.getFirstName(),user.getLastName(), user.getPhoneNumber());
 	}
 	
-	public CustomerDto convertToDto(Customer customer) {
+	private CustomerDto convertToDto(Customer customer) {
 		return new CustomerDto(customer.getUserID(), customer.getEmail(), customer.getPassword(), customer.getFirstName(),customer.getLastName(), customer.getPhoneNumber(), convertToDto(customer.getAddress()));
 	}
 	
-	public AdministratorDto convertToDto(Administrator admin) {
+	private AdministratorDto convertToDto(Administrator admin) {
 		return new AdministratorDto(admin.getUserID(), admin.getEmail(), admin.getPassword(), admin.getFirstName(),admin.getLastName(), admin.getPhoneNumber());
 	}
 	
-	public ArtistDto convertToDto(Artist artist) {
+	private ArtistDto convertToDto(Artist artist) {
 		return new ArtistDto(artist.getUserID(), artist.getEmail(), artist.getPassword(), artist.getFirstName(),artist.getLastName(), artist.getPhoneNumber(),artist.getArtistDescription(), artist.getRating());
 	}
 	
-	public AddressDto convertToDto(Address address) {
+	private AddressDto convertToDto(Address address) {
 		return new AddressDto(address.getAddressID(),address.getAddressLine1(), address.getAddressLine2(), address.getCity(), address.getProvince(), address.getPostalCode(), address.getCountry());
 	}
+	
+	private ReviewDto convertToDto(Review review) {
+		if(review==null) {
+			throw new IllegalArgumentException("There is no such Review.");
+		}
+		ReviewDto reviewDto = new ReviewDto(review.getReviewID(), review.getRating(), review.getComment(), review.getWouldRecommend(), convertToDto(review.getCustomer()), convertToDto(review.getArtist()));
+		return reviewDto;
+	}
+	
+	private ArtworkOrderDto convertToDto(ArtworkOrder artworkOrder) {
+		if(artworkOrder==null) {
+			throw new IllegalArgumentException("There is no such Artwork Order.");
+		}
+		ArtworkOrderDto artworkOrderDto = new ArtworkOrderDto(artworkOrder.getOrderID(), artworkOrder.getTotalPrice(), artworkOrder.getDatePlaced(), artworkOrder.getDateCompleted(), convertToDto(artworkOrder.getDeliveryMethod()), convertToDto(artworkOrder.getOrderStatus()), convertToDto(artworkOrder.getCustomer()), convertToDto(artworkOrder.getArtworks()));
+		return artworkOrderDto;
+	}
+	
+	private ArtworkDto convertToDto(Artwork artwork) {
+		if(artwork==null) {
+			throw new IllegalArgumentException("There is no such Artwork.");
+		}
+		ArtworkDto artworkDto = new ArtworkDto(artwork.getArtworkID(), artwork.getName(), artwork.getDescription(), artwork.getPrice(), artwork.getDateOfCreation(), artwork.getNumInStock(), convertToDto(artwork.getArtist()));
+		return artworkDto;
+	}
+	
+	private DeliveryMethodDto convertToDto(DeliveryMethod deliveryMethod) {
+		DeliveryMethodDto deliveryMethodDto;
+		if(deliveryMethod.equals(DeliveryMethod.SHIP)) {
+			deliveryMethodDto = DeliveryMethodDto.SHIP;
+		} else {
+			deliveryMethodDto = DeliveryMethodDto.PICKUP;
+		}
+		return deliveryMethodDto;
+	}
+	
+	private OrderStatusDto convertToDto(OrderStatus orderStatus) {
+		OrderStatusDto orderStatusDto;
+		if(orderStatus.equals(orderStatus.PROCESSING)) {
+			orderStatusDto = OrderStatusDto.PROCESSING;
+		} else {
+			orderStatusDto = OrderStatusDto.DELIVERED;
+		}
+		return orderStatusDto;
+	}
+	
+	private List<ArtworkDto> convertToDto(Set<Artwork> artworks){
+		List<ArtworkDto> artworkListDto = new ArrayList<ArtworkDto>();
+		for(Artwork artwork : artworks) {
+			artworkListDto.add(convertToDto(artwork));
+		}
+		return artworkListDto;
+	}
+	
 	
 //	@GetMapping(value = { "/artworks", "/artworks/" })
 //    public List<ArtworkDto> getAllArtworks() {
@@ -159,8 +217,5 @@ public class ArtseeRestController {
 //    }
 
 //	@GetMapping(value = { "/reviews", "/reviews/" })
-
-
-	
 
 }
