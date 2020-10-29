@@ -810,12 +810,13 @@ public class ArtseeService {
 	}
 	
 	@Transactional
-	public Integer deleteArtworkOrder(Integer orderID) throws IllegalArgumentException {
-		if(artworkOrderRepository.findById(orderID).orElse(null) == null) {
+	public ArtworkOrder deleteArtworkOrder(Integer orderID) throws IllegalArgumentException {
+		ArtworkOrder artworkOrder = artworkOrderRepository.findById(orderID).orElse(null);
+		if(artworkOrder == null) {
 			throw new IllegalArgumentException("Artwork Order does not exist.");
 		}
 		artworkOrderRepository.deleteById(orderID);
-		return orderID;
+		return artworkOrder;
 	}
 
 	@Transactional
