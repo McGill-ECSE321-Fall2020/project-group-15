@@ -38,14 +38,21 @@ public class TestArtistService {
     @InjectMocks
     private ArtseeService service;
 
-    private static final String ARTIST_KEY = "TestArtist";
+    private static final String ARTIST_ID = "1234";
+    private static final String EMAIL = "artist@gmail.com";
+    private static final String PASSWORD = "password";
+    private static final String FIRSTNAME = "John";
+    private static final String LASTNAME = "Doe";
+    private static final String PHONE_NUM = "8675309";
+    private static final Address ADDRESS = new Address();
 
     @BeforeEach
     public void setMockOutput() {
         lenient().when(artistDao.findById(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
-            if(invocation.getArgument(0).equals(ARTIST_KEY)) {
+            if(invocation.getArgument(0).equals(ARTIST_ID)) {
                 Artist artist = new Artist();
-                artist.setUserID(ARTIST_KEY);
+                artist.setUserID(ARTIST_ID);
+                
                 return artist;
             } else {
                 return null;
