@@ -1,8 +1,16 @@
 package com.artsee.backend.controller;
 
 import com.artsee.backend.dao.EndUserRepository;
+import com.artsee.backend.dto.AddressDto;
+import com.artsee.backend.dto.AdministratorDto;
+import com.artsee.backend.dto.ArtistDto;
+import com.artsee.backend.dto.CustomerDto;
 import com.artsee.backend.dto.EndUserDto;
 import com.artsee.backend.dto.SignInDto;
+import com.artsee.backend.model.Address;
+import com.artsee.backend.model.Administrator;
+import com.artsee.backend.model.Artist;
+import com.artsee.backend.model.Customer;
 import com.artsee.backend.model.EndUser;
 import com.artsee.backend.service.ArtseeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,20 +39,35 @@ public class ArtseeRestController {
 
 	@Autowired
 	private ArtseeService service;
-	@Autowired
-	private EndUserRepository endUserRepository;
 	
 	@PostMapping(value = {"/signIn"})
 	public EndUserDto signIn(SignInDto signInDto) {
 		EndUser user = service.signIn(signInDto.getUserID(), signInDto.getPassword());
-		return covertToDto(user);
+		return convertToDto(user);
 	}
 	
 	
-	public EndUserDto covertToDto(EndUser user) {
+	// Convert to Dto Methods _______________________
+	
+	public EndUserDto convertToDto(EndUser user) {
 		return new EndUserDto(user.getUserID(), user.getEmail(), user.getPassword(), user.getFirstName(),user.getLastName(), user.getPhoneNumber());
 	}
 	
+	public CustomerDto convertToDto(Customer customer) {
+		return new CustomerDto(customer.getUserID(), customer.getEmail(), customer.getPassword(), customer.getFirstName(),customer.getLastName(), customer.getPhoneNumber(), convertToDto(customer.getAddress()));
+	}
+	
+	public AdministratorDto convertToDto(Administrator admin) {
+		return new AdministratorDto(admin.getUserID(), admin.getEmail(), admin.getPassword(), admin.getFirstName(),admin.getLastName(), admin.getPhoneNumber());
+	}
+	
+	public ArtistDto convertToDto(Artist artist) {
+		return new ArtistDto(artist.getUserID(), artist.getEmail(), artist.getPassword(), artist.getFirstName(),artist.getLastName(), artist.getPhoneNumber(),artist.getArtistDescription(), artist.getRating());
+	}
+	
+	public AddressDto convertToDto(Address address) {
+		return new AddressDto(address.getAddressID(),address.getAddressLine1(), address.getAddressLine2(), address.getCity(), address.getProvince(), address.getPostalCode(), address.getCountry());
+	}
 	
 //	@GetMapping(value = { "/artworks", "/artworks/" })
 //    public List<ArtworkDto> getAllArtworks() {
