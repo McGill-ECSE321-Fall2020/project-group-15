@@ -1,7 +1,5 @@
 package com.artsee.backend.service;
 
-import com.artsee.backend.dao.*;
-import com.artsee.backend.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +8,19 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import com.artsee.backend.model.Address;
+import com.artsee.backend.model.Administrator;
+import com.artsee.backend.model.Artist;
+import com.artsee.backend.model.Artwork;
+import com.artsee.backend.model.ArtworkOrder;
+import com.artsee.backend.model.Customer;
+import com.artsee.backend.model.EndUser;
+import com.artsee.backend.model.Review;
+import com.artsee.backend.model.DeliveryMethod;
+import com.artsee.backend.model.OrderStatus;
+
+import com.artsee.backend.dao.*;
 
 @Service
 public class ArtseeService {
@@ -32,6 +43,7 @@ public class ArtseeService {
 	private EndUserRepository endUserRepository;
 	
 	// End User Service Layer ___________________________________________________________________________________
+	
 	public EndUser getUser(String userID) {
 		EndUser user = endUserRepository.findById(userID).orElse(null);
 		return user;
@@ -115,13 +127,14 @@ public class ArtseeService {
 	// Artist Service Layer ___________________________________________________________________________________
 
 	
-	public Artist createArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) {
+	public Artist createArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber,  String artistDescription){
 		Artist artist= new Artist();
 		artist.setUserID(artistID);
 		artist.setEmail(email);
 		artist.setPassword(password);
 		artist.setFirstName(firstName);
 		artist.setLastName(lastName);
+		artist.setArtistDescription(artistDescription);
 		artist.setPhoneNumber(phoneNumber);
 		artistRepository.save(artist);
 		return artist;
@@ -146,7 +159,20 @@ public class ArtseeService {
 		return artistID;
 	}
 	
-	public Artist updateArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber){
+	public Float getArtistRating(String artistID) {
+		Artist artist = artistRepository.findById(artistID).orElse(null);
+		Float totalRatings = 0f;
+		if(artist != null) {
+			for (Review r : reviewRepository.findByArtist(artist)) {
+				totalRatings += (float)r.getRating();
+			}
+			totalRatings = totalRatings/((float)reviewRepository.findByArtist(artist).size());
+		}
+		
+		return totalRatings;
+	}
+	
+	public Artist updateArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription){
 		Artist artist = artistRepository.findById(artistID).orElse(null);
 		
 		if (artist!=null) {
@@ -155,6 +181,7 @@ public class ArtseeService {
 			artist.setLastName(lastName);
 			artist.setPassword(password);
 			artist.setPhoneNumber(phoneNumber);
+			artist.setArtistDescription(artistDescription);
 			artistRepository.save(artist);
 		}
 		
@@ -377,7 +404,7 @@ public class ArtseeService {
 	}
 
 	@Transactional
-	public Review getReview(Integer reviewID) {
+	public Review getReviewbyID(Integer reviewID) {
 		Review review = reviewRepository.findById(reviewID).orElse(null);
 		return review;
 	}
@@ -441,7 +468,7 @@ public class ArtseeService {
 	}
 
 	@Transactional
-	public ArtworkOrder getArtworkOrder(Integer orderID) {
+	public ArtworkOrder getArtworkOrderByID(Integer orderID) {
 		ArtworkOrder order = artworkOrderRepository.findById(orderID).orElse(null);
 		return order;
 	}
@@ -512,7 +539,7 @@ public class ArtseeService {
 	}
 
 	@Transactional
-	public Address getAddress(Integer addressID) {
+	public Address getAddressById(Integer addressID) {
 		Address address = addressRepository.findById(addressID).orElse(null);
 		return address;
 	}

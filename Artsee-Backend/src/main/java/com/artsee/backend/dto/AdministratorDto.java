@@ -1,33 +1,29 @@
 package com.artsee.backend.dto;
 
-public class ArtistDto {
-
-	private String artistID;
+public class AdministratorDto {
+	
+	private String administratorID;
 	private String email;
 	private String password;
 	private String firstName;
 	private String lastName;
 	private String phoneNumber;
-	private String artistDescription;
-	private Float rating;
 	
-	public ArtistDto() {
+	public AdministratorDto() {
 		
 	}
 	
-	public ArtistDto(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription, Float rating) {
-		this.artistID = artistID;
+	public AdministratorDto(String administratorID, String email, String password, String firstName, String lastName, String phoneNumber) {
+		this.administratorID = administratorID;
 		this.email = email;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
-		this.artistDescription = artistDescription;
-		this.rating = rating;
 	}
 	
-	public String getArtistID() {
-		return artistID;
+	public String getAdministratorID() {
+		return administratorID;
 	}
 	
 	public String getEmail() {
@@ -50,12 +46,5 @@ public class ArtistDto {
 		return phoneNumber;
 	}
 	
-	public Float getRating() {
-		return rating;
-	}
-	
-	public String getArtistDescription() {
-		return artistDescription;
-	}
 	
 }
