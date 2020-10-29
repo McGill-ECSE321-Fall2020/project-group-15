@@ -19,11 +19,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Optional;
 
+import org.apache.tomcat.jni.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
@@ -47,6 +49,10 @@ public class TestArtistService {
 
     private static final String ARTIST_ID = "1234";
     private static final String EMAIL = "artist@gmail.com";
+
+    private static final String ARTIST_ID2 = "37292";
+    private static final String EMAIL2 = "otherArtist@gmail.com";
+
     private static final String PASSWORD = "password";
     private static final String FIRSTNAME = "John";
     private static final String LASTNAME = "Doe";
@@ -69,12 +75,31 @@ public class TestArtistService {
             if(invocation.getArgument(0).equals(ARTIST_ID)) {
                 return Optional.of(TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION));
             } else {
+                return Optional.empty();
+            }
+        });
+
+
+        lenient().when(userDao.findById(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
+            if(invocation.getArgument(0).equals(ARTIST_ID)) {
+                EndUser user = Mockito.mock(EndUser.class, Mockito.CALLS_REAL_METHODS);
+                user = TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+                return Optional.of(user);
+            } else {
+                return Optional.empty();
+            }
+        });
+
+        lenient().when(userDao.findByEmail(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
+            if(invocation.getArgument(0).equals(EMAIL)) {
+                return TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+            } else {
                 return null;
             }
         });
 
 
-        when(artistDao.save(any(Artist.class))).thenAnswer((InvocationOnMock invocation) -> {
+        lenient().when(artistDao.save(any(Artist.class))).thenAnswer((InvocationOnMock invocation) -> {
             return TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
 
         });
@@ -87,14 +112,14 @@ public class TestArtistService {
         Artist artist = null;
 
         try {
-            artist = service.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+            artist = service.createArtist(ARTIST_ID2, EMAIL2, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
         } catch (Exception e) {
             fail(e.getMessage());
         }
 
 
-        assertEquals(ARTIST_ID, artist.getUserID());
-        assertEquals(EMAIL, artist.getEmail());
+        assertEquals(ARTIST_ID2, artist.getUserID());
+        assertEquals(EMAIL2, artist.getEmail());
         assertEquals(PASSWORD, artist.getPassword());
         assertEquals(FIRSTNAME, artist.getFirstName());
         assertEquals(LASTNAME, artist.getLastName());
@@ -112,7 +137,7 @@ public class TestArtistService {
         String error = null;
 
         try {
-            service.createArtist("", EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+            service.createArtist("", EMAIL2, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -126,7 +151,7 @@ public class TestArtistService {
         error = null;
 
         try {
-            service.createArtist(null, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+            service.createArtist(null, EMAIL2, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -144,7 +169,7 @@ public class TestArtistService {
         String error = null;
 
         try {
-            service.createArtist(ARTIST_ID, "", PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+            service.createArtist(ARTIST_ID2, "", PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -158,7 +183,7 @@ public class TestArtistService {
         error = null;
 
         try {
-            service.createArtist(ARTIST_ID, null, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+            service.createArtist(ARTIST_ID2, null, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -176,7 +201,7 @@ public class TestArtistService {
         String error = null;
 
         try {
-            service.createArtist(ARTIST_ID, EMAIL, "", FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+            service.createArtist(ARTIST_ID2, EMAIL2, "", FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -190,7 +215,7 @@ public class TestArtistService {
         error = null;
 
         try {
-            service.createArtist(ARTIST_ID, EMAIL, null, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+            service.createArtist(ARTIST_ID2, EMAIL2, null, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -208,7 +233,7 @@ public class TestArtistService {
         String error = null;
 
         try {
-            service.createArtist(ARTIST_ID, EMAIL, PASSWORD, "", LASTNAME, PHONE_NUM, DESCRIPTION);
+            service.createArtist(ARTIST_ID2, EMAIL2, PASSWORD, "", LASTNAME, PHONE_NUM, DESCRIPTION);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -222,7 +247,7 @@ public class TestArtistService {
         error = null;
 
         try {
-            service.createArtist(ARTIST_ID, EMAIL, PASSWORD, null, LASTNAME, PHONE_NUM, DESCRIPTION);
+            service.createArtist(ARTIST_ID2, EMAIL2, PASSWORD, null, LASTNAME, PHONE_NUM, DESCRIPTION);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -240,7 +265,7 @@ public class TestArtistService {
         String error = null;
 
         try {
-            service.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, "", PHONE_NUM, DESCRIPTION);
+            service.createArtist(ARTIST_ID2, EMAIL2, PASSWORD, FIRSTNAME, "", PHONE_NUM, DESCRIPTION);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -254,7 +279,7 @@ public class TestArtistService {
         error = null;
 
         try {
-            service.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, null, PHONE_NUM, DESCRIPTION);
+            service.createArtist(ARTIST_ID2, EMAIL2, PASSWORD, FIRSTNAME, null, PHONE_NUM, DESCRIPTION);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -277,6 +302,29 @@ public class TestArtistService {
         }
 
         assertEquals("Could not find an artist with email hello@gmail.com", error);
+    }
+
+    @Test
+    public void testDuplicateArtist() {
+        String error = null;
+
+        try {
+            service.createArtist(ARTIST_ID, EMAIL2, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+
+        assertEquals("Username already exists.", error);
+
+        error = null;
+
+        try {
+            service.createArtist(ARTIST_ID2, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+
+        assertEquals("Email already exists.", error);
     }
 
 
