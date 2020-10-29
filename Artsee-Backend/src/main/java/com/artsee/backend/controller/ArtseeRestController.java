@@ -147,26 +147,62 @@ public class ArtseeRestController {
         return convertToDto(a);
     }
     
-    @GetMapping(value = {"/artworks/{artist_id}", "/artworks/{artist_id}/"})
-    public List<ArtworkDto> getArtworksByArtist(@PathVariable("id") String id) throws IllegalArgumentException {
-    	Artist artist = service.getArtistByID(id);
-    	return service.getArtworksByArtist(artist).stream().map(a -> convertToDto(a)).collect(Collectors.toList());
+    @GetMapping(value = {"/{artist_id}/artworks", "/{artist_id}/artworks/"})
+    public List<ArtworkDto> getArtworksByArtist(@PathVariable("id") String id) {
+    	try {
+    		Artist artist = service.getArtistByID(id);
+    		return service.getArtworksByArtist(artist).stream().map(a -> convertToDto(a)).collect(Collectors.toList());
+    	}
+    	catch(Exception e) {
+    		return new ArrayList<>();
+    	}
+    	
     }
     
     
-	@PostMapping(value = { "/artworks/{artist_id}", "/artworks/{artist_id}/" })
+	@PostMapping(value = { "/{artist_id}/artworks", "/{artist_id}/artworks/" })
     public ArtworkDto createArtwork(@PathVariable("artist_id") String id, @RequestParam(name ="name") String name,
                                     @RequestParam(name="description") String description, @RequestParam(name="price") Integer price,
-                                    @RequestParam(name="numInStock") Integer numInStock, @RequestParam(name="date") Date date)
-            throws IllegalArgumentException {
-
-	    Artist a = service.getArtistByID(id);
-	    Artwork artwork = service.createArtwork(name, price, description, date, numInStock, a);
-	    return convertToDto(artwork);
+                                    @RequestParam(name="numInStock") Integer numInStock, @RequestParam(name="date") Date date){
+		try {
+			Artist a = service.getArtistByID(id);
+			Artwork artwork = service.createArtwork(name, price, description, date, numInStock, a);
+		    return convertToDto(artwork);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	    
+	    
     }
 	
+	@PutMapping(value = { "/{artist_id}/artworks/{artwork_id}", "{artist_id}/artworks/{artwork_id}/" })
+	public ArtworkDto updateArtwork(@PathVariable("artist_id") String artist_id, @PathVariable("artwork_id") String id,
+									@RequestParam(name="name") String name, @RequestParam(name="description") String description,
+									@RequestParam(name="price") Integer price, @RequestParam(name="numInStock") Integer numInStock, 
+									@RequestParam Date date) {
+		try {
+			Artist a = service.getArtistByID(artist_id);
+			Artwork artwork = service.getArtworkById(Integer.parseInt(id));
+			service.updateArtwork(artwork, name, price, date, description, numInStock, a);
+			return convertToDto(artwork);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
 	
-	
+	@DeleteMapping(value = { "/artworks/{artwork_id}", "/artworks/{artwork_id}/"})
+	public ArtworkDto deleteArtwork(@PathVariable("artwork_id") String id) {
+		try {
+			Artwork a = service.deleteArtwork(Integer.parseInt(id));
+			return convertToDto(a);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
 	
 	// Convert to Dto Methods _______________________
 	
