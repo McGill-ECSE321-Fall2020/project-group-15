@@ -41,23 +41,38 @@ public class ArtseeService {
 	@Autowired
 	private EndUserRepository endUserRepository;
 	
-	// End User Service Layer ___________________________________________________________________________________
-	
-	public EndUser getUser(String userID) {
+	@Transactional
+	public EndUser signIn(String userID, String password) throws IllegalArgumentException {
 		EndUser user = endUserRepository.findById(userID).orElse(null);
+		if(user == null) {
+			throw new IllegalArgumentException("Username does not exits");
+		} else if(!user.getPassword().equals(password)) {
+			throw new IllegalArgumentException("Password is incorrect");
+		}
 		return user;
 	}
 	
+	// End User Service Layer ___________________________________________________________________________________
+	
+	@Transactional
+	public EndUser getUser(String userID) {
+		EndUser user = endUserRepository.findById(userID).orElse(null);
+		
+		return user;
+	}
+	
+	@Transactional
 	public List<EndUser> getAllUsers() {
 		return toList(endUserRepository.findAll());
 	}
 	
+	@Transactional
 	public String deleteUser(String userID) {
 		endUserRepository.deleteById(userID);
 		return userID;
 	}
 	
-
+	@Transactional
 	public EndUser updateUser(String userID, String email, String password, String firstName, String lastName, String phoneNumber){
 		EndUser user = endUserRepository.findById(userID).orElse(null);
 		
@@ -75,6 +90,7 @@ public class ArtseeService {
 	
 	// Customer Service Layer ___________________________________________________________________________________
 	
+	@Transactional
 	public Customer createCustomer(String customerID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) {
 		Customer customer= new Customer();
 		customer.setUserID(customerID);
@@ -88,25 +104,30 @@ public class ArtseeService {
 		return customer;
 	}
 	
+	@Transactional
 	public Customer getCustomerByID(String customerID) {
 		Customer customer = customerRepository.findById(customerID).orElse(null);
 		return customer;
 	}
 	
+	@Transactional
 	public Customer getCustomerByEmail(String email) {
 		Customer customer = customerRepository.findByEmail(email);
 		return customer;
 	}
 	
+	@Transactional
 	public List<Customer> getAllCustomers() {
 		return toList(customerRepository.findAll());
 	}
 	
+	@Transactional
 	public String deleteCustomer(String customerID) {
 		customerRepository.deleteById(customerID);
 		return customerID;
 	}
 	
+	@Transactional
 	public Customer updateCustomer(String customerID, String email, String password, String firstName, String lastName, String phoneNumber, Address address){
 		Customer customer = customerRepository.findById(customerID).orElse(null);
 		
@@ -125,7 +146,7 @@ public class ArtseeService {
 
 	// Artist Service Layer ___________________________________________________________________________________
 
-	
+	@Transactional
 	public Artist createArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber,  String artistDescription){
 		Artist artist= new Artist();
 		artist.setUserID(artistID);
@@ -139,25 +160,30 @@ public class ArtseeService {
 		return artist;
 	}
 	
+	@Transactional
 	public Artist getArtistByID(String artistID) {
 		Artist artist = artistRepository.findById(artistID).orElse(null);
 		return artist;
 	}
 	
+	@Transactional
 	public Artist getArtistByEmail(String email) {
 		Artist artist = artistRepository.findByEmail(email);
 		return artist;
 	}
 	
+	@Transactional
 	public List<Artist> getAllArtists() {
 		return toList(artistRepository.findAll());
 	}
 	
+	@Transactional
 	public String deleteArtist(String artistID) {
 		artistRepository.deleteById(artistID);
 		return artistID;
 	}
 	
+	@Transactional
 	public Float getArtistRating(String artistID) {
 		Artist artist = artistRepository.findById(artistID).orElse(null);
 		Float totalRatings = 0f;
@@ -171,6 +197,7 @@ public class ArtseeService {
 		return totalRatings;
 	}
 	
+	@Transactional
 	public Artist updateArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription){
 		Artist artist = artistRepository.findById(artistID).orElse(null);
 		
@@ -190,6 +217,7 @@ public class ArtseeService {
 	
 	// Admin Service Layer ___________________________________________________________________________________
 
+	@Transactional
 	public Administrator createAdministrator(String administratorID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) {
 		Administrator administrator = new Administrator();
 		administrator.setUserID(administratorID);
@@ -202,25 +230,30 @@ public class ArtseeService {
 		return administrator;
 	}
 	
+	@Transactional
 	public Administrator getAdministratorByID(String administratorID) {
 		Administrator administrator = administratorRepository.findById(administratorID).orElse(null);
 		return administrator;
 	}
 	
+	@Transactional
 	public Administrator getAdministratorByEmail(String email) {
 		Administrator administrator = administratorRepository.findByEmail(email);
 		return administrator;
 	}
 	
+	@Transactional
 	public List<Administrator> getAllAdministrators() {
 		return toList(administratorRepository.findAll());
 	}
 	
+	@Transactional
 	public String deleteAdministrator(String administratorID) {
 		administratorRepository.deleteById(administratorID);
 		return administratorID;
 	}
 	
+	@Transactional
 	public Administrator updateAdministrator(String administratorID, String email, String password, String firstName, String lastName, String phoneNumber){
 		Administrator administrator = administratorRepository.findById(administratorID).orElse(null);
 		
