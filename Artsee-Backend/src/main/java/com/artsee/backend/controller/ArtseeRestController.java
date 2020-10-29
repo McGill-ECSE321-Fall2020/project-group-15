@@ -1,12 +1,6 @@
 package com.artsee.backend.controller;
 
 import com.artsee.backend.dao.EndUserRepository;
-import com.artsee.backend.dto.AddressDto;
-import com.artsee.backend.dto.AdministratorDto;
-import com.artsee.backend.dto.ArtistDto;
-import com.artsee.backend.dto.CustomerDto;
-import com.artsee.backend.dto.EndUserDto;
-import com.artsee.backend.dto.SignInDto;
 import com.artsee.backend.model.Address;
 import com.artsee.backend.model.Administrator;
 import com.artsee.backend.model.Artist;
@@ -245,7 +239,32 @@ public class ArtseeRestController {
 		return convertToDto(review);
 	}
 	
+	// REST api for Artwork  __________________________________________________________
 	
+	@GetMapping(value = { "/artworks", "/artworks/" })
+	public List<ArtworkDto> getAllArtworks(){
+		return service.getAllArtworks().stream().map(u -> convertToDto(u)).collect(Collectors.toList());
+	}
+	
+	@PostMapping(value = { "/artworks" }, consumes = "application/json", produces = "application/json")
+	public ArtworkDto createArtwork(@RequestBody ArtworkDto artworkDto) {
+		Artist artist = service.getArtistByID(artworkDto.getArtist().getArtistID());
+		Artwork artwork = service.createArtwork(artworkDto.getName(), artworkDto.getPrice(), artworkDto.getDescription(), artworkDto.getDateOfCreation(), artworkDto.getNumInStock(), artist);
+		return convertToDto(artwork);
+	}
+	
+	@PutMapping(value = { "/artworks" }, consumes = "application/json", produces = "application/json")
+	public ArtworkDto updateArtwork(@RequestBody ArtworkDto artworkDto) {
+		Artist artist = service.getArtistByID(artworkDto.getArtist().getArtistID());
+		Artwork artwork = service.createArtwork(artworkDto.getName(), artworkDto.getPrice(), artworkDto.getDescription(), artworkDto.getDateOfCreation(), artworkDto.getNumInStock(), artist);
+		return convertToDto(artwork);
+	}
+	
+	@DeleteMapping(value = { "/artworks/{id}" })
+	public ArtworkDto deleteArtwork(@PathVariable("id") Integer id) {
+		Artwork artwork = service.deleteArtwork(id);
+		return convertToDto(artwork);
+	}
 	
 	
 }
