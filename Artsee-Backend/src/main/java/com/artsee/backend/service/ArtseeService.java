@@ -1,5 +1,7 @@
 package com.artsee.backend.service;
 
+import com.artsee.backend.dao.*;
+import com.artsee.backend.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,19 +10,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import com.artsee.backend.model.Address;
-import com.artsee.backend.model.Administrator;
-import com.artsee.backend.model.Artist;
-import com.artsee.backend.model.Artwork;
-import com.artsee.backend.model.ArtworkOrder;
-import com.artsee.backend.model.Customer;
-import com.artsee.backend.model.EndUser;
-import com.artsee.backend.model.Review;
-import com.artsee.backend.model.DeliveryMethod;
-import com.artsee.backend.model.OrderStatus;
-
-import com.artsee.backend.dao.*;
 
 @Service
 public class ArtseeService {
@@ -237,7 +226,7 @@ public class ArtseeService {
 		return administrator;
 	}
 	
-	// Review Service Layer ___________________________________________________________________________________
+	// Artwork Service Layer ___________________________________________________________________________________
 	
 	@Transactional
     public Artwork createArtwork(String name, int price, String description, Date dateCreated, int numInStock, Artist artist) {
@@ -295,7 +284,6 @@ public class ArtseeService {
 	@Transactional
 	public List<Artwork> getArtworksByArtist(Artist artist) {
 		String error = "";
-//		Artist artist = artistRepository.findById(artistId).orElse(null);
 
 		List<Artwork> artworksByArtist = new ArrayList<>();
 		if (artist == null)
@@ -391,6 +379,8 @@ public class ArtseeService {
 		
 		return deletedArtwork;
 	}
+	
+	// Review Service Layer ___________________________________________________________________________________
 
 	public Review createReview(Integer rating, String comment, Boolean wouldRecommend, Customer customer, Artist artist) {
 		Review review = new Review();
