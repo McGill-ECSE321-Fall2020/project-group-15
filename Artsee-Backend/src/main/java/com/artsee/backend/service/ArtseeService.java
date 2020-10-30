@@ -98,19 +98,19 @@ public class ArtseeService {
 			e += "Email already exists. ";
 		}
 		
-		if ((password==null) ||(isBlank(password))) {
+		if (nonEmptyString(password)) {
 			e += "Must enter a password. ";
 		}
 		
-		if ((firstName==null) ||(isBlank(firstName))) {
+		if (nonEmptyString(firstName)) {
 			e+="Must enter a first name. ";
 		}
 		
-		if ((lastName==null) ||(isBlank(lastName))) {
+		if (nonEmptyString(lastName)) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!isBlank(e)) {
+		if (!nonEmptyString(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -141,19 +141,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if ((password==null) ||(isBlank(password))) {
+		if (nonEmptyString(password)) {
 			e += "Must enter a password. ";
 		}
 		
-		if ((firstName==null) ||(isBlank(firstName))) {
+		if (nonEmptyString(firstName)) {
 			e+="Must enter a first name. ";
 		}
 		
-		if ((lastName==null) ||(isBlank(lastName))) {
+		if (nonEmptyString(lastName)) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!isBlank(e)) {
+		if (!nonEmptyString(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -220,19 +220,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if ((password==null) ||(isBlank(password))) {
+		if (nonEmptyString(password)) {
 			e += "Must enter a password. ";
 		}
 		
-		if ((firstName==null) ||(isBlank(firstName))) {
+		if (nonEmptyString(firstName)) {
 			e+="Must enter a first name. ";
 		}
 		
-		if ((lastName==null) ||(isBlank(lastName))) {
+		if (nonEmptyString(lastName)) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!isBlank(e)) {
+		if (!nonEmptyString(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -263,19 +263,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if ((password==null) ||(isBlank(password))) {
+		if (nonEmptyString(password)) {
 			e += "Must enter a password. ";
 		}
 		
-		if ((firstName==null) ||(isBlank(firstName))) {
+		if (nonEmptyString(firstName)) {
 			e+="Must enter a first name. ";
 		}
 		
-		if ((lastName==null) ||(isBlank(lastName))) {
+		if (nonEmptyString(lastName)) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!isBlank(e)) {
+		if (!nonEmptyString(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -362,19 +362,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if ((password==null) ||(isBlank(password))) {
+		if (nonEmptyString(password)) {
 			e += "Must enter a password. ";
 		}
 		
-		if ((firstName==null) ||(isBlank(firstName))) {
+		if (nonEmptyString(firstName)) {
 			e+="Must enter a first name. ";
 		}
 		
-		if ((lastName==null) ||(isBlank(lastName))) {
+		if (nonEmptyString(lastName)) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!isBlank(e)) {
+		if (!nonEmptyString(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -406,19 +406,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if ((password==null) ||(isBlank(password))) {
+		if (nonEmptyString(password)) {
 			e += "Must enter a password. ";
 		}
 		
-		if ((firstName==null) ||(isBlank(firstName))) {
+		if (nonEmptyString(firstName)) {
 			e+="Must enter a first name. ";
 		}
 		
-		if ((lastName==null) ||(isBlank(lastName))) {
+		if (nonEmptyString(lastName)) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!isBlank(e)) {
+		if (!nonEmptyString(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -484,19 +484,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if ((password==null) ||(isBlank(password))) {
+		if (nonEmptyString(password)) {
 			e += "Must enter a password. ";
 		}
 		
-		if ((firstName==null) ||(isBlank(firstName))) {
+		if (nonEmptyString(firstName)) {
 			e+="Must enter a first name. ";
 		}
 		
-		if ((lastName==null) ||(isBlank(lastName))) {
+		if (nonEmptyString(lastName)) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!isBlank(e)) {
+		if (!nonEmptyString(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 
@@ -913,19 +913,19 @@ public class ArtseeService {
 	@Transactional
 	public Address createAddress(String addressLine1, String addressLine2, String city, String province, String postalCode, String country) throws IllegalArgumentException {
 		String e = "";
-		if(isBlank(addressLine1)) {
+		if(nonEmptyString(addressLine1)) {
 			e += "Address cannot be empty. ";
 		}
-		if(isBlank(city)) {
+		if(nonEmptyString(city)) {
 			e += "City cannot be empty. ";
 		}
-		if(isBlank(province)) {
+		if(nonEmptyString(province)) {
 			e += "Province cannot be empty. ";
 		}
-		if(isBlank(postalCode)) {
+		if(nonEmptyString(postalCode)) {
 			e += "Postal code cannot be empty. ";
 		}
-		if(isBlank(country)) {
+		if(nonEmptyString(country)) {
 			e += "Country cannot be empty.";
 		}
 		
@@ -972,19 +972,19 @@ public class ArtseeService {
 		}
 		
 		String e = "";
-		if(isBlank(addressLine1)) {
+		if(nonEmptyString(addressLine1)) {
 			e += "Address cannot be empty. ";
 		}
-		if(isBlank(city)) {
+		if(nonEmptyString(city)) {
 			e += "City cannot be empty. ";
 		}
-		if(isBlank(province)) {
+		if(nonEmptyString(province)) {
 			e += "Province cannot be empty. ";
 		}
-		if(isBlank(postalCode)) {
+		if(nonEmptyString(postalCode)) {
 			e += "Postal code cannot be empty. ";
 		}
-		if(isBlank(country)) {
+		if(nonEmptyString(country)) {
 			e += "Country cannot be empty.";
 		}
 		
@@ -1019,8 +1019,8 @@ public class ArtseeService {
 		return resultList;
 	}
 	
-	private boolean isBlank(String string) {
-		return string.trim().isEmpty();
+	private boolean nonEmptyString(String string) {
+		return (string==null)||(string.trim().isEmpty());
 	}
 	
 }
