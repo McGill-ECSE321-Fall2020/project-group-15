@@ -298,36 +298,6 @@ public class ArtseeRestController {
 		}
 		return artworkList;
 	}
-	
-	
-//	@GetMapping(value = { "/artworks", "/artworks/" })
-//    public List<ArtworkDto> getAllArtworks() {
-//        return service.getAllArtworks().stream().map(a -> convertToDto(a)).collect(Collectors.toList());
-//    }
-//
-//    @GetMapping(value = { "/artworks/{id}", "/artworks/{id}/" })
-//    public ArtworkDto getArtworkById(@PathVariable("id") int id) throws IllegalArgumentException {
-//        return convertToDto(service.getArtworkById(id));
-//    }
-
-//    @GetMapping(value = { "/artworks/{artist_id}", "/artworks/{artist_id}/" })
-//    public ArtworkDto getArtworkById(@PathVariable("id") String id) throws IllegalArgumentException {
-//    	Artist a = getArtistById(id);
-//        return convertToDto(service.getArtworksByArtist(a));
-//    }
-	
-
-//
-//    private ArtworkDto convertToDto(Artwork artwork, Artist artist) {
-//        ArtistDto aDto = convertToDto()
-//    }
-
-//    private ArtistDto convertToDto(Artist a) {
-//	    if (a == null) {
-//	        throw new IllegalArgumentException("There is no such artist! ");
-//        }
-//	    ArtistDto artistDto = new ArtistDto()
-//    }
 
 	// REST api for Review  __________________________________________________________
 	
