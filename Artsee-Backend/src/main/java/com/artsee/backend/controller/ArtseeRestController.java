@@ -267,7 +267,7 @@ public class ArtseeRestController {
 		return convertToDto(artworkOrder);
 	}
 	
-	@PutMapping(value = { "/artwork" }, consumes = "application/json", produces = "application/json")
+	@PutMapping(value = { "/artworkOrder" }, consumes = "application/json", produces = "application/json")
 	public ArtworkOrderDto updateArtworkOrder(@RequestBody ArtworkOrderDto artworkOrderDto) {
 		Customer customer = service.getCustomerByID(artworkOrderDto.getCustomer().getUserID());
 		List<Artwork> artworks = new ArrayList<>();
