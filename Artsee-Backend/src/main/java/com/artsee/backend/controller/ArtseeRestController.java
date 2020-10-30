@@ -1,17 +1,28 @@
 package com.artsee.backend.controller;
 
-import com.artsee.backend.dao.EndUserRepository;
 import com.artsee.backend.dto.AddressDto;
 import com.artsee.backend.dto.AdministratorDto;
 import com.artsee.backend.dto.ArtistDto;
+
+import com.artsee.backend.dto.ArtworkDto;
+import com.artsee.backend.dto.ArtworkOrderDto;
 import com.artsee.backend.dto.CustomerDto;
+import com.artsee.backend.dto.DeliveryMethodDto;
 import com.artsee.backend.dto.EndUserDto;
+import com.artsee.backend.dto.OrderStatusDto;
+import com.artsee.backend.dto.ReviewDto;
+
 import com.artsee.backend.dto.SignInDto;
 import com.artsee.backend.model.Address;
 import com.artsee.backend.model.Administrator;
 import com.artsee.backend.model.Artist;
+import com.artsee.backend.model.Artwork;
+import com.artsee.backend.model.ArtworkOrder;
 import com.artsee.backend.model.Customer;
+import com.artsee.backend.model.DeliveryMethod;
 import com.artsee.backend.model.EndUser;
+import com.artsee.backend.model.OrderStatus;
+import com.artsee.backend.model.Review;
 import com.artsee.backend.service.ArtseeService;
 
 import java.util.List;
@@ -26,18 +37,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.artsee.backend.model.*;
-import com.artsee.backend.dto.*;
+
+
 
 @CrossOrigin(origins = "*")
 @RestController
