@@ -13,6 +13,7 @@ import com.artsee.backend.dto.OrderStatusDto;
 import com.artsee.backend.dto.ReviewDto;
 
 import com.artsee.backend.dto.SignInDto;
+
 import com.artsee.backend.model.Address;
 import com.artsee.backend.model.Administrator;
 import com.artsee.backend.model.Artist;
@@ -23,10 +24,12 @@ import com.artsee.backend.model.DeliveryMethod;
 import com.artsee.backend.model.EndUser;
 import com.artsee.backend.model.OrderStatus;
 import com.artsee.backend.model.Review;
+
 import com.artsee.backend.service.ArtseeService;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -194,14 +197,13 @@ public class ArtseeRestController {
 	public AdministratorDto deleteAdministrator(@PathVariable("userID") String userID){
 		return convertToDto(service.deleteAdministrator(userID));
 	}
-	
+
 	@PutMapping(value = {"/administrators/"}, consumes = "application/json", produces = "application/json")
 	public AdministratorDto updateAdministrator(@RequestBody AdministratorDto adminDto) {
 		Administrator admin = service.updateAdministrator(adminDto.getUserID(), adminDto.getEmail(), adminDto.getPassword(), adminDto.getFirstName(), adminDto.getLastName(), adminDto.getPhoneNumber());
 		return convertToDto(admin);
 	}
-	
-	
+
 	// REST api for Review  __________________________________________________________
 	
 	@GetMapping(value = { "/reviews", "/reviews/" })
