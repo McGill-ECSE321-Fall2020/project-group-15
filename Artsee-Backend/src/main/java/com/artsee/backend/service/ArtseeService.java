@@ -90,6 +90,14 @@ public class ArtseeService {
 		EndUser user = endUserRepository.findById(userID).orElse(null);
 		String e = "";
 		
+		if (nonValidString(userID)) {
+			e += "Must enter an ID. ";
+		}
+		
+		if (nonValidString(email)) {
+			e += "Must enter an email. ";
+		}
+		
 		if (user == null) {
 			e += "Username cannot be found.";
 		}
@@ -98,19 +106,19 @@ public class ArtseeService {
 			e += "Email already exists. ";
 		}
 		
-		if ((password==null) ||(isBlank(password))) {
+		if (nonValidString(password)) {
 			e += "Must enter a password. ";
 		}
 		
-		if ((firstName==null) ||(isBlank(firstName))) {
+		if (nonValidString(firstName)) {
 			e+="Must enter a first name. ";
 		}
 		
-		if ((lastName==null) ||(isBlank(lastName))) {
+		if (nonValidString(lastName)) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!isBlank(e)) {
+		if (!nonValidString(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -133,6 +141,14 @@ public class ArtseeService {
 		Customer customer= new Customer();
 		String e = "";
 		
+		if (nonValidString(userID)) {
+			e += "Must enter an ID. ";
+		}
+		
+		if (nonValidString(email)) {
+			e += "Must enter an email. ";
+		}
+		
 		if (endUserRepository.findById(userID).orElse(null) != null) {
 			e+="Username already exists. ";
 		}
@@ -141,19 +157,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if ((password==null) ||(isBlank(password))) {
+		if (nonValidString(password)) {
 			e += "Must enter a password. ";
 		}
 		
-		if ((firstName==null) ||(isBlank(firstName))) {
+		if (nonValidString(firstName)) {
 			e+="Must enter a first name. ";
 		}
 		
-		if ((lastName==null) ||(isBlank(lastName))) {
+		if (nonValidString(lastName)) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!isBlank(e)) {
+		if (!nonValidString(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -212,6 +228,14 @@ public class ArtseeService {
 		Customer customer = customerRepository.findById(userID).orElse(null);
 		String e="";
 		
+		if (nonValidString(userID)) {
+			e += "Must enter an ID. ";
+		}
+		
+		if (nonValidString(email)) {
+			e += "Must enter an email. ";
+		}
+		
 		if (customer == null) {
 			e += "Username cannot be found.";
 		}
@@ -220,19 +244,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if ((password==null) ||(isBlank(password))) {
+		if (nonValidString(password)) {
 			e += "Must enter a password. ";
 		}
 		
-		if ((firstName==null) ||(isBlank(firstName))) {
+		if (nonValidString(firstName)) {
 			e+="Must enter a first name. ";
 		}
 		
-		if ((lastName==null) ||(isBlank(lastName))) {
+		if (nonValidString(lastName)) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!isBlank(e)) {
+		if (!nonValidString(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -255,6 +279,14 @@ public class ArtseeService {
 		Artist artist= new Artist();
 		String e = "";
 		
+		if (nonValidString(userID)) {
+			e += "Must enter an ID. ";
+		}
+		
+		if (nonValidString(email)) {
+			e += "Must enter an email. ";
+		}
+		
 		if (endUserRepository.findById(userID).orElse(null) != null) {
 			e+="Username already exists. ";
 		}
@@ -263,19 +295,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if ((password==null) ||(isBlank(password))) {
+		if (nonValidString(password)) {
 			e += "Must enter a password. ";
 		}
 		
-		if ((firstName==null) ||(isBlank(firstName))) {
+		if (nonValidString(firstName)) {
 			e+="Must enter a first name. ";
 		}
 		
-		if ((lastName==null) ||(isBlank(lastName))) {
+		if (nonValidString(lastName)) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!isBlank(e)) {
+		if (!nonValidString(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -354,6 +386,14 @@ public class ArtseeService {
 		Artist artist = artistRepository.findById(userID).orElse(null);
 		String e = "";
 		
+		if (nonValidString(userID)) {
+			e += "Must enter an ID. ";
+		}
+		
+		if (nonValidString(email)) {
+			e += "Must enter an email. ";
+		}
+		
 		if (endUserRepository.findById(userID).orElse(null) != null) {
 			e+="Username already exists. ";
 		}
@@ -362,19 +402,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if ((password==null) ||(isBlank(password))) {
+		if (nonValidString(password)) {
 			e += "Must enter a password. ";
 		}
 		
-		if ((firstName==null) ||(isBlank(firstName))) {
+		if (nonValidString(firstName)) {
 			e+="Must enter a first name. ";
 		}
 		
-		if ((lastName==null) ||(isBlank(lastName))) {
+		if (nonValidString(lastName)) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!isBlank(e)) {
+		if (!nonValidString(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -397,28 +437,36 @@ public class ArtseeService {
 	public Administrator createAdministrator(String userID, String email, String password, String firstName, String lastName, String phoneNumber) throws IllegalArgumentException{
 		Administrator administrator = new Administrator();
 		String e = "";
+				
+		if (nonValidString(userID)) {
+			e += "Must enter an ID. ";
+		}
 		
+		if (nonValidString(email)) {
+			e += "Must enter an email. ";
+		}
+			
 		if (endUserRepository.findById(userID).orElse(null) != null) {
 			e+="Username already exists. ";
 		}
 		
 		if (endUserRepository.findByEmail(email) != null) {
-			e+="Email already exists. ";
+			e+= "Email already exists. ";
 		}
 		
-		if ((password==null) ||(isBlank(password))) {
+		if (nonValidString(password)) {
 			e += "Must enter a password. ";
 		}
 		
-		if ((firstName==null) ||(isBlank(firstName))) {
+		if (nonValidString(firstName)) {
 			e+="Must enter a first name. ";
 		}
 		
-		if ((lastName==null) ||(isBlank(lastName))) {
+		if (nonValidString(lastName)) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!isBlank(e)) {
+		if (!nonValidString(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
@@ -476,6 +524,14 @@ public class ArtseeService {
 		Administrator administrator = administratorRepository.findById(userID).orElse(null);
 		String e = "";
 		
+		if (nonValidString(userID)) {
+			e += "Must enter an ID. ";
+		}
+		
+		if (nonValidString(email)) {
+			e += "Must enter an email. ";
+		}
+		
 		if (endUserRepository.findById(userID).orElse(null) != null) {
 			e+="Username already exists. ";
 		}
@@ -484,19 +540,19 @@ public class ArtseeService {
 			e+="Email already exists. ";
 		}
 		
-		if ((password==null) ||(isBlank(password))) {
+		if (nonValidString(password)) {
 			e += "Must enter a password. ";
 		}
 		
-		if ((firstName==null) ||(isBlank(firstName))) {
+		if (nonValidString(firstName)) {
 			e+="Must enter a first name. ";
 		}
 		
-		if ((lastName==null) ||(isBlank(lastName))) {
+		if (nonValidString(lastName)) {
 			e+= "Must enter a last name. ";
 		}
 		
-		if (!isBlank(e)) {
+		if (!nonValidString(e)) {
 			throw new IllegalArgumentException(e.trim());
 		}
 
@@ -516,13 +572,13 @@ public class ArtseeService {
 	@Transactional
     public Artwork createArtwork(String name, int price, String description, Date dateCreated, int numInStock, Artist artist) {
 		String error = "";
-        if (name == null || name.trim().length() == 0) {
+        if (nonValidString(name)) {
             error = error + "Artwork name cannot be empty! ";
         }
         if (price < 0) {
         	error = error + "Artwork price cannot be less than 0!";
         }
-        if (description == null || description.trim().length() == 0) {
+        if (nonValidString(description)){
             error = error + "Artwork description cannot be empty!";
         }
         if (dateCreated == null) {
@@ -598,7 +654,7 @@ public class ArtseeService {
 			Date date, Integer numInStock, Artist artist) {
 		
 		String error = "";
-        if (name == null || name.trim().length() == 0) {
+        if (nonValidString(name)) {
             error = error + "Artwork name cannot be empty!";
         }
         if (description == null || description.trim().length() == 0) {
@@ -913,19 +969,19 @@ public class ArtseeService {
 	@Transactional
 	public Address createAddress(String addressLine1, String addressLine2, String city, String province, String postalCode, String country) throws IllegalArgumentException {
 		String e = "";
-		if(isBlank(addressLine1)) {
+		if(nonValidString(addressLine1)) {
 			e += "Address cannot be empty. ";
 		}
-		if(isBlank(city)) {
+		if(nonValidString(city)) {
 			e += "City cannot be empty. ";
 		}
-		if(isBlank(province)) {
+		if(nonValidString(province)) {
 			e += "Province cannot be empty. ";
 		}
-		if(isBlank(postalCode)) {
+		if(nonValidString(postalCode)) {
 			e += "Postal code cannot be empty. ";
 		}
-		if(isBlank(country)) {
+		if(nonValidString(country)) {
 			e += "Country cannot be empty.";
 		}
 		
@@ -972,19 +1028,19 @@ public class ArtseeService {
 		}
 		
 		String e = "";
-		if(isBlank(addressLine1)) {
+		if(nonValidString(addressLine1)) {
 			e += "Address cannot be empty. ";
 		}
-		if(isBlank(city)) {
+		if(nonValidString(city)) {
 			e += "City cannot be empty. ";
 		}
-		if(isBlank(province)) {
+		if(nonValidString(province)) {
 			e += "Province cannot be empty. ";
 		}
-		if(isBlank(postalCode)) {
+		if(nonValidString(postalCode)) {
 			e += "Postal code cannot be empty. ";
 		}
-		if(isBlank(country)) {
+		if(nonValidString(country)) {
 			e += "Country cannot be empty.";
 		}
 		
@@ -1019,8 +1075,8 @@ public class ArtseeService {
 		return resultList;
 	}
 	
-	private boolean isBlank(String string) {
-		return string.trim().isEmpty();
+	private boolean nonValidString(String string) {
+		return (string==null)||(string.trim().isEmpty());
 	}
 	
 }
