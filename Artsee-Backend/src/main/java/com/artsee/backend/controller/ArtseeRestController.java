@@ -61,8 +61,8 @@ public class ArtseeRestController {
 	}
 	
 	@DeleteMapping(value = {"/users/{userID}","/users/{userID}/"})
-	public EndUser deleteUser(@PathVariable("userID") String userID){
-		return service.deleteUser(userID);
+	public EndUserDto deleteUser(@PathVariable("userID") String userID){
+		return convertToDto(service.deleteUser(userID));
 	}
 	
 	@PutMapping(value = {"/users/"}, consumes = "application/json", produces = "application/json")
@@ -99,8 +99,8 @@ public class ArtseeRestController {
 	}
 	
 	@DeleteMapping(value = {"/customers/{userID}","/customers/{userID}/"})
-	public Customer deleteCustomer(@PathVariable("userID") String userID){
-		return service.deleteCustomer(userID);
+	public CustomerDto deleteCustomer(@PathVariable("userID") String userID){
+		return convertToDto(service.deleteCustomer(userID));
 	}
 	
 	@PutMapping(value = {"/customers/"}, consumes = "application/json", produces = "application/json")
@@ -137,8 +137,8 @@ public class ArtseeRestController {
 	}
 
 	@DeleteMapping(value = {"/artists/{userID}", "/artists/{userID}/"})
-	public Artist deleteArtist(@PathVariable("userID") String userID){
-		return service.deleteArtist(userID);
+	public ArtistDto deleteArtist(@PathVariable("userID") String userID){
+		return convertToDto(service.deleteArtist(userID));
 	}
 	
 	@PutMapping(value = {"/artists/"}, consumes = "application/json", produces = "application/json")
@@ -153,14 +153,38 @@ public class ArtseeRestController {
 	}
 	
 	// REST api for Administrator  __________________________________________________________
-
+	
+	@PostMapping(value = {"/administrators"}, consumes = "application/json", produces = "application/json")
+	public AdministratorDto createAdministrator(@RequestBody AdministratorDto adminDto) {
+		Administrator administrator = service.createAdministrator(adminDto.getUserID(), adminDto.getEmail(), adminDto.getPassword(), adminDto.getFirstName(), adminDto.getLastName(), adminDto.getPhoneNumber());
+		return convertToDto(administrator);
+	}
+	
+	@GetMapping(value = {"/administrators/{userID}","/administrators/{userID}/"})
+	public AdministratorDto getAdministratorByID(@PathVariable("userID") String userID){
+		return convertToDto(service.getAdministratorByID(userID));
+	}
+	
+	@GetMapping(value = {"/administrators/{email}","/administrators/{email}/"})
+	public AdministratorDto getAdministratorByEmail(@PathVariable("email") String email){
+		return convertToDto(service.getAdministratorByEmail(email));
+	}
+	
 	@GetMapping(value = {"/administrators", "/administrators/"})
 	public List<AdministratorDto> getAllAdministrators(){
 		return service.getAllAdministrators().stream().map(a -> convertToDto(a)).collect(Collectors.toList());
 	}
+
+	@DeleteMapping(value = {"/administrators/{userID}", "/administrators/{userID}/"})
+	public AdministratorDto deleteAdministrator(@PathVariable("userID") String userID){
+		return convertToDto(service.deleteAdministrator(userID));
+	}
 	
-	
-	
+	@PutMapping(value = {"/administrators/"}, consumes = "application/json", produces = "application/json")
+	public AdministratorDto updateAdministrator(@RequestBody AdministratorDto adminDto) {
+		Administrator admin = service.updateAdministrator(adminDto.getUserID(), adminDto.getEmail(), adminDto.getPassword(), adminDto.getFirstName(), adminDto.getLastName(), adminDto.getPhoneNumber());
+		return convertToDto(admin);
+	}
 	
 	// Convert to Dto Methods _______________________
 	
