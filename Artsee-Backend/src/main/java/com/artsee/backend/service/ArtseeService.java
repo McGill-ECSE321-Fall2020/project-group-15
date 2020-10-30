@@ -823,7 +823,7 @@ public class ArtseeService {
 	public ArtworkOrder updateArtworkOrder(Integer orderID,
 										   Date datePlaced, Date dateCompleted,
 										   DeliveryMethod deliveryMethod, OrderStatus orderStatus,
-										   Customer customer, Artwork artwork) throws IllegalArgumentException {
+										   Customer customer, List<Artwork> artworks) throws IllegalArgumentException {
 		ArtworkOrder order = artworkOrderRepository.findById(orderID).orElse(null);
 		if(order == null) {
 			throw new IllegalArgumentException("Artwork Order does not exist.");
@@ -851,9 +851,11 @@ public class ArtseeService {
 		
 		int totalPrice = order.getTotalPrice();
 		
-		if(artwork != null) {
-			addArtworkToOrder(orderID, artwork);
-			totalPrice += artwork.getPrice();
+		if(artworks.size() > 0) {
+			for(Artwork artwork : artworks) {
+				addArtworkToOrder(orderID, artwork);
+				totalPrice += artwork.getPrice();
+			}
 		}
 		
 		order.setTotalPrice(totalPrice);
