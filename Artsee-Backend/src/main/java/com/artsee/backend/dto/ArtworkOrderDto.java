@@ -42,11 +42,11 @@ public class ArtworkOrderDto {
 		return this.dateCompleted;
 	}
 	
-	public DeliveryMethodDto getDeliveryMethodStr() {
+	public DeliveryMethodDto getDeliveryMethod() {
 		return this.deliveryMethodDto;
 	}
 	
-	public OrderStatusDto getOrderStatusStr() {
+	public OrderStatusDto getOrderStatus() {
 		return this.orderStatusDto;
 	}
 	

@@ -24,6 +24,10 @@ public class ArtworkDto {
 		this.artist = aDto;
 	}
 	
+	public Integer getID() {
+		return this.id;
+    }
+	
 	public void setName(String value) {
 		this.name = value;
     }
