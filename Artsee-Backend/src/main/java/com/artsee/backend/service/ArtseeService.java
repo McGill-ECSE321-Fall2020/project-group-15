@@ -72,7 +72,7 @@ public class ArtseeService {
 	}
 	
 	@Transactional
-	public String deleteUser(String userID) throws IllegalArgumentException{
+	public EndUser deleteUser(String userID) throws IllegalArgumentException{
 		EndUser user = endUserRepository.findById(userID).orElse(null);
 		
 		if (user == null) {
@@ -81,7 +81,7 @@ public class ArtseeService {
 		
 		endUserRepository.delete(user);
 		
-		return userID;
+		return user;
 	}
 	
 	@Transactional
@@ -196,7 +196,7 @@ public class ArtseeService {
 	}
 	
 	@Transactional
-	public String deleteCustomer(String userID) throws IllegalArgumentException{
+	public Customer deleteCustomer(String userID) throws IllegalArgumentException{
 		Customer customer = customerRepository.findById(userID).orElse(null);
 
 		if (customer == null) {
@@ -204,7 +204,7 @@ public class ArtseeService {
 		}
 		
 		customerRepository.delete(customer);
-		return userID;
+		return customer;
 	}
 	
 	@Transactional
@@ -318,7 +318,7 @@ public class ArtseeService {
 	}
 	
 	@Transactional
-	public String deleteArtist(String userID) throws IllegalArgumentException{
+	public Artist deleteArtist(String userID) throws IllegalArgumentException{
 		Artist artist = artistRepository.findById(userID).orElse(null);
 		
 		if (artist == null) {
@@ -327,7 +327,7 @@ public class ArtseeService {
 		
 		artistRepository.delete(artist);
 		
-		return userID;
+		return artist;
 	}
 	
 	@Transactional
@@ -394,7 +394,7 @@ public class ArtseeService {
 	// Admin Service Layer ___________________________________________________________________________________
 
 	@Transactional
-	public Administrator createAdministrator(String userID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) throws IllegalArgumentException{
+	public Administrator createAdministrator(String userID, String email, String password, String firstName, String lastName, String phoneNumber) throws IllegalArgumentException{
 		Administrator administrator = new Administrator();
 		String e = "";
 		
@@ -460,7 +460,7 @@ public class ArtseeService {
 	}
 	
 	@Transactional
-	public String deleteAdministrator(String userID) throws IllegalArgumentException{
+	public Administrator deleteAdministrator(String userID) throws IllegalArgumentException{
 		Administrator administrator = administratorRepository.findById(userID).orElse(null);
 
 		if (administrator == null) {
@@ -468,7 +468,7 @@ public class ArtseeService {
 		}
 		
 		administratorRepository.deleteById(userID);
-		return userID;
+		return administrator;
 	}
 	
 	@Transactional
