@@ -345,16 +345,16 @@ public class ArtseeRestController {
 		return convertToDto(artworkOrder);
 	}
 	
-//	@PutMapping(value = { "/artwork" }, consumes = "application/json", produces = "application/json")
-//	public ArtworkOrderDto updateArtworkOrder(@RequestBody ArtworkOrderDto artworkOrderDto) {
-//		Customer customer = service.getCustomerByID(artworkOrderDto.getCustomer().getCustomerID());
-//		List<Artwork> artworks = new ArrayList<>();
-//		artworks = convertFromDto(artworkOrderDto.getArtworks());
-//		DeliveryMethod deliveryMethod = convertFromDto(artworkOrderDto.getDeliveryMethod());
-//		OrderStatus orderStatus = convertFromDto(artworkOrderDto.getOrderStatus());
-//		ArtworkOrder artworkOrder = service.updateArtworkOrder(artworkOrderDto.getOrderID(), artworkOrderDto.getDatePlaced(), artworkOrderDto.getDateCompleted(), deliveryMethod, orderStatus, customer, artworks);
-//		return convertToDto(artworkOrder);
-//	}
+	@PutMapping(value = { "/artwork" }, consumes = "application/json", produces = "application/json")
+	public ArtworkOrderDto updateArtworkOrder(@RequestBody ArtworkOrderDto artworkOrderDto) {
+		Customer customer = service.getCustomerByID(artworkOrderDto.getCustomer().getUserID());
+		List<Artwork> artworks = new ArrayList<>();
+		artworks = convertFromDto(artworkOrderDto.getArtworks());
+		DeliveryMethod deliveryMethod = convertFromDto(artworkOrderDto.getDeliveryMethod());
+		OrderStatus orderStatus = convertFromDto(artworkOrderDto.getOrderStatus());
+		ArtworkOrder artworkOrder = service.updateArtworkOrder(artworkOrderDto.getOrderID(), artworkOrderDto.getDatePlaced(), artworkOrderDto.getDateCompleted(), deliveryMethod, orderStatus, customer, artworks);
+		return convertToDto(artworkOrder);
+	}
 	
 	@DeleteMapping(value = { "/artworkOrder/{id}" })
 	public ArtworkOrderDto deleteArtworkOrder(@PathVariable("id") Integer id) {
