@@ -520,22 +520,24 @@ public class ArtseeService {
             error = error + "Artwork name cannot be empty! ";
         }
         if (price < 0) {
-        	error = error + "Artwork price cannot be less than 0! ";
+        	error = error + "Artwork price cannot be less than 0!";
         }
         if (description == null || description.trim().length() == 0) {
-            error = error + "Artwork description cannot be empty! ";
+            error = error + "Artwork description cannot be empty!";
         }
         if (dateCreated == null) {
-            error = error + "Artwork date of creation cannot be empty! ";
+            error = error + "Artwork date of creation cannot be empty!";
+        } else if (dateCreated.compareTo(new Date(System.currentTimeMillis())) > 0) {
+            error = error + "Artwork date of creation cannot be in the future!";
         }
         if (numInStock < 0) {
-        	error = error + "Number in stock cannot be less than 0! ";
+        	error = error + "Number in stock cannot be less than 0!";
         }
         
         if (artist == null) {
-            error = error + "Artist needs to be assigned for an artwork! ";
+            error = error + "Artist needs to be assigned for an artwork!";
         } else if (!artistRepository.existsById(artist.getUserID())) {
-            error = error + "Artist does not exist! ";
+            error = error + "Artist does not exist!";
         }
 
         error = error.trim();
@@ -581,7 +583,7 @@ public class ArtseeService {
 		Artwork a = artworkRepository.findById(id).orElse(null);
 		
 		if (a == null) {
-			error = error + "Artwork with the given Id does not exist! ";
+			error = error + "Artwork with the given Id does not exist!";
 		}
 		
 		if (error.trim().length() > 0) {
@@ -599,23 +601,28 @@ public class ArtseeService {
         if (name == null || name.trim().length() == 0) {
             error = error + "Artwork name cannot be empty!";
         }
+        if (description == null || description.trim().length() == 0) {
+            error = error + "Artwork description cannot be empty!";
+        }
         if (price < 0) {
-        	error = error + "Artwork price cannot be less than 0! ";
+        	error = error + "Artwork price cannot be less than 0!";
         }
         if (date == null) {
-            error = error + "Artwork date of creation cannot be empty! ";
+            error = error + "Artwork date of creation cannot be empty!";
+        } else if (date.compareTo(new Date(System.currentTimeMillis())) > 0) {
+            error = error + "Artwork date of creation cannot be in the future!";
         }
         if (numInStock < 0) {
-        	error = error + "Number in stock cannot be less than 0! ";
+        	error = error + "Number in stock cannot be less than 0!";
         }
         if (artist == null) {
-            error += "Artist needs to be assigned to an artwork! ";
+            error += "Artist needs to be assigned for an artwork!";
         } else if (!artistRepository.existsById(artist.getUserID())) {
-            error += "Artist does not exist! ";
+            error = error + "Artist does not exist!";
         }
 
 		if (artwork == null) {
-			error += "Artwork does not exist! ";
+			error += "Artwork does not exist!";
 		}
         
         if (error.trim().length() > 0) {

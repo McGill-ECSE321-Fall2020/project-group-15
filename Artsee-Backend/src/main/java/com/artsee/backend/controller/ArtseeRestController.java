@@ -184,7 +184,7 @@ public class ArtseeRestController {
 		try {
 			Artist a = service.getArtistByID(artist_id);
 			Artwork artwork = service.getArtworkById(Integer.parseInt(id));
-			service.updateArtwork(artwork, name, price, date, description, numInStock, a);
+			service.updateArtwork(artwork, name, price, description, date, numInStock, a);
 			return convertToDto(artwork);
 		}
 		catch (Exception e) {
