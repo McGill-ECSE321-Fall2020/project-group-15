@@ -431,45 +431,46 @@ public class ArtseeRestController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+		
 	
 	// Convert to Dto Methods ______________________________________________________________________________________________
 	
-		private EndUserDto convertToDto(EndUser user) {
+	private EndUserDto convertToDto(EndUser user) {
 			if(user==null) {
 				throw new IllegalArgumentException("There is no such User.");
 			}
 			return new EndUserDto(user.getUserID(), user.getEmail(), user.getPassword(), user.getFirstName(),user.getLastName(), user.getPhoneNumber());
 		}
 		
-		private CustomerDto convertToDto(Customer customer) {
+	private CustomerDto convertToDto(Customer customer) {
 			if(customer==null) {
 				throw new IllegalArgumentException("There is no such Customer.");
 			}
 			return new CustomerDto(customer.getUserID(), customer.getEmail(), customer.getPassword(), customer.getFirstName(),customer.getLastName(), customer.getPhoneNumber(), convertToDto(customer.getAddress()));
 		}
 		
-		private AdministratorDto convertToDto(Administrator admin) {
+	private AdministratorDto convertToDto(Administrator admin) {
 			if(admin==null) {
 				throw new IllegalArgumentException("There is no such Administrator.");
 			}
 			return new AdministratorDto(admin.getUserID(), admin.getEmail(), admin.getPassword(), admin.getFirstName(),admin.getLastName(), admin.getPhoneNumber());
 		}
 		
-		private ArtistDto convertToDto(Artist artist) {
+	private ArtistDto convertToDto(Artist artist) {
 			if(artist==null) {
 				throw new IllegalArgumentException("There is no such Artist.");
 			}
 			return new ArtistDto(artist.getUserID(), artist.getEmail(), artist.getPassword(), artist.getFirstName(),artist.getLastName(), artist.getPhoneNumber(),artist.getArtistDescription(), artist.getRating());
 		}
 		
-		private AddressDto convertToDto(Address address) {
+	private AddressDto convertToDto(Address address) {
 			if(address==null) {
 				throw new IllegalArgumentException("There is no such Address.");
 			}
 			return new AddressDto(address.getAddressID(),address.getAddressLine1(), address.getAddressLine2(), address.getCity(), address.getProvince(), address.getPostalCode(), address.getCountry());
 		}
 		
-		private ReviewDto convertToDto(Review review) {
+	private ReviewDto convertToDto(Review review) {
 			if(review==null) {
 				throw new IllegalArgumentException("There is no such Review.");
 			}
@@ -477,7 +478,7 @@ public class ArtseeRestController {
 			return reviewDto;
 		}
 		
-		private ArtworkOrderDto convertToDto(ArtworkOrder artworkOrder) {
+	private ArtworkOrderDto convertToDto(ArtworkOrder artworkOrder) {
 			if(artworkOrder==null) {
 				throw new IllegalArgumentException("There is no such Artwork Order.");
 			}
@@ -485,7 +486,7 @@ public class ArtseeRestController {
 			return artworkOrderDto;
 		}
 		
-		private ArtworkDto convertToDto(Artwork artwork) {
+	private ArtworkDto convertToDto(Artwork artwork) {
 			if(artwork==null) {
 				throw new IllegalArgumentException("There is no such Artwork.");
 			}
@@ -493,7 +494,7 @@ public class ArtseeRestController {
 			return artworkDto;
 		}
 		
-		private DeliveryMethodDto convertToDto(DeliveryMethod deliveryMethod) {
+	private DeliveryMethodDto convertToDto(DeliveryMethod deliveryMethod) {
 			DeliveryMethodDto deliveryMethodDto;
 			if(deliveryMethod.equals(DeliveryMethod.SHIP)) {
 				deliveryMethodDto = DeliveryMethodDto.SHIP;
@@ -503,7 +504,7 @@ public class ArtseeRestController {
 			return deliveryMethodDto;
 		}
 		
-		private OrderStatusDto convertToDto(OrderStatus orderStatus) {
+	private OrderStatusDto convertToDto(OrderStatus orderStatus) {
 			OrderStatusDto orderStatusDto;
 			if(orderStatus.equals(OrderStatus.PROCESSING)) {
 				orderStatusDto = OrderStatusDto.PROCESSING;
@@ -513,7 +514,7 @@ public class ArtseeRestController {
 			return orderStatusDto;
 		}
 		
-		private List<ArtworkDto> convertToDto(Set<Artwork> artworks){
+	private List<ArtworkDto> convertToDto(Set<Artwork> artworks){
 			List<ArtworkDto> artworkListDto = new ArrayList<ArtworkDto>();
 			for(Artwork artwork : artworks) {
 				artworkListDto.add(convertToDto(artwork));
@@ -521,7 +522,7 @@ public class ArtseeRestController {
 			return artworkListDto;
 		}
 		
-		private DeliveryMethod convertFromDto(DeliveryMethodDto deliveryMethodDto) {
+	private DeliveryMethod convertFromDto(DeliveryMethodDto deliveryMethodDto) {
 			DeliveryMethod deliveryMethod;
 			if(deliveryMethodDto.equals(DeliveryMethodDto.SHIP)) {
 				deliveryMethod = DeliveryMethod.SHIP;
@@ -531,7 +532,7 @@ public class ArtseeRestController {
 			return deliveryMethod;
 		}
 		
-		private OrderStatus convertFromDto(OrderStatusDto orderStatusDto) {
+	private OrderStatus convertFromDto(OrderStatusDto orderStatusDto) {
 			OrderStatus orderStatus;
 			if(orderStatusDto.equals(OrderStatusDto.PROCESSING)) {
 				orderStatus = OrderStatus.PROCESSING;
@@ -541,13 +542,13 @@ public class ArtseeRestController {
 			return orderStatus;
 		}
 		
-		private Set<Artwork> convertFromDto(List<ArtworkDto> artworks){
-			Set<Artwork> artworkSet = new HashSet<Artwork>();
-			for(ArtworkDto artworkDto : artworks) {
-				Artwork artwork = service.getArtworkById(artworkDto.getID());
-				artworkSet.add(artwork);
-			}
-			return artworkSet;
+	private Set<Artwork> convertFromDto(List<ArtworkDto> artworks){
+		Set<Artwork> artworkSet = new HashSet<Artwork>();
+		for(ArtworkDto artworkDto : artworks) {
+			Artwork artwork = service.getArtworkById(artworkDto.getID());
+			artworkSet.add(artwork);
 		}
+		return artworkSet;
+	}
 	
 }
