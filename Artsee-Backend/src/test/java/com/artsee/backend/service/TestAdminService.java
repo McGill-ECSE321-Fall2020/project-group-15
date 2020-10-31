@@ -139,7 +139,7 @@ public class TestAdminService {
             error = e.getMessage();
         }
 
-        assertEquals("Must enter an ID.", error);
+        assertEquals("Must enter a username.", error);
 
         // check again with null input
         error = null;
@@ -150,7 +150,7 @@ public class TestAdminService {
             error = e.getMessage();
         }
 
-        assertEquals("Must enter an ID.", error);
+        assertEquals("Must enter a username.", error);
 
     }
 
@@ -282,7 +282,7 @@ public class TestAdminService {
             error = e.getMessage();
         }
 
-        assertEquals("Could not find an administrator with email hello@gmail.com", error);
+        assertEquals("Email cannot be found.", error);
     }
 
     @Test

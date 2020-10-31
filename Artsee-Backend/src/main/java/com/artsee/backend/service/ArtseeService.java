@@ -500,8 +500,8 @@ public class ArtseeService {
 		Administrator administrator = administratorRepository.findById(userID).orElse(null);
 		String e = "";
 		
-		if (endUserRepository.findById(userID).orElse(null) != null) {
-			e+="Username already exists. ";
+		if (administrator == null) {
+			e+="Username cannot be found.";
 		}
 		
 		if (!email.equals(administrator.getEmail())&&(endUserRepository.findByEmail(email) != null)) {
@@ -689,6 +689,9 @@ public class ArtseeService {
 		String e = "";
 		if(rating == null) {
 			e += "Review needs a rating.";
+		}
+		if (rating < 0 || rating > 5) {
+			e += "Rating should be between 0 and 5";
 		}
 		if(customer == null) {
 			e += "Review needs a customer.";

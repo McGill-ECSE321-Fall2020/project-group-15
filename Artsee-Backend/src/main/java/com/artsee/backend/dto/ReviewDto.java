@@ -5,7 +5,7 @@ public class ReviewDto {
 	private int reviewID;
 	private int rating;
 	private String comment;
-	private Boolean wouldRecommend;
+	private boolean wouldRecommend;
 	private CustomerDto customer;
 	private ArtistDto artist;
 	
@@ -34,7 +34,7 @@ public class ReviewDto {
 		return comment;
 	}
 	
-	public Boolean getRecomendation() {
+	public boolean getRecomendation() {
 		return wouldRecommend;
 	}
 	

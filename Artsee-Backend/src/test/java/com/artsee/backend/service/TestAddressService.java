@@ -251,16 +251,16 @@ public class TestAddressService {
     
     //------ Test the rest of the crud operations ---------------------
     @Test 
-    public void testGetNonexistentAdmin() {
+    public void testGetNonexistentAddress() {
         String error = null;
 
         try {
-            service.getAddressById(ID);
+            service.getAddressById(ID2);
         } catch (Exception e) {
             error = e.getMessage();
         }
 
-        assertEquals("Could not find an Address with email 1234", error);
+        assertEquals("Address does not exist.", error);
     }
 
 }

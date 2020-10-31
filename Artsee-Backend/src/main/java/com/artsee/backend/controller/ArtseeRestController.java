@@ -380,7 +380,7 @@ public class ArtseeRestController {
 	// REST api for Artwork Order  __________________________________________________________
 	
 	@GetMapping(value = { "/artworkOrders", "/artworkOrders/" })
-	public ResponseEntity<?> getAllArtworkOrders(){
+	public ResponseEntity<?> getAllArtworkOrders() {
 		return new ResponseEntity<>(service.getAllArtworkOrders().stream().map(u -> convertToDto(u)).collect(Collectors.toList()), HttpStatus.OK);
 	}
 	

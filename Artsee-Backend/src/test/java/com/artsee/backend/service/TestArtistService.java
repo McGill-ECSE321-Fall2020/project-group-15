@@ -142,7 +142,7 @@ public class TestArtistService {
             error = e.getMessage();
         }
 
-        assertEquals("Must enter an ID.", error);
+        assertEquals("Must enter a username.", error);
 
         // check that nothing was added
         assertEquals(0, service.getAllArtists().size());
@@ -156,7 +156,7 @@ public class TestArtistService {
             error = e.getMessage();
         }
 
-        assertEquals("Must enter an ID.", error);
+        assertEquals("Must enter a username.", error);
 
         // check that nothing was added
         assertEquals(0, service.getAllArtists().size());
@@ -301,7 +301,7 @@ public class TestArtistService {
             error = e.getMessage();
         }
 
-        assertEquals("Could not find an artist with email hello@gmail.com", error);
+        assertEquals("Email cannot be found.", error);
     }
 
     @Test
