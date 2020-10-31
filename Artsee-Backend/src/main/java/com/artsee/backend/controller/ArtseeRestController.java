@@ -29,7 +29,6 @@ import com.artsee.backend.service.ArtseeService;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
