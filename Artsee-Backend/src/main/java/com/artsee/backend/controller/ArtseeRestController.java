@@ -202,7 +202,7 @@ public class ArtseeRestController {
 	}
 
 	@DeleteMapping(value = {"/artists/{userID}", "/artists/{userID}/"})
-	public ResponseEntity<?> deleteArtist(@PathVariable("userID") String userID){
+	public ResponseEntity<?> deleteArtist(@PathVariable("userID") String userID) {
 		try {
 			return new ResponseEntity<>(convertToDto(service.deleteArtist(userID)), HttpStatus.OK);
 		}
