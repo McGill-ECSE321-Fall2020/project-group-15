@@ -29,6 +29,7 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
+import org.springframework.data.rest.core.event.ExceptionEvent;
 
 import com.artsee.backend.model.*;
 import com.artsee.backend.dao.*;
@@ -46,16 +47,25 @@ public class TestCustomerService {
 	private ArtseeService service;
 	
     private static final String CUSTOMER_ID = "1234";
-    private static final String EMAIL = "customer@gmail.com";
-
     private static final String CUSTOMER_ID2 = "37292";
+    
+    private static final String EMAIL = "customer@gmail.com";
     private static final String EMAIL2 = "otherCustomer@gmail.com";
 
     private static final String PASSWORD = "password";
+    private static final String PASSWORD2 = "newPassword";
+    
     private static final String FIRSTNAME = "John";
+    private static final String FIRSTNAME2 = "Johnny";
+  
     private static final String LASTNAME = "Doe";
+    private static final String LASTNAME2 = "Doherty";
+    
     private static final String PHONE_NUM = "8675309";
+    private static final String PHONE_NUM2 = "867310";
+    
     private static final Address ADDRESS = new Address();
+    private static final Address ADDRESS2 = new Address();
     
     @BeforeEach
     public void setMockOutput() {
@@ -299,8 +309,61 @@ public class TestCustomerService {
             error = e.getMessage();
         }
 
-        assertEquals("Could not find an customer with email hello@gmail.com", error);
+        assertEquals("Email cannot be found.", error);
     }
+    
+    @Test
+    public void testGetNonExistentCustomerID() {
+    	String error = null;
+
+        try {
+            service.getCustomerByID("otherID");
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+
+        assertEquals("Username cannot be found.", error);
+    }
+    
+    @Test
+    public void testGetCustomerByEmail() {
+    	Customer customer = null;
+    	String error = null;
+    	try {
+           customer = service.getCustomerByEmail(EMAIL);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+
+    	assertEquals(CUSTOMER_ID, customer.getUserID());
+    	assertEquals(EMAIL, customer.getEmail());
+    	assertEquals(PASSWORD, customer.getPassword());
+    	assertEquals(FIRSTNAME, customer.getFirstName());
+    	assertEquals(LASTNAME, customer.getLastName());
+    	assertEquals(PHONE_NUM, customer.getPhoneNumber());
+    	assertEquals(ADDRESS, customer.getAddress());
+    }
+    
+    @Test
+    public void testGetCustomerByID() {
+    	Customer customer = null;
+    	String error = null;
+    	try {
+           customer = service.getCustomerByID(CUSTOMER_ID);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+
+    	assertEquals(CUSTOMER_ID, customer.getUserID());
+    	assertEquals(EMAIL, customer.getEmail());
+    	assertEquals(PASSWORD, customer.getPassword());
+    	assertEquals(FIRSTNAME, customer.getFirstName());
+    	assertEquals(LASTNAME, customer.getLastName());
+    	assertEquals(PHONE_NUM, customer.getPhoneNumber());
+    	assertEquals(ADDRESS, customer.getAddress());
+    }
+    	
+    
 
     @Test
     public void testDuplicateCustomer() {
@@ -325,7 +388,120 @@ public class TestCustomerService {
         assertEquals("Email already exists.", error);
     }
 
+    // good input update
+    @Test
+    public void testUpdateCustomer() {
+        Customer customer = null;
+        String error = null;
+       
+    	
+    	try {
+    		customer = service.updateCustomer(CUSTOMER_ID, EMAIL2, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, ADDRESS2);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	
+    	assertEquals(EMAIL2, customer.getEmail());
+    	assertEquals(PASSWORD2, customer.getPassword());
+    	assertEquals(FIRSTNAME2, customer.getFirstName());
+    	assertEquals(LASTNAME2, customer.getLastName());
+    	assertEquals(PHONE_NUM2, customer.getPhoneNumber());
+    	assertEquals(ADDRESS2, customer.getAddress());
+    }
 
+//bad input update TESTS
+    @Test
+    public void testUpdateCustomerInvalidEmail() {
+    	
+    	String error = null;
+	
+    	try {
+    		service.updateCustomer(CUSTOMER_ID, "", PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, ADDRESS2);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	
+    	assertEquals( "Must enter an email.",error);
 
+    }
+    @Test
+    public void testUpdateCustomerInvalidPassword() {
+    	String error = null;
+	
+    	try {
+    		service.updateCustomer(CUSTOMER_ID, EMAIL2, "", FIRSTNAME2, LASTNAME2, PHONE_NUM2, ADDRESS2);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	
+    	assertEquals("Must enter a password.", error);
+    }
+    
+    @Test
+    public void testUpdateCustomerInvalidFirstName() {
+    	String error = null;
+	
+    	try {
+    		service.updateCustomer(CUSTOMER_ID, EMAIL2, PASSWORD2, "", LASTNAME2, PHONE_NUM2, ADDRESS2);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	
+    	assertEquals("Must enter a first name.",error);
+    }
+    
+    @Test
+    public void testUpdateCustomerInvalidLastName() {
+    	String error = null;
+	
+    	try {
+    		service.updateCustomer(CUSTOMER_ID, EMAIL2, PASSWORD2, FIRSTNAME2, "", PHONE_NUM2, ADDRESS2);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	
+    	assertEquals( "Must enter a last name.", error);
+    }
+    
+    @Test
+    public void testUpdateCustomerInvalidID() {
+    	String error = null;
+	
+    	try {
+    		service.updateCustomer("", EMAIL2, PASSWORD2, FIRSTNAME, LASTNAME2, PHONE_NUM2, ADDRESS2);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	
+    	assertEquals( "Must enter an ID.", error);
+    }
+    
+    @Test
+    public void testUpdateCustomerEmailExists() {
+    	String error = null;
+	
+    	try {
+    		service.updateCustomer(CUSTOMER_ID2, EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, ADDRESS2);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	
+    	assertEquals("Email already exists.", error);
+    }
+    
+    
+    
+    @Test
+    public void testDeleteCustomer() {
+    	
+    	
+    	
+    	Customer customer = service.getCustomerByID(CUSTOMER_ID);
+    	customer = service.deleteCustomer(CUSTOMER_ID);
+    	
+    	assertEquals(null, customer);
+    }
     
 }
+
+

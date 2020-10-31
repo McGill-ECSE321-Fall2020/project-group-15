@@ -49,15 +49,20 @@ public class TestArtistService {
 
     private static final String ARTIST_ID = "1234";
     private static final String EMAIL = "artist@gmail.com";
-
-    private static final String ARTIST_ID2 = "37292";
-    private static final String EMAIL2 = "otherArtist@gmail.com";
-
     private static final String PASSWORD = "password";
     private static final String FIRSTNAME = "John";
     private static final String LASTNAME = "Doe";
     private static final String PHONE_NUM = "8675309";
     private static final String DESCRIPTION = "i like to paint";
+    
+    private static final String ARTIST_ID2 = "37292";
+    private static final String EMAIL2 = "otherArtist@gmail.com";
+    private static final String PASSWORD2 = "newpassword";
+    private static final String FIRSTNAME2 = "Johnny";
+    private static final String LASTNAME2 = "Doherty";
+    private static final String PHONE_NUM2 = "8675310";
+    private static final String DESCRIPTION2 = "i like to sculpt";
+    
 
     @BeforeEach
     public void setMockOutput() {
@@ -301,7 +306,20 @@ public class TestArtistService {
             error = e.getMessage();
         }
 
-        assertEquals("Could not find an artist with email hello@gmail.com", error);
+        assertEquals("Email cannot be found.", error);
+    }
+    
+    @Test
+    public void testGetNonexistentArtistID() {
+    	String error = null;
+    	
+    	try { 
+    		service.getArtistByID("otherID");
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	
+    	assertEquals("Username cannot be found.", error);
     }
 
     @Test
@@ -327,7 +345,163 @@ public class TestArtistService {
         assertEquals("Email already exists.", error);
     }
 
+    @Test
+    public void testUpdateArtist() {
+    	String error = null;
+    	Artist artist = null;
+    	
+    	try {
+    		artist = service.updateArtist(ARTIST_ID, EMAIL2, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION2);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	System.out.println(error);
+    	assertEquals(EMAIL2, artist.getEmail());
+    	assertEquals(PASSWORD2, artist.getPassword());
+    	assertEquals(FIRSTNAME2, artist.getFirstName());
+    	assertEquals(LASTNAME2, artist.getLastName());
+    	assertEquals(PHONE_NUM2, artist.getPhoneNumber());
+    	assertEquals(DESCRIPTION2, artist.getArtistDescription());
+    }
+    
+    @Test
+    public void testUpdateArtistInvalidEmail() {
+    	
+    	String error = null;
+	
+    	try {
+    		service.updateArtist(ARTIST_ID, "", PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION2);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	
+    	assertEquals("Must enter an email.", error);
 
+    }
+    
+    @Test
+    public void testUpdateArtistInvalidFirstName() {
+    	
+    	String error = null;
+	
+    	try {
+    		service.updateArtist(ARTIST_ID, EMAIL2, PASSWORD2, "", LASTNAME2, PHONE_NUM2, DESCRIPTION2);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	
+    	assertEquals("Must enter a first name.", error);
 
+    }
+
+    @Test
+    public void testUpdateArtistInvalidLastName() {
+    	
+    	String error = null;
+	
+    	try {
+    		service.updateArtist(ARTIST_ID, EMAIL2, PASSWORD2, FIRSTNAME2, "", PHONE_NUM2, DESCRIPTION2);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	
+    	assertEquals("Must enter a last name.", error);
+
+    }
+    
+    @Test
+    public void testUpdateArtistInvalidPassword() {
+    	
+    	String error = null;
+	
+    	try {
+    		service.updateArtist(ARTIST_ID, EMAIL2, "", FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION2);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	
+    	assertEquals("Must enter a password.", error);
+
+    }
+    @Test
+    public void testUpdateArtistInvalidID() {
+    	
+    	String error = null;
+	
+    	try {
+    		service.updateArtist("", EMAIL2, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION2);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	
+    	assertEquals("Must enter an ID.", error);
+
+    }
+    
+    @Test
+    public void testGetArtistByEmail() {
+    	Artist artist = null;
+    	String error = null;
+    	try {
+           artist = service.getArtistByEmail(EMAIL);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+
+    	assertEquals(ARTIST_ID, artist.getUserID());
+    	assertEquals(EMAIL, artist.getEmail());
+    	assertEquals(PASSWORD, artist.getPassword());
+    	assertEquals(FIRSTNAME, artist.getFirstName());
+    	assertEquals(LASTNAME, artist.getLastName());
+    	assertEquals(PHONE_NUM, artist.getPhoneNumber());
+    	assertEquals(DESCRIPTION, artist.getArtistDescription());
+    }
+    
+    @Test
+    public void testGetArtistByID() {
+    	Artist artist = null;
+    	String error = null;
+    	try {
+           artist = service.getArtistByID(ARTIST_ID);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+    	
+    	assertEquals(ARTIST_ID, artist.getUserID());
+    	assertEquals(EMAIL, artist.getEmail());
+    	assertEquals(PASSWORD, artist.getPassword());
+    	assertEquals(FIRSTNAME, artist.getFirstName());
+    	assertEquals(LASTNAME, artist.getLastName());
+    	assertEquals(PHONE_NUM, artist.getPhoneNumber());
+    	assertEquals(DESCRIPTION, artist.getArtistDescription());
+    }
+    
+    /* HOW DO WE TEST THIS ONE
+    @Test 
+    public void testgetArtistRating() {
+    	float rating = 0;
+    	String error = null;
+    	try {
+    		rating = service.getArtistRating(ARTIST_ID);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	assertEquals(0,rating);
+    }
+    */
+    
+    @Test 
+    public void testgetArtistRatingNoUsername() {
+    	String error = null;
+    	try {
+    		service.getArtistRating("OtherUser");
+    	}catch (Exception e){
+    	error = e.getMessage();
+    }
+    
+    assertEquals("Username cannot be found.", error);
+    }
+    
+    
     
 }
