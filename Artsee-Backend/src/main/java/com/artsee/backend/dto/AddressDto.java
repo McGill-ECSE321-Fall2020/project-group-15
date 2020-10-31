@@ -10,9 +10,7 @@ public class AddressDto {
 	private String postalCode;
 	private String country;
 	
-	public AddressDto() {
-		
-	}
+	public AddressDto() {}
 	
 	public AddressDto(Integer addressID, String addressLine1, String addressLine2, String city, String province, String postalCode, String country) {
 		this.addressID = addressID;

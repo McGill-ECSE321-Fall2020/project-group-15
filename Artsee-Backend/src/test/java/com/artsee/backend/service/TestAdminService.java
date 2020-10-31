@@ -155,7 +155,6 @@ public class TestAdminService {
         }
 
         assertTrue(error.contains("Must enter an ID."));
-
     }
 
     @Test
@@ -285,7 +284,6 @@ public class TestAdminService {
         } catch (Exception e) {
             error = e.getMessage();
         }
-
         assertTrue(error.contains("Email cannot be found."));
     }
     

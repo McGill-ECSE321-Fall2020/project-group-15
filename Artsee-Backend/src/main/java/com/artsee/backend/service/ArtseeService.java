@@ -156,7 +156,7 @@ public class ArtseeService {
 		if (endUserRepository.findByEmail(email) != null) {
 			e+="Email already exists. ";
 		}
-		
+
 		if (nonValidString(password)) {
 			e += "Must enter a password. ";
 		}
@@ -241,7 +241,7 @@ public class ArtseeService {
 		}
 		
 		if (!email.equals(customer.getEmail())&&(endUserRepository.findByEmail(email) != null)) {
-			e+="Email already exists. ";
+			e+="Email already exists.";
 		}
 		
 		if (nonValidString(password)) {
@@ -288,11 +288,11 @@ public class ArtseeService {
 		}
 		
 		if (endUserRepository.findById(userID).orElse(null) != null) {
-			e+="Username already exists. ";
+			e+="Username already exists.";
 		}
 		
 		if (endUserRepository.findByEmail(email) != null) {
-			e+="Email already exists. ";
+			e+="Email already exists.";
 		}
 		
 		if (nonValidString(password)) {
@@ -383,7 +383,6 @@ public class ArtseeService {
 	
 	@Transactional
 	public Artist updateArtist(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription) throws IllegalArgumentException{
-		Artist artist = artistRepository.findById(userID).orElse(null);
 		String e = "";
 		
 		if (nonValidString(userID)) {
@@ -393,13 +392,15 @@ public class ArtseeService {
 		if (nonValidString(email)) {
 			e += "Must enter an email. ";
 		}
-		
-		if (endUserRepository.findById(userID).orElse(null) != null) {
-			e+="Username already exists. ";
+    
+    Artist artist = artistRepository.findById(userID).orElse(null);
+    
+		if (artist == null) {
+			e+="Username cannot be found.";
 		}
 		
 		if (!email.equals(artist.getEmail())&&(endUserRepository.findByEmail(email) != null)) {
-			e+="Email already exists. ";
+			e+="Email already exists.";
 		}
 		
 		if (nonValidString(password)) {
@@ -447,7 +448,7 @@ public class ArtseeService {
 		}
 			
 		if (endUserRepository.findById(userID).orElse(null) != null) {
-			e+="Username already exists. ";
+			e+="Username already exists.";
 		}
 		
 		if (endUserRepository.findByEmail(email) != null) {
@@ -537,7 +538,7 @@ public class ArtseeService {
 		}
 		
 		if (!email.equals(administrator.getEmail())&&(endUserRepository.findByEmail(email) != null)) {
-			e+="Email already exists. ";
+			e+="Email already exists.";
 		}
 		
 		if (nonValidString(password)) {
@@ -572,6 +573,7 @@ public class ArtseeService {
 	@Transactional
     public Artwork createArtwork(String name, int price, String description, Date dateCreated, int numInStock, Artist artist) {
 		String error = "";
+
         if (nonValidString(name)) {
             error = error + "Artwork name cannot be empty! ";
         }
@@ -702,7 +704,7 @@ public class ArtseeService {
 		Artwork a = artworkRepository.findById(id).orElse(null);
 		
 		if (a == null) {
-			error +=  "Artwork with the given Id does not exist! ";
+			error +=  "Artwork with the given Id does not exist!";
 		}
 		
 		if (error.trim().length() > 0) {
@@ -720,13 +722,16 @@ public class ArtseeService {
 	public Review createReview(Integer rating, String comment, Boolean wouldRecommend, Customer customer, Artist artist) throws IllegalArgumentException {
 		String e = "";
 		if(rating == null) {
-			e += "Review needs a rating. ";
+			e += "Review needs a rating.";
+		}
+		if (rating < 0 || rating > 5) {
+			e += "Rating should be between 0 and 5";
 		}
 		if(customer == null) {
-			e += "Review needs a customer. ";
+			e += "Review needs a customer.";
 		}
 		if(artist == null) {
-			e += "AReview needs an artist.";
+			e += "A review needs an artist.";
 		}
 		
 		e = e.trim();
@@ -772,13 +777,13 @@ public class ArtseeService {
 		
 		String e = "";
 		if(rating == null) {
-			e += "Review needs a rating. ";
+			e += "A review needs a rating.";
 		}
 		if(customer == null) {
-			e += "Review needs a customer. ";
+			e += "A review needs a customer.";
 		}
 		if(artist == null) {
-			e += "AReview needs an artist.";
+			e += "A review needs an artist.";
 		}
 		
 		e = e.trim();
@@ -822,16 +827,10 @@ public class ArtseeService {
 	// Artwork Order Service Layer ___________________________________________________________________________________
 	
 	@Transactional
-	public ArtworkOrder createArtworkOrder(Date datePlaced, Date dateCompleted, DeliveryMethod deliveryMethod, OrderStatus orderStatus, Customer customer, List<Artwork> artworks) throws IllegalArgumentException {
+	public ArtworkOrder createArtworkOrder(DeliveryMethod deliveryMethod, Customer customer, List<Artwork> artworks) throws IllegalArgumentException {
 		String e = "";
-		if(datePlaced == null) {
-			e += "Artwork order needs a date placed. ";
-		}
 		if(deliveryMethod == null) {
-			e += "Artwork order needs a delivery method. ";
-		}
-		if(orderStatus == null) {
-			e += "Artwork order needs an order status. ";
+			e += "Artwork order needs a delivery method.";
 		}
 		if(customer == null) {
 			e += "Artwork order needs a customer.";
@@ -853,11 +852,13 @@ public class ArtseeService {
 		}
 		
 		ArtworkOrder order = new ArtworkOrder();
+		Date datePlaced  = new Date(System.currentTimeMillis());
+		OrderStatus oStatus = OrderStatus.PROCESSING;
 		order.setTotalPrice(totalPrice);
 		order.setDatePlaced(datePlaced);
-		order.setDateCompleted(dateCompleted);
+		order.setDateCompleted(null);
 		order.setDeliveryMethod(deliveryMethod);
-		order.setOrderStatus(orderStatus);
+		order.setOrderStatus(oStatus);
 		order.setCustomer(customer);
 		artworkOrderRepository.save(order);
 		return order;
@@ -884,8 +885,7 @@ public class ArtseeService {
 
 	@Transactional
 	public ArtworkOrder updateArtworkOrder(Integer orderID,
-										   Date datePlaced, Date dateCompleted,
-										   DeliveryMethod deliveryMethod, OrderStatus orderStatus,
+										   DeliveryMethod deliveryMethod, OrderStatus orderStatus, 
 										   Customer customer, List<Artwork> artworks) throws IllegalArgumentException {
 		ArtworkOrder order = artworkOrderRepository.findById(orderID).orElse(null);
 		if(order == null) {
@@ -893,9 +893,6 @@ public class ArtseeService {
 		}
 		
 		String e = "";
-		if(datePlaced == null) {
-			e += "Artwork order needs a date placed. ";
-		}
 		if(deliveryMethod == null) {
 			e += "Artwork order needs a delivery method. ";
 		}
@@ -921,9 +918,11 @@ public class ArtseeService {
 			}
 		}
 		
+		if(orderStatus == OrderStatus.DELIVERED) {
+			order.setDateCompleted(new Date(System.currentTimeMillis()));
+		}
+		
 		order.setTotalPrice(totalPrice);
-		order.setDatePlaced(datePlaced);
-		order.setDateCompleted(dateCompleted);
 		order.setDeliveryMethod(deliveryMethod);
 		order.setOrderStatus(orderStatus);
 		order.setCustomer(customer);
@@ -969,6 +968,7 @@ public class ArtseeService {
 	@Transactional
 	public Address createAddress(String addressLine1, String addressLine2, String city, String province, String postalCode, String country) throws IllegalArgumentException {
 		String e = "";
+    
 		if(nonValidString(addressLine1)) {
 			e += "Address cannot be empty. ";
 		}

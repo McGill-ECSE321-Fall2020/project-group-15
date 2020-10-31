@@ -150,7 +150,7 @@ public class TestCustomerService {
             error = e.getMessage();
         }
 
-        assertEquals("Must enter an ID.", error);
+        assertEquals("Must enter a username.", error);
 
         // check that nothing was added
         assertEquals(0, service.getAllCustomers().size());
@@ -164,7 +164,7 @@ public class TestCustomerService {
             error = e.getMessage();
         }
 
-        assertEquals("Must enter an ID.", error);
+        assertEquals("Must enter a username.", error);
 
         // check that nothing was added
         assertEquals(0, service.getAllCustomers().size());

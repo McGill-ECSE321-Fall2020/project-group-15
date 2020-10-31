@@ -15,6 +15,8 @@ public class ArtworkOrderDto {
 	private CustomerDto customer;
 	private List<ArtworkDto> artworks;
 	
+	public ArtworkOrderDto() {}
+	
 	public ArtworkOrderDto(Integer orderID, Integer totalPrice, Date datePlaced, Date dateCompleted, DeliveryMethodDto deliveryMethodDto, OrderStatusDto orderStatusDto, CustomerDto customer, List<ArtworkDto> artworks) {
 		this.orderID = orderID;
 		this.totalPrice = totalPrice;

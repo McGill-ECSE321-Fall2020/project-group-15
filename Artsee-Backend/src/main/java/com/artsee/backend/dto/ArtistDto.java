@@ -11,6 +11,8 @@ public class ArtistDto {
 	private String artistDescription;
 	private Float rating;
 	
+	public ArtistDto() {}
+	
 	public ArtistDto(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription, Float rating) {
 		this.userID = userID;
 		this.email = email;

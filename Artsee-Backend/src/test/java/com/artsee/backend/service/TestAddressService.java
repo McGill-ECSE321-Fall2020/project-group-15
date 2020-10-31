@@ -255,12 +255,13 @@ public class TestAddressService {
         String error = null;
 
         try {
-            service.getAddressById(ID+1);
+            service.getAddressById(ID2);
         } catch (Exception e) {
             error = e.getMessage();
         }
 
         assertEquals("Address does not exist.", error);
+
     }
     
     @Test
