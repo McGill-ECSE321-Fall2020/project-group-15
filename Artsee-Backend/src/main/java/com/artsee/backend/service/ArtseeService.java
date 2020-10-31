@@ -284,8 +284,6 @@ public class ArtseeService {
 		
 		if (nonValidString(userID)) {
 			throw new IllegalArgumentException("Must enter a username.");
-		} else {
-			artist = artistRepository.findById(userID).orElse(null);
 		}
 		
 		if (nonValidString(email)) {
@@ -544,7 +542,11 @@ public class ArtseeService {
 			e += "Username cannot be found.";
 		}
 		
-		if (!email.equals(administrator.getEmail())&&(endUserRepository.findByEmail(email) != null)) {
+//		if (!email.equals(administrator.getEmail())&&(endUserRepository.findByEmail(email) != null)) {
+//			e+="Email already exists.";
+//		}
+//		
+		if ((endUserRepository.findByEmail(email) != null) && (!email.equals(administrator.getEmail()))) {
 			e+="Email already exists.";
 		}
 		
