@@ -384,6 +384,7 @@ public class ArtseeService {
 	@Transactional
 	public Artist updateArtist(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription) throws IllegalArgumentException{
 		String e = "";
+		Artist artist = artistRepository.findById(userID).orElse(null);
 		
 		if (nonValidString(userID)) {
 			e += "Must enter an ID. ";
@@ -392,8 +393,6 @@ public class ArtseeService {
 		if (nonValidString(email)) {
 			e += "Must enter an email. ";
 		}
-    
-    Artist artist = artistRepository.findById(userID).orElse(null);
     
 		if (artist == null) {
 			e+="Username cannot be found.";
@@ -533,8 +532,8 @@ public class ArtseeService {
 			e += "Must enter an email. ";
 		}
 		
-		if (endUserRepository.findById(userID).orElse(null) != null) {
-			e+="Username already exists. ";
+		if (administrator == null) {
+			e += "Username cannot be found.";
 		}
 		
 		if (!email.equals(administrator.getEmail())&&(endUserRepository.findByEmail(email) != null)) {
