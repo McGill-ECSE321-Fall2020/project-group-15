@@ -29,7 +29,6 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
-import org.springframework.data.rest.core.event.ExceptionEvent;
 
 import com.artsee.backend.model.*;
 import com.artsee.backend.dao.*;
