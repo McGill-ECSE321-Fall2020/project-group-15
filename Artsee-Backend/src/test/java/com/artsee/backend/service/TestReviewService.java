@@ -38,31 +38,29 @@ import com.artsee.backend.dao.*;
 import com.artsee.backend.utility.*;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
-@ExtendWith(MockitoExtension.class)
-public class TestReviewService {
-	
-	@Mock
-	private ReviewRepository reviewDao;
-	
-	@InjectMocks
-	private ArtseeService service;
-	
-	private static final Integer ID = 1234;
-	private static final Integer RATING = 4;
-	private static final String COMMENT = "A nice artwork";
-	private static final Boolean WOULDRECCOMEND = true;
-	private static final Customer CUSTOMER = new Customer();
-	private static final Artist ARTIST = new Artist();
-	
-	
-	@BeforeEach
-	public void setMockOuput() {
-		lenient().when(reviewDao.save(any(Review.class))).thenAnswer((InvocationOnMock invocation) -> {
-			if(invocation.getArgument(0).equals(ID)) {
-				return Optional.of(TestUtility.createReview(ID, RATING, COMMENT, WOULDRECCOMEND,CUSTOMER,ARTIST));
-			}
-		});
-		
-		
-
-}
+//@ExtendWith(MockitoExtension.class)
+//public class TestReviewService {
+//	
+//	@Mock
+//	private ReviewRepository reviewDao;
+//	
+//	@InjectMocks
+//	private ArtseeService service;
+//	
+//	private static final Integer ID = 1234;
+//	private static final Integer RATING = 4;
+//	private static final String COMMENT = "A nice artwork";
+//	private static final Boolean WOULDRECCOMEND = true;
+//	private static final Customer CUSTOMER = new Customer();
+//	private static final Artist ARTIST = new Artist();
+//	
+//	
+//	@BeforeEach
+//	public void setMockOuput() {
+//		lenient().when(reviewDao.save(any(Review.class))).thenAnswer((InvocationOnMock invocation) -> {
+//			if(invocation.getArgument(0).equals(ID)) {
+//				return Optional.of(TestUtility.createReview(ID, RATING, COMMENT, WOULDRECCOMEND,CUSTOMER,ARTIST));
+//			}
+//		});
+//		
+//}
