@@ -1,7 +1,6 @@
 package com.artsee.backend.dto;
 
 import java.sql.Date;
-
 import java.util.List;
 
 public class ArtworkOrderDto {
@@ -44,11 +43,11 @@ public class ArtworkOrderDto {
 		return this.dateCompleted;
 	}
 	
-	public DeliveryMethodDto getDeliveryMethod() {
+	public DeliveryMethodDto getDeliveryMethodDto() {
 		return this.deliveryMethodDto;
 	}
 	
-	public OrderStatusDto getOrderStatus() {
+	public OrderStatusDto getOrderStatusDto() {
 		return this.orderStatusDto;
 	}
 	
@@ -58,5 +57,9 @@ public class ArtworkOrderDto {
 	
 	public List<ArtworkDto> getArtworks(){
 		return this.artworks;
+	}
+	
+	public void setArtworks(List<ArtworkDto> list){
+		this.artworks = list;
 	}
 }

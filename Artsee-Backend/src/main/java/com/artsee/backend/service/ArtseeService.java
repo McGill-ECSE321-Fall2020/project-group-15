@@ -836,7 +836,7 @@ public class ArtseeService {
 	// Artwork Order Service Layer ___________________________________________________________________________________
 	
 	@Transactional
-	public ArtworkOrder createArtworkOrder(DeliveryMethod deliveryMethod, Customer customer, List<Artwork> artworks) throws IllegalArgumentException {
+	public ArtworkOrder createArtworkOrder(DeliveryMethod deliveryMethod, Customer customer, Set<Artwork> artworks) throws IllegalArgumentException {
 		String e = "";
 		if(deliveryMethod == null) {
 			e += "Artwork order needs a delivery method.";
@@ -844,20 +844,19 @@ public class ArtseeService {
 		if(customer == null) {
 			e += "Artwork order needs a customer.";
 		}
-		if(artworks.size() == 0) {
-			
+		int totalPrice = 0;
+		for(Artwork art : artworks) {
+			if (art.getNumInStock() == 0) {
+				e += "Artwork is out of stock!";
+			}
+			art.setNumInStock(art.getNumInStock() - 1);
+			totalPrice += art.getPrice();
 		}
 		
 		e = e.trim();
 		
 		if (e.length() > 0) {
 			throw new IllegalArgumentException(e);
-		}
-		
-		int totalPrice = 0;
-		
-		for(Artwork art : artworks) {
-			totalPrice += art.getPrice();
 		}
 		
 		ArtworkOrder order = new ArtworkOrder();
@@ -869,6 +868,7 @@ public class ArtseeService {
 		order.setDeliveryMethod(deliveryMethod);
 		order.setOrderStatus(oStatus);
 		order.setCustomer(customer);
+		order.setArtworks(artworks);
 		artworkOrderRepository.save(order);
 		return order;
 	}
@@ -895,7 +895,7 @@ public class ArtseeService {
 	@Transactional
 	public ArtworkOrder updateArtworkOrder(Integer orderID,
 										   DeliveryMethod deliveryMethod, OrderStatus orderStatus, 
-										   Customer customer, List<Artwork> artworks) throws IllegalArgumentException {
+										   Customer customer, Set<Artwork> artworks) throws IllegalArgumentException {
 		ArtworkOrder order = artworkOrderRepository.findById(orderID).orElse(null);
 		if(order == null) {
 			throw new IllegalArgumentException("Artwork Order does not exist.");
@@ -919,13 +919,21 @@ public class ArtseeService {
 		}
 		
 		int totalPrice = order.getTotalPrice();
-		
-		if(artworks.size() > 0) {
-			for(Artwork artwork : artworks) {
-				addArtworkToOrder(orderID, artwork);
-				totalPrice += artwork.getPrice();
+	
+		for(Artwork art : artworks) {
+			if (art.getNumInStock() == 0) {
+				e += "Artwork is out of stock!";
 			}
+			art.setNumInStock(art.getNumInStock() - 1);
+			totalPrice += art.getPrice();
 		}
+		
+//		if(artworks.size() > 0) {
+//			for(Artwork artwork : artworks) {
+//				addArtworkToOrder(orderID, artwork);
+//				totalPrice += artwork.getPrice();
+//			}
+//		}
 		
 		if(orderStatus == OrderStatus.DELIVERED) {
 			order.setDateCompleted(new Date(System.currentTimeMillis()));
