@@ -435,7 +435,7 @@ public class TestArtistService {
     		error = e.getMessage();
     	}
 	
-    	assertEquals("Must enter an ID.", error);
+    	assertTrue(error.contains("Must enter a username."), error);
 
     }
     

@@ -472,7 +472,7 @@ public class TestCustomerService {
     		error = e.getMessage();
     	}
 	
-    	assertEquals( "Must enter an ID.", error);
+    	assertEquals( "Must enter a username.", error);
     }
     
     @Test
@@ -492,13 +492,16 @@ public class TestCustomerService {
     
     @Test
     public void testDeleteCustomer() {
+    	String error = "";
+//    	service.createCustomer(CUSTOMER_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ADDRESS);
+    	service.deleteCustomer(CUSTOMER_ID);
     	
-    	
-    	
-    	Customer customer = service.getCustomerByID(CUSTOMER_ID);
-    	customer = service.deleteCustomer(CUSTOMER_ID);
-    	
-    	assertEquals(null, customer);
+    	try {
+    		service.getCustomerByID(CUSTOMER_ID);
+    	} catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	assertTrue(error.contains("Username cannot be found."), error);
     }
     
 }
