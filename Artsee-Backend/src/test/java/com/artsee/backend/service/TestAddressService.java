@@ -255,12 +255,111 @@ public class TestAddressService {
         String error = null;
 
         try {
-            service.getAddressById(ID+1);
+            service.getAddressById(ID2);
         } catch (Exception e) {
             error = e.getMessage();
         }
 
         assertEquals("Address does not exist.", error);
+
+    }
+    
+    @Test
+    public void testUpdateAddress() {
+    	Address address = null;
+    	String error = null;
+    	
+    	try {
+    		address = service.updateAddress(ID, LINE1, LINE2, CITY, PROVINCE, POSTAL_CODE, COUNTRY);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	
+    	assertEquals(LINE1, address.getAddressLine1());
+    	assertEquals(LINE2, address.getAddressLine2());
+    	assertEquals(CITY, address.getCity());
+    	assertEquals(PROVINCE, address.getProvince());
+    	assertEquals(POSTAL_CODE, address.getPostalCode());
+    	assertEquals(COUNTRY, address.getCountry());
+    	
+    }
+    
+    @Test
+    public void testUpdateAddressInvalidLine1() {
+    	String error = null;
+    	
+    	try {
+    		service.updateAddress(ID, "", LINE2, CITY, PROVINCE, POSTAL_CODE, COUNTRY);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	
+    	assertEquals("Address cannot be empty.", error);
     }
 
+    @Test
+    public void testUpdateAddressInvalidCity() {
+    	String error = null;
+    	
+    	try {
+    		service.updateAddress(ID, LINE1, LINE2, "", PROVINCE, POSTAL_CODE, COUNTRY);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	
+    	assertEquals("City cannot be empty.", error);
+    }
+    
+    @Test
+    public void testUpdateAddressInvalidProvince() {
+    	String error = null;
+    	
+    	try {
+    		service.updateAddress(ID, LINE1, LINE2, CITY, "", POSTAL_CODE, COUNTRY);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	
+    	assertEquals("Province cannot be empty.", error);
+    }
+    
+    
+    @Test
+    public void testUpdateAddressInvalidPostalCode() {
+    	String error = null;
+    	
+    	try {
+    		service.updateAddress(ID, LINE1, LINE2, CITY, PROVINCE, "", COUNTRY);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	
+    	assertEquals("Postal code cannot be empty.", error);
+    }
+    
+    @Test
+    public void testUpdateAddressInvalidCountry() {
+    	String error = null;
+    	
+    	try {
+    		service.updateAddress(ID, LINE1, LINE2, CITY, PROVINCE, POSTAL_CODE, "");
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	
+    	assertEquals("Country cannot be empty.", error);
+    }
+    
+    @Test
+    public void testUpdateAddressInvalidID() {
+    	String error = null;
+	
+    	try {
+    		service.updateAddress(ID2, LINE1, LINE2, CITY, PROVINCE, POSTAL_CODE, COUNTRY);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	
+    	assertEquals( "Address does not exist.", error);
+    }
 }

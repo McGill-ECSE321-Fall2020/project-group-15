@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -56,286 +58,420 @@ public class ArtseeRestController {
 	
 	// REST api for user authentication __________________________________________________________
 	
-	@PostMapping(value = {"/signIn"})
-	public EndUserDto signIn(@RequestBody SignInDto signInDto) {
-		EndUser user = service.signIn(signInDto.getUserID(), signInDto.getPassword());
-		return convertToDto(user);
+	@PostMapping(value = {"/signIn", "/signIn/"})
+	public ResponseEntity<?> signIn(@RequestBody SignInDto signInDto) {
+		try {
+			return new ResponseEntity<>(service.signIn(signInDto.getUserID(), signInDto.getPassword()), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
 	
 	// REST api for EndUser  __________________________________________________________
 
 	@GetMapping(value = {"/users", "/users/"})
-	public List<EndUserDto> getAllUsers(){
-		return service.getAllUsers().stream().map(u -> convertToDto(u)).collect(Collectors.toList());
+	public ResponseEntity<?> getAllUsers(){
+		return new ResponseEntity<>(service.getAllUsers().stream().map(u -> convertToDto(u)).collect(Collectors.toList()), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = {"/users/{userID}","/users/{userID}/"})
-	public EndUserDto getUser(@PathVariable("userID") String userID){
-		return convertToDto(service.getUser(userID));
+	public ResponseEntity<?> getUser(@PathVariable("userID") String userID){
+		try {
+			return new ResponseEntity<>(convertToDto(service.getUser(userID)), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		
 	}
 	
 	@DeleteMapping(value = {"/users/{userID}","/users/{userID}/"})
-	public EndUserDto deleteUser(@PathVariable("userID") String userID){
-		return convertToDto(service.deleteUser(userID));
+	public ResponseEntity<?> deleteUser(@PathVariable("userID") String userID){
+		try {
+			return new ResponseEntity<>(convertToDto(service.deleteUser(userID)), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		
 	}
 	
-	@PutMapping(value = {"/users/"}, consumes = "application/json", produces = "application/json")
-	public EndUserDto updateUser(@RequestBody EndUserDto userDto) {
-		EndUser user = service.updateUser(userDto.getUserID(), userDto.getEmail(), userDto.getPassword(), userDto.getFirstName(), userDto.getLastName(), userDto.getPhoneNumber());
-		return convertToDto(user);
+	@PutMapping(value = {"/users", "/users/"}, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> updateUser(@RequestBody EndUserDto userDto) {
+		try {
+			EndUser user = service.updateUser(userDto.getUserID(), userDto.getEmail(), 
+											  userDto.getPassword(), userDto.getFirstName(), 
+											  userDto.getLastName(), userDto.getPhoneNumber());
+			return new ResponseEntity<>(convertToDto(user), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		
+		
 	}
 	
 	
 	// REST api for Customer __________________________________________________________
 
-	@PostMapping(value = {"/customers"}, consumes = "application/json", produces = "application/json")
-	public CustomerDto createCustomer(@RequestBody CustomerDto customerDto) {
-		
-		AddressDto addressDto = customerDto.getAddress();
-		Address address = service.createAddress(addressDto.getAddressLine1(), addressDto.getAddressLine2(), addressDto.getCity(), addressDto.getProvince(), addressDto.getPostalCode(), addressDto.getCountry());
-		Customer customer = service.createCustomer(customerDto.getUserID(), customerDto.getEmail(), customerDto.getPassword(), customerDto.getFirstName(), customerDto.getLastName(), customerDto.getPhoneNumber(), address);
-		
-		return convertToDto(customer);
+	@PostMapping(value = {"/customers", "/customers/"}, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> createCustomer(@RequestBody CustomerDto customerDto){
+		try {
+			AddressDto addressDto = customerDto.getAddress();
+			Address address = service.createAddress(addressDto.getAddressLine1(), addressDto.getAddressLine2(), addressDto.getCity(), addressDto.getProvince(), addressDto.getPostalCode(), addressDto.getCountry());
+			Customer customer = service.createCustomer(customerDto.getUserID(), customerDto.getEmail(), 
+													   customerDto.getPassword(), customerDto.getFirstName(), 
+													   customerDto.getLastName(), customerDto.getPhoneNumber(), address);
+			return new ResponseEntity<>(convertToDto(customer), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	
 	}
 	
 	@GetMapping(value = {"/customers/{userID}","/customers/{userID}/"})
-	public CustomerDto getCustomerByID(@PathVariable("userID") String userID){
-		return convertToDto(service.getCustomerByID(userID));
-	}
-	
-	@GetMapping(value = {"/customers/{email}","/customers/{email}/"})
-	public CustomerDto getCustomerByEmail(@PathVariable("email") String email){
-		return convertToDto(service.getCustomerByEmail(email));
+	public ResponseEntity<?> getCustomerByID(@PathVariable("userID") String userID){
+		try {
+			return new ResponseEntity<>(convertToDto(service.getCustomerByID(userID)), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
 	@GetMapping(value = {"/customers", "/customers/"})
-	public List<CustomerDto> getAllCustomers(){
-		return service.getAllCustomers().stream().map(c -> convertToDto(c)).collect(Collectors.toList());
+	public ResponseEntity<?> getAllCustomers(){
+		return new ResponseEntity<>(service.getAllCustomers().stream().map(c -> convertToDto(c)).collect(Collectors.toList()), HttpStatus.OK);
+		
 	}
 	
 	@DeleteMapping(value = {"/customers/{userID}","/customers/{userID}/"})
-	public CustomerDto deleteCustomer(@PathVariable("userID") String userID){
-		return convertToDto(service.deleteCustomer(userID));
+	public ResponseEntity<?> deleteCustomer(@PathVariable("userID") String userID){
+		try {
+			return new ResponseEntity<>(convertToDto(service.deleteCustomer(userID)), HttpStatus.OK);
+		}
+		catch(IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
-	@PutMapping(value = {"/customers/"}, consumes = "application/json", produces = "application/json")
-	public CustomerDto updateCustomer(@RequestBody CustomerDto customerDto) {
+	@PutMapping(value = {"/customers", "/customers/"}, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> updateCustomer(@RequestBody CustomerDto customerDto) {
 		
-		AddressDto addressDto = customerDto.getAddress();
-		Address address = service.createAddress(addressDto.getAddressLine1(), addressDto.getAddressLine2(), addressDto.getCity(), addressDto.getProvince(), addressDto.getPostalCode(), addressDto.getCountry());
-		Customer customer = service.updateCustomer(customerDto.getUserID(), customerDto.getEmail(), customerDto.getPassword(), customerDto.getFirstName(), customerDto.getLastName(), customerDto.getPhoneNumber(), address);
+		try {
+			AddressDto addressDto = customerDto.getAddress();
+			Address address = service.createAddress(addressDto.getAddressLine1(), addressDto.getAddressLine2(), 
+													addressDto.getCity(), addressDto.getProvince(), 
+													addressDto.getPostalCode(), addressDto.getCountry());
+			Customer customer = service.updateCustomer(customerDto.getUserID(), customerDto.getEmail(), 
+													   customerDto.getPassword(), customerDto.getFirstName(), 
+													   customerDto.getLastName(), customerDto.getPhoneNumber(), address);
+			return new ResponseEntity<>(convertToDto(customer), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 		
-		return convertToDto(customer);
 	}
 	
 	
 	// REST api for Artist __________________________________________________________
 
-	@PostMapping(value = {"/artists"}, consumes = "application/json", produces = "application/json")
-	public ArtistDto createArtist(@RequestBody ArtistDto artistDto) {
-		Artist artist = service.createArtist(artistDto.getUserID(), artistDto.getEmail(), artistDto.getPassword(), artistDto.getFirstName(), artistDto.getLastName(), artistDto.getPhoneNumber(), artistDto.getArtistDescription());
-		return convertToDto(artist);
+	@PostMapping(value = {"/artists", "/artists/"}, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> createArtist(@RequestBody ArtistDto artistDto) {
+		try {
+			Artist artist = service.createArtist(artistDto.getUserID(), artistDto.getEmail(), artistDto.getPassword(), artistDto.getFirstName(), artistDto.getLastName(), artistDto.getPhoneNumber(), artistDto.getArtistDescription());
+			return new ResponseEntity<>(convertToDto(artist), HttpStatus.OK);
+		}
+		catch(IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
 	@GetMapping(value = {"/artists/{userID}","/artists/{userID}/"})
-	public ArtistDto getArtistByID(@PathVariable("userID") String userID){
-		return convertToDto(service.getArtistByID(userID));
-	}
-	
-	@GetMapping(value = {"/artists/{email}","/artists/{email}/"})
-	public ArtistDto getArtistByEmail(@PathVariable("email") String email){
-		return convertToDto(service.getArtistByEmail(email));
+	public ResponseEntity<?> getArtistByID(@PathVariable("userID") String userID) {
+		try {
+			return new ResponseEntity<>(convertToDto(service.getArtistByID(userID)), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		
 	}
 	
 	@GetMapping(value = {"/artists", "/artists/"})
-	public List<ArtistDto> getAllArtists(){
-		return service.getAllArtists().stream().map(a -> convertToDto(a)).collect(Collectors.toList());
+	public ResponseEntity<?> getAllArtists(){
+		return new ResponseEntity<>(service.getAllArtists().stream().map(a -> convertToDto(a)).collect(Collectors.toList()), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = {"/artists/{userID}", "/artists/{userID}/"})
-	public ArtistDto deleteArtist(@PathVariable("userID") String userID){
-		return convertToDto(service.deleteArtist(userID));
+	public ResponseEntity<?> deleteArtist(@PathVariable("userID") String userID) {
+		try {
+			return new ResponseEntity<>(convertToDto(service.deleteArtist(userID)), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
-	@PutMapping(value = {"/artists/"}, consumes = "application/json", produces = "application/json")
-	public ArtistDto updateArtist(@RequestBody ArtistDto artistDto) {
-		Artist artist = service.updateArtist(artistDto.getUserID(), artistDto.getEmail(), artistDto.getPassword(), artistDto.getFirstName(), artistDto.getLastName(), artistDto.getPhoneNumber(), artistDto.getArtistDescription());
-		return convertToDto(artist);
+	@PutMapping(value = {"/artists", "/artists/"}, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> updateArtist(@RequestBody ArtistDto artistDto) {
+		try {
+			Artist artist = service.updateArtist(artistDto.getUserID(), artistDto.getEmail(), 
+					artistDto.getPassword(), artistDto.getFirstName(), artistDto.getLastName(), 
+					artistDto.getPhoneNumber(), artistDto.getArtistDescription());
+			return new ResponseEntity<>(convertToDto(artist), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
 	@GetMapping(value = {"/artists/{userID}/rating","/artists/{userID}/rating/"})
-	public Float getArtistRating(@PathVariable("userID") String userID) {
-		return service.getArtistRating(userID);
+	public ResponseEntity<?> getArtistRating(@PathVariable("userID") String userID) {
+		try {
+			return new ResponseEntity<>(service.getArtistRating(userID), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
 	
 	// REST api for Administrator  __________________________________________________________
 	
-	@PostMapping(value = {"/administrators"}, consumes = "application/json", produces = "application/json")
-	public AdministratorDto createAdministrator(@RequestBody AdministratorDto adminDto) {
-		Administrator administrator = service.createAdministrator(adminDto.getUserID(), adminDto.getEmail(), adminDto.getPassword(), adminDto.getFirstName(), adminDto.getLastName(), adminDto.getPhoneNumber());
-		return convertToDto(administrator);
+	@PostMapping(value = {"/administrators", "/administrators/"}, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> createAdministrator(@RequestBody AdministratorDto adminDto) {
+		try {
+			Administrator administrator = service.createAdministrator(adminDto.getUserID(), adminDto.getEmail(), 
+																      adminDto.getPassword(), adminDto.getFirstName(), 
+																      adminDto.getLastName(), adminDto.getPhoneNumber());
+			return new ResponseEntity<>(convertToDto(administrator), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
 	@GetMapping(value = {"/administrators/{userID}","/administrators/{userID}/"})
-	public AdministratorDto getAdministratorByID(@PathVariable("userID") String userID){
-		return convertToDto(service.getAdministratorByID(userID));
-	}
-	
-	@GetMapping(value = {"/administrators/{email}","/administrators/{email}/"})
-	public AdministratorDto getAdministratorByEmail(@PathVariable("email") String email){
-		return convertToDto(service.getAdministratorByEmail(email));
+	public ResponseEntity<?> getAdministratorByID(@PathVariable("userID") String userID) {
+		try {
+			return new ResponseEntity<>(convertToDto(service.getAdministratorByID(userID)), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
 	@GetMapping(value = {"/administrators", "/administrators/"})
-	public List<AdministratorDto> getAllAdministrators(){
-		return service.getAllAdministrators().stream().map(a -> convertToDto(a)).collect(Collectors.toList());
+	public ResponseEntity<?> getAllAdministrators(){
+		return new ResponseEntity<>(service.getAllAdministrators().stream().map(a -> convertToDto(a)).collect(Collectors.toList()), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = {"/administrators/{userID}", "/administrators/{userID}/"})
-	public AdministratorDto deleteAdministrator(@PathVariable("userID") String userID){
-		return convertToDto(service.deleteAdministrator(userID));
+	public ResponseEntity<?> deleteAdministrator(@PathVariable("userID") String userID) {
+		try {
+			return new ResponseEntity<>(convertToDto(service.deleteAdministrator(userID)), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 
-	@PutMapping(value = {"/administrators/"}, consumes = "application/json", produces = "application/json")
-	public AdministratorDto updateAdministrator(@RequestBody AdministratorDto adminDto) {
-		Administrator admin = service.updateAdministrator(adminDto.getUserID(), adminDto.getEmail(), adminDto.getPassword(), adminDto.getFirstName(), adminDto.getLastName(), adminDto.getPhoneNumber());
-		return convertToDto(admin);
+	@PutMapping(value = {"/administrators", "/administrators/"}, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> updateAdministrator(@RequestBody AdministratorDto adminDto) {
+		try {
+			Administrator admin = service.updateAdministrator(adminDto.getUserID(), adminDto.getEmail(), adminDto.getPassword(), adminDto.getFirstName(), adminDto.getLastName(), adminDto.getPhoneNumber());
+			return new ResponseEntity<>(convertToDto(admin), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 
 	// REST api for Review  __________________________________________________________
 	
 	@GetMapping(value = { "/reviews", "/reviews/" })
-	public List<ReviewDto> getAllReviews(){
-		return service.getAllReviews().stream().map(u -> convertToDto(u)).collect(Collectors.toList());
+	public ResponseEntity<?> getAllReviews(){
+		return new ResponseEntity<>(service.getAllReviews().stream().map(u -> convertToDto(u)).collect(Collectors.toList()), HttpStatus.OK);
 	}
 	
-	@PostMapping(value = { "/reviews" }, consumes = "application/json", produces = "application/json")
-	public ReviewDto createReview(@RequestBody ReviewDto reviewDto) {
-		Customer customer = service.getCustomerByID(reviewDto.getCustomer().getUserID());
-		Artist artist = service.getArtistByID(reviewDto.getArtist().getUserID());
-		Review review = service.createReview(reviewDto.getRating(), reviewDto.getComment(), reviewDto.getRecomendation(), customer, artist);
-		return convertToDto(review);
+	@PostMapping(value = { "/reviews", "/reviews/" }, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> createReview(@RequestBody ReviewDto reviewDto) {
+		try {
+			Customer customer = service.getCustomerByID(reviewDto.getCustomer().getUserID());
+			Artist artist = service.getArtistByID(reviewDto.getArtist().getUserID());
+			Review review = service.createReview(reviewDto.getRating(), reviewDto.getComment(), reviewDto.getRecomendation(), customer, artist);
+			return new ResponseEntity<>(convertToDto(review), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
-	@PutMapping(value = { "/reviews" }, consumes = "application/json", produces = "application/json")
-	public ReviewDto updateReview(@RequestBody ReviewDto reviewDto) {
-		Customer customer = service.getCustomerByID(reviewDto.getCustomer().getUserID());
-		Artist artist = service.getArtistByID(reviewDto.getArtist().getUserID());
-		Review review = service.updateReview(reviewDto.getReviewID(), reviewDto.getRating(), reviewDto.getComment(), reviewDto.getRecomendation(), customer, artist);
-		return convertToDto(review);
+	@PutMapping(value = { "/reviews", "/reviews/" }, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> updateReview(@RequestBody ReviewDto reviewDto) {
+		try {
+			Customer customer = service.getCustomerByID(reviewDto.getCustomer().getUserID());
+			Artist artist = service.getArtistByID(reviewDto.getArtist().getUserID());
+			Review review = service.updateReview(reviewDto.getReviewID(), reviewDto.getRating(), reviewDto.getComment(), reviewDto.getRecomendation(), customer, artist);
+			return new ResponseEntity<>(convertToDto(review), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		
 	}
 	
-	@DeleteMapping(value = { "/reviews/{id}" })
-	public ReviewDto deleteReview(@PathVariable("id") Integer id) {
-		Review review = service.deleteReview(id);
-		return convertToDto(review);
+	@DeleteMapping(value = { "/reviews/{id}", "/reviews/{id}/" })
+	public ResponseEntity<?> deleteReview(@PathVariable("id") Integer id) {
+		try {
+			Review review = service.deleteReview(id);
+			return new ResponseEntity<>(convertToDto(review), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
+	
 	
 	
 	// REST api for Artwork  __________________________________________________________
 	
 	@GetMapping(value = { "/artworks", "/artworks/" })
-	public List<ArtworkDto> getAllArtworks(){
-		return service.getAllArtworks().stream().map(u -> convertToDto(u)).collect(Collectors.toList());
+	public ResponseEntity<?> getAllArtworks(){
+		return new ResponseEntity<>(service.getAllArtworks().stream().map(u -> convertToDto(u)).collect(Collectors.toList()), HttpStatus.OK);
 	}
 	
-	@PostMapping(value = { "/artwork" }, consumes = "application/json", produces = "application/json")
-	public ArtworkDto createArtwork(@RequestBody ArtworkDto artworkDto) {
-		Artist artist = service.getArtistByID(artworkDto.getArtist().getUserID());
-		Artwork artwork = service.createArtwork(artworkDto.getName(), artworkDto.getPrice(), artworkDto.getDescription(), artworkDto.getDateOfCreation(), artworkDto.getNumInStock(), artist);
-		return convertToDto(artwork);
+	@PostMapping(value = { "/artworks", "/artworks/" }, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> createArtwork(@RequestBody ArtworkDto artworkDto) {
+		try {
+			Artist artist = service.getArtistByID(artworkDto.getArtist().getUserID());
+			Artwork artwork = service.createArtwork(artworkDto.getName(), artworkDto.getPrice(), artworkDto.getDescription(), artworkDto.getDateOfCreation(), artworkDto.getNumInStock(), artist);
+			return new ResponseEntity<>(convertToDto(artwork), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
-	@PutMapping(value = { "/artwork" }, consumes = "application/json", produces = "application/json")
-	public ArtworkDto updateArtwork(@RequestBody ArtworkDto artworkDto) {
-		Artist artist = service.getArtistByID(artworkDto.getArtist().getUserID());
-		Artwork artwork = service.createArtwork(artworkDto.getName(), artworkDto.getPrice(), artworkDto.getDescription(), artworkDto.getDateOfCreation(), artworkDto.getNumInStock(), artist);
-		return convertToDto(artwork);
+	@PutMapping(value = { "/artworks", "/artworks/" }, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> updateArtwork(@RequestBody ArtworkDto artworkDto) {
+		try {
+			Artist artist = service.getArtistByID(artworkDto.getArtist().getUserID());
+			Artwork curr = service.getArtworkById(artworkDto.getID());
+			Artwork artwork = service.updateArtwork(curr, artworkDto.getName(), artworkDto.getPrice(), artworkDto.getDescription(), artworkDto.getDateOfCreation(), artworkDto.getNumInStock(), artist);
+			return new ResponseEntity<>(convertToDto(artwork), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
-	@DeleteMapping(value = { "/artwork/{id}" })
-	public ArtworkDto deleteArtwork(@PathVariable("id") Integer id) {
-		Artwork artwork = service.deleteArtwork(id);
-		return convertToDto(artwork);
+	@DeleteMapping(value = { "/artworks/{id}", "/artworks/{id}/" })
+	public ResponseEntity<?> deleteArtwork(@PathVariable("id") Integer id) {
+		try {
+			Artwork artwork = service.deleteArtwork(id);
+			return new ResponseEntity<>(convertToDto(artwork), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		
 	}
 	
 	
 	// REST api for Artwork Order  __________________________________________________________
 	
 	@GetMapping(value = { "/artworkOrders", "/artworkOrders/" })
-	public List<ArtworkOrderDto> getAllArtworkOrders(){
-		return service.getAllArtworkOrders().stream().map(u -> convertToDto(u)).collect(Collectors.toList());
+	public ResponseEntity<?> getAllArtworkOrders() {
+		return new ResponseEntity<>(service.getAllArtworkOrders().stream().map(u -> convertToDto(u)).collect(Collectors.toList()), HttpStatus.OK);
 	}
 	
-	@PostMapping(value = { "/artworkOrder" }, consumes = "application/json", produces = "application/json")
-	public ArtworkOrderDto createArtworkOrder(@RequestBody ArtworkOrderDto artworkOrderDto) {
-		Customer customer = service.getCustomerByID(artworkOrderDto.getCustomer().getUserID());
-		List<Artwork> artworks = new ArrayList<>();
-		artworks = convertFromDto(artworkOrderDto.getArtworks());
-		DeliveryMethod deliveryMethod = convertFromDto(artworkOrderDto.getDeliveryMethod());
-		OrderStatus orderStatus = convertFromDto(artworkOrderDto.getOrderStatus());
-		ArtworkOrder artworkOrder = service.createArtworkOrder(artworkOrderDto.getDatePlaced(), artworkOrderDto.getDateCompleted(), deliveryMethod, orderStatus, customer, artworks);
-		return convertToDto(artworkOrder);
+	@PostMapping(value = { "/artworkOrders", "/artworkOrders/" }, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> createArtworkOrder(@RequestBody ArtworkOrderDto artworkOrderDto) {
+		try {
+			Customer customer = service.getCustomerByID(artworkOrderDto.getCustomer().getUserID());
+			List<Artwork> artworks = new ArrayList<>();
+			artworks = convertFromDto(artworkOrderDto.getArtworks());
+			DeliveryMethod deliveryMethod = convertFromDto(artworkOrderDto.getDeliveryMethod());
+			ArtworkOrder artworkOrder = service.createArtworkOrder(deliveryMethod, customer, artworks);
+			return new ResponseEntity<>(convertToDto(artworkOrder), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
-	@PutMapping(value = { "/artworkOrder" }, consumes = "application/json", produces = "application/json")
-	public ArtworkOrderDto updateArtworkOrder(@RequestBody ArtworkOrderDto artworkOrderDto) {
-		Customer customer = service.getCustomerByID(artworkOrderDto.getCustomer().getUserID());
-		List<Artwork> artworks = new ArrayList<>();
-		artworks = convertFromDto(artworkOrderDto.getArtworks());
-		DeliveryMethod deliveryMethod = convertFromDto(artworkOrderDto.getDeliveryMethod());
-		OrderStatus orderStatus = convertFromDto(artworkOrderDto.getOrderStatus());
-		ArtworkOrder artworkOrder = service.updateArtworkOrder(artworkOrderDto.getOrderID(), artworkOrderDto.getDatePlaced(), artworkOrderDto.getDateCompleted(), deliveryMethod, orderStatus, customer, artworks);
-		return convertToDto(artworkOrder);
+	@PutMapping(value = { "/artworkOrders", "/artworkOrders/" }, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> updateArtworkOrder(@RequestBody ArtworkOrderDto artworkOrderDto) {
+		try {
+			Customer customer = service.getCustomerByID(artworkOrderDto.getCustomer().getUserID());
+			List<Artwork> artworks = new ArrayList<>();
+			artworks = convertFromDto(artworkOrderDto.getArtworks());
+			DeliveryMethod deliveryMethod = convertFromDto(artworkOrderDto.getDeliveryMethod());
+			OrderStatus orderStatus = convertFromDto(artworkOrderDto.getOrderStatus());
+			ArtworkOrder artworkOrder = service.updateArtworkOrder(artworkOrderDto.getOrderID(), deliveryMethod, orderStatus, customer, artworks);
+			return new ResponseEntity<>(convertToDto(artworkOrder), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
-	
-	@DeleteMapping(value = { "/artworkOrder/{id}" })
-	public ArtworkOrderDto deleteArtworkOrder(@PathVariable("id") Integer id) {
-		ArtworkOrder artworkOrder = service.deleteArtworkOrder(id);
-		return convertToDto(artworkOrder);
+
+  @DeleteMapping(value = { "/artworkOrders/{id}", "/artworksOrders/{id}/" })
+	public ResponseEntity<?> deleteArtworkOrder(@PathVariable("id") Integer id) {
+		try {
+			ArtworkOrder artworkOrder = service.deleteArtworkOrder(id);
+			return new ResponseEntity<>(convertToDto(artworkOrder), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
 	
 	// Convert to Dto Methods ______________________________________________________________________________________________
 	
-		private EndUserDto convertToDto(EndUser user) {
+	private EndUserDto convertToDto(EndUser user) {
 			if(user==null) {
 				throw new IllegalArgumentException("There is no such User.");
 			}
 			return new EndUserDto(user.getUserID(), user.getEmail(), user.getPassword(), user.getFirstName(),user.getLastName(), user.getPhoneNumber());
 		}
 		
-		private CustomerDto convertToDto(Customer customer) {
+	private CustomerDto convertToDto(Customer customer) {
 			if(customer==null) {
 				throw new IllegalArgumentException("There is no such Customer.");
 			}
 			return new CustomerDto(customer.getUserID(), customer.getEmail(), customer.getPassword(), customer.getFirstName(),customer.getLastName(), customer.getPhoneNumber(), convertToDto(customer.getAddress()));
 		}
 		
-		private AdministratorDto convertToDto(Administrator admin) {
+	private AdministratorDto convertToDto(Administrator admin) {
 			if(admin==null) {
 				throw new IllegalArgumentException("There is no such Administrator.");
 			}
 			return new AdministratorDto(admin.getUserID(), admin.getEmail(), admin.getPassword(), admin.getFirstName(),admin.getLastName(), admin.getPhoneNumber());
 		}
 		
-		private ArtistDto convertToDto(Artist artist) {
+	private ArtistDto convertToDto(Artist artist) {
 			if(artist==null) {
 				throw new IllegalArgumentException("There is no such Artist.");
 			}
 			return new ArtistDto(artist.getUserID(), artist.getEmail(), artist.getPassword(), artist.getFirstName(),artist.getLastName(), artist.getPhoneNumber(),artist.getArtistDescription(), artist.getRating());
 		}
 		
-		private AddressDto convertToDto(Address address) {
+	private AddressDto convertToDto(Address address) {
 			if(address==null) {
 				throw new IllegalArgumentException("There is no such Address.");
 			}
 			return new AddressDto(address.getAddressID(),address.getAddressLine1(), address.getAddressLine2(), address.getCity(), address.getProvince(), address.getPostalCode(), address.getCountry());
 		}
 		
-		private ReviewDto convertToDto(Review review) {
+	private ReviewDto convertToDto(Review review) {
 			if(review==null) {
 				throw new IllegalArgumentException("There is no such Review.");
 			}
@@ -343,7 +479,7 @@ public class ArtseeRestController {
 			return reviewDto;
 		}
 		
-		private ArtworkOrderDto convertToDto(ArtworkOrder artworkOrder) {
+	private ArtworkOrderDto convertToDto(ArtworkOrder artworkOrder) {
 			if(artworkOrder==null) {
 				throw new IllegalArgumentException("There is no such Artwork Order.");
 			}
@@ -351,7 +487,7 @@ public class ArtseeRestController {
 			return artworkOrderDto;
 		}
 		
-		private ArtworkDto convertToDto(Artwork artwork) {
+	private ArtworkDto convertToDto(Artwork artwork) {
 			if(artwork==null) {
 				throw new IllegalArgumentException("There is no such Artwork.");
 			}
@@ -359,7 +495,7 @@ public class ArtseeRestController {
 			return artworkDto;
 		}
 		
-		private DeliveryMethodDto convertToDto(DeliveryMethod deliveryMethod) {
+	private DeliveryMethodDto convertToDto(DeliveryMethod deliveryMethod) {
 			DeliveryMethodDto deliveryMethodDto;
 			if(deliveryMethod.equals(DeliveryMethod.SHIP)) {
 				deliveryMethodDto = DeliveryMethodDto.SHIP;
@@ -369,7 +505,7 @@ public class ArtseeRestController {
 			return deliveryMethodDto;
 		}
 		
-		private OrderStatusDto convertToDto(OrderStatus orderStatus) {
+	private OrderStatusDto convertToDto(OrderStatus orderStatus) {
 			OrderStatusDto orderStatusDto;
 			if(orderStatus.equals(OrderStatus.PROCESSING)) {
 				orderStatusDto = OrderStatusDto.PROCESSING;
@@ -379,7 +515,7 @@ public class ArtseeRestController {
 			return orderStatusDto;
 		}
 		
-		private List<ArtworkDto> convertToDto(Set<Artwork> artworks){
+	private List<ArtworkDto> convertToDto(Set<Artwork> artworks){
 			List<ArtworkDto> artworkListDto = new ArrayList<ArtworkDto>();
 			for(Artwork artwork : artworks) {
 				artworkListDto.add(convertToDto(artwork));
@@ -387,7 +523,7 @@ public class ArtseeRestController {
 			return artworkListDto;
 		}
 		
-		private DeliveryMethod convertFromDto(DeliveryMethodDto deliveryMethodDto) {
+	private DeliveryMethod convertFromDto(DeliveryMethodDto deliveryMethodDto) {
 			DeliveryMethod deliveryMethod;
 			if(deliveryMethodDto.equals(DeliveryMethodDto.SHIP)) {
 				deliveryMethod = DeliveryMethod.SHIP;
@@ -397,7 +533,7 @@ public class ArtseeRestController {
 			return deliveryMethod;
 		}
 		
-		private OrderStatus convertFromDto(OrderStatusDto orderStatusDto) {
+	private OrderStatus convertFromDto(OrderStatusDto orderStatusDto) {
 			OrderStatus orderStatus;
 			if(orderStatusDto.equals(OrderStatusDto.PROCESSING)) {
 				orderStatus = OrderStatus.PROCESSING;
@@ -407,7 +543,7 @@ public class ArtseeRestController {
 			return orderStatus;
 		}
 		
-		private List<Artwork> convertFromDto(List<ArtworkDto> artworks){
+	private List<Artwork> convertFromDto(List<ArtworkDto> artworks){
 			List<Artwork> artworkList = new ArrayList<Artwork>();
 			for(ArtworkDto artworkDto : artworks) {
 				Artwork artwork = service.getArtworkById(artworkDto.getID());

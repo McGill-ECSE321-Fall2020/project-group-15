@@ -9,6 +9,8 @@ public class AdministratorDto {
 	private String lastName;
 	private String phoneNumber;
 	
+	public AdministratorDto() {}
+	
 	public AdministratorDto(String userID, String email, String password, String firstName, String lastName, String phoneNumber) {
 		this.userID = userID;
 		this.email = email;

@@ -4,6 +4,8 @@ public class SignInDto {
 	private String userID;
 	private String password;
 	
+	public SignInDto() {}
+	
 	public SignInDto(String userID, String password) {
 		this.userID = userID;
 		this.password = password;
