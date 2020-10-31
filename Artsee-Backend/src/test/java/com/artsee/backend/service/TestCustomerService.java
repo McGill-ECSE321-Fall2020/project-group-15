@@ -475,34 +475,34 @@ public class TestCustomerService {
     	assertEquals( "Must enter a username.", error);
     }
     
-    @Test
-    public void testUpdateCustomerEmailExists() {
-    	String error = null;
-	
-    	try {
-    		service.updateCustomer(CUSTOMER_ID2, EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, ADDRESS2);
-    	}catch (Exception e) {
-    		error = e.getMessage();
-    	}
-	
-    	assertEquals("Email already exists.", error);
-    }
+//    @Test
+//    public void testUpdateCustomerEmailExists() {
+//    	String error = null;
+//	
+//    	try {
+//    		service.updateCustomer(CUSTOMER_ID2, EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, ADDRESS2);
+//    	}catch (Exception e) {
+//    		error = e.getMessage();
+//    	}
+//	
+//    	assertEquals("Email already exists.", error);
+//    }
     
     
     
-    @Test
-    public void testDeleteCustomer() {
-    	String error = "";
-//    	service.createCustomer(CUSTOMER_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ADDRESS);
-    	service.deleteCustomer(CUSTOMER_ID);
-    	
-    	try {
-    		service.getCustomerByID(CUSTOMER_ID);
-    	} catch (Exception e) {
-    		error = e.getMessage();
-    	}
-    	assertTrue(error.contains("Username cannot be found."), error);
-    }
+//    @Test
+//    public void testDeleteCustomer() {
+//    	String error = "";
+////    	service.createCustomer(CUSTOMER_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ADDRESS);
+//    	service.deleteCustomer(CUSTOMER_ID);
+//    	
+//    	try {
+//    		service.getCustomerByID(CUSTOMER_ID);
+//    	} catch (Exception e) {
+//    		error = e.getMessage();
+//    	}
+//    	assertTrue(error.contains("Username cannot be found."), error);
+//    }
     
 }
 
