@@ -298,7 +298,7 @@ public class ArtseeRestController {
 		try {
 			Customer customer = service.getCustomerByID(reviewDto.getCustomer().getUserID());
 			Artist artist = service.getArtistByID(reviewDto.getArtist().getUserID());
-			Review review = service.createReview(reviewDto.getRating(), reviewDto.getComment(), reviewDto.getRecomendation(), customer, artist);
+			Review review = service.createReview(reviewDto.getRating(), reviewDto.getComment(), reviewDto.getWouldRecommend(), customer, artist);
 			return new ResponseEntity<>(convertToDto(review), HttpStatus.OK);
 		}
 		catch (Exception e) {
@@ -311,7 +311,7 @@ public class ArtseeRestController {
 		try {
 			Customer customer = service.getCustomerByID(reviewDto.getCustomer().getUserID());
 			Artist artist = service.getArtistByID(reviewDto.getArtist().getUserID());
-			Review review = service.updateReview(reviewDto.getReviewID(), reviewDto.getRating(), reviewDto.getComment(), reviewDto.getRecomendation(), customer, artist);
+			Review review = service.updateReview(reviewDto.getReviewID(), reviewDto.getRating(), reviewDto.getComment(), reviewDto.getWouldRecommend(), customer, artist);
 			return new ResponseEntity<>(convertToDto(review), HttpStatus.OK);
 		}
 		catch (Exception e) {

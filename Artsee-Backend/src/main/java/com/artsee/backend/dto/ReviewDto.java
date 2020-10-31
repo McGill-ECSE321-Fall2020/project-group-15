@@ -34,8 +34,8 @@ public class ReviewDto {
 		return comment;
 	}
 	
-	public boolean getRecomendation() {
-		return wouldRecommend;
+	public boolean getWouldRecommend() {
+		return this.wouldRecommend;
 	}
 	
 	public CustomerDto getCustomer() {
