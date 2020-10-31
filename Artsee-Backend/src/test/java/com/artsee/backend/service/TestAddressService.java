@@ -54,7 +54,7 @@ public class TestAddressService {
     private static final String LINE1 = "5555 street";
     private static final String LINE2 = "apt b";
     private static final String CITY = "chicago";
-    private static final String PROVENCE = "Manitoba";
+    private static final String PROVINCE = "Manitoba";
     private static final String POSTAL_CODE = "h1x 2s4";
     private static final String COUNTRY = "Deutchland";
 
@@ -65,7 +65,7 @@ public class TestAddressService {
     
         lenient().when(addressDao.findById(anyInt())).thenAnswer( (InvocationOnMock invocation) -> {
             if(invocation.getArgument(0).equals(ID)) {
-                return Optional.of(TestUtility.createAddress(ID, LINE1, LINE2, CITY, PROVENCE, POSTAL_CODE, COUNTRY));
+                return Optional.of(TestUtility.createAddress(ID, LINE1, LINE2, CITY, PROVINCE, POSTAL_CODE, COUNTRY));
             } else {
                 return Optional.empty();
             }
@@ -73,7 +73,7 @@ public class TestAddressService {
 
 
         lenient().when(addressDao.save(any(Address.class))).thenAnswer((InvocationOnMock invocation) -> {
-            return TestUtility.createAddress(ID, LINE1, LINE2, CITY, PROVENCE, POSTAL_CODE, COUNTRY);
+            return TestUtility.createAddress(ID, LINE1, LINE2, CITY, PROVINCE, POSTAL_CODE, COUNTRY);
         });
     }
 
@@ -85,7 +85,7 @@ public class TestAddressService {
         Address a = null;
 
         try {
-            a = service.createAddress(LINE1, LINE2, CITY, PROVENCE, POSTAL_CODE, COUNTRY);
+            a = service.createAddress(LINE1, LINE2, CITY, PROVINCE, POSTAL_CODE, COUNTRY);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -94,7 +94,7 @@ public class TestAddressService {
         assertEquals(LINE1, a.getAddressLine1());
         assertEquals(LINE2, a.getAddressLine2());
         assertEquals(CITY, a.getCity());
-        assertEquals(PROVENCE, a.getProvince());
+        assertEquals(PROVINCE, a.getProvince());
         assertEquals(POSTAL_CODE, a.getPostalCode());
         assertEquals(COUNTRY, a.getCountry());
         
@@ -108,23 +108,23 @@ public class TestAddressService {
         String error = null;
 
         try {
-            service.createAddress("", LINE2, CITY, PROVENCE, POSTAL_CODE, COUNTRY);
+            service.createAddress("", LINE2, CITY, PROVINCE, POSTAL_CODE, COUNTRY);
         } catch (Exception e) {
             error = e.getMessage();
         }
 
-        assertEquals("Address cannot be empty.", error);
+        assertTrue(error.contains("Address cannot be empty."));
 
         // check again with null input
         error = null;
 
         try {
-            service.createAddress(null, LINE2, CITY, PROVENCE, POSTAL_CODE, COUNTRY);
+            service.createAddress(null, LINE2, CITY, PROVINCE, POSTAL_CODE, COUNTRY);
         } catch (Exception e) {
             error = e.getMessage();
         }
 
-        assertEquals("Address cannot be empty.", error);
+        assertTrue(error.contains("Address cannot be empty."));
 
     }
 
@@ -134,7 +134,7 @@ public class TestAddressService {
         String error = null;
 
         try {
-            service.createAddress(LINE1, LINE2, "", PROVENCE, POSTAL_CODE, COUNTRY);
+            service.createAddress(LINE1, LINE2, "", PROVINCE, POSTAL_CODE, COUNTRY);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -145,7 +145,7 @@ public class TestAddressService {
         error = null;
 
         try {
-            service.createAddress(LINE1, LINE2, null, PROVENCE, POSTAL_CODE, COUNTRY);
+            service.createAddress(LINE1, LINE2, null, PROVINCE, POSTAL_CODE, COUNTRY);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -192,7 +192,7 @@ public class TestAddressService {
         String error = null;
 
         try {
-            service.createAddress(LINE1, LINE2, CITY, PROVENCE, "", COUNTRY);
+            service.createAddress(LINE1, LINE2, CITY, PROVINCE, "", COUNTRY);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -206,7 +206,7 @@ public class TestAddressService {
         error = null;
 
         try {
-            service.createAddress(LINE1, LINE2, CITY, PROVENCE, null, COUNTRY);
+            service.createAddress(LINE1, LINE2, CITY, PROVINCE, null, COUNTRY);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -224,7 +224,7 @@ public class TestAddressService {
         String error = null;
 
         try {
-            service.createAddress(LINE1, LINE2, CITY, PROVENCE, POSTAL_CODE, "");
+            service.createAddress(LINE1, LINE2, CITY, PROVINCE, POSTAL_CODE, "");
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -238,7 +238,7 @@ public class TestAddressService {
         error = null;
 
         try {
-            service.createAddress(LINE1, LINE2, CITY, PROVENCE, POSTAL_CODE, null);
+            service.createAddress(LINE1, LINE2, CITY, PROVINCE, POSTAL_CODE, null);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -261,6 +261,105 @@ public class TestAddressService {
         }
 
         assertEquals("Address does not exist.", error);
+
+    }
+    
+    @Test
+    public void testUpdateAddress() {
+    	Address address = null;
+    	String error = null;
+    	
+    	try {
+    		address = service.updateAddress(ID, LINE1, LINE2, CITY, PROVINCE, POSTAL_CODE, COUNTRY);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	
+    	assertEquals(LINE1, address.getAddressLine1());
+    	assertEquals(LINE2, address.getAddressLine2());
+    	assertEquals(CITY, address.getCity());
+    	assertEquals(PROVINCE, address.getProvince());
+    	assertEquals(POSTAL_CODE, address.getPostalCode());
+    	assertEquals(COUNTRY, address.getCountry());
+    	
+    }
+    
+    @Test
+    public void testUpdateAddressInvalidLine1() {
+    	String error = null;
+    	
+    	try {
+    		service.updateAddress(ID, "", LINE2, CITY, PROVINCE, POSTAL_CODE, COUNTRY);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	
+    	assertEquals("Address cannot be empty.", error);
     }
 
+    @Test
+    public void testUpdateAddressInvalidCity() {
+    	String error = null;
+    	
+    	try {
+    		service.updateAddress(ID, LINE1, LINE2, "", PROVINCE, POSTAL_CODE, COUNTRY);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	
+    	assertEquals("City cannot be empty.", error);
+    }
+    
+    @Test
+    public void testUpdateAddressInvalidProvince() {
+    	String error = null;
+    	
+    	try {
+    		service.updateAddress(ID, LINE1, LINE2, CITY, "", POSTAL_CODE, COUNTRY);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	
+    	assertEquals("Province cannot be empty.", error);
+    }
+    
+    
+    @Test
+    public void testUpdateAddressInvalidPostalCode() {
+    	String error = null;
+    	
+    	try {
+    		service.updateAddress(ID, LINE1, LINE2, CITY, PROVINCE, "", COUNTRY);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	
+    	assertEquals("Postal code cannot be empty.", error);
+    }
+    
+    @Test
+    public void testUpdateAddressInvalidCountry() {
+    	String error = null;
+    	
+    	try {
+    		service.updateAddress(ID, LINE1, LINE2, CITY, PROVINCE, POSTAL_CODE, "");
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	
+    	assertEquals("Country cannot be empty.", error);
+    }
+    
+    @Test
+    public void testUpdateAddressInvalidID() {
+    	String error = null;
+	
+    	try {
+    		service.updateAddress(ID2, LINE1, LINE2, CITY, PROVINCE, POSTAL_CODE, COUNTRY);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	
+    	assertEquals( "Address does not exist.", error);
+    }
 }
