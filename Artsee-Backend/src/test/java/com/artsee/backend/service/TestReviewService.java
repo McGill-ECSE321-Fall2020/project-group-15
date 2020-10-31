@@ -53,17 +53,90 @@ public class TestReviewService {
 	private static final Boolean WOULDRECCOMEND = true;
 	private static final Customer CUSTOMER = new Customer();
 	private static final Artist ARTIST = new Artist();
+	private static final String ARTIST_ID = "1234";
+	private static final String CUSTOMER_ID = "3245";
 	
 	
 	@BeforeEach
 	public void setMockOuput() {
-		lenient().when(reviewDao.save(any(Review.class))).thenAnswer((InvocationOnMock invocation) -> {
-			if(invocation.getArgument(0).equals(ID)) {
-				return Optional.of(TestUtility.createReview(ID, RATING, COMMENT, WOULDRECCOMEND,CUSTOMER,ARTIST));
-			}
+		ARTIST.setUserID(ARTIST_ID);
+		CUSTOMER.setUserID(CUSTOMER_ID);
+
+
+		lenient().when(reviewDao.findByArtist(ARTIST)).thenAnswer((InvocationOnMock invocation) -> {
+            if (invocation.getArgument(0).equals(ARTIST)) {
+                List<Review> reviewList = new ArrayList<Review>();
+                reviewList.add(TestUtility.createReview(ID, RATING, COMMENT, WOULDRECCOMEND, CUSTOMER, ARTIST));
+                return reviewList;
+            } else {
+                return null;
+            }
 		});
 		
+		lenient().when(reviewDao.findByCustomer(CUSTOMER)).thenAnswer((InvocationOnMock invocation) -> {
+            if (invocation.getArgument(0).equals(CUSTOMER)) {
+                List<Review> reviewList = new ArrayList<Review>();
+                reviewList.add(TestUtility.createReview(ID, RATING, COMMENT, WOULDRECCOMEND, CUSTOMER, ARTIST));
+                return reviewList;
+            } else {
+                return null;
+            }
+		});
 		
+		lenient().when(reviewDao.findById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+            if (invocation.getArgument(0).equals(ID)) {
+                return Optional.of(
+					TestUtility.createReview(ID, RATING, COMMENT, WOULDRECCOMEND, CUSTOMER, ARTIST));
+            } else {
+                return Optional.empty();
+            }
+        });
+		
+		lenient().when(reviewDao.save(any(Review.class))).thenAnswer((InvocationOnMock invocation) -> {
+			return invocation.getArgument(0);
+		});
 
 	}
+
+	@Test
+    public void testCreateArtwork() {
+        Review review = null;
+
+        try {
+            review = service.createReview(RATING, COMMENT, WOULDRECCOMEND, CUSTOMER, ARTIST);
+            review.setReviewID(ID);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+
+        assertEquals(RATING, review.getRating());
+        assertEquals(COMMENT, review.getComment());
+        assertEquals(WOULDRECCOMEND, review.getWouldRecommend());
+        assertEquals(CUSTOMER, review.getCustomer());
+        assertEquals(ARTIST, review.getArtist());
+	}
+	
+
+	@Test
+    public void testCreateArtworkMissingName() {
+        String error = null;
+
+        try {
+            service.createReview(-1, COMMENT, WOULDRECCOMEND, CUSTOMER, ARTIST);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+
+        assertEquals("Artwork name cannot be empty!", error);
+
+        error = null;
+
+        try {
+            service.createReview(null, COMMENT, WOULDRECCOMEND, CUSTOMER, ARTIST);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+
+        assertEquals("Artwork name cannot be empty!", error);
+    }
 }
