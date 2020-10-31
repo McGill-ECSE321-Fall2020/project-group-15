@@ -460,7 +460,7 @@ public class TestAdminService {
     		error = e.getMessage();
     	}
 	
-    	assertEquals("Email already exists.", error);
+    	assertTrue(error.contains("Email already exists."), error);
     }
     
 }

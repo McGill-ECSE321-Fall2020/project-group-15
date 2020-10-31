@@ -116,11 +116,11 @@ public class TestArtistService {
 
         Artist artist = null;
 
-//        try {
+        try {
             artist = service.createArtist(ARTIST_ID2, EMAIL2, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
-//        } catch (Exception e) {
-//            fail(e.getMessage());
-//        }
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
 
 
         assertEquals(ARTIST_ID2, artist.getUserID());

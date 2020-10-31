@@ -87,12 +87,14 @@ public class ArtseeService {
 	@Transactional
 	public EndUser updateUser(String userID, String email, String password, String firstName, String lastName, String phoneNumber) throws IllegalArgumentException {
 		
-		EndUser user = endUserRepository.findById(userID).orElse(null);
 		String e = "";
 		
 		if (nonValidString(userID)) {
-			e += "Must enter a username. ";
+			throw new IllegalArgumentException("Must enter a username.");
 		}
+	
+		EndUser user = endUserRepository.findById(userID).orElse(null);
+		
 		
 		if (nonValidString(email)) {
 			e += "Must enter an email. ";
@@ -225,12 +227,13 @@ public class ArtseeService {
 	
 	@Transactional
 	public Customer updateCustomer(String userID, String email, String password, String firstName, String lastName, String phoneNumber, Address address) throws IllegalArgumentException{
-		Customer customer = customerRepository.findById(userID).orElse(null);
 		String e="";
 		
 		if (nonValidString(userID)) {
-			e += "Must enter a username. ";
+			throw new IllegalArgumentException("Must enter a username.");
 		}
+	
+		Customer customer = customerRepository.findById(userID).orElse(null);
 		
 		if (nonValidString(email)) {
 			e += "Must enter an email. ";
@@ -386,13 +389,13 @@ public class ArtseeService {
 	@Transactional
 	public Artist updateArtist(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription) throws IllegalArgumentException{
 		String e = "";
-		Artist artist = new Artist();
-		
+
 		if (nonValidString(userID)) {
 			throw new IllegalArgumentException("Must enter a username.");
-		} else {
-			artist = artistRepository.findById(userID).orElse(null);
 		}
+		
+		Artist artist = artistRepository.findById(userID).orElse(null);
+		
 		
 		if (nonValidString(email)) {
 			e += "Must enter an email. ";
@@ -525,12 +528,13 @@ public class ArtseeService {
 	
 	@Transactional
 	public Administrator updateAdministrator(String userID, String email, String password, String firstName, String lastName, String phoneNumber) throws IllegalArgumentException{
-		Administrator administrator = administratorRepository.findById(userID).orElse(null);
 		String e = "";
 		
 		if (nonValidString(userID)) {
-			e += "Must enter a username. ";
+			throw new IllegalArgumentException("Must enter a username.");
 		}
+		
+		Administrator administrator = administratorRepository.findById(userID).orElse(null);
 		
 		if (nonValidString(email)) {
 			e += "Must enter an email. ";
@@ -1025,7 +1029,13 @@ public class ArtseeService {
 
 	@Transactional
 	public Address updateAddress(Integer addressID, String addressLine1, String addressLine2, String city, String province, String postalCode, String country) throws IllegalArgumentException {
+		
+		if (addressID == null) {
+			throw new IllegalArgumentException("Address does not exist.");
+		}
+		
 		Address address = addressRepository.findById(addressID).orElse(null);
+		
 		if(address == null) {
 			throw new IllegalArgumentException("Address does not exist.");
 		}
