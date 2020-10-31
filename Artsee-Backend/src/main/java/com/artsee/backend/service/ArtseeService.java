@@ -91,7 +91,7 @@ public class ArtseeService {
 		String e = "";
 		
 		if (nonValidString(userID)) {
-			e += "Must enter an ID. ";
+			e += "Must enter a username. ";
 		}
 		
 		if (nonValidString(email)) {
@@ -142,7 +142,7 @@ public class ArtseeService {
 		String e = "";
 		
 		if (nonValidString(userID)) {
-			e += "Must enter an ID. ";
+			e += "Must enter a username. ";
 		}
 		
 		if (nonValidString(email)) {
@@ -229,7 +229,7 @@ public class ArtseeService {
 		String e="";
 		
 		if (nonValidString(userID)) {
-			e += "Must enter an ID. ";
+			e += "Must enter a username. ";
 		}
 		
 		if (nonValidString(email)) {
@@ -280,7 +280,9 @@ public class ArtseeService {
 		String e = "";
 		
 		if (nonValidString(userID)) {
-			e += "Must enter an ID. ";
+			throw new IllegalArgumentException("Must enter a username.");
+		} else {
+			artist = artistRepository.findById(userID).orElse(null);
 		}
 		
 		if (nonValidString(email)) {
@@ -288,11 +290,11 @@ public class ArtseeService {
 		}
 		
 		if (endUserRepository.findById(userID).orElse(null) != null) {
-			e+="Username already exists.";
+			e += "Username already exists.";
 		}
 		
 		if (endUserRepository.findByEmail(email) != null) {
-			e+="Email already exists.";
+			e += "Email already exists.";
 		}
 		
 		if (nonValidString(password)) {
@@ -300,11 +302,11 @@ public class ArtseeService {
 		}
 		
 		if (nonValidString(firstName)) {
-			e+="Must enter a first name. ";
+			e += "Must enter a first name. ";
 		}
 		
 		if (nonValidString(lastName)) {
-			e+= "Must enter a last name. ";
+			e += "Must enter a last name. ";
 		}
 		
 		if (!nonValidString(e)) {
@@ -384,10 +386,12 @@ public class ArtseeService {
 	@Transactional
 	public Artist updateArtist(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription) throws IllegalArgumentException{
 		String e = "";
-		Artist artist = artistRepository.findById(userID).orElse(null);
+		Artist artist = new Artist();
 		
 		if (nonValidString(userID)) {
-			e += "Must enter an ID. ";
+			throw new IllegalArgumentException("Must enter a username.");
+		} else {
+			artist = artistRepository.findById(userID).orElse(null);
 		}
 		
 		if (nonValidString(email)) {
@@ -439,7 +443,7 @@ public class ArtseeService {
 		String e = "";
 				
 		if (nonValidString(userID)) {
-			e += "Must enter an ID. ";
+			e += "Must enter a username. ";
 		}
 		
 		if (nonValidString(email)) {
@@ -525,7 +529,7 @@ public class ArtseeService {
 		String e = "";
 		
 		if (nonValidString(userID)) {
-			e += "Must enter an ID. ";
+			e += "Must enter a username. ";
 		}
 		
 		if (nonValidString(email)) {

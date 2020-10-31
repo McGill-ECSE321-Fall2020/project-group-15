@@ -472,7 +472,7 @@ public class TestCustomerService {
     		error = e.getMessage();
     	}
 	
-    	assertEquals( "Must enter an ID.", error);
+    	assertEquals( "Must enter a username.", error);
     }
     
     @Test
