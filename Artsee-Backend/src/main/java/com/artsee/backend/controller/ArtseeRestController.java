@@ -299,7 +299,7 @@ public class ArtseeRestController {
 		return new ResponseEntity<>(service.getAllReviews().stream().map(u -> convertToDto(u)).collect(Collectors.toList()), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = { "/review/{id}", "/review/{id}" })
+	@GetMapping(value = { "/reviews/{id}", "/reviews/{id}/" })
 	public ResponseEntity<?> getReviewByID(@PathVariable("id") Integer id){
 		try {
 			Review review = service.getReviewbyID(id);
@@ -357,7 +357,7 @@ public class ArtseeRestController {
 		return new ResponseEntity<>(service.getAllArtworks().stream().map(u -> convertToDto(u)).collect(Collectors.toList()), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = { "/artwork/{id}", "/artwork/{id}" })
+	@GetMapping(value = { "/artworks/{id}", "/artworks/{id}/" })
 	public ResponseEntity<?> getArtworkByID(@PathVariable("id") Integer id){
 		try {
 			Artwork artwork = service.getArtworkById(id);
@@ -425,7 +425,7 @@ public class ArtseeRestController {
 		return new ResponseEntity<>(service.getAllArtworkOrders().stream().map(u -> convertToDto(u)).collect(Collectors.toList()), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = { "/artworkOrder/{id}", "/artworkOrder/{id}" })
+	@GetMapping(value = { "/artworkOrders/{id}", "/artworkOrder/{id}/" })
 	public ResponseEntity<?> getArtworkOrderByID(@PathVariable("id") Integer id){
 		try {
 			ArtworkOrder artworkOrder = service.getArtworkOrderByID(id);

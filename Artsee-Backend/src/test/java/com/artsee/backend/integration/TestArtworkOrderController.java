@@ -214,7 +214,7 @@ public class TestArtworkOrderController {
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
 
         // nothing should've been created -----------------------------------------------------------------------------------
-        getResponse = restTemplate.getForEntity(getURLWithPort("/artwOrkorders/" + ID), String.class);
+        getResponse = restTemplate.getForEntity(getURLWithPort("/artworkOrders/" + ID), String.class);
         assertEquals(HttpStatus.BAD_REQUEST, getResponse.getStatusCode());
 
         c.setCustomer(CUSTOMER);
