@@ -56,6 +56,7 @@ public class TestArtworkOrderService {
 	
 	private static final Customer CUSTOMER = new Customer();
 	private static final Set<Artwork> ARTLIST = new HashSet<Artwork>();
+	
 	private static final OrderStatus ORDERSTATUS = OrderStatus.PROCESSING;
 	private static final String CUSTOMER_ID = "123";
 	
@@ -82,7 +83,7 @@ public class TestArtworkOrderService {
 	private static final int ARTSTOCK1 = 2;
 	private static final Artist ARTIST1 = new Artist();
 	private static final Artwork ARTWORK1 = TestUtility.createArtwork(ARTID, ARTNAME1, ARTPRICE1, ARTDESC1, DATEMADE1, ARTSTOCK1, ARTIST1);
-	private static Set<Artwork> ARTLIST2 = addArt(ARTWORK1);
+	//private static Set<Artwork> ARTLIST2 = addArt(ARTWORK1);
 	
 	
 	public static Set<Artwork> addArt(Artwork art){
@@ -129,19 +130,52 @@ public class TestArtworkOrderService {
 	@Test
     public void testCreateArtworkOrder() {
         ArtworkOrder artworkOrder = null;
+        Set<Artwork> ARTLIST2 = addArt(ARTWORK1);
         String error = null;
         try {
-            artworkOrder = service.createArtworkOrder(DELIVERYMETHOD, CUSTOMER, ARTLIST);
+            artworkOrder = service.createArtworkOrder(DELIVERYMETHOD, CUSTOMER, ARTLIST2);
             artworkOrder.setOrderID(ID);
         } catch (Exception e) {
             error = e.getMessage();
         }
         
-        assertEquals(1,0,String.valueOf(artworkOrder));
+      
         assertEquals(CUSTOMER, artworkOrder.getCustomer());
         assertEquals(DELIVERYMETHOD, artworkOrder.getDeliveryMethod());
-        assertEquals(ARTLIST, artworkOrder.getArtworks());
+        assertEquals(ARTLIST2, artworkOrder.getArtworks());
 	}
+	
+	
+	@Test
+	public void testCreateArtworkOrderNoDelivery() {
+		ArtworkOrder artworkOrder = null;
+		Set<Artwork> ARTLIST2 = addArt(ARTWORK1);
+        String error = null;
+        try {
+            artworkOrder = service.createArtworkOrder(null, CUSTOMER, ARTLIST2);
+           // artworkOrder.setOrderID(ID);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+        
+        assertEquals("Artwork order needs a delivery method.", error);
+	}
+	
+	@Test
+	public void testCreateArtworkOrderNoCustomer() {
+		ArtworkOrder artworkOrder = null;
+		Set<Artwork> ARTLIST2 = addArt(ARTWORK1);
+        String error = null;
+        try {
+            artworkOrder = service.createArtworkOrder(DELIVERYMETHOD, null, ARTLIST2);
+           // artworkOrder.setOrderID(ID);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+        
+        assertEquals("Artwork order needs a customer.", error);
+	}
+	
 	
 	@Test
     public void testGetArtworkOrderByID() {
@@ -174,25 +208,93 @@ public class TestArtworkOrderService {
 	  
 	  @Test
 	  public void testUpdateArtworkOrder() {
-		  ArtworkOrder artworkOrder = null;
-		  String error = "duck";
+		  Set<Artwork> ARTLIST2 = new HashSet<Artwork>();
+		  ArtworkOrder artworkOrder = service.createArtworkOrder(DELIVERYMETHOD, CUSTOMER, ARTLIST2);
+		  artworkOrder.setOrderID(ID);
+		  Customer cust = new Customer();
+		  DeliveryMethod del = DeliveryMethod.SHIP;
+		  
+		  
+		  String error = null;
 		 
 		  try {
-			  artworkOrder = service.updateArtworkOrder(ID, DELIVERYMETHOD2, ORDERSTATUS2, CUSTOMER, ARTLIST2);
+			  artworkOrder = service.updateArtworkOrder(ID, del, ORDERSTATUS2, cust, ARTLIST2);
 		  }catch (Exception e) {
 			  error = e.getMessage();
 		  }
 		  
-		  assertEquals(ARTLIST2,artworkOrder.getArtworks());
+		  
 		  assertEquals(ORDERSTATUS2, artworkOrder.getOrderStatus());
-		  assertEquals(CUSTOMER, artworkOrder.getCustomer());
-		  assertEquals(ARTLIST2, artworkOrder.getArtworks());
-		  assertEquals(DELIVERYMETHOD2, artworkOrder.getDeliveryMethod());
+		  assertEquals(cust, artworkOrder.getCustomer());
+		 // assertEquals(ARTLIST2, artworkOrder.getArtworks());
+		  assertEquals(del, artworkOrder.getDeliveryMethod());
 		  
 		 
 	  }
 	  
+	  @Test
+	  public void testUpdateArtworkOrderNoDelivery() {
+		  Set<Artwork> ARTLIST2 = new HashSet<Artwork>();
+		  ArtworkOrder artworkOrder = new ArtworkOrder();
+		  Customer cust = new Customer();
+		  DeliveryMethod del = DeliveryMethod.SHIP;
+		  
+		  
+		  String error = null;
+		 
+		  try {
+			  artworkOrder = service.updateArtworkOrder(ID, null, ORDERSTATUS2, cust, ARTLIST2);
+		  }catch (Exception e) {
+			  error = e.getMessage();
+		  }
+		  
+		  
+		 assertEquals("Artwork order needs a delivery method.", error);
+		 
+	  }
 	  
+	  @Test
+	  public void testUpdateArtworkOrderNoStatus() {
+		  Set<Artwork> ARTLIST2 = new HashSet<Artwork>();
+		  ArtworkOrder artworkOrder = null;
+		  Customer cust = new Customer();
+		  DeliveryMethod del = DeliveryMethod.SHIP;
+		  
+		  
+		  String error = null;
+		 
+		  try {
+			  artworkOrder = service.updateArtworkOrder(ID, del, null, cust, ARTLIST2);
+		  }catch (Exception e) {
+			  error = e.getMessage();
+		  }
+		  
+		  
+		 assertEquals("Artwork order needs an order status.", error);
+		 
+	  }
+	  
+
+	  @Test
+	  public void testUpdateArtworkOrderNoCustomer() {
+		  Set<Artwork> ARTLIST2 = new HashSet<Artwork>();
+		  ArtworkOrder artworkOrder = null;
+		  Customer cust = new Customer();
+		  DeliveryMethod del = DeliveryMethod.SHIP;
+		  
+		  
+		  String error = null;
+		 
+		  try {
+			  artworkOrder = service.updateArtworkOrder(ID, del, ORDERSTATUS2, null, ARTLIST2);
+		  }catch (Exception e) {
+			  error = e.getMessage();
+		  }
+		  
+		  
+		 assertEquals("Artwork order needs a customer.", error);
+		 
+	  }
 	  
 }
 	
