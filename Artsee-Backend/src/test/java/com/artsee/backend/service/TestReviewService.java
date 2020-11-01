@@ -238,7 +238,7 @@ public class TestReviewService {
 
     // ------------- Update method -------------------------------
     @Test
-    public void testUpdateArtwork() {
+    public void testUpdateReview() {
         Review review = null;
 
         try {

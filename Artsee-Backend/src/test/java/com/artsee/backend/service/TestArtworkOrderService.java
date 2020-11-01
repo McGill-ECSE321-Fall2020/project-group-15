@@ -82,8 +82,6 @@ public class TestArtworkOrderService {
 	private static final int ARTSTOCK1 = 2;
 	private static final Artist ARTIST1 = new Artist();
 	private static final Artwork ARTWORK1 = TestUtility.createArtwork(ARTID, ARTNAME1, ARTPRICE1, ARTDESC1, DATEMADE1, ARTSTOCK1, ARTIST1);
-	private static Set<Artwork> ARTLIST2 = addArt(ARTWORK1);
-	
 	
 	public static Set<Artwork> addArt(Artwork art){
 		Set<Artwork> artset =new HashSet<Artwork>();
@@ -128,19 +126,20 @@ public class TestArtworkOrderService {
     
 	@Test
     public void testCreateArtworkOrder() {
+		Set<Artwork> ARTLIST_2 = addArt(ARTWORK1);
         ArtworkOrder artworkOrder = null;
         String error = null;
         try {
-            artworkOrder = service.createArtworkOrder(DELIVERYMETHOD, CUSTOMER, ARTLIST);
+            artworkOrder = service.createArtworkOrder(DELIVERYMETHOD, CUSTOMER, ARTLIST_2);
             artworkOrder.setOrderID(ID);
         } catch (Exception e) {
             error = e.getMessage();
         }
         
-        assertEquals(1,0,String.valueOf(artworkOrder));
+//        assertEquals(1,0,String.valueOf(artworkOrder));
         assertEquals(CUSTOMER, artworkOrder.getCustomer());
         assertEquals(DELIVERYMETHOD, artworkOrder.getDeliveryMethod());
-        assertEquals(ARTLIST, artworkOrder.getArtworks());
+        assertEquals(ARTLIST_2, artworkOrder.getArtworks());
 	}
 	
 	@Test
@@ -174,19 +173,20 @@ public class TestArtworkOrderService {
 	  
 	  @Test
 	  public void testUpdateArtworkOrder() {
+		  Set<Artwork> ARTLIST_2 = addArt(ARTWORK1);
 		  ArtworkOrder artworkOrder = null;
 		  String error = "duck";
 		 
 		  try {
-			  artworkOrder = service.updateArtworkOrder(ID, DELIVERYMETHOD2, ORDERSTATUS2, CUSTOMER, ARTLIST2);
+			  artworkOrder = service.updateArtworkOrder(ID, DELIVERYMETHOD2, ORDERSTATUS2, CUSTOMER, ARTLIST_2);
 		  }catch (Exception e) {
 			  error = e.getMessage();
 		  }
 		  
-		  assertEquals(ARTLIST2,artworkOrder.getArtworks());
+//		  assertEquals(ARTLIST2,artworkOrder.getArtworks());
 		  assertEquals(ORDERSTATUS2, artworkOrder.getOrderStatus());
 		  assertEquals(CUSTOMER, artworkOrder.getCustomer());
-		  assertEquals(ARTLIST2, artworkOrder.getArtworks());
+		  assertEquals(ARTLIST_2, artworkOrder.getArtworks());
 		  assertEquals(DELIVERYMETHOD2, artworkOrder.getDeliveryMethod());
 		  
 		 

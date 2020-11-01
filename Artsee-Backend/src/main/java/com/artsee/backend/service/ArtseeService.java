@@ -243,7 +243,7 @@ public class ArtseeService {
 			e += "Username cannot be found.";
 		}
 		
-		if (!email.equals(customer.getEmail())&&(endUserRepository.findByEmail(email) != null)) {
+		if ((!email.equals(customer.getEmail()))&&(endUserRepository.findByEmail(email) != null)) {
 			e+="Email already exists.";
 		}
 		
