@@ -410,4 +410,16 @@ public class TestArtworkService {
 
         assertEquals("Artist does not exist!", error);
     }
+    
+    @Test
+    public void testUpdateArtworkNonExistent() {
+        String error = null;
+        try {
+            service.updateArtwork(null, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+
+        assertEquals("Artwork does not exist!", error);
+    }
 }

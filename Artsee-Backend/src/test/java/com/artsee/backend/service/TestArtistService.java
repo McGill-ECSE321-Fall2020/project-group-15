@@ -63,6 +63,14 @@ public class TestArtistService {
     private static final String PHONE_NUM2 = "8675310";
     private static final String DESCRIPTION2 = "i like to sculpt";
     
+    private static final String ARTIST_ID3 = "37232";
+    private static final String EMAIL3 = "thirdArtist@gmail.com";
+    private static final String PASSWORD3 = "newerpassword";
+    private static final String FIRSTNAME3 = "Joe";
+    private static final String LASTNAME3 = "Deer";
+    private static final String PHONE_NUM3 = "8675311";
+    private static final String DESCRIPTION3 = "i like to draw";
+    
 
     @BeforeEach
     public void setMockOutput() {
@@ -79,7 +87,9 @@ public class TestArtistService {
         lenient().when(artistDao.findById(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
             if(invocation.getArgument(0).equals(ARTIST_ID)) {
                 return Optional.of(TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION));
-            } else {
+            } else if(invocation.getArgument(0).equals(ARTIST_ID3)) {
+            	return Optional.of(TestUtility.createArtist(ARTIST_ID3, EMAIL3, PASSWORD3, FIRSTNAME3, LASTNAME3, PHONE_NUM3, DESCRIPTION3));
+            }else {
                 return Optional.empty();
             }
         });
@@ -438,6 +448,53 @@ public class TestArtistService {
     	assertTrue(error.contains("Must enter a username."), error);
 
     }
+    
+    @Test
+    public void testUpdateArtistEmailExists() {
+    	String error = null;
+	
+    	try {
+    		service.updateArtist(ARTIST_ID3, EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION3);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	
+    	assertEquals("Email already exists.", error);
+    }
+    
+    
+    @Test // new email = old email
+    public void testUpdateCustomerRepeatEmail() {
+    	Artist artist = null;
+    	String error = "123";
+	
+    	try {
+    		artist = service.updateArtist(ARTIST_ID, EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	
+    	assertEquals(EMAIL, artist.getEmail());
+    	assertEquals(PASSWORD2, artist.getPassword());
+    	assertEquals(FIRSTNAME2, artist.getFirstName());
+    	assertEquals(LASTNAME2, artist.getLastName());
+    	assertEquals(PHONE_NUM2, artist.getPhoneNumber());
+    	assertEquals(DESCRIPTION, artist.getArtistDescription());
+    }
+    
+    @Test
+    public void testUpdateInvalidID() {
+    	String error = "123";
+    	System.out.println(error);
+    	try {
+    		service.updateArtist("32d", EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION3);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	System.out.println(error);
+    	assertEquals("Username cannot be found.", error);
+    }
+    
     
     @Test
     public void testGetArtistByEmail() {

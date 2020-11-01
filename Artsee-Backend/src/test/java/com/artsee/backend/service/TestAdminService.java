@@ -62,6 +62,12 @@ public class TestAdminService {
     private static final String LASTNAME2 = "Doherty";
     private static final String PHONE_NUM2 = "8675310";
     
+    private static final String ID3 = "33292";
+    private static final String EMAIL3 = "otherAdmin3@gmail.com";
+    private static final String PASSWORD3 = "Newpassword3";
+    private static final String FIRSTNAME3 = "Joe";
+    private static final String LASTNAME3 = "Deer";
+    private static final String PHONE_NUM3 = "8675313";
 
     @BeforeEach
     public void setMockOutput() {
@@ -78,7 +84,10 @@ public class TestAdminService {
         lenient().when(adminDao.findById(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
             if(invocation.getArgument(0).equals(ID)) {
                 return Optional.of(TestUtility.createAdmin(ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM));
-            } else {
+            } else if(invocation.getArgument(0).equals(ID3)){
+            	return  Optional.of(TestUtility.createAdmin(ID3, EMAIL3, PASSWORD3, FIRSTNAME3, LASTNAME3, PHONE_NUM3));
+            }
+            else {
                 return Optional.empty();
             }
         });
@@ -449,18 +458,51 @@ public class TestAdminService {
     }
     
     
-//    @Test
-//    public void testUpdateAdminEmailExists() {
-//    	String error = null;
-//	
-//    	
-//    	try {
-//    		service.updateAdministrator(ID2, EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2);
-//    	}catch (Exception e) {
-//    		error = e.getMessage();
-//    	}
-//	
-//    	assertTrue(error.contains("Email already exists."), error);
-//    }
+    @Test
+    public void testUpdateAdminEmailExists() {
+    	String error = null;
+	
+    	
+    	try {
+    		service.updateAdministrator(ID3, EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	
+    	assertEquals("Email already exists.", error);
+    }
+    
+    @Test // new email = old email
+    public void testUpdateCustomerRepeatEmail() {
+    	Administrator admin = null;
+    	String error = "123";
+	
+    	try {
+    		admin = service.updateAdministrator(ID, EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM3);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	System.out.println(error);
+	
+    	assertEquals(EMAIL, admin.getEmail());
+    	assertEquals(PASSWORD2, admin.getPassword());
+    	assertEquals(FIRSTNAME2, admin.getFirstName());
+    	assertEquals(LASTNAME2, admin.getLastName());
+    	assertEquals(PHONE_NUM3, admin.getPhoneNumber());
+    	
+    }
+    
+    @Test
+    public void testUpdateAdminNotFound() {
+    	String error = "123";
+	
+    	try {
+    		service.updateAdministrator("wrongID", EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	
+    	assertEquals("Username cannot be found.", error);
+    }
     
 }

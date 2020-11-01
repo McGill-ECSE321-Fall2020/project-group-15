@@ -52,30 +52,23 @@ public class TestArtworkOrderService {
 	private ArtseeService service;
 	
 	private static final int ID = 1234;
+	private static final int ID2 = 1235;
 	private static final DeliveryMethod DELIVERYMETHOD = DeliveryMethod.SHIP;
 	
 	private static final Customer CUSTOMER = new Customer();
-	private static final Set<Artwork> ARTLIST = new HashSet<Artwork>();
+	
 	
 	private static final OrderStatus ORDERSTATUS = OrderStatus.PROCESSING;
 	private static final String CUSTOMER_ID = "123";
 	
 	private static final DeliveryMethod DELIVERYMETHOD2= DeliveryMethod.PICKUP;
-	private static final Customer CUSTOMER2 = new Customer();
+	
 	
 	private static final OrderStatus ORDERSTATUS2 = OrderStatus.DELIVERED;
-	
-	/*
-	private static final String EMAIL = "customer@gmail.com";
-	private static final String PASSWORD = "password";
-	private static final String FIRSTNAME = "John";
-	private static final String LASTNAME = "Doe";
-	private static final String PHONE_NUM = "8675309";
-	private static final Address ADDRESS = new Address();
-	
-	private static final Customer CUSTOMER = TestUtility.createCustomer(CUSTOMER_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ADDRESS);
-	*/ 
-	private static final int ARTID = 12;
+	private static final Set<Artwork> ARTLIST = new HashSet<Artwork>();
+	private static final Set<Artwork> ARTLIST2 = new HashSet<Artwork>();
+	// Generate Artwork inputs
+	private static final int ARTID = 1;
 	private static final String ARTNAME1 = "masterpiece";
 	private static final int ARTPRICE1 = 12;
 	private static final String ARTDESC1 = "a nice work of art.";
@@ -83,24 +76,41 @@ public class TestArtworkOrderService {
 	private static final int ARTSTOCK1 = 2;
 	private static final Artist ARTIST1 = new Artist();
 	private static final Artwork ARTWORK1 = TestUtility.createArtwork(ARTID, ARTNAME1, ARTPRICE1, ARTDESC1, DATEMADE1, ARTSTOCK1, ARTIST1);
-	//private static Set<Artwork> ARTLIST2 = addArt(ARTWORK1);
 	
+	private static final int ARTID2 = 2;
+	private static final String ARTNAME2 = "late night vibes";
+	private static final int ARTPRICE2 = 7;
+	private static final String ARTDESC2 = "a classic piece of art";
+	private static final Date DATEMADE2 = Date.valueOf("2020-11-01");
+	private static final int ARTSTOCK2 = 4;
+	private static final Artist ARTIST2 = new Artist();
+	private static final Artwork ARTWORK2 = TestUtility.createArtwork(ARTID2, ARTNAME2, ARTPRICE2, ARTDESC2, DATEMADE2, ARTSTOCK2, ARTIST2);
 	
-	public static Set<Artwork> addArt(Artwork art){
-		Set<Artwork> artset =new HashSet<Artwork>();
-		artset.add(art);
-		return artset;
-	}
+	private static final int ARTID3 = 3;
+	private static final String ARTNAME3 = "early morning sun";
+	private static final int ARTPRICE3 = 6;
+	private static final String ARTDESC3 = "beautiful sunrise";
+	private static final Date DATEMADE3 = Date.valueOf("2020-11-01");
+	private static final int ARTSTOCK3 = 0;
+	private static final Artist ARTIST3 = new Artist();
+	private static final Artwork ARTWORK3 = TestUtility.createArtwork(ARTID3, ARTNAME3, ARTPRICE3, ARTDESC3, DATEMADE3, ARTSTOCK3, ARTIST3);
+	
+	private static final int ARTID4 = 4;
+	private static final String ARTNAME4 = "noon";
+	private static final int ARTPRICE4 = 47;
+	private static final String ARTDESC4 = "a sculpture";
+	private static final Date DATEMADE4 = Date.valueOf("2020-11-01");
+	private static final int ARTSTOCK4 = 50;
+	private static final Artist ARTIST4 = new Artist();
+	private static final Artwork ARTWORK4 = TestUtility.createArtwork(ARTID4, ARTNAME4, ARTPRICE4, ARTDESC4, DATEMADE4, ARTSTOCK4, ARTIST4);
 	@BeforeEach
 	public void setMockOuput() {
 
 		CUSTOMER.setUserID(CUSTOMER_ID);
-		ARTLIST.add(new Artwork());
-		ARTLIST.add(new Artwork());
-
-		//ARTLIST.get(0).setArtworkID(1);
-		//ARTLIST.get(1).setArtworkID(2);
-
+		ARTLIST.add(ARTWORK1);
+		ARTLIST.add(ARTWORK2);
+		ARTLIST2.add(ARTWORK3);
+		
 		
 		lenient().when(artworkOrderDao.findByCustomer(CUSTOMER)).thenAnswer((InvocationOnMock invocation) -> {
             if (invocation.getArgument(0).equals(CUSTOMER)) {
@@ -114,9 +124,10 @@ public class TestArtworkOrderService {
 		
 		lenient().when(artworkOrderDao.findById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
             if (invocation.getArgument(0).equals(ID)) {
-                return Optional.of(
-					TestUtility.createArtworkOrder(ID, DELIVERYMETHOD, CUSTOMER, ARTLIST));
-            } else {
+                return Optional.of(TestUtility.createArtworkOrder(ID, DELIVERYMETHOD, CUSTOMER, ARTLIST));
+            } else if (invocation.getArgument(0).equals(ID)){
+            	return Optional.of(TestUtility.createArtworkOrder(ID2, DELIVERYMETHOD2, CUSTOMER, ARTLIST2));
+            }else {
                 return Optional.empty();
             }
         });
@@ -130,7 +141,7 @@ public class TestArtworkOrderService {
 	@Test
     public void testCreateArtworkOrder() {
         ArtworkOrder artworkOrder = null;
-        Set<Artwork> ARTLIST2 = addArt(ARTWORK1);
+
         String error = null;
         try {
             artworkOrder = service.createArtworkOrder(DELIVERYMETHOD, CUSTOMER, ARTLIST2);
@@ -149,7 +160,6 @@ public class TestArtworkOrderService {
 	@Test
 	public void testCreateArtworkOrderNoDelivery() {
 		ArtworkOrder artworkOrder = null;
-		Set<Artwork> ARTLIST2 = addArt(ARTWORK1);
         String error = null;
         try {
             artworkOrder = service.createArtworkOrder(null, CUSTOMER, ARTLIST2);
@@ -164,7 +174,6 @@ public class TestArtworkOrderService {
 	@Test
 	public void testCreateArtworkOrderNoCustomer() {
 		ArtworkOrder artworkOrder = null;
-		Set<Artwork> ARTLIST2 = addArt(ARTWORK1);
         String error = null;
         try {
             artworkOrder = service.createArtworkOrder(DELIVERYMETHOD, null, ARTLIST2);
@@ -176,6 +185,19 @@ public class TestArtworkOrderService {
         assertEquals("Artwork order needs a customer.", error);
 	}
 	
+	@Test 
+	public void createArtworkOrderNoStock() {
+        String error = null;
+        Set<Artwork> works = new HashSet<Artwork>();
+        works.add(ARTWORK3);
+        try {
+            service.createArtworkOrder(DELIVERYMETHOD, CUSTOMER, works);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+        
+        assertEquals("Artwork is out of stock!", error);
+	}
 	
 	@Test
     public void testGetArtworkOrderByID() {
@@ -208,30 +230,37 @@ public class TestArtworkOrderService {
 	  
 	  @Test
 	  public void testUpdateArtworkOrder() {
-		  Set<Artwork> ARTLIST2 = new HashSet<Artwork>();
-		  ArtworkOrder artworkOrder = service.createArtworkOrder(DELIVERYMETHOD, CUSTOMER, ARTLIST2);
-		  artworkOrder.setOrderID(ID);
+
+		  ArtworkOrder artworkOrder = service.createArtworkOrder(DELIVERYMETHOD, CUSTOMER, ARTLIST);
+		  int you = artworkOrder.getTotalPrice();
+		  System.out.println(you);
 		  Customer cust = new Customer();
 		  DeliveryMethod del = DeliveryMethod.SHIP;
-		  
+		  Set<Artwork> list = new HashSet<Artwork>();
+		  list.add(ARTWORK1);
+		  list.add(ARTWORK2);
 		  
 		  String error = null;
 		 
 		  try {
-			  artworkOrder = service.updateArtworkOrder(ID, del, ORDERSTATUS2, cust, ARTLIST2);
+			  artworkOrder = service.updateArtworkOrder(ID, del, ORDERSTATUS2, cust, list);
 		  }catch (Exception e) {
 			  error = e.getMessage();
 		  }
 		  
 		  
-		  assertEquals(ORDERSTATUS2, artworkOrder.getOrderStatus());
-		  assertEquals(cust, artworkOrder.getCustomer());
-		 // assertEquals(ARTLIST2, artworkOrder.getArtworks());
-		  assertEquals(del, artworkOrder.getDeliveryMethod());
 		  
-		 
+		  assertEquals(cust, artworkOrder.getCustomer());
+		  assertEquals(list, artworkOrder.getArtworks());
+		  assertEquals(del, artworkOrder.getDeliveryMethod());
+		  assertEquals(ORDERSTATUS2, artworkOrder.getOrderStatus());
+		  
 	  }
 	  
+	  @Test
+	  public void testUpdateArtworkOrderNoStock() {
+		  
+	  }
 	  @Test
 	  public void testUpdateArtworkOrderNoDelivery() {
 		  Set<Artwork> ARTLIST2 = new HashSet<Artwork>();
@@ -294,6 +323,59 @@ public class TestArtworkOrderService {
 		  
 		 assertEquals("Artwork order needs a customer.", error);
 		 
+	  }
+	  
+	  @Test
+	    public void testUpdateArtworkOrderNonExistent() {
+	        String error = null;
+	        try {
+	            service.updateArtworkOrder(47,DELIVERYMETHOD, ORDERSTATUS, CUSTOMER, ARTLIST);
+	        } catch (Exception e) {
+	            error = e.getMessage();
+	        }
+
+	        assertEquals("Artwork Order does not exist.", error);
+	    }
+	  
+	  @Test
+	  public void testaddArtworkToOrderNoStock() {
+		  String error = null;
+		  try {
+			  service.addArtworkToOrder(ID, ARTWORK3);
+		  } catch (Exception e) {
+			  error = e.getMessage();
+		  }
+		  
+		  assertEquals("Artwork is out of stock!",error);
+	  }
+	  
+	  @Test
+	  public void testaddArtworkToOrderNull() {
+		  String error = null;
+		  try {
+			  service.addArtworkToOrder(ID, null);
+		  } catch (Exception e) {
+			  error = e.getMessage();
+		  }
+		  
+		  assertEquals("Artwork cannot be empty!",error);
+	  }
+	  
+	  @Test
+	  public void testaddArtworkToOrder() {
+		  String error = null;
+		  
+		  Set<Artwork> test = new HashSet<Artwork>();
+		  test.add(ARTWORK1);
+		  test.add(ARTWORK2);
+		  test.add(ARTWORK4);
+		  try { 
+			  service.addArtworkToOrder(ID, ARTWORK4);
+		  }catch (Exception e) {
+			  error = e.getMessage();
+		  }
+		  
+		  assertEquals(test, service.getArtworkOrderByID(ID).getArtworks());
 	  }
 	  
 }

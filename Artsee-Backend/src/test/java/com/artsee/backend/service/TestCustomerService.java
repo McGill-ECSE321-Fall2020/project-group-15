@@ -85,7 +85,7 @@ public class TestCustomerService {
             if(invocation.getArgument(0).equals(CUSTOMER_ID)) {
                 return Optional.of(TestUtility.createCustomer(CUSTOMER_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ADDRESS));
             } else if(invocation.getArgument(0).equals(CUSTOMER_ID3)) {
-            	return TestUtility.createCustomer(CUSTOMER_ID3, EMAIL3, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ADDRESS);
+            	return Optional.of(TestUtility.createCustomer(CUSTOMER_ID3, EMAIL3, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ADDRESS));
             	
             }
             
@@ -496,7 +496,38 @@ public class TestCustomerService {
     	assertEquals("Email already exists.", error);
     }
     
+    @Test
+    public void testUpdateCustomerNotFound() {
+    	String error = "123";
+	
+    	try {
+    		service.updateCustomer("8", EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, ADDRESS2);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	
+    	assertEquals("Username cannot be found.", error);
+    }
     
+    
+    @Test
+    public void testUpdateCustomerRepeatEmail() {
+    	Customer customer = null;
+    	String error = "123";
+	
+    	try {
+    		customer = service.updateCustomer(CUSTOMER_ID, EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, ADDRESS2);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	
+    	assertEquals(EMAIL, customer.getEmail());
+    	assertEquals(PASSWORD2, customer.getPassword());
+    	assertEquals(FIRSTNAME2, customer.getFirstName());
+    	assertEquals(LASTNAME2, customer.getLastName());
+    	assertEquals(PHONE_NUM2, customer.getPhoneNumber());
+    	assertEquals(ADDRESS2, customer.getAddress());
+    }
     
 //    @Test
 //    public void testDeleteCustomer() {

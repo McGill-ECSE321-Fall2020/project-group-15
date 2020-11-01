@@ -265,6 +265,23 @@ public class TestAddressService {
     }
     
     @Test
+    public void testGetAddressByID() {
+    	String error = null;
+    	Address address = null;
+    	try {
+    		address = service.getAddressById(ID);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	
+    	assertEquals(LINE1, address.getAddressLine1());
+        assertEquals(LINE2, address.getAddressLine2());
+        assertEquals(CITY, address.getCity());
+        assertEquals(PROVINCE, address.getProvince());
+        assertEquals(POSTAL_CODE, address.getPostalCode());
+        assertEquals(COUNTRY, address.getCountry());
+    }
+    @Test
     public void testUpdateAddress() {
     	Address address = null;
     	String error = null;
@@ -356,6 +373,19 @@ public class TestAddressService {
 	
     	try {
     		service.updateAddress(ID2, LINE1, LINE2, CITY, PROVINCE, POSTAL_CODE, COUNTRY);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+	
+    	assertEquals( "Address does not exist.", error);
+    }
+    
+    @Test
+    public void testUpdateAddressNullID() {
+    	String error = null;
+	
+    	try {
+    		service.updateAddress(null, LINE1, LINE2, CITY, PROVINCE, POSTAL_CODE, COUNTRY);
     	}catch (Exception e) {
     		error = e.getMessage();
     	}
