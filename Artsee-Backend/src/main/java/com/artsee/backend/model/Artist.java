@@ -1,7 +1,6 @@
 package com.artsee.backend.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 
@@ -27,26 +26,9 @@ public class Artist extends EndUser{
    public void setRating(float rating) {
 	   this.rating = rating;
    }
-   
-//   public float Rating() {
-//	   
-//	   float totalRating = 0;
-//	   
-//	   if ((this.reviews != null)&&(reviews.size() > 0)){
-//		   
-//		   for (Review r : this.getReviews()) {
-//			   totalRating += (float) r.getRating();
-//		   }
-//		   
-//		   totalRating = totalRating / ( (float) this.getReviews().size());
-//	   }	   
-//	   
-//	   return totalRating;
-//   }
 
    private Set<Review> reviews;
    //Create a one to many relationship with the class Review
-//   @OneToMany(fetch=FetchType.EAGER, mappedBy="artist", cascade={CascadeType.ALL})
    @OneToMany(mappedBy="artist", cascade={CascadeType.ALL})
    public Set<Review> getReviews() {
 	   return this.reviews;

@@ -387,20 +387,6 @@ public class ArtseeService {
 //		return totalRatings;
 //	}
 	
-	private void setArtistRating(Artist artist) {
-		float totalRatings = 0f;
-		
-		if (artist.getReviews().size()>0) {
-			for (Review r : artist.getReviews()) {
-				totalRatings += (float)r.getRating();
-			}
-			totalRatings = totalRatings / ((float) artist.getReviews().size());
-		}
-		
-		artist.setRating(totalRatings);
-		artistRepository.save(artist);
-	}
-	
 	
 	@Transactional
 	public Artist updateArtist(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription) throws IllegalArgumentException{
@@ -1131,4 +1117,18 @@ public class ArtseeService {
 		return (string==null)||(string.trim().isEmpty());
 	}
 	
+	private void setArtistRating(Artist artist) {
+		// Helper method to update the artist rating whenever they receive a new review
+		float totalRatings = 0f;
+		
+		if (artist.getReviews().size()>0) {
+			for (Review r : artist.getReviews()) {
+				totalRatings += (float)r.getRating();
+			}
+			totalRatings = totalRatings / ((float) artist.getReviews().size());
+		}
+		
+		artist.setRating(totalRatings);
+		artistRepository.save(artist);
+	}
 }
