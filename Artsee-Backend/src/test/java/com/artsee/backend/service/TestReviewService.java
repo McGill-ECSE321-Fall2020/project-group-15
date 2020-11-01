@@ -33,7 +33,7 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
-import org.yaml.snakeyaml.events.Event.ID;
+import org.yaml.snakeyaml.events.Event.ID; 
 
 import com.artsee.backend.model.*;
 import com.artsee.backend.dao.*;
@@ -62,7 +62,7 @@ public class TestReviewService {
     private static final Integer RATING2 = 2;
     private static final String COMMENT2 = "A nice artwork";
 	private static final Boolean WOULDRECCOMEND2 = true;
-	private static final Customer CUSTOMER2 = new Customer();
+	private static final Customer CUSTOMER2 = new Customer(); 
 	private static final Artist ARTIST2 = new Artist();
 	private static final String ARTIST_ID2 = "132234";
 	private static final String CUSTOMER_ID2 = "334245";

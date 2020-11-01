@@ -53,10 +53,16 @@ public class TestArtworkOrderService {
 	
 	private static final int ID = 1234;
 	private static final DeliveryMethod DELIVERYMETHOD = DeliveryMethod.SHIP;
+	
 	private static final Customer CUSTOMER = new Customer();
 	private static final Set<Artwork> ARTLIST = new HashSet<Artwork>();
-
+	private static final OrderStatus ORDERSTATUS = OrderStatus.PROCESSING;
 	private static final String CUSTOMER_ID = "123";
+	
+	private static final DeliveryMethod DELIVERYMETHOD2= DeliveryMethod.PICKUP;
+	private static final Customer CUSTOMER2 = new Customer();
+	
+	private static final OrderStatus ORDERSTATUS2 = OrderStatus.DELIVERED;
 	
 	/*
 	private static final String EMAIL = "customer@gmail.com";
@@ -67,7 +73,7 @@ public class TestArtworkOrderService {
 	private static final Address ADDRESS = new Address();
 	
 	private static final Customer CUSTOMER = TestUtility.createCustomer(CUSTOMER_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ADDRESS);
-	/*
+	*/ 
 	private static final int ARTID = 12;
 	private static final String ARTNAME1 = "masterpiece";
 	private static final int ARTPRICE1 = 12;
@@ -76,9 +82,14 @@ public class TestArtworkOrderService {
 	private static final int ARTSTOCK1 = 2;
 	private static final Artist ARTIST1 = new Artist();
 	private static final Artwork ARTWORK1 = TestUtility.createArtwork(ARTID, ARTNAME1, ARTPRICE1, ARTDESC1, DATEMADE1, ARTSTOCK1, ARTIST1);
-	*/
+	private static Set<Artwork> ARTLIST2 = addArt(ARTWORK1);
 	
 	
+	public static Set<Artwork> addArt(Artwork art){
+		Set<Artwork> artset =new HashSet<Artwork>();
+		artset.add(art);
+		return artset;
+	}
 	@BeforeEach
 	public void setMockOuput() {
 
@@ -125,7 +136,7 @@ public class TestArtworkOrderService {
         } catch (Exception e) {
             error = e.getMessage();
         }
-        System.out.println(error);
+        
         assertEquals(1,0,String.valueOf(artworkOrder));
         assertEquals(CUSTOMER, artworkOrder.getCustomer());
         assertEquals(DELIVERYMETHOD, artworkOrder.getDeliveryMethod());
@@ -145,8 +156,43 @@ public class TestArtworkOrderService {
         assertEquals(CUSTOMER,artworkOrder.getCustomer());
         assertEquals(DELIVERYMETHOD, artworkOrder.getDeliveryMethod());
         assertEquals(ARTLIST,artworkOrder.getArtworks());
-
     }
 	
+	
+	  @Test
+	    public void testGetArtworkOrderByIDWrongID() {
+	        String error = null;
+
+	        try {
+	            service.getArtworkOrderByID(123543);
+	        } catch (Exception e) {
+	            error = e.getMessage();
+	        }
+
+	        assertThat(error, containsString("Artwork Order does not exist."));
+	    }
+	  
+	  @Test
+	  public void testUpdateArtworkOrder() {
+		  ArtworkOrder artworkOrder = null;
+		  String error = "duck";
+		 
+		  try {
+			  artworkOrder = service.updateArtworkOrder(ID, DELIVERYMETHOD2, ORDERSTATUS2, CUSTOMER, ARTLIST2);
+		  }catch (Exception e) {
+			  error = e.getMessage();
+		  }
+		  
+		  assertEquals(ARTLIST2,artworkOrder.getArtworks());
+		  assertEquals(ORDERSTATUS2, artworkOrder.getOrderStatus());
+		  assertEquals(CUSTOMER, artworkOrder.getCustomer());
+		  assertEquals(ARTLIST2, artworkOrder.getArtworks());
+		  assertEquals(DELIVERYMETHOD2, artworkOrder.getDeliveryMethod());
+		  
+		 
+	  }
+	  
+	  
+	  
 }
 	
