@@ -346,6 +346,18 @@ public class ArtseeRestController {
 		return new ResponseEntity<>(service.getAllArtworks().stream().map(u -> convertToDto(u)).collect(Collectors.toList()), HttpStatus.OK);
 	}
 	
+	@GetMapping(value = { "/artworksByArtist/{id}", "/artworksByArtist/{id}/" })
+	public ResponseEntity<?> getAllArtworksbyArtist(@PathVariable("id") String id){
+		try {
+			Artist artist = service.getArtistByID(id);
+			Set<Artwork> artworks = service.getArtworksByArtist(artist);
+			return new ResponseEntity<>(convertToDto(artworks), HttpStatus.OK);
+		} 
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
 	@PostMapping(value = { "/artworks", "/artworks/" }, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> createArtwork(@RequestBody ArtworkDto artworkDto) {
 		try {

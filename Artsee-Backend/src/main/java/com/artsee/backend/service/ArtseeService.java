@@ -633,15 +633,9 @@ public class ArtseeService {
 	
 	@Transactional
 	public Set<Artwork> getArtworksByArtist(Artist artist) {
-		String error = "";
-
 		Set<Artwork> artworksByArtist = new HashSet<Artwork>();
 		if (artist == null)
 			throw new IllegalArgumentException("An artist cannot be empty!");
-		/*
-		for (Artwork a: artworkRepository.findByArtist(artist)) {
-			artworksByArtist.add(a);
-		}*/
 		artworksByArtist = artist.getArtworks();
 		return artworksByArtist;
 	}
