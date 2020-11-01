@@ -139,7 +139,7 @@ public class TestArtworkOrderController {
         assertEquals(HttpStatus.BAD_REQUEST, getResponse.getStatusCode());
   
         // Create and post new customer -----------------------------------------------------------------------------------
-        ResponseEntity<String> response = restTemplate.exchange(getURLWithPort("/artworkorders"), HttpMethod.POST, entity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(getURLWithPort("/artworkOrders"), HttpMethod.POST, entity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         // get customer should now properly work -----------------------------------------------------------------------------------
