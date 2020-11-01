@@ -299,6 +299,17 @@ public class ArtseeRestController {
 		return new ResponseEntity<>(service.getAllReviews().stream().map(u -> convertToDto(u)).collect(Collectors.toList()), HttpStatus.OK);
 	}
 	
+	@GetMapping(value = { "/review/{id}", "/review/{id}" })
+	public ResponseEntity<?> getReviewByID(@PathVariable("id") Integer id){
+		try {
+			Review review = service.getReviewbyID(id);
+			return new ResponseEntity<>(convertToDto(review), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
 	@PostMapping(value = { "/reviews", "/reviews/" }, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> createReview(@RequestBody ReviewDto reviewDto) {
 		try {
@@ -344,6 +355,17 @@ public class ArtseeRestController {
 	@GetMapping(value = { "/artworks", "/artworks/" })
 	public ResponseEntity<?> getAllArtworks(){
 		return new ResponseEntity<>(service.getAllArtworks().stream().map(u -> convertToDto(u)).collect(Collectors.toList()), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = { "/artwork/{id}", "/artwork/{id}" })
+	public ResponseEntity<?> getArtworkByID(@PathVariable("id") Integer id){
+		try {
+			Artwork artwork = service.getArtworkById(id);
+			return new ResponseEntity<>(convertToDto(artwork), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
 	@GetMapping(value = { "/artworksByArtist/{id}", "/artworksByArtist/{id}/" })
@@ -401,6 +423,17 @@ public class ArtseeRestController {
 	@GetMapping(value = { "/artworkOrders", "/artworkOrders/" })
 	public ResponseEntity<?> getAllArtworkOrders() {
 		return new ResponseEntity<>(service.getAllArtworkOrders().stream().map(u -> convertToDto(u)).collect(Collectors.toList()), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = { "/artworkOrder/{id}", "/artworkOrder/{id}" })
+	public ResponseEntity<?> getArtworkOrderByID(@PathVariable("id") Integer id){
+		try {
+			ArtworkOrder artworkOrder = service.getArtworkOrderByID(id);
+			return new ResponseEntity<>(convertToDto(artworkOrder), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
 	@PostMapping(value = { "/artworkOrders", "/artworkOrders/" }, consumes = "application/json", produces = "application/json")
