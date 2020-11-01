@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Optional;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.containsString;
 
@@ -49,12 +51,33 @@ public class TestArtworkOrderService {
 	@InjectMocks
 	private ArtseeService service;
 	
-	public static final int ID = 1234;
-	public static final DeliveryMethod DELIVERYMETHOD = DeliveryMethod.SHIP;
-	public static final Customer CUSTOMER = new Customer();
-	public static final List<Artwork> ARTLIST = new ArrayList<Artwork>();
+	private static final int ID = 1234;
+	private static final DeliveryMethod DELIVERYMETHOD = DeliveryMethod.SHIP;
+	private static final Customer CUSTOMER = new Customer();
+	private static final Set<Artwork> ARTLIST = new HashSet<Artwork>();
 
-	public static final String CUSTOMER_ID = "123";
+	private static final String CUSTOMER_ID = "123";
+	
+	/*
+	private static final String EMAIL = "customer@gmail.com";
+	private static final String PASSWORD = "password";
+	private static final String FIRSTNAME = "John";
+	private static final String LASTNAME = "Doe";
+	private static final String PHONE_NUM = "8675309";
+	private static final Address ADDRESS = new Address();
+	
+	private static final Customer CUSTOMER = TestUtility.createCustomer(CUSTOMER_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ADDRESS);
+	/*
+	private static final int ARTID = 12;
+	private static final String ARTNAME1 = "masterpiece";
+	private static final int ARTPRICE1 = 12;
+	private static final String ARTDESC1 = "a nice work of art.";
+	private static final Date DATEMADE1 = Date.valueOf("2020-10-31");
+	private static final int ARTSTOCK1 = 2;
+	private static final Artist ARTIST1 = new Artist();
+	private static final Artwork ARTWORK1 = TestUtility.createArtwork(ARTID, ARTNAME1, ARTPRICE1, ARTDESC1, DATEMADE1, ARTSTOCK1, ARTIST1);
+	*/
+	
 	
 	@BeforeEach
 	public void setMockOuput() {
@@ -63,8 +86,8 @@ public class TestArtworkOrderService {
 		ARTLIST.add(new Artwork());
 		ARTLIST.add(new Artwork());
 
-		ARTLIST.get(0).setArtworkID(1);
-		ARTLIST.get(1).setArtworkID(2);
+		//ARTLIST.get(0).setArtworkID(1);
+		//ARTLIST.get(1).setArtworkID(2);
 
 		
 		lenient().when(artworkOrderDao.findByCustomer(CUSTOMER)).thenAnswer((InvocationOnMock invocation) -> {
@@ -92,4 +115,38 @@ public class TestArtworkOrderService {
 
     }
     
+	@Test
+    public void testCreateArtworkOrder() {
+        ArtworkOrder artworkOrder = null;
+        String error = null;
+        try {
+            artworkOrder = service.createArtworkOrder(DELIVERYMETHOD, CUSTOMER, ARTLIST);
+            artworkOrder.setOrderID(ID);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+        System.out.println(error);
+        assertEquals(1,0,String.valueOf(artworkOrder));
+        assertEquals(CUSTOMER, artworkOrder.getCustomer());
+        assertEquals(DELIVERYMETHOD, artworkOrder.getDeliveryMethod());
+        assertEquals(ARTLIST, artworkOrder.getArtworks());
+	}
+	
+	@Test
+    public void testGetArtworkOrderByID() {
+        ArtworkOrder artworkOrder = null;
+        try {
+            artworkOrder = service.getArtworkOrderByID(ID);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+
+      
+        assertEquals(CUSTOMER,artworkOrder.getCustomer());
+        assertEquals(DELIVERYMETHOD, artworkOrder.getDeliveryMethod());
+        assertEquals(ARTLIST,artworkOrder.getArtworks());
+
+    }
+	
 }
+	

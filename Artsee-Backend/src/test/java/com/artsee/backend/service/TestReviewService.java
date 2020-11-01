@@ -112,7 +112,7 @@ public class TestReviewService {
 	}
 
 	@Test
-    public void testCreateArtwork() {
+    public void testCreateReview() {
         Review review = null;
 
         try {
@@ -174,7 +174,7 @@ public class TestReviewService {
             service.createReview(RATING, COMMENT, WOULDRECCOMEND, null, ARTIST);
         } catch (Exception e) {
             error = e.getMessage();
-        }
+        } 
 
         assertThat(error, containsString("needs a customer"));
 
@@ -187,7 +187,7 @@ public class TestReviewService {
         }
 
         assertThat(error, containsString("customer does not exist"));
-    }
+    } 
 
     @Test
     public void testCreateReviewMissingArtist() {

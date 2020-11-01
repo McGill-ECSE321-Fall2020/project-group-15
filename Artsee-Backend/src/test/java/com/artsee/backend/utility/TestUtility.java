@@ -1,6 +1,8 @@
 package com.artsee.backend.utility;
 
 import java.sql.Date;
+import java.util.List;
+import java.util.Set;
 
 import com.artsee.backend.model.*;
 
@@ -81,4 +83,15 @@ public class TestUtility {
     	return review;
     	
     }
+    // ---------- ArtworkOrder Methods ----------------------------------------------------------------------------------------------------------------------------------
+    public static ArtworkOrder createArtworkOrder(int id, DeliveryMethod deliveryMethod, Customer customer, Set<Artwork> artList){
+    	ArtworkOrder artworkOrder = new ArtworkOrder();
+    	artworkOrder.setOrderID(id);
+    	artworkOrder.setArtworks(artList);
+    	artworkOrder.setDeliveryMethod(deliveryMethod);
+    	artworkOrder.setCustomer(customer);
+    	return artworkOrder;
+    	
+    }
+    
 }

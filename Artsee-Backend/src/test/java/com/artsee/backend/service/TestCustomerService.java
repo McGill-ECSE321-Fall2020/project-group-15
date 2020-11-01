@@ -47,9 +47,11 @@ public class TestCustomerService {
 	
     private static final String CUSTOMER_ID = "1234";
     private static final String CUSTOMER_ID2 = "37292";
+    private static final String CUSTOMER_ID3 = "23456";
     
     private static final String EMAIL = "customer@gmail.com";
     private static final String EMAIL2 = "otherCustomer@gmail.com";
+    private static final String EMAIL3 = "thirdcustomer@gmail.com";
 
     private static final String PASSWORD = "password";
     private static final String PASSWORD2 = "newPassword";
@@ -66,6 +68,7 @@ public class TestCustomerService {
     private static final Address ADDRESS = new Address();
     private static final Address ADDRESS2 = new Address();
     
+    
     @BeforeEach
     public void setMockOutput() {
         lenient().when(customerDao.findByEmail(anyString())).thenAnswer((InvocationOnMock invocation) -> {
@@ -81,7 +84,12 @@ public class TestCustomerService {
         lenient().when(customerDao.findById(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
             if(invocation.getArgument(0).equals(CUSTOMER_ID)) {
                 return Optional.of(TestUtility.createCustomer(CUSTOMER_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ADDRESS));
-            } else {
+            } else if(invocation.getArgument(0).equals(CUSTOMER_ID3)) {
+            	return TestUtility.createCustomer(CUSTOMER_ID3, EMAIL3, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ADDRESS);
+            	
+            }
+            
+            else {
                 return Optional.empty();
             }
         });
@@ -480,7 +488,7 @@ public class TestCustomerService {
     	String error = null;
 	
     	try {
-    		service.updateCustomer(CUSTOMER_ID2, EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, ADDRESS2);
+    		service.updateCustomer(CUSTOMER_ID3, EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, ADDRESS2);
     	}catch (Exception e) {
     		error = e.getMessage();
     	}
