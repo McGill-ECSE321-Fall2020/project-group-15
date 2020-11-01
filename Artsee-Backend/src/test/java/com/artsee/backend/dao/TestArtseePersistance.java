@@ -214,7 +214,7 @@ public class TestArtseePersistance {
 		String lastName = "artistlast";
 		String phoneNumber = "123456";
 		String artistDescription = "artistTestDescription";
-		Float rating = 4.2f;
+		float rating = 4.2f;
 
 		Artist artist = createTestArtistWithoutReviewOrArtworks(artistID, email, password, firstName, lastName, phoneNumber, artistDescription, rating);
 
@@ -370,7 +370,7 @@ public class TestArtseePersistance {
 		String lastName = "artistlast";
 		String phoneNumber = "123456";
 		String artistDescription = "artistTestDescription";
-		Float rating = 4.2f;
+		float rating = 4.2f;
 		Artist artist = createTestArtistWithoutReviewOrArtworks(artistID, email, password, firstName, lastName, phoneNumber, artistDescription, rating);
 		artistRepository.save(artist);
 		
@@ -464,7 +464,7 @@ public class TestArtseePersistance {
 		String artistLastName = "artistlast";
 		String artistPhoneNumber = "123456";
 		String artistDescription = "artistTestDescription";
-		Float artistRating = 4.2f;
+		float artistRating = 4.2f;
 		Artist artist = createTestArtistWithoutReviewOrArtworks(artistID, artistEmail, artistPassword, artistFirstName, artistLastName, artistPhoneNumber, artistDescription, artistRating);
 		artistRepository.save(artist);
 		
@@ -653,7 +653,7 @@ public class TestArtseePersistance {
 		return customer;
 	}
 	
-	public Artist createTestArtistWithoutReviewOrArtworks(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription, Float rating){
+	public Artist createTestArtistWithoutReviewOrArtworks(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription, float rating){
 		Artist artist = new Artist();
 		artist.setUserID(artistID);
 		artist.setEmail(email);

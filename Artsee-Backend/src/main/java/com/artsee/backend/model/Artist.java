@@ -1,8 +1,10 @@
 package com.artsee.backend.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
+
 import java.util.Set;
 
 //Setting the primary key name in the artistID (this is inherited from endUser as a joined table structure was used)
@@ -17,23 +19,41 @@ public class Artist extends EndUser{
    public String getArtistDescription() {
 	   return this.artistDescription;
    }
-   private float rating;
 
-   public void setRating(float value) {
-	   this.rating = value;
-   }
+   private float rating;
    public float getRating() {
 	   return this.rating;
    }
+   public void setRating(float rating) {
+	   this.rating = rating;
+   }
+   
+//   public float Rating() {
+//	   
+//	   float totalRating = 0;
+//	   
+//	   if ((this.reviews != null)&&(reviews.size() > 0)){
+//		   
+//		   for (Review r : this.getReviews()) {
+//			   totalRating += (float) r.getRating();
+//		   }
+//		   
+//		   totalRating = totalRating / ( (float) this.getReviews().size());
+//	   }	   
+//	   
+//	   return totalRating;
+//   }
+
    private Set<Review> reviews;
    //Create a one to many relationship with the class Review
+//   @OneToMany(fetch=FetchType.EAGER, mappedBy="artist", cascade={CascadeType.ALL})
    @OneToMany(mappedBy="artist", cascade={CascadeType.ALL})
    public Set<Review> getReviews() {
 	   return this.reviews;
    }
 
-	public void setReviews(Set<Review> reviewss) {
-	   this.reviews = reviewss;
+	public void setReviews(Set<Review> reviews) {
+	   this.reviews = reviews;
 	}
 
 	private Set<Artwork> artworks;
