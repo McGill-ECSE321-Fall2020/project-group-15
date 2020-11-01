@@ -151,22 +151,9 @@ public class TestReviewService {
             error = e.getMessage();
         }
 
-        assertThat(error, containsString("needs a rating"));
+        assertThat(error, containsString("Review needs a rating."));
     }
-
-    @Test
-    public void testCreateReviewMissingWouldReccomend() {
-        String error = null;
-
-        try {
-            service.createReview(RATING, COMMENT, null, CUSTOMER, ARTIST);
-        } catch (Exception e) {
-            error = e.getMessage();
-        }
-
-        assertThat(error, containsString("would recommend cannot be null"));
-    }
-
+	
     @Test
     public void testCreateReviewMissingCustomer() {
         String error = null;
@@ -177,17 +164,7 @@ public class TestReviewService {
             error = e.getMessage();
         } 
 
-        assertThat(error, containsString("needs a customer"));
-
-        error = null;
-
-        try {
-            service.createReview(RATING, COMMENT, WOULDRECCOMEND, new Customer(), ARTIST);
-        } catch (Exception e) {
-            error = e.getMessage();
-        }
-
-        assertThat(error, containsString("customer does not exist"));
+        assertThat(error, containsString("Review needs a customer."));
     } 
 
     @Test
@@ -200,17 +177,7 @@ public class TestReviewService {
             error = e.getMessage();
         }
 
-        assertThat(error, containsString("needs an artist"));
-
-        error = null;
-
-        try {
-            service.createReview(RATING, COMMENT, WOULDRECCOMEND, CUSTOMER, new Artist());
-        } catch (Exception e) {
-            error = e.getMessage();
-        }
-
-        assertThat(error, containsString("artist does not exist"));
+        assertThat(error, containsString("Review needs an artist."));
     }
 
     // -------------- other tests ------------------
@@ -242,7 +209,7 @@ public class TestReviewService {
             error = e.getMessage();
         }
 
-        assertThat(error, containsString("review does not exist"));
+        assertThat(error, containsString("Review does not exist."));
     }
 
     @Test
@@ -258,20 +225,6 @@ public class TestReviewService {
     }
 
     @Test
-    public void testGetAllReviewsOnArtistMissingArtist() {
-        String error = null;
-
-        try {
-           service.getAllReviewsOnArtist(new Artist());
-        } catch (Exception e) {
-            error = e.getMessage();
-        }
-
-        assertThat(error, containsString("artist does not exist"));
-        
-    }
-
-    @Test
     public void testGetAllReviewsOnCustomer() {
 
         try {
@@ -281,20 +234,6 @@ public class TestReviewService {
         } catch (Exception e) {
             fail(e.getMessage());
         }
-    }
-
-    @Test
-    public void testGetAllReviewsOnCustomerMissingCustomer() {
-        String error = null;
-
-        try {
-           service.getAllReviewsByCustomer(new Customer());
-        } catch (Exception e) {
-            error = e.getMessage();
-        }
-
-        assertThat(error, containsString("customer does not exist"));
-        
     }
 
     // ------------- Update method -------------------------------
@@ -326,7 +265,7 @@ public class TestReviewService {
             error = e.getMessage();
         }
 
-        assertThat(error, containsString("does not exist"));
+        assertThat(error, containsString("Review does not exist."));
 
         error = null;
 
@@ -359,43 +298,7 @@ public class TestReviewService {
             error = e.getMessage();
         }
 
-        assertThat(error, containsString("needs a rating"));
-    }
-
-    @Test
-    public void testUpdateReviewMissingComment() {
-        String error = null;
-
-        try {
-            service.updateReview(ID, RATING2, "", WOULDRECCOMEND2, CUSTOMER2, ARTIST2);
-        } catch (Exception e) {
-            error = e.getMessage();
-        }
-
-        assertThat(error, containsString("needs a comment"));
-
-        error = null;
-
-        try {
-            service.updateReview(ID, RATING2, null, WOULDRECCOMEND2, CUSTOMER2, ARTIST2);
-        } catch (Exception e) {
-            error = e.getMessage();
-        }
-
-        assertThat(error, containsString("needs a comment"));
-    }
-
-    @Test
-    public void testUpdateReviewMissingWouldRecommend() {
-        String error = null;
-
-        try {
-            service.updateReview(ID, RATING2, COMMENT2, null, CUSTOMER2, ARTIST2);
-        } catch (Exception e) {
-            error = e.getMessage();
-        }
-
-        assertThat(error, containsString("needs a recommendation"));
+        assertThat(error, containsString("Review needs a rating."));
     }
 
     @Test
@@ -408,17 +311,7 @@ public class TestReviewService {
             error = e.getMessage();
         }
 
-        assertThat(error, containsString("needs a customer"));
-
-        error = null;
-
-        try {
-            service.updateReview(ID, RATING2, COMMENT2, WOULDRECCOMEND2, new Customer(), ARTIST2);
-        } catch (Exception e) {
-            error = e.getMessage();
-        }
-
-        assertThat(error, containsString("customer does not exist"));
+        assertThat(error, containsString("Review needs a customer."));
     }
 
     @Test
@@ -431,16 +324,6 @@ public class TestReviewService {
             error = e.getMessage();
         }
 
-        assertThat(error, containsString("needs an artist"));
-
-        error = null;
-
-        try {
-            service.updateReview(ID, RATING2, COMMENT2, WOULDRECCOMEND2, CUSTOMER2, new Artist());
-        } catch (Exception e) {
-            error = e.getMessage();
-        }
-
-        assertThat(error, containsString("artist does not exist"));
+        assertThat(error, containsString("Review needs an artist."));
     }
 }
