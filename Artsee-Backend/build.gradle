@@ -10,19 +10,24 @@ sourceCompatibility = '1.8'
 
 repositories {
 	mavenCentral()
+	jcenter()
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	testImplementation 'org.mockito:mockito-core:2.+'
+	testImplementation 'org.mockito:mockito-junit-jupiter:2.18.3'
+
+	testImplementation "junit:junit:4.12"
+	implementation 'junit:junit:4.12'
+	testCompile 'junit:junit:4.12'
+    compile 'junit:junit:4.12'
 	
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
-}
-
-test {
-	useJUnitPlatform()
 }
