@@ -929,6 +929,12 @@ public class ArtseeService {
 		
 		e = e.trim();
 		
+		for(Artwork art : artworks) {
+			if (art.getNumInStock() == 0) {
+				e += "Artwork is out of stock!";
+			}
+		}
+		
 		if (e.length() > 0) {
 			throw new IllegalArgumentException(e);
 		} 
@@ -936,19 +942,9 @@ public class ArtseeService {
 		int totalPrice = order.getTotalPrice();
 	
 		for(Artwork art : artworks) {
-			if (art.getNumInStock() == 0) {
-				e += "Artwork is out of stock!";
-			}
 			art.setNumInStock(art.getNumInStock() - 1);
 			totalPrice += art.getPrice();
 		}
-		
-//		if(artworks.size() > 0) {
-//			for(Artwork artwork : artworks) {
-//				addArtworkToOrder(orderID, artwork);
-//				totalPrice += artwork.getPrice();
-//			}
-//		}
 		
 		if(orderStatus == OrderStatus.DELIVERED) {
 			order.setDateCompleted(new Date(System.currentTimeMillis()));
@@ -969,6 +965,9 @@ public class ArtseeService {
 	
 	@Transactional
 	public List<ArtworkOrder> getAllArtworkOrdersByCustomer(Customer customer) {
+		if(customer == null) {
+			throw new IllegalArgumentException("Customer cannot be empty.");
+		}
 		List<ArtworkOrder> artworkOrdersByCustomer = new ArrayList<>();
 		for (ArtworkOrder r : artworkOrderRepository.findByCustomer(customer)) {
 			artworkOrdersByCustomer.add(r);
@@ -976,24 +975,24 @@ public class ArtseeService {
 		return artworkOrdersByCustomer;
 	}
 
-	@Transactional
-	public void addArtworkToOrder(Integer orderId, Artwork artwork) throws IllegalArgumentException {
-		String error = "";
-		ArtworkOrder order = getArtworkOrderByID(orderId);
-
-		if (artwork == null) {
-			throw new IllegalArgumentException(error + "Artwork cannot be empty!");
-		}
-
-		Set<Artwork> artworks = order.getArtworks();
-		if (artwork.getNumInStock() == 0) {
-			throw new IllegalArgumentException("Artwork is out of stock! ");
-		}
-		artwork.setNumInStock(artwork.getNumInStock() - 1);
-		artworks.add(artwork);
-
-		order.setArtworks(artworks);
-	}
+//	@Transactional
+//	public void addArtworkToOrder(Integer orderId, Artwork artwork) throws IllegalArgumentException {
+//		String error = "";
+//		ArtworkOrder order = getArtworkOrderByID(orderId);
+//
+//		if (artwork == null) {
+//			throw new IllegalArgumentException(error + "Artwork cannot be empty!");
+//		}
+//
+//		Set<Artwork> artworks = order.getArtworks();
+//		if (artwork.getNumInStock() == 0) {
+//			throw new IllegalArgumentException("Artwork is out of stock! ");
+//		}
+//		artwork.setNumInStock(artwork.getNumInStock() - 1);
+//		artworks.add(artwork);
+//
+//		order.setArtworks(artworks);
+//	}
 	
 	// Address Service Layer ___________________________________________________________________________________
 	

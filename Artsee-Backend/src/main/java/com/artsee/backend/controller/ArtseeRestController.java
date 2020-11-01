@@ -299,7 +299,7 @@ public class ArtseeRestController {
 		return new ResponseEntity<>(service.getAllReviews().stream().map(u -> convertToDto(u)).collect(Collectors.toList()), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = { "/review/{id}", "/review/{id}" })
+	@GetMapping(value = { "/reviews/{id}", "/reviews/{id}/" })
 	public ResponseEntity<?> getReviewByID(@PathVariable("id") Integer id){
 		try {
 			Review review = service.getReviewbyID(id);
@@ -309,6 +309,31 @@ public class ArtseeRestController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+	
+	@GetMapping(value = { "/reviewsOnArtist/{id}", "/reviewsOnArtist/{id}" })
+	public ResponseEntity<?> getReviewOnArtist(@PathVariable("id") String id){
+		try {
+			Artist artist = service.getArtistByID(id);
+			List<Review> reviewsOnArtist = service.getAllReviewsOnArtist(artist);
+			return new ResponseEntity<>(convertToDto(reviewsOnArtist), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	@GetMapping(value = { "/reviewsByCustomer/{id}", "/reviewsByCustomer/{id}" })
+	public ResponseEntity<?> getReviewByCustomer(@PathVariable("id") String id){
+		try {
+			Customer customer = service.getCustomerByID(id);
+			List<Review> reviewsByCustomer = service.getAllReviewsByCustomer(customer);
+			return new ResponseEntity<>(convertToDto(reviewsByCustomer), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
 	
 	@PostMapping(value = { "/reviews", "/reviews/" }, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> createReview(@RequestBody ReviewDto reviewDto) {
@@ -357,7 +382,7 @@ public class ArtseeRestController {
 		return new ResponseEntity<>(service.getAllArtworks().stream().map(u -> convertToDto(u)).collect(Collectors.toList()), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = { "/artwork/{id}", "/artwork/{id}" })
+	@GetMapping(value = { "/artworks/{id}", "/artworks/{id}/" })
 	public ResponseEntity<?> getArtworkByID(@PathVariable("id") Integer id){
 		try {
 			Artwork artwork = service.getArtworkById(id);
@@ -425,11 +450,23 @@ public class ArtseeRestController {
 		return new ResponseEntity<>(service.getAllArtworkOrders().stream().map(u -> convertToDto(u)).collect(Collectors.toList()), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = { "/artworkOrder/{id}", "/artworkOrder/{id}" })
+	@GetMapping(value = { "/artworkOrders/{id}", "/artworkOrder/{id}/" })
 	public ResponseEntity<?> getArtworkOrderByID(@PathVariable("id") Integer id){
 		try {
 			ArtworkOrder artworkOrder = service.getArtworkOrderByID(id);
 			return new ResponseEntity<>(convertToDto(artworkOrder), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	@GetMapping(value = { "/artworkOrdersByCustomer/{id}", "/artworkOrdersByCustomer/{id}" })
+	public ResponseEntity<?> getArtworkOrdersByCustomer(@PathVariable("id") String id){
+		try {
+			Customer customer = service.getCustomerByID(id);
+;			List<ArtworkOrder> artworkOrdersByCustomer = service.getAllArtworkOrdersByCustomer(customer);
+			return new ResponseEntity<>(convertToDtoArtworkOrder(artworkOrdersByCustomer), HttpStatus.OK);
 		}
 		catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
@@ -593,6 +630,22 @@ public class ArtseeRestController {
 			artworkSet.add(artwork);
 		}
 		return artworkSet;
+	}
+	
+	private List<ReviewDto> convertToDto(List<Review> reviews){
+		List<ReviewDto> reviewListDto = new ArrayList<ReviewDto>();
+		for(Review review : reviews) {
+			reviewListDto.add(convertToDto(review));
+		}
+		return reviewListDto;
+	}
+	
+	private List<ArtworkOrderDto> convertToDtoArtworkOrder(List<ArtworkOrder> artworkOrders){
+		List<ArtworkOrderDto> artowrkOrdersListDto = new ArrayList<ArtworkOrderDto>();
+		for(ArtworkOrder artworkOrder : artworkOrders) {
+			artowrkOrdersListDto.add(convertToDto(artworkOrder));
+		}
+		return artowrkOrdersListDto;
 	}
 	
 }
