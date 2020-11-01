@@ -76,6 +76,7 @@ public class TestArtworkOrderService {
 	private static final int ARTSTOCK1 = 2;
 	private static final Artist ARTIST1 = new Artist();
 	private static final Artwork ARTWORK1 = TestUtility.createArtwork(ARTID, ARTNAME1, ARTPRICE1, ARTDESC1, DATEMADE1, ARTSTOCK1, ARTIST1);
+
 	
 	private static final int ARTID2 = 2;
 	private static final String ARTNAME2 = "late night vibes";
@@ -103,6 +104,7 @@ public class TestArtworkOrderService {
 	private static final int ARTSTOCK4 = 50;
 	private static final Artist ARTIST4 = new Artist();
 	private static final Artwork ARTWORK4 = TestUtility.createArtwork(ARTID4, ARTNAME4, ARTPRICE4, ARTDESC4, DATEMADE4, ARTSTOCK4, ARTIST4);
+
 	@BeforeEach
 	public void setMockOuput() {
 
@@ -149,7 +151,6 @@ public class TestArtworkOrderService {
         } catch (Exception e) {
             error = e.getMessage();
         }
-        
       
         assertEquals(CUSTOMER, artworkOrder.getCustomer());
         assertEquals(DELIVERYMETHOD, artworkOrder.getDeliveryMethod());
@@ -248,8 +249,7 @@ public class TestArtworkOrderService {
 			  error = e.getMessage();
 		  }
 		  
-		  
-		  
+
 		  assertEquals(cust, artworkOrder.getCustomer());
 		  assertEquals(list, artworkOrder.getArtworks());
 		  assertEquals(del, artworkOrder.getDeliveryMethod());
@@ -346,7 +346,7 @@ public class TestArtworkOrderService {
 			  error = e.getMessage();
 		  }
 		  
-		  assertEquals("Artwork is out of stock!",error);
+		  assertEquals("Artwork is out of stock! ",error);
 	  }
 	  
 	  @Test

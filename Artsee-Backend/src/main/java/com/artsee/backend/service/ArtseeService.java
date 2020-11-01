@@ -240,10 +240,10 @@ public class ArtseeService {
 		}
 		
 		if (customer == null) {
-			e += "Username cannot be found.";
+			throw new IllegalArgumentException("Username cannot be found.");
 		}
 		
-		if (!email.equals(customer.getEmail())&&(endUserRepository.findByEmail(email) != null)) {
+		if ((!email.equals(customer.getEmail()))&&(endUserRepository.findByEmail(email) != null)) {
 			e+="Email already exists.";
 		}
 		
@@ -400,7 +400,7 @@ public class ArtseeService {
 		}
     
 		if (artist == null) {
-			e+="Username cannot be found.";
+			throw new IllegalArgumentException("Username cannot be found.");
 		}
 		
 		if (!email.equals(artist.getEmail())&&(endUserRepository.findByEmail(email) != null)) {
@@ -539,7 +539,7 @@ public class ArtseeService {
 		}
 		
 		if (administrator == null) {
-			e += "Username cannot be found.";
+			throw new IllegalArgumentException("Username cannot be found.");
 		}
 		
 //		if (!email.equals(administrator.getEmail())&&(endUserRepository.findByEmail(email) != null)) {
@@ -974,7 +974,7 @@ public class ArtseeService {
 		ArtworkOrder order = getArtworkOrderByID(orderId);
 
 		if (artwork == null) {
-			throw new IllegalArgumentException(error + "Artwork cannot be empty! ");
+			throw new IllegalArgumentException(error + "Artwork cannot be empty!");
 		}
 
 		Set<Artwork> artworks = order.getArtworks();
