@@ -338,47 +338,6 @@ public class TestArtworkOrderService {
 	    }
 	  
 	  @Test
-	  public void testaddArtworkToOrderNoStock() {
-		  String error = null;
-		  try {
-			  service.addArtworkToOrder(ID, ARTWORK3);
-		  } catch (Exception e) {
-			  error = e.getMessage();
-		  }
-		  
-		  assertEquals("Artwork is out of stock! ",error);
-	  }
-	  
-	  @Test
-	  public void testaddArtworkToOrderNull() {
-		  String error = null;
-		  try {
-			  service.addArtworkToOrder(ID, null);
-		  } catch (Exception e) {
-			  error = e.getMessage();
-		  }
-		  
-		  assertEquals("Artwork cannot be empty!",error);
-	  }
-	  
-	  @Test
-	  public void testaddArtworkToOrder() {
-		  String error = null;
-		  
-		  Set<Artwork> test = new HashSet<Artwork>();
-		  test.add(ARTWORK1);
-		  test.add(ARTWORK2);
-		  test.add(ARTWORK4);
-		  try { 
-			  service.addArtworkToOrder(ID, ARTWORK4);
-		  }catch (Exception e) {
-			  error = e.getMessage();
-		  }
-		  
-		  assertEquals(test, service.getArtworkOrderByID(ID).getArtworks());
-	  }
-	  
-	  @Test
 	    public void testDeleteArworkOrderNotexistent() {
 	    	assertEquals(0,service.getAllArtworkOrders().size());
 	    	String error = "";
