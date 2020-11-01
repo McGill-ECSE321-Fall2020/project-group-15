@@ -310,6 +310,31 @@ public class ArtseeRestController {
 		}
 	}
 	
+	@GetMapping(value = { "/reviewsOnArtist/{id}", "/reviewsOnArtist/{id}" })
+	public ResponseEntity<?> getReviewOnArtist(@PathVariable("id") String id){
+		try {
+			Artist artist = service.getArtistByID(id);
+			List<Review> reviewsOnArtist = service.getAllReviewsOnArtist(artist);
+			return new ResponseEntity<>(convertToDto(reviewsOnArtist), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	@GetMapping(value = { "/reviewsByCustomer/{id}", "/reviewsByCustomer/{id}" })
+	public ResponseEntity<?> getReviewByCustomer(@PathVariable("id") String id){
+		try {
+			Customer customer = service.getCustomerByID(id);
+			List<Review> reviewsByCustomer = service.getAllReviewsByCustomer(customer);
+			return new ResponseEntity<>(convertToDto(reviewsByCustomer), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	
 	@PostMapping(value = { "/reviews", "/reviews/" }, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> createReview(@RequestBody ReviewDto reviewDto) {
 		try {
@@ -430,6 +455,18 @@ public class ArtseeRestController {
 		try {
 			ArtworkOrder artworkOrder = service.getArtworkOrderByID(id);
 			return new ResponseEntity<>(convertToDto(artworkOrder), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	@GetMapping(value = { "/artworkOrdersByCustomer/{id}", "/artworkOrdersByCustomer/{id}" })
+	public ResponseEntity<?> getArtworkOrdersByCustomer(@PathVariable("id") String id){
+		try {
+			Customer customer = service.getCustomerByID(id);
+;			List<ArtworkOrder> artworkOrdersByCustomer = service.getAllArtworkOrdersByCustomer(customer);
+			return new ResponseEntity<>(convertToDtoArtworkOrder(artworkOrdersByCustomer), HttpStatus.OK);
 		}
 		catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
@@ -593,6 +630,22 @@ public class ArtseeRestController {
 			artworkSet.add(artwork);
 		}
 		return artworkSet;
+	}
+	
+	private List<ReviewDto> convertToDto(List<Review> reviews){
+		List<ReviewDto> reviewListDto = new ArrayList<ReviewDto>();
+		for(Review review : reviews) {
+			reviewListDto.add(convertToDto(review));
+		}
+		return reviewListDto;
+	}
+	
+	private List<ArtworkOrderDto> convertToDtoArtworkOrder(List<ArtworkOrder> artworkOrders){
+		List<ArtworkOrderDto> artowrkOrdersListDto = new ArrayList<ArtworkOrderDto>();
+		for(ArtworkOrder artworkOrder : artworkOrders) {
+			artowrkOrdersListDto.add(convertToDto(artworkOrder));
+		}
+		return artowrkOrdersListDto;
 	}
 	
 }

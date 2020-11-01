@@ -938,13 +938,6 @@ public class ArtseeService {
 			totalPrice += art.getPrice();
 		}
 		
-//		if(artworks.size() > 0) {
-//			for(Artwork artwork : artworks) {
-//				addArtworkToOrder(orderID, artwork);
-//				totalPrice += artwork.getPrice();
-//			}
-//		}
-		
 		if(orderStatus == OrderStatus.DELIVERED) {
 			order.setDateCompleted(new Date(System.currentTimeMillis()));
 		}
@@ -964,6 +957,9 @@ public class ArtseeService {
 	
 	@Transactional
 	public List<ArtworkOrder> getAllArtworkOrdersByCustomer(Customer customer) {
+		if(customer == null) {
+			throw new IllegalArgumentException("Customer cannot be empty.");
+		}
 		List<ArtworkOrder> artworkOrdersByCustomer = new ArrayList<>();
 		for (ArtworkOrder r : artworkOrderRepository.findByCustomer(customer)) {
 			artworkOrdersByCustomer.add(r);
