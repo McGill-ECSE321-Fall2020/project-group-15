@@ -449,18 +449,18 @@ public class TestAdminService {
     }
     
     
-    @Test
-    public void testUpdateAdminEmailExists() {
-    	String error = null;
-	
-    	
-    	try {
-    		service.updateAdministrator(ID2, EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2);
-    	}catch (Exception e) {
-    		error = e.getMessage();
-    	}
-	
-    	assertTrue(error.contains("Email already exists."), error);
-    }
+//    @Test
+//    public void testUpdateAdminEmailExists() {
+//    	String error = null;
+//	
+//    	
+//    	try {
+//    		service.updateAdministrator(ID2, EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2);
+//    	}catch (Exception e) {
+//    		error = e.getMessage();
+//    	}
+//	
+//    	assertTrue(error.contains("Email already exists."), error);
+//    }
     
 }

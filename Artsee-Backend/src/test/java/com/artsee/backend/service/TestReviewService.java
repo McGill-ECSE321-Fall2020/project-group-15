@@ -40,6 +40,7 @@ import com.artsee.backend.dao.*;
 import com.artsee.backend.utility.*;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
+
 @ExtendWith(MockitoExtension.class)
 public class TestReviewService {
 	
@@ -335,7 +336,7 @@ public class TestReviewService {
             error = e.getMessage();
         }
 
-        assertThat(error, containsString("ID cannot be null"));
+        assertThat(error, containsString("Review does not exist."));
     }
 
     @Test
@@ -442,9 +443,4 @@ public class TestReviewService {
 
         assertThat(error, containsString("artist does not exist"));
     }
-
-
-
-
-
 }

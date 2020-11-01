@@ -29,8 +29,8 @@ import com.artsee.backend.service.ArtseeService;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -304,7 +304,7 @@ public class ArtseeRestController {
 		try {
 			Customer customer = service.getCustomerByID(reviewDto.getCustomer().getUserID());
 			Artist artist = service.getArtistByID(reviewDto.getArtist().getUserID());
-			Review review = service.createReview(reviewDto.getRating(), reviewDto.getComment(), reviewDto.getRecomendation(), customer, artist);
+			Review review = service.createReview(reviewDto.getRating(), reviewDto.getComment(), reviewDto.getWouldRecommend(), customer, artist);
 			return new ResponseEntity<>(convertToDto(review), HttpStatus.OK);
 		}
 		catch (Exception e) {
@@ -317,7 +317,7 @@ public class ArtseeRestController {
 		try {
 			Customer customer = service.getCustomerByID(reviewDto.getCustomer().getUserID());
 			Artist artist = service.getArtistByID(reviewDto.getArtist().getUserID());
-			Review review = service.updateReview(reviewDto.getReviewID(), reviewDto.getRating(), reviewDto.getComment(), reviewDto.getRecomendation(), customer, artist);
+			Review review = service.updateReview(reviewDto.getReviewID(), reviewDto.getRating(), reviewDto.getComment(), reviewDto.getWouldRecommend(), customer, artist);
 			return new ResponseEntity<>(convertToDto(review), HttpStatus.OK);
 		}
 		catch (Exception e) {
@@ -395,9 +395,8 @@ public class ArtseeRestController {
 	public ResponseEntity<?> createArtworkOrder(@RequestBody ArtworkOrderDto artworkOrderDto) {
 		try {
 			Customer customer = service.getCustomerByID(artworkOrderDto.getCustomer().getUserID());
-			List<Artwork> artworks = new ArrayList<>();
-			artworks = convertFromDto(artworkOrderDto.getArtworks());
-			DeliveryMethod deliveryMethod = convertFromDto(artworkOrderDto.getDeliveryMethod());
+			Set<Artwork> artworks = convertFromDto(artworkOrderDto.getArtworks());
+			DeliveryMethod deliveryMethod = convertFromDto(artworkOrderDto.getDeliveryMethodDto());
 			ArtworkOrder artworkOrder = service.createArtworkOrder(deliveryMethod, customer, artworks);
 			return new ResponseEntity<>(convertToDto(artworkOrder), HttpStatus.OK);
 		}
@@ -410,10 +409,9 @@ public class ArtseeRestController {
 	public ResponseEntity<?> updateArtworkOrder(@RequestBody ArtworkOrderDto artworkOrderDto) {
 		try {
 			Customer customer = service.getCustomerByID(artworkOrderDto.getCustomer().getUserID());
-			List<Artwork> artworks = new ArrayList<>();
-			artworks = convertFromDto(artworkOrderDto.getArtworks());
-			DeliveryMethod deliveryMethod = convertFromDto(artworkOrderDto.getDeliveryMethod());
-			OrderStatus orderStatus = convertFromDto(artworkOrderDto.getOrderStatus());
+			Set<Artwork> artworks = convertFromDto(artworkOrderDto.getArtworks());
+			DeliveryMethod deliveryMethod = convertFromDto(artworkOrderDto.getDeliveryMethodDto());
+			OrderStatus orderStatus = convertFromDto(artworkOrderDto.getOrderStatusDto());
 			ArtworkOrder artworkOrder = service.updateArtworkOrder(artworkOrderDto.getOrderID(), deliveryMethod, orderStatus, customer, artworks);
 			return new ResponseEntity<>(convertToDto(artworkOrder), HttpStatus.OK);
 		}
@@ -432,7 +430,7 @@ public class ArtseeRestController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
+		
 	
 	// Convert to Dto Methods ______________________________________________________________________________________________
 	
@@ -543,13 +541,13 @@ public class ArtseeRestController {
 			return orderStatus;
 		}
 		
-	private List<Artwork> convertFromDto(List<ArtworkDto> artworks){
-			List<Artwork> artworkList = new ArrayList<Artwork>();
-			for(ArtworkDto artworkDto : artworks) {
-				Artwork artwork = service.getArtworkById(artworkDto.getID());
-				artworkList.add(artwork);
-			}
-			return artworkList;
+	private Set<Artwork> convertFromDto(List<ArtworkDto> artworks){
+		Set<Artwork> artworkSet = new HashSet<Artwork>();
+		for(ArtworkDto artworkDto : artworks) {
+			Artwork artwork = service.getArtworkById(artworkDto.getID());
+			artworkSet.add(artwork);
 		}
+		return artworkSet;
+	}
 	
 }
