@@ -128,6 +128,7 @@ public class TestReviewService {
         assertEquals(WOULDRECCOMEND, review.getWouldRecommend());
         assertEquals(CUSTOMER, review.getCustomer());
         assertEquals(ARTIST, review.getArtist());
+        assertEquals(ARTIST.getRating(), review.getRating(), 0.01);
 	}
 	
 
@@ -252,6 +253,7 @@ public class TestReviewService {
         assertEquals(WOULDRECCOMEND2, review.getWouldRecommend());
         assertEquals(CUSTOMER2, review.getCustomer());
         assertEquals(ARTIST2, review.getArtist());
+        assertEquals(ARTIST2.getRating(), review.getRating(), 0.01);
 	}
 	
 

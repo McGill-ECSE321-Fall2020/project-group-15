@@ -759,6 +759,7 @@ public class ArtseeService {
 		review.setArtist(artist);
 		reviewRepository.save(review);
 		setArtistRating(artist);
+	
 		return review;
 	}
 
@@ -815,6 +816,7 @@ public class ArtseeService {
 		review.setArtist(artist);
 		reviewRepository.save(review);
 		setArtistRating(artist);
+		
 		return review;
 	}
 	
@@ -1118,16 +1120,19 @@ public class ArtseeService {
 	
 	private void setArtistRating(Artist artist) {
 		// Helper method to update the artist rating whenever they receive a new review
-		float totalRatings = 0f;
 		
-		if (artist.getReviews().size()>0) {
-			for (Review r : artist.getReviews()) {
+		float totalRatings = 0f;
+		List<Review> reviews = getAllReviewsOnArtist(artist);
+		
+		if (reviews.size()>0) {
+			for (Review r : reviews) {
 				totalRatings += (float)r.getRating();
 			}
-			totalRatings = totalRatings / ((float) artist.getReviews().size());
+			totalRatings = totalRatings / ((float) reviews.size());
 		}
 		
 		artist.setRating(totalRatings);
+		
 		artistRepository.save(artist);
 	}
 }
