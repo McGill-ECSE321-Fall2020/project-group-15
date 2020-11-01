@@ -33,6 +33,8 @@ public class TestUtility {
 		customer.setAddress(customerAddress);
 		customer.setPhoneNumber(phoneNumber);
 		return customer;
+		
+		
     }
  // ---------- Admin Methods ----------------------------------------------------------------------------------------------------------------------------------
     public static Administrator createAdmin(String administratorID, String email, String password, String firstName, String lastName, String phoneNumber) { 

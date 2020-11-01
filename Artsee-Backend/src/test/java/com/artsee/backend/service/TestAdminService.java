@@ -505,4 +505,17 @@ public class TestAdminService {
     	assertEquals("Username cannot be found.", error);
     }
     
+    @Test
+    public void testDeleteAdminNoUser() {
+    	assertEquals(0,service.getAllAdministrators().size());
+    	String error = "";
+   	Administrator admin = new Administrator();
+   	try {
+   		admin = service.deleteAdministrator("wrongnID");
+   	} catch (Exception e) {
+   		error = e.getMessage();
+    	}
+   	
+   	assertEquals("Username cannot be found.",error);
+    }
 }

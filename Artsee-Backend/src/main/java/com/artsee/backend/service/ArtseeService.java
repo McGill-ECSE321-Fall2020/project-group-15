@@ -2,6 +2,7 @@ package com.artsee.backend.service;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -631,15 +632,17 @@ public class ArtseeService {
 	}
 	
 	@Transactional
-	public List<Artwork> getArtworksByArtist(Artist artist) {
+	public Set<Artwork> getArtworksByArtist(Artist artist) {
 		String error = "";
 
-		List<Artwork> artworksByArtist = new ArrayList<>();
+		Set<Artwork> artworksByArtist = new HashSet<Artwork>();
 		if (artist == null)
-			error = error + "An artist cannot be empty! ";
+			throw new IllegalArgumentException("An artist cannot be empty!");
+		/*
 		for (Artwork a: artworkRepository.findByArtist(artist)) {
 			artworksByArtist.add(a);
-		}
+		}*/
+		artworksByArtist = artist.getArtworks();
 		return artworksByArtist;
 	}
 	
@@ -823,6 +826,9 @@ public class ArtseeService {
 	
 	@Transactional
 	public List<Review> getAllReviewsOnArtist(Artist artist) {
+		if(artist == null) {
+			throw new IllegalArgumentException("Artist cannot be empty.");
+		}
 		List<Review> reviewsOnArtist = new ArrayList<>();
 		for (Review r : reviewRepository.findByArtist(artist)) {
 			reviewsOnArtist.add(r);
@@ -832,6 +838,9 @@ public class ArtseeService {
 	
 	@Transactional
 	public List<Review> getAllReviewsByCustomer(Customer customer) {
+		if (customer == null) {
+			throw new IllegalArgumentException("Customer cannot be empty.");
+		}
 		List<Review> reviewsByCustomer = new ArrayList<>();
 		for (Review r : reviewRepository.findByCustomer(customer)) {
 			reviewsByCustomer.add(r);

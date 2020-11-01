@@ -326,4 +326,18 @@ public class TestReviewService {
 
         assertThat(error, containsString("Review needs an artist."));
     }
+    
+    @Test
+    public void testDeleteReviewNotexistent() {
+    	assertEquals(0,service.getAllReviews().size());
+    	String error = "";
+   	Review rev = new Review();
+   	try {
+   		rev = service.deleteReview(42);
+   	} catch (Exception e) {
+   		error = e.getMessage();
+    	}
+   	
+   	assertEquals("Review does not exist.",error);
+    }
 }

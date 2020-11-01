@@ -378,5 +378,18 @@ public class TestArtworkOrderService {
 		  assertEquals(test, service.getArtworkOrderByID(ID).getArtworks());
 	  }
 	  
+	  @Test
+	    public void testDeleteArworkOrderNotexistent() {
+	    	assertEquals(0,service.getAllArtworkOrders().size());
+	    	String error = "";
+	   	ArtworkOrder order = new ArtworkOrder();
+	   	try {
+	   		order = service.deleteArtworkOrder(42);
+	   	} catch (Exception e) {
+	   		error = e.getMessage();
+	    	}
+	   	
+	   	assertEquals("Artwork Order does not exist.",error);
+	    }
 }
 	

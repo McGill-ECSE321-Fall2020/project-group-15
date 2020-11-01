@@ -392,4 +392,18 @@ public class TestAddressService {
 	
     	assertEquals( "Address does not exist.", error);
     }
+    
+    @Test
+    public void testDeleteAddressNotexistent() {
+    	assertEquals(0,service.getAllAddresses().size());
+    	String error = "";
+   	Integer address = 42;
+   	try {
+   		address = service.deleteAddress(address);
+   	} catch (Exception e) {
+   		error = e.getMessage();
+    	}
+   	
+   	assertEquals("Address does not exist.",error);
+    }
 }

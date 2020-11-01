@@ -19,6 +19,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Optional;
+import java.util.Set;
+import java.util.HashSet;
 
 import org.apache.tomcat.jni.User;
 import java.util.List;
@@ -422,4 +424,53 @@ public class TestArtworkService {
 
         assertEquals("Artwork does not exist!", error);
     }
+    
+    @Test
+    public void testGetArtworksByArtistEmptyArtist() {
+    	String error = null;
+    	
+    	try {
+    		service.getArtworksByArtist(null);
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	
+    	assertEquals("An artist cannot be empty!",error);
+    }
+
+    @Test
+    public void testGetArtworksByArtist() {
+    	String error = null;
+    	Artist artist = new Artist();
+    	Set<Artwork> artworks = new HashSet<Artwork>();
+    	Artwork artwork1 = service.createArtwork(NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
+    	artworks.add(artwork1);
+    	artist.setArtworks(artworks);
+    	Set<Artwork> artworks2 =new HashSet<Artwork>();
+    	try {
+    		artworks2 = service.getArtworksByArtist(artist);
+    		//artworks2 = artist.getArtworks();
+    	}catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	
+    	assertEquals(artworks,artworks2);
+    }
+    
+    @Test
+    public void testDeleteArtworkNoArt() {
+    	String error = "";
+    	assertEquals(0,service.getAllArtworks().size());
+    	
+   	Artwork art = new Artwork();
+   	try {
+   		art = service.deleteArtwork(4);
+   	} catch (Exception e) {
+   		error = e.getMessage();
+    	}
+   	
+   	assertEquals("Artwork with the given Id does not exist!",error);
+    }
+    
+    
 }

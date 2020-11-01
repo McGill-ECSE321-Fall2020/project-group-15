@@ -560,6 +560,18 @@ public class TestArtistService {
     assertEquals("Username cannot be found.", error);
     }
     
-    
+    @Test
+    public void testDeleteArtistNoUser() {
+    	assertEquals(0,service.getAllArtists().size());
+    	String error = "";
+   	Artist artist = new Artist();
+   	try {
+   		artist = service.deleteArtist("wrongnID");
+   	} catch (Exception e) {
+   		error = e.getMessage();
+    	}
+   	
+   	assertEquals("Username cannot be found.",error);
+    }
     
 }

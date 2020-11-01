@@ -119,7 +119,6 @@ public class TestCustomerService {
 
         });
     }
-    
     @Test
     public void testCreateCustomer() {
         assertEquals(0, service.getAllCustomers().size());
@@ -529,19 +528,19 @@ public class TestCustomerService {
     	assertEquals(ADDRESS2, customer.getAddress());
     }
     
-//    @Test
-//    public void testDeleteCustomer() {
-//    	String error = "";
-////    	service.createCustomer(CUSTOMER_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ADDRESS);
-//    	service.deleteCustomer(CUSTOMER_ID);
-//    	
-//    	try {
-//    		service.getCustomerByID(CUSTOMER_ID);
-//    	} catch (Exception e) {
-//    		error = e.getMessage();
-//    	}
-//    	assertTrue(error.contains("Username cannot be found."), error);
-//    }
+    
+    @Test
+    public void testDeleteCustomerNoUser() {
+    	String error = "";
+   	Customer customer = new Customer();
+   	try {
+   		customer = service.deleteCustomer("wrongnID");
+   	} catch (Exception e) {
+   		error = e.getMessage();
+    	}
+   	
+   	assertEquals("Username cannot be found.",error);
+    }
     
 }
 
