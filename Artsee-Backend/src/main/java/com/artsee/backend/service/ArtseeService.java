@@ -843,7 +843,7 @@ public class ArtseeService {
 	
 	@Transactional
 	public ArtworkOrder createArtworkOrder(DeliveryMethod deliveryMethod, Customer customer, Set<Artwork> artworks) throws IllegalArgumentException {
-		/*
+		
 		String e = "";
 		if(deliveryMethod == null) {
 			e += "Artwork order needs a delivery method.";
@@ -865,7 +865,7 @@ public class ArtseeService {
 		if (e.length() > 0) {
 			throw new IllegalArgumentException(e);
 		}
-		*/
+		
 		ArtworkOrder order = new ArtworkOrder();
 		Date datePlaced  = new Date(System.currentTimeMillis());
 		OrderStatus oStatus = OrderStatus.PROCESSING;
