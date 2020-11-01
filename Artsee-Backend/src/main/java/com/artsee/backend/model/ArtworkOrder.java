@@ -1,11 +1,6 @@
 package com.artsee.backend.model;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
 import java.util.Set;
-
 import javax.persistence.ManyToMany;
 import javax.persistence.Id;
 import java.sql.Date;
@@ -15,7 +10,7 @@ import javax.persistence.ManyToOne;
 public class ArtworkOrder{
 	private Set<Artwork> artworks;
 	//Create a many to many relationship with the class Artwork
-	@ManyToMany(mappedBy="artworkOrders", fetch = FetchType.EAGER) 
+	@ManyToMany(mappedBy="artworkOrders")
 	public Set<Artwork> getArtworks() {
 	   return this.artworks;
 	}
@@ -26,23 +21,20 @@ public class ArtworkOrder{
 	
 	private Integer orderID;
 	
+	public void setOrderID(Integer value) {
+		this.orderID = value;
+    }
 	//Create primary key called orderID
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getOrderID() {
 		return this.orderID;
     }
-	
-	public void setOrderID(Integer orderID) {
-		this.orderID = orderID;
-    }
-	
-	private Integer totalPrice;
+	private float totalPrice;
 
-	public void setTotalPrice(Integer value) {
+	public void setTotalPrice(float value) {
 		this.totalPrice = value;
     }
-	public Integer getTotalPrice() {
+	public float getTotalPrice() {
 		return this.totalPrice;
     }
 	private Date datePlaced;

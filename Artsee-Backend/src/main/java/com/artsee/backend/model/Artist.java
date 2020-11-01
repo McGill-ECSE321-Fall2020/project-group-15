@@ -1,9 +1,9 @@
 package com.artsee.backend.model;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
-import java.util.Set;
 
 //Setting the primary key name in the artistID (this is inherited from endUser as a joined table structure was used)
 @Entity

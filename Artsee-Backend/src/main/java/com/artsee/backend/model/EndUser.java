@@ -1,5 +1,4 @@
 package com.artsee.backend.model;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -13,22 +12,12 @@ import javax.persistence.InheritanceType;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class EndUser{
 	private String email;
-	private String userID;
-	
-	public void setUserID(String userID) {
-		this.userID = userID;
-	}
-	
-	
-	@Id
-	public String getUserID() {
-		return this.userID;
-	}
-	
+	   
 	public void setEmail(String value) {
 		   this.email = value;
 	}
-	
+	//Create primary key called email
+	@Id
 	public String getEmail() {
 		return this.email;
 	}

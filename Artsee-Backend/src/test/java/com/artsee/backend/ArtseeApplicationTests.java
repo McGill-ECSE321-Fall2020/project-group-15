@@ -1,18 +1,15 @@
 package com.artsee.backend;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class ArtseeApplicationTests {
-
-	// To be implemented in later sprints
-	@Test
-	void contextLoads() {
-		assertTrue(true);
-	}
+	
+	// To be impplemented in later sprints
+//	@Test
+//	void contextLoads() {
+//	}
 	
 }
 

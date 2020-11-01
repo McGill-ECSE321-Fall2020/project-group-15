@@ -6,6 +6,7 @@ import com.artsee.backend.model.EndUser;
 
 public interface EndUserRepository extends CrudRepository<EndUser, String> {
 	
-	EndUser findByEmail(String email);
-	
+	//Perform CRUD operations by interacting with the EndUser class
+	EndUser findEndUserByEmail(String email);
+
 }

@@ -1,25 +1,20 @@
 package com.artsee.backend.model;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class Review{
 	private Integer reviewID;
-	
-	public void setReviewID(Integer reviewID) {
-		this.reviewID = reviewID;
-	}
-	
+   
+   public void setReviewID(Integer value) {
+	   this.reviewID = value;
+    }
+   //Create primary key called reviewID
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getReviewID() {
 		return this.reviewID;
-	}
-   
+    }
 	private Integer rating;
 
 	public void setRating(Integer value) {

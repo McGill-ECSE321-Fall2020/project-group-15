@@ -1,21 +1,16 @@
 package com.artsee.backend.model;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Address{
 	private Integer addressID;
-
-	public void setAddressID(Integer addressID) {
-		this.addressID = addressID;
+   
+   public void setAddressID(Integer value) {
+	   this.addressID = value;
     }
-	
    //Create primary key called addressID
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Id
 	public Integer getAddressID() {
 		return this.addressID;
     }
