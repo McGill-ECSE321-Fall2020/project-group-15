@@ -733,14 +733,14 @@ public class ArtseeService {
 		if(rating == null) {
 			e += "Review needs a rating.";
 		}
-		if (rating < 0 || rating > 5) {
+		if (rating != null && (rating < 0 || rating > 5)) {
 			e += "Rating should be between 0 and 5";
 		}
 		if(customer == null) {
 			e += "Review needs a customer.";
 		}
 		if(artist == null) {
-			e += "A review needs an artist.";
+			e += "Review needs an artist.";
 		}
 		
 		e = e.trim();
@@ -748,6 +748,9 @@ public class ArtseeService {
 		if (e.length() > 0) {
 			throw new IllegalArgumentException(e);
 		}
+		
+		
+		
 		Review review = new Review();
 		review.setRating(rating);
 		review.setComment(comment);
@@ -786,13 +789,16 @@ public class ArtseeService {
 		
 		String e = "";
 		if(rating == null) {
-			e += "A review needs a rating.";
+			e += "Review needs a rating.";
+		}
+		if (rating != null && (rating < 0 || rating > 5)) {
+			e += "Rating should be between 0 and 5";
 		}
 		if(customer == null) {
-			e += "A review needs a customer.";
+			e += "Review needs a customer.";
 		}
 		if(artist == null) {
-			e += "A review needs an artist.";
+			e += "Review needs an artist.";
 		}
 		
 		e = e.trim();
