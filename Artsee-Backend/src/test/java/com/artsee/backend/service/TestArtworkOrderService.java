@@ -353,9 +353,22 @@ public class TestArtworkOrderService {
 	   		order = service.deleteArtworkOrder(42);
 	   	} catch (Exception e) {
 	   		error = e.getMessage();
-	    	}
+	    }
 	   	
 	   	assertEquals("Artwork Order does not exist.",error);
 	    }
+	  
+	  @Test
+	  public void testGetAllArtowrkOrderByCustomerWithNullCustomer() {
+		  Customer customer = null;
+		  String error = "";
+		  List<ArtworkOrder> artworkOrdersByCustomer = new ArrayList<>();
+		  try {
+			  artworkOrdersByCustomer = service.getAllArtworkOrdersByCustomer(customer);
+		  } catch (Exception e) {
+		   		error = e.getMessage();
+		  }
+	   		assertEquals("Customer cannot be empty.",error);
+	   }
 }
 	
