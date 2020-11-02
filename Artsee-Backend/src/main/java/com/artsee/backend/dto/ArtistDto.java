@@ -9,11 +9,11 @@ public class ArtistDto {
 	private String lastName;
 	private String phoneNumber;
 	private String artistDescription;
-	private float rating;
+	private Float rating;
 	
 	public ArtistDto() {}
 	
-	public ArtistDto(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription, float rating) {
+	public ArtistDto(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription, Float rating) {
 		this.userID = userID;
 		this.email = email;
 		this.password = password;
@@ -48,7 +48,7 @@ public class ArtistDto {
 		return phoneNumber;
 	}
 	
-	public float getRating() {
+	public Float getRating() {
 		return rating;
 	}
 	
