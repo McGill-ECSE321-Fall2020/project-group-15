@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.List;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,6 +33,8 @@ import com.artsee.backend.controller.*;
 import com.artsee.backend.model.*;
 import com.artsee.backend.utility.TestUtility;
 import com.artsee.backend.dao.*;
+import com.artsee.backend.dto.ArtistDto;
+import com.artsee.backend.dto.ArtworkDto;
 import com.artsee.backend.dto.DeliveryMethodDto;
 
 @ActiveProfiles("test")
@@ -97,10 +101,23 @@ public class TestArtworkOrderController {
     private static final String DESCRIPTION2 = "is very nice";
     private static final Date DATE_CREATED2 = Date.valueOf("2010-01-05");
     private static final int NUM_IN_STOCK2 = 1;
-
+    private static final float ARTIST_RATING = 0;
+    
+    private static final int ARTWORKID = 1234;
+    private static final int ARTWORKID2 = 1235;
+    
     private static final Artwork ARTWORK = TestUtility.createArtwork(ARTWORK_ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
     private static final Artwork ARTWORK2 = TestUtility.createArtwork(ARTWORK_ID2, NAME2, PRICE2, DESCRIPTION2, DATE_CREATED2, NUM_IN_STOCK2, ARTIST2);
 
+    private static final ArtistDto ARTISTDTO = TestUtility.createArtistDto(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ARTIST_DESCRIPTION, ARTIST_RATING);
+    private static final ArtistDto ARTISTDTO2 = TestUtility.createArtistDto(ARTIST_ID2, EMAIL2, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, ARTIST_DESCRIPTION2, ARTIST_RATING);
+    
+    private static final ArtworkDto ARTWORKDTO = TestUtility.createArtworkDto(ARTWORKID, NAME, DESCRIPTION, PRICE, DATE_CREATED, NUM_IN_STOCK, ARTISTDTO);
+    private static final ArtworkDto ARTWORKDTO2 = TestUtility.createArtworkDto(ARTWORKID2, NAME2, DESCRIPTION2, PRICE2, DATE_CREATED2, NUM_IN_STOCK2, ARTISTDTO2);
+
+    private static final DeliveryMethodDto DELIVERYMETHODDTO = DeliveryMethodDto.SHIP; 
+    
+    
     private static final DeliveryMethod DELIVERYMETHOD = DeliveryMethod.SHIP;
     private static final int ID = 1;
     private static final Set<Artwork> ARTLIST = new HashSet<Artwork>();
