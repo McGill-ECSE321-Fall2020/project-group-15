@@ -543,10 +543,6 @@ public class ArtseeService {
 			throw new IllegalArgumentException("Username cannot be found.");
 		}
 		
-//		if (!email.equals(administrator.getEmail())&&(endUserRepository.findByEmail(email) != null)) {
-//			e+="Email already exists.";
-//		}
-//		
 		if ((endUserRepository.findByEmail(email) != null) && (!email.equals(administrator.getEmail()))) {
 			e+="Email already exists.";
 		}
@@ -970,24 +966,6 @@ public class ArtseeService {
 		return artworkOrdersByCustomer;
 	}
 
-//	@Transactional
-//	public void addArtworkToOrder(Integer orderId, Artwork artwork) throws IllegalArgumentException {
-//		String error = "";
-//		ArtworkOrder order = getArtworkOrderByID(orderId);
-//
-//		if (artwork == null) {
-//			throw new IllegalArgumentException(error + "Artwork cannot be empty!");
-//		}
-//
-//		Set<Artwork> artworks = order.getArtworks();
-//		if (artwork.getNumInStock() == 0) {
-//			throw new IllegalArgumentException("Artwork is out of stock! ");
-//		}
-//		artwork.setNumInStock(artwork.getNumInStock() - 1);
-//		artworks.add(artwork);
-//
-//		order.setArtworks(artworks);
-//	}
 	
 	// Address Service Layer ___________________________________________________________________________________
 	

@@ -259,8 +259,17 @@ public class TestArtworkOrderService {
 	  
 	  @Test
 	  public void testUpdateArtworkOrderNoStock() {
+		  String error = null;
 		  
+		  try {
+			  service.updateArtworkOrder(ID, DELIVERYMETHOD, ORDERSTATUS, CUSTOMER, ARTLIST2);
+		  }catch (Exception e) {
+			  error = e.getMessage();
+		  }
+		  
+		  assertEquals( "Artwork is out of stock!",error);
 	  }
+	  
 	  @Test
 	  public void testUpdateArtworkOrderNoDelivery() {
 		  Set<Artwork> ARTLIST2 = new HashSet<Artwork>();
