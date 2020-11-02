@@ -482,7 +482,6 @@ public class TestAdminService {
     	}catch (Exception e) {
     		error = e.getMessage();
     	}
-	System.out.println(error);
 	
     	assertEquals(EMAIL, admin.getEmail());
     	assertEquals(PASSWORD2, admin.getPassword());
