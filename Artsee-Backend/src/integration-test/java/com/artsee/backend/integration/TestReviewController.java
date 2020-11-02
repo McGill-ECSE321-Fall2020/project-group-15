@@ -183,26 +183,26 @@ public class TestReviewController {
         ResponseEntity<String> response = restTemplate.exchange(getURLWithPort("/reviews"), HttpMethod.POST, entity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
-        // get customer should now properly work -----------------------------------------------------------------------------------
+        // get review should now properly work -----------------------------------------------------------------------------------
         getResponse = restTemplate.getForEntity(getURLWithPort("/reviews/" + ID), String.class);
         assertEquals(HttpStatus.OK, getResponse.getStatusCode());
 
         assertTrue(getResponse.getBody().contains(response.getBody().toString()), getResponse.getBody().toString());
 
-        // create second customer -----------------------------------------------------------------------------------
+        // create second review -----------------------------------------------------------------------------------
         ResponseEntity<String> response2 = restTemplate.exchange(getURLWithPort("/reviews"), HttpMethod.POST, entity2, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
-        //get all customers -----------------------------------------------------------------------------------
+        //get all reviews -----------------------------------------------------------------------------------
         getResponse = restTemplate.getForEntity(getURLWithPort("/reviews"), String.class);
         assertEquals(HttpStatus.OK, getResponse.getStatusCode());
 
         assertTrue(getResponse.getBody().contains("[" + response.getBody().toString() + "," + response2.getBody().toString() + "]"), getResponse.getBody().toString());
         
-        //delete customer 1 -----------------------------------------------------------------------------------
+        //delete review 1 -----------------------------------------------------------------------------------
         restTemplate.delete(getURLWithPort("/reviews/" + ID));
 
-        // check that customer 1 was deleted -----------------------------------------------------------------------------------
+        // check that review 1 was deleted -----------------------------------------------------------------------------------
         getResponse = restTemplate.getForEntity(getURLWithPort("/reviews/" + ID), String.class);
         assertEquals(HttpStatus.BAD_REQUEST, getResponse.getStatusCode());
     }
@@ -248,7 +248,7 @@ public class TestReviewController {
         ResponseEntity<String> getResponse = restTemplate.getForEntity(getURLWithPort("/reviews/" + ID2), String.class);
         assertEquals(HttpStatus.BAD_REQUEST, getResponse.getStatusCode());
   
-        // Create and post new customer
+        // Create and post new review
         ResponseEntity<String> response = restTemplate.exchange(getURLWithPort("/reviews"), HttpMethod.POST, entity2, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 

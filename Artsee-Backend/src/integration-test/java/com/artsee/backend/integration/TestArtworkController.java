@@ -126,9 +126,9 @@ public class TestArtworkController {
         Artist a = ARTIST;
         Artist a2 = ARTIST2;
 
-        // create new customer
+        // create new artist
         HttpEntity<Artist> aentity = new HttpEntity<Artist>(a, headers);
-        // create new customer
+        // create new artist
         HttpEntity<Artist> aentity2 = new HttpEntity<Artist>(a2, headers);
 
         ResponseEntity<String> aresponse = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity, String.class);
@@ -141,39 +141,39 @@ public class TestArtworkController {
         Artwork c = ARTWORK;
         Artwork c2 = ARTWORK2;
 
-        // create new customer
+        // create new artist
         HttpEntity<Artwork> entity = new HttpEntity<Artwork>(c, headers);
-        // create new customer
+        // create new artist
         HttpEntity<Artwork> entity2 = new HttpEntity<Artwork>(c2, headers);
 
         // check that there is nothing saved so far -----------------------------------------------------------------------------------
         ResponseEntity<String> getResponse = restTemplate.getForEntity(getURLWithPort("/artworks/" + ID), String.class);
         assertEquals(HttpStatus.BAD_REQUEST, getResponse.getStatusCode());
   
-        // Create and post new customer -----------------------------------------------------------------------------------
+        // Create and post new artwork -----------------------------------------------------------------------------------
         ResponseEntity<String> response = restTemplate.exchange(getURLWithPort("/artworks"), HttpMethod.POST, entity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode(), response.getBody().toString());
 
-        // get customer should now properly work -----------------------------------------------------------------------------------
+        // get artwork should now properly work -----------------------------------------------------------------------------------
         getResponse = restTemplate.getForEntity(getURLWithPort("/artworks/" + ID), String.class);
         assertEquals(HttpStatus.OK, getResponse.getStatusCode(), getResponse.getBody().toString());
 
         assertTrue(getResponse.getBody().contains(response.getBody().toString()), getResponse.getBody().toString());
 
-        // create second customer -----------------------------------------------------------------------------------
+        // create second artwork -----------------------------------------------------------------------------------
         ResponseEntity<String> response2 = restTemplate.exchange(getURLWithPort("/artworks"), HttpMethod.POST, entity2, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
-        //get all customers -----------------------------------------------------------------------------------
+        //get all artworks -----------------------------------------------------------------------------------
         getResponse = restTemplate.getForEntity(getURLWithPort("/artworks"), String.class);
         assertEquals(HttpStatus.OK, getResponse.getStatusCode());
 
         assertTrue(getResponse.getBody().contains("[" + response.getBody().toString() + "," + response2.getBody().toString() + "]"), getResponse.getBody().toString());
         
-        //delete customer 1 -----------------------------------------------------------------------------------
+        //delete artwork 1 -----------------------------------------------------------------------------------
         restTemplate.delete(getURLWithPort("/artworks/" + ID));
 
-        // check that customer 1 was deleted -----------------------------------------------------------------------------------
+        // check that artwork 1 was deleted -----------------------------------------------------------------------------------
         getResponse = restTemplate.getForEntity(getURLWithPort("/artworks/" + ID), String.class);
         assertEquals(HttpStatus.BAD_REQUEST, getResponse.getStatusCode());
     }
@@ -184,9 +184,9 @@ public class TestArtworkController {
         Artist a = ARTIST;
         Artist a2 = ARTIST2;
 
-        // create new customer
+        // create new artist
         HttpEntity<Artist> aentity = new HttpEntity<Artist>(a, headers);
-        // create new customer
+        // create new artist
         HttpEntity<Artist> aentity2 = new HttpEntity<Artist>(a2, headers);
 
         ResponseEntity<String> aresponse = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity, String.class);
@@ -197,14 +197,14 @@ public class TestArtworkController {
 
         Artwork c2 = ARTWORK2;
 
-        // create new customer
+        // create new artwork
         HttpEntity<Artwork> entity2 = new HttpEntity<Artwork>(c2, headers);
 
         // check that there is nothing saved so far -----------------------------------------------------------------------------------
         ResponseEntity<String> getResponse = restTemplate.getForEntity(getURLWithPort("/artworks/" + ID2), String.class);
         assertEquals(HttpStatus.BAD_REQUEST, getResponse.getStatusCode());
   
-        // Create and post new customer
+        // Create and post new artwork
         ResponseEntity<String> response = restTemplate.exchange(getURLWithPort("/artworks"), HttpMethod.POST, entity2, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
@@ -223,9 +223,9 @@ public class TestArtworkController {
         Artist a = ARTIST;
         Artist a2 = ARTIST2;
 
-        // create new customer
+        // create new artist
         HttpEntity<Artist> aentity = new HttpEntity<Artist>(a, headers);
-        // create new customer
+        // create new artist
         HttpEntity<Artist> aentity2 = new HttpEntity<Artist>(a2, headers);
 
         ResponseEntity<String> aresponse = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity, String.class);
@@ -237,14 +237,14 @@ public class TestArtworkController {
         Artwork c = ARTWORK;
         c.setArtist(null);
 
-        // create new customer
+        // create new artwork
         HttpEntity<Artwork> entity = new HttpEntity<Artwork>(c, headers);
 
         // check that there is nothing saved so far -----------------------------------------------------------------------------------
         ResponseEntity<String> getResponse = restTemplate.getForEntity(getURLWithPort("/artworks/" + ID), String.class);
         assertEquals(HttpStatus.BAD_REQUEST, getResponse.getStatusCode());
   
-        // Create and post new customer -----------------------------------------------------------------------------------
+        // Create and post new artwork -----------------------------------------------------------------------------------
         ResponseEntity<String> response = restTemplate.exchange(getURLWithPort("/artworks"), HttpMethod.POST, entity, String.class);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
 
