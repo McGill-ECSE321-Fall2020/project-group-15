@@ -46,6 +46,9 @@ public class TestArtworkController {
     @Autowired
     private ArtworkRepository artworkDao;
 
+    @Autowired
+    private ArtistRepository artistDao;
+
     private static final String ARTIST_ID = "1234";
     private static final String EMAIL = "artist@gmail.com";
     private static final String PASSWORD = "password";
@@ -73,7 +76,7 @@ public class TestArtworkController {
     private static final Date DATE_CREATED = Date.valueOf("2010-01-05");
     private static final int NUM_IN_STOCK = 1;
 
-    private static final int ID2 = 1234;
+    private static final int ID2 = 12234;
     private static final String USER_ID2 = "423";
     private static final String NAME2 = "mona lisa";
     private static final int PRICE2 = 100;
@@ -87,10 +90,26 @@ public class TestArtworkController {
     @After
     public void cleanDataBase() {
         artworkDao.deleteAll();
+        artistDao.deleteAll();
     }
 
     @Test
     public void createArtwork() {
+
+        Artist a = ARTIST;
+        Artist a2 = ARTIST2;
+
+        // create new customer
+        HttpEntity<Artist> aentity = new HttpEntity<Artist>(a, headers);
+        // create new customer
+        HttpEntity<Artist> aentity2 = new HttpEntity<Artist>(a2, headers);
+
+        ResponseEntity<String> aresponse = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity, String.class);
+        assertEquals(HttpStatus.OK, aresponse.getStatusCode());
+
+        ResponseEntity<String> aresponse2 = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity2, String.class);
+        assertEquals(HttpStatus.OK, aresponse2.getStatusCode());
+
 
         Artwork c = ARTWORK;
         Artwork c2 = ARTWORK2;
@@ -106,11 +125,11 @@ public class TestArtworkController {
   
         // Create and post new customer -----------------------------------------------------------------------------------
         ResponseEntity<String> response = restTemplate.exchange(getURLWithPort("/artworks"), HttpMethod.POST, entity, String.class);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode(), response.getBody().toString());
 
         // get customer should now properly work -----------------------------------------------------------------------------------
         getResponse = restTemplate.getForEntity(getURLWithPort("/artworks/" + ID), String.class);
-        assertEquals(HttpStatus.OK, getResponse.getStatusCode());
+        assertEquals(HttpStatus.OK, getResponse.getStatusCode(), getResponse.getBody().toString());
 
         assertTrue(getResponse.getBody().contains(response.getBody().toString()), getResponse.getBody().toString());
 
@@ -131,12 +150,25 @@ public class TestArtworkController {
         getResponse = restTemplate.getForEntity(getURLWithPort("/artworks/" + ID), String.class);
         assertEquals(HttpStatus.BAD_REQUEST, getResponse.getStatusCode());
 
-        // delete everything created
-        delete(ID2);
+        cleanDataBase();
     }
 
     @Test
     public void testUpdateArtwork() {
+
+        Artist a = ARTIST;
+        Artist a2 = ARTIST2;
+
+        // create new customer
+        HttpEntity<Artist> aentity = new HttpEntity<Artist>(a, headers);
+        // create new customer
+        HttpEntity<Artist> aentity2 = new HttpEntity<Artist>(a2, headers);
+
+        ResponseEntity<String> aresponse = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity, String.class);
+        assertEquals(HttpStatus.OK, aresponse.getStatusCode());
+
+        ResponseEntity<String> aresponse2 = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity2, String.class);
+        assertEquals(HttpStatus.OK, aresponse2.getStatusCode());
 
         Artwork c2 = ARTWORK2;
 
@@ -159,11 +191,25 @@ public class TestArtworkController {
         assertTrue(!(putResponse2.getBody().contains(response.getBody().toString())), putResponse2.getBody().toString());
 
         // -- delete everything created
-        delete(ID2);
+        cleanDataBase();
     }
 
     @Test
     public void testCreateArtworkBadInput() {
+
+        Artist a = ARTIST;
+        Artist a2 = ARTIST2;
+
+        // create new customer
+        HttpEntity<Artist> aentity = new HttpEntity<Artist>(a, headers);
+        // create new customer
+        HttpEntity<Artist> aentity2 = new HttpEntity<Artist>(a2, headers);
+
+        ResponseEntity<String> aresponse = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity, String.class);
+        assertEquals(HttpStatus.OK, aresponse.getStatusCode());
+
+        ResponseEntity<String> aresponse2 = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity2, String.class);
+        assertEquals(HttpStatus.OK, aresponse2.getStatusCode());
 
         Artwork c = ARTWORK;
         c.setArtist(null);
@@ -184,6 +230,8 @@ public class TestArtworkController {
         assertEquals(HttpStatus.BAD_REQUEST, getResponse.getStatusCode());
 
         c.setArtist(ARTIST);
+
+        cleanDataBase();
     }
 
 
