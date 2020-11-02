@@ -368,26 +368,6 @@ public class ArtseeService {
 		return artist;
 	}
 	
-//	@Transactional
-//	public Float getArtistRating(String userID) throws IllegalArgumentException{
-//		Artist artist = artistRepository.findById(userID).orElse(null);
-//		Float totalRatings = 0f;
-//		
-//		if (artist == null) {
-//			throw new IllegalArgumentException("Username cannot be found.");
-//		}
-//		
-//		for (Review r : reviewRepository.findByArtist(artist)) {
-//			totalRatings += (float)r.getRating();
-//		}
-//		
-//		totalRatings = totalRatings/((float)reviewRepository.findByArtist(artist).size());
-//		
-//		
-//		return totalRatings;
-//	}
-	
-	
 	@Transactional
 	public Artist updateArtist(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription) throws IllegalArgumentException{
 		String e = "";
@@ -546,10 +526,6 @@ public class ArtseeService {
 			throw new IllegalArgumentException("Username cannot be found.");
 		}
 		
-//		if (!email.equals(administrator.getEmail())&&(endUserRepository.findByEmail(email) != null)) {
-//			e+="Email already exists.";
-//		}
-//		
 		if ((endUserRepository.findByEmail(email) != null) && (!email.equals(administrator.getEmail()))) {
 			e+="Email already exists.";
 		}
