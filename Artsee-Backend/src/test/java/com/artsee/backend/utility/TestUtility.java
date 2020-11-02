@@ -1,8 +1,6 @@
 package com.artsee.backend.utility;
 
 import java.sql.Date;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import com.artsee.backend.dto.ArtistDto;
