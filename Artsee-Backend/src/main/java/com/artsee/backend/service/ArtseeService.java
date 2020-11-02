@@ -367,25 +367,6 @@ public class ArtseeService {
 	}
 	
 	@Transactional
-	public Float getArtistRating(String userID) throws IllegalArgumentException{
-		Artist artist = artistRepository.findById(userID).orElse(null);
-		Float totalRatings = 0f;
-		
-		if (artist == null) {
-			throw new IllegalArgumentException("Username cannot be found.");
-		}
-		
-		for (Review r : reviewRepository.findByArtist(artist)) {
-			totalRatings += (float)r.getRating();
-		}
-		
-		totalRatings = totalRatings/((float)reviewRepository.findByArtist(artist).size());
-		
-		
-		return totalRatings;
-	}
-	
-	@Transactional
 	public Artist updateArtist(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription) throws IllegalArgumentException{
 		String e = "";
 
@@ -751,6 +732,7 @@ public class ArtseeService {
 		review.setCustomer(customer);
 		review.setArtist(artist);
 		reviewRepository.save(review);
+		setArtistRating(artist);
 		return review;
 	}
 
@@ -806,6 +788,7 @@ public class ArtseeService {
 		review.setCustomer(customer);
 		review.setArtist(artist);
 		reviewRepository.save(review);
+		setArtistRating(artist);
 		return review;
 	}
 	
@@ -1087,6 +1070,24 @@ public class ArtseeService {
 	
 	private boolean nonValidString(String string) {
 		return (string==null)||(string.trim().isEmpty());
+	}
+	
+	private void setArtistRating(Artist artist) {
+		// Helper method to update the artist rating whenever they receive a new review
+		
+		float totalRatings = 0f;
+		List<Review> reviews = getAllReviewsOnArtist(artist);
+		
+		if (reviews.size()>0) {
+			for (Review r : reviews) {
+				totalRatings += (float)r.getRating();
+			}
+			totalRatings = totalRatings / ((float) reviews.size());
+		}
+		
+		artist.setRating(totalRatings);
+		
+		artistRepository.save(artist);
 	}
 	
 }

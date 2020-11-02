@@ -3,42 +3,27 @@ package com.artsee.backend.service;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.when;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Optional;
 import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.containsString;
 
-import org.apache.tomcat.jni.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.Answer;
-import org.yaml.snakeyaml.events.Event.ID; 
+
 
 import com.artsee.backend.model.*;
 import com.artsee.backend.dao.*;
 import com.artsee.backend.utility.*;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -46,6 +31,9 @@ public class TestReviewService {
 	
 	@Mock
 	private ReviewRepository reviewDao;
+	
+	@Mock
+	private ArtistRepository artistDao;
 	
 	@InjectMocks
 	private ArtseeService service;
@@ -66,6 +54,13 @@ public class TestReviewService {
 	private static final Artist ARTIST2 = new Artist();
 	private static final String ARTIST_ID2 = "132234";
 	private static final String CUSTOMER_ID2 = "334245";
+	
+    private static final String EMAIL = "artist@gmail.com";
+    private static final String PASSWORD = "password";
+    private static final String FIRSTNAME = "John";
+    private static final String LASTNAME = "Doe";
+    private static final String PHONE_NUM = "8675309";
+    private static final String DESCRIPTION = "i like to paint";
 	
 	
 	@BeforeEach
@@ -109,6 +104,11 @@ public class TestReviewService {
 		lenient().when(reviewDao.save(any(Review.class))).thenAnswer((InvocationOnMock invocation) -> {
 			return invocation.getArgument(0);
 		});
+		
+		lenient().when(artistDao.save(any(Artist.class))).thenAnswer((InvocationOnMock invocation) -> {
+            return TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+
+        });
 
 	}
 
@@ -128,12 +128,23 @@ public class TestReviewService {
         assertEquals(WOULDRECCOMEND, review.getWouldRecommend());
         assertEquals(CUSTOMER, review.getCustomer());
         assertEquals(ARTIST, review.getArtist());
+        assertEquals(ARTIST.getRating(), review.getRating(), 0.01);
 	}
 	
 
 	@Test
     public void testCreateReviewMissingRating() {
         String error = null;
+       
+        try {
+            service.createReview(6, COMMENT, WOULDRECCOMEND, CUSTOMER, ARTIST);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+
+        assertThat(error, containsString("Rating should be between 0 and 5"));
+
+        error = null;
 
         try {
             service.createReview(-1, COMMENT, WOULDRECCOMEND, CUSTOMER, ARTIST);
@@ -252,6 +263,7 @@ public class TestReviewService {
         assertEquals(WOULDRECCOMEND2, review.getWouldRecommend());
         assertEquals(CUSTOMER2, review.getCustomer());
         assertEquals(ARTIST2, review.getArtist());
+       
 	}
 	
 
@@ -277,19 +289,6 @@ public class TestReviewService {
 
         assertThat(error, containsString("Review does not exist."));
     }
-	
-	@Test
-    public void testUpdateReviewRatingTooHigh() {
-        String error = null;
-
-        try {
-            service.updateReview(ID, 6, COMMENT2, WOULDRECCOMEND2, CUSTOMER2, ARTIST2);
-        } catch (Exception e) {
-            error = e.getMessage();
-        }
-
-        assertThat(error, containsString("Rating should be between 0 and 5"));
-	}
 
     @Test
     public void testUpdateReviewMissingRating() {
@@ -353,7 +352,7 @@ public class TestReviewService {
    	
    	assertEquals("Review does not exist.",error);
     }
-    
+
     @Test
     public void testgetAllReviewsOnArtistNull() {
     	String error = null;
