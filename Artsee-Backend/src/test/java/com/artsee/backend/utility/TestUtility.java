@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 
+import com.artsee.backend.dto.ArtistDto;
+import com.artsee.backend.dto.ArtworkDto;
 import com.artsee.backend.model.*;
 
 
@@ -94,6 +96,10 @@ public class TestUtility {
     	artworkOrder.setCustomer(customer);
     	return artworkOrder;
     	
+    }
+    
+    public static ArtistDto createArtistDto(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription, float rating) {
+    	return new ArtistDto(userID, email, password, firstName, lastName, phoneNumber, artistDescription, rating);
     }
     
 }

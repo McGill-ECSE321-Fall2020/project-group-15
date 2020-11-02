@@ -30,6 +30,7 @@ import com.artsee.backend.controller.*;
 import com.artsee.backend.model.*;
 import com.artsee.backend.utility.TestUtility;
 import com.artsee.backend.dao.*;
+import com.artsee.backend.dto.*;
 
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
@@ -68,6 +69,7 @@ public class TestArtworkController {
     private static final String LASTNAME = "Doe";
     private static final String PHONE_NUM = "8675309";
     private static final String ARTIST_DESCRIPTION = "i like to paint";
+    private static final float ARTIST_RATING = 0;
     
     private static final String ARTIST_ID2 = "37292";
     private static final String EMAIL2 = "otherArtist@gmail.com";
@@ -79,7 +81,9 @@ public class TestArtworkController {
 
     private static final Artist ARTIST = TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ARTIST_DESCRIPTION);
     private static final Artist ARTIST2 = TestUtility.createArtist(ARTIST_ID2, EMAIL2, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, ARTIST_DESCRIPTION2);
-
+    
+    private static final ArtistDto ARTISTDTO = TestUtility.createArtistDto(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ARTIST_DESCRIPTION,ARTIST_RATING);
+    
     private static final int ID = 1234;
     private static final String USER_ID = "423";
     private static final String NAME = "mona lisa";
