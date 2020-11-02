@@ -234,7 +234,6 @@ public class TestArtworkOrderService {
 
 		  ArtworkOrder artworkOrder = service.createArtworkOrder(DELIVERYMETHOD, CUSTOMER, ARTLIST);
 		  int you = artworkOrder.getTotalPrice();
-		  System.out.println(you);
 		  Customer cust = new Customer();
 		  DeliveryMethod del = DeliveryMethod.SHIP;
 		  Set<Artwork> list = new HashSet<Artwork>();

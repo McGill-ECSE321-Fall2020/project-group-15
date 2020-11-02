@@ -277,6 +277,19 @@ public class TestReviewService {
 
         assertThat(error, containsString("Review does not exist."));
     }
+	
+	@Test
+    public void testUpdateReviewRatingTooHigh() {
+        String error = null;
+
+        try {
+            service.updateReview(ID, 6, COMMENT2, WOULDRECCOMEND2, CUSTOMER2, ARTIST2);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+
+        assertThat(error, containsString("Rating should be between 0 and 5"));
+	}
 
     @Test
     public void testUpdateReviewMissingRating() {
@@ -339,5 +352,31 @@ public class TestReviewService {
     	}
    	
    	assertEquals("Review does not exist.",error);
+    }
+    
+    @Test
+    public void testgetAllReviewsOnArtistNull() {
+    	String error = null;
+    	
+    	try {
+    		service.getAllReviewsOnArtist(null);
+    	} catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	assertEquals("Artist cannot be empty.", error);
+    
+    }
+    
+    @Test
+    public void testgetAllReviewsByCustomerNull() {
+    	String error = null;
+    	
+    	try {
+    		service.getAllReviewsByCustomer(null);
+    	} catch (Exception e) {
+    		error = e.getMessage();
+    	}
+    	assertEquals("Customer cannot be empty.", error);
+    
     }
 }
