@@ -11,6 +11,7 @@ import org.junit.After;
 import org.json.*;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +43,6 @@ public class TestReviewController {
     private TestRestTemplate restTemplate;
   
     private HttpHeaders headers = new HttpHeaders();
-  
-    @Autowired
-    private ReviewRepository reviewDao;
 
     private static final String ARTIST_ID = "1234";
     private static final String EMAIL = "artist@gmail.com";
@@ -98,16 +96,76 @@ public class TestReviewController {
     
     private static final Review REVIEW = TestUtility.createReview(ID, RATING, COMMENT, WOULDRECCOMEND, CUSTOMER, ARTIST);
     private static final Review REVIEW2 = TestUtility.createReview(ID2, RATING2, COMMENT2, WOULDRECCOMEND2, CUSTOMER2, ARTIST2);
-    
 
+    @Autowired
+	private AddressRepository addressRepository;
+	@Autowired
+	private AdministratorRepository administratorRepository;
+	@Autowired
+	private ArtistRepository artistRepository;
+	@Autowired
+	private ArtworkRepository artworkRepository;
+	@Autowired
+	private CustomerRepository customerRepository;
+	@Autowired
+	private ArtworkOrderRepository artworkOrderRepository;
+	@Autowired
+	private ReviewRepository reviewRepository;
+	@Autowired
+	private EndUserRepository endUserRepository;
     @Before
     @After
-    public void cleanDataBase() {
-        reviewDao.deleteAll();
-    }
+	public void clearDatabase() {
+		
+		// Clear Artwork before Artist before Review to avoid inconsistency
+		artworkRepository.deleteAll();
+		artistRepository.deleteAll();
+		reviewRepository.deleteAll();
+
+		//Clear ArtworkOrder, Review Before Customer
+		artworkOrderRepository.deleteAll();
+		reviewRepository.deleteAll();
+
+		//Clear Review before Customer before Address to avoid inconsistency
+		customerRepository.deleteAll();
+		addressRepository.deleteAll();
+		
+		// Has no references, can delete in any order
+		endUserRepository.deleteAll();
+		administratorRepository.deleteAll();
+	}
 
     @Test
     public void createReview() {
+
+        Artist a = ARTIST;
+        Artist a2 = ARTIST2;
+
+        // create new customer
+        HttpEntity<Artist> aentity = new HttpEntity<Artist>(a, headers);
+        // create new customer
+        HttpEntity<Artist> aentity2 = new HttpEntity<Artist>(a2, headers);
+
+        ResponseEntity<String> aresponse = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity, String.class);
+        assertEquals(HttpStatus.OK, aresponse.getStatusCode(), aresponse.getBody().toString());
+
+        ResponseEntity<String> aresponse2 = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity2, String.class);
+        assertEquals(HttpStatus.OK, aresponse2.getStatusCode(), aresponse2.getBody().toString());
+
+        Customer C = CUSTOMER;
+        Customer C2 = CUSTOMER2;
+
+        // create new customer
+        HttpEntity<Customer> centity = new HttpEntity<Customer>(C, headers);
+        // create new customer
+        HttpEntity<Customer> centity2 = new HttpEntity<Customer>(C2, headers);
+
+        // Create and post new customer -----------------------------------------------------------------------------------
+        ResponseEntity<String> cresponse = restTemplate.exchange(getURLWithPort("/customers"), HttpMethod.POST, centity, String.class);
+        assertEquals(HttpStatus.OK, cresponse.getStatusCode(), cresponse.getBody().toString());
+
+        ResponseEntity<String> cresponse2 = restTemplate.exchange(getURLWithPort("/customers"), HttpMethod.POST, centity2, String.class);
+        assertEquals(HttpStatus.OK, cresponse2.getStatusCode(), cresponse.getBody().toString());
 
         Review c = REVIEW;
         Review c2 = REVIEW2;
@@ -147,13 +205,39 @@ public class TestReviewController {
         // check that customer 1 was deleted -----------------------------------------------------------------------------------
         getResponse = restTemplate.getForEntity(getURLWithPort("/reviews/" + ID), String.class);
         assertEquals(HttpStatus.BAD_REQUEST, getResponse.getStatusCode());
-
-        // delete everything created
-        delete(ID2);
     }
 
     @Test
     public void testUpdateReview() {
+
+        Artist a = ARTIST;
+        Artist a2 = ARTIST2;
+
+        // create new customer
+        HttpEntity<Artist> aentity = new HttpEntity<Artist>(a, headers);
+        // create new customer
+        HttpEntity<Artist> aentity2 = new HttpEntity<Artist>(a2, headers);
+
+        ResponseEntity<String> aresponse = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity, String.class);
+        assertEquals(HttpStatus.OK, aresponse.getStatusCode(), aresponse.getBody().toString());
+
+        ResponseEntity<String> aresponse2 = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity2, String.class);
+        assertEquals(HttpStatus.OK, aresponse2.getStatusCode(), aresponse2.getBody().toString());
+
+        Customer C = CUSTOMER;
+        Customer C2 = CUSTOMER2;
+
+        // create new customer
+        HttpEntity<Customer> centity = new HttpEntity<Customer>(C, headers);
+        // create new customer
+        HttpEntity<Customer> centity2 = new HttpEntity<Customer>(C2, headers);
+
+        // Create and post new customer -----------------------------------------------------------------------------------
+        ResponseEntity<String> cresponse = restTemplate.exchange(getURLWithPort("/customers"), HttpMethod.POST, centity, String.class);
+        assertEquals(HttpStatus.OK, cresponse.getStatusCode(), cresponse.getBody().toString());
+
+        ResponseEntity<String> cresponse2 = restTemplate.exchange(getURLWithPort("/customers"), HttpMethod.POST, centity2, String.class);
+        assertEquals(HttpStatus.OK, cresponse2.getStatusCode(), cresponse.getBody().toString());
 
         Review c2 = REVIEW2;
 
@@ -174,13 +258,39 @@ public class TestReviewController {
         ResponseEntity<String> putResponse2 = restTemplate.exchange(getURLWithPort("/reviews"), HttpMethod.PUT, entity2, String.class);
         assertEquals(HttpStatus.OK, putResponse2.getStatusCode());
         assertTrue(!(putResponse2.getBody().contains(response.getBody().toString())), putResponse2.getBody().toString());
-
-        // -- delete everything created
-        delete(ID2);
     }
 
     @Test
     public void testCreateReviewBadInput() {
+
+        Artist a = ARTIST;
+        Artist a2 = ARTIST2;
+
+        // create new customer
+        HttpEntity<Artist> aentity = new HttpEntity<Artist>(a, headers);
+        // create new customer
+        HttpEntity<Artist> aentity2 = new HttpEntity<Artist>(a2, headers);
+
+        ResponseEntity<String> aresponse = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity, String.class);
+        assertEquals(HttpStatus.OK, aresponse.getStatusCode(), aresponse.getBody().toString());
+
+        ResponseEntity<String> aresponse2 = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity2, String.class);
+        assertEquals(HttpStatus.OK, aresponse2.getStatusCode(), aresponse2.getBody().toString());
+
+        Customer C = CUSTOMER;
+        Customer C2 = CUSTOMER2;
+
+        // create new customer
+        HttpEntity<Customer> centity = new HttpEntity<Customer>(C, headers);
+        // create new customer
+        HttpEntity<Customer> centity2 = new HttpEntity<Customer>(C2, headers);
+
+        // Create and post new customer -----------------------------------------------------------------------------------
+        ResponseEntity<String> cresponse = restTemplate.exchange(getURLWithPort("/customers"), HttpMethod.POST, centity, String.class);
+        assertEquals(HttpStatus.OK, cresponse.getStatusCode(), cresponse.getBody().toString());
+
+        ResponseEntity<String> cresponse2 = restTemplate.exchange(getURLWithPort("/customers"), HttpMethod.POST, centity2, String.class);
+        assertEquals(HttpStatus.OK, cresponse2.getStatusCode(), cresponse.getBody().toString());
 
         Review c = REVIEW;
         c.setArtist(null);

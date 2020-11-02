@@ -31,6 +31,7 @@ import com.artsee.backend.controller.*;
 import com.artsee.backend.model.*;
 import com.artsee.backend.utility.TestUtility;
 import com.artsee.backend.dao.*;
+import com.artsee.backend.dto.DeliveryMethodDto;
 
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
@@ -44,9 +45,6 @@ public class TestArtworkOrderController {
     private TestRestTemplate restTemplate;
   
     private HttpHeaders headers = new HttpHeaders();
-  
-    @Autowired
-    private ArtworkOrderRepository reviewDao;
 
     private static final String ARTIST_ID = "1234";
     private static final String EMAIL = "artist@gmail.com";
@@ -114,17 +112,94 @@ public class TestArtworkOrderController {
     private static final Set<Artwork> ARTLIST2 = new HashSet<Artwork>();
 
     private static final ArtworkOrder ARTWORKORDER2 = TestUtility.createArtworkOrder(ID, DELIVERYMETHOD, CUSTOMER, ARTLIST);
+
+    @Autowired
+	private AddressRepository addressRepository;
+	@Autowired
+	private AdministratorRepository administratorRepository;
+	@Autowired
+	private ArtistRepository artistRepository;
+	@Autowired
+	private ArtworkRepository artworkRepository;
+	@Autowired
+	private CustomerRepository customerRepository;
+	@Autowired
+	private ArtworkOrderRepository artworkOrderRepository;
+	@Autowired
+	private ReviewRepository reviewRepository;
+	@Autowired
+    private EndUserRepository endUserRepository;
+    
     @Before
     @After
-    public void cleanDataBase() {
-        reviewDao.deleteAll();
+	public void clearDatabase() {
+		
+		// Clear Artwork before Artist before Review to avoid inconsistency
+		artworkRepository.deleteAll();
+		artistRepository.deleteAll();
+		reviewRepository.deleteAll();
 
-        ARTLIST.add(ARTWORK);
-        ARTLIST.add(ARTWORK2);
-    }
+		//Clear ArtworkOrder, Review Before Customer
+		artworkOrderRepository.deleteAll();
+		reviewRepository.deleteAll();
+
+		//Clear Review before Customer before Address to avoid inconsistency
+		customerRepository.deleteAll();
+		addressRepository.deleteAll();
+		
+		// Has no references, can delete in any order
+		endUserRepository.deleteAll();
+		administratorRepository.deleteAll();
+	}
 
     @Test
     public void createArtworkOrder() {
+
+        Artist a = ARTIST;
+        Artist a2 = ARTIST2;
+
+        // create new customer
+        HttpEntity<Artist> aentity = new HttpEntity<Artist>(a, headers);
+        // create new customer
+        HttpEntity<Artist> aentity2 = new HttpEntity<Artist>(a2, headers);
+
+        ResponseEntity<String> aresponse = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity, String.class);
+        assertEquals(HttpStatus.OK, aresponse.getStatusCode(), aresponse.getBody().toString());
+
+        ResponseEntity<String> aresponse2 = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity2, String.class);
+        assertEquals(HttpStatus.OK, aresponse2.getStatusCode(), aresponse2.getBody().toString());
+
+        Customer C = CUSTOMER;
+        Customer C2 = CUSTOMER2;
+
+        // create new customer
+        HttpEntity<Customer> centity = new HttpEntity<Customer>(C, headers);
+        // create new customer
+        HttpEntity<Customer> centity2 = new HttpEntity<Customer>(C2, headers);
+
+        // Create and post new customer -----------------------------------------------------------------------------------
+        ResponseEntity<String> cresponse = restTemplate.exchange(getURLWithPort("/customers"), HttpMethod.POST, centity, String.class);
+        assertEquals(HttpStatus.OK, cresponse.getStatusCode(), cresponse.getBody().toString());
+
+        ResponseEntity<String> cresponse2 = restTemplate.exchange(getURLWithPort("/customers"), HttpMethod.POST, centity2, String.class);
+        assertEquals(HttpStatus.OK, cresponse2.getStatusCode(), cresponse.getBody().toString());
+
+        Artwork r = ARTWORK;
+        Artwork r2 = ARTWORK2;
+
+        // create new customer
+        HttpEntity<Artwork> rentity = new HttpEntity<Artwork>(r, headers);
+        // create new customer
+        HttpEntity<Artwork> rentity2 = new HttpEntity<Artwork>(r2, headers);
+  
+        // Create and post new customer -----------------------------------------------------------------------------------
+        ResponseEntity<String> rresponse = restTemplate.exchange(getURLWithPort("/artworks"), HttpMethod.POST, rentity, String.class);
+        assertEquals(HttpStatus.OK, rresponse.getStatusCode(), rresponse.getBody().toString());
+
+        // Create and post new customer -----------------------------------------------------------------------------------
+        ResponseEntity<String> rresponse2 = restTemplate.exchange(getURLWithPort("/artworks"), HttpMethod.POST, rentity, String.class);
+        assertEquals(HttpStatus.OK, rresponse2.getStatusCode(), rresponse2.getBody().toString());
+
 
         ArtworkOrder c = ARTWORKORDER;
         ArtworkOrder c2 = ARTWORKORDER2;
@@ -140,7 +215,7 @@ public class TestArtworkOrderController {
   
         // Create and post new customer -----------------------------------------------------------------------------------
         ResponseEntity<String> response = restTemplate.exchange(getURLWithPort("/artworkOrders"), HttpMethod.POST, entity, String.class);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode(), response.getBody().toString());
 
         // get customer should now properly work -----------------------------------------------------------------------------------
         getResponse = restTemplate.getForEntity(getURLWithPort("/artworkOrders/" + ID), String.class);
@@ -172,6 +247,52 @@ public class TestArtworkOrderController {
     @Test
     public void testUpdateArtworkOrder() {
 
+        Artist a = ARTIST;
+        Artist a2 = ARTIST2;
+
+        // create new customer
+        HttpEntity<Artist> aentity = new HttpEntity<Artist>(a, headers);
+        // create new customer
+        HttpEntity<Artist> aentity2 = new HttpEntity<Artist>(a2, headers);
+
+        ResponseEntity<String> aresponse = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity, String.class);
+        assertEquals(HttpStatus.OK, aresponse.getStatusCode(), aresponse.getBody().toString());
+
+        ResponseEntity<String> aresponse2 = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity2, String.class);
+        assertEquals(HttpStatus.OK, aresponse2.getStatusCode(), aresponse2.getBody().toString());
+
+        Customer C = CUSTOMER;
+        Customer C2 = CUSTOMER2;
+
+        // create new customer
+        HttpEntity<Customer> centity = new HttpEntity<Customer>(C, headers);
+        // create new customer
+        HttpEntity<Customer> centity2 = new HttpEntity<Customer>(C2, headers);
+
+        // Create and post new customer -----------------------------------------------------------------------------------
+        ResponseEntity<String> cresponse = restTemplate.exchange(getURLWithPort("/customers"), HttpMethod.POST, centity, String.class);
+        assertEquals(HttpStatus.OK, cresponse.getStatusCode(), cresponse.getBody().toString());
+
+        ResponseEntity<String> cresponse2 = restTemplate.exchange(getURLWithPort("/customers"), HttpMethod.POST, centity2, String.class);
+        assertEquals(HttpStatus.OK, cresponse2.getStatusCode(), cresponse.getBody().toString());
+
+        Artwork r = ARTWORK;
+        Artwork r2 = ARTWORK2;
+
+        // create new customer
+        HttpEntity<Artwork> rentity = new HttpEntity<Artwork>(r, headers);
+        // create new customer
+        HttpEntity<Artwork> rentity2 = new HttpEntity<Artwork>(r2, headers);
+  
+        // Create and post new customer -----------------------------------------------------------------------------------
+        ResponseEntity<String> rresponse = restTemplate.exchange(getURLWithPort("/artworks"), HttpMethod.POST, rentity, String.class);
+        assertEquals(HttpStatus.OK, rresponse.getStatusCode(), rresponse.getBody().toString());
+
+        // Create and post new customer -----------------------------------------------------------------------------------
+        ResponseEntity<String> rresponse2 = restTemplate.exchange(getURLWithPort("/artworks"), HttpMethod.POST, rentity, String.class);
+        assertEquals(HttpStatus.OK, rresponse2.getStatusCode(), rresponse2.getBody().toString());
+
+
         ArtworkOrder c2 = ARTWORKORDER2;
 
         // create new customer
@@ -198,6 +319,52 @@ public class TestArtworkOrderController {
 
     @Test
     public void testCreateArtworkOrderBadInput() {
+
+        Artist a = ARTIST;
+        Artist a2 = ARTIST2;
+
+        // create new customer
+        HttpEntity<Artist> aentity = new HttpEntity<Artist>(a, headers);
+        // create new customer
+        HttpEntity<Artist> aentity2 = new HttpEntity<Artist>(a2, headers);
+
+        ResponseEntity<String> aresponse = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity, String.class);
+        assertEquals(HttpStatus.OK, aresponse.getStatusCode(), aresponse.getBody().toString());
+
+        ResponseEntity<String> aresponse2 = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity2, String.class);
+        assertEquals(HttpStatus.OK, aresponse2.getStatusCode(), aresponse2.getBody().toString());
+
+        Customer C = CUSTOMER;
+        Customer C2 = CUSTOMER2;
+
+        // create new customer
+        HttpEntity<Customer> centity = new HttpEntity<Customer>(C, headers);
+        // create new customer
+        HttpEntity<Customer> centity2 = new HttpEntity<Customer>(C2, headers);
+
+        // Create and post new customer -----------------------------------------------------------------------------------
+        ResponseEntity<String> cresponse = restTemplate.exchange(getURLWithPort("/customers"), HttpMethod.POST, centity, String.class);
+        assertEquals(HttpStatus.OK, cresponse.getStatusCode(), cresponse.getBody().toString());
+
+        ResponseEntity<String> cresponse2 = restTemplate.exchange(getURLWithPort("/customers"), HttpMethod.POST, centity2, String.class);
+        assertEquals(HttpStatus.OK, cresponse2.getStatusCode(), cresponse.getBody().toString());
+
+        Artwork r = ARTWORK;
+        Artwork r2 = ARTWORK2;
+
+        // create new customer
+        HttpEntity<Artwork> rentity = new HttpEntity<Artwork>(r, headers);
+        // create new customer
+        HttpEntity<Artwork> rentity2 = new HttpEntity<Artwork>(r2, headers);
+  
+        // Create and post new customer -----------------------------------------------------------------------------------
+        ResponseEntity<String> rresponse = restTemplate.exchange(getURLWithPort("/artworks"), HttpMethod.POST, rentity, String.class);
+        assertEquals(HttpStatus.OK, rresponse.getStatusCode(), rresponse.getBody().toString());
+
+        // Create and post new customer -----------------------------------------------------------------------------------
+        ResponseEntity<String> rresponse2 = restTemplate.exchange(getURLWithPort("/artworks"), HttpMethod.POST, rentity, String.class);
+        assertEquals(HttpStatus.OK, rresponse2.getStatusCode(), rresponse2.getBody().toString());
+
 
         ArtworkOrder c = ARTWORKORDER;
         c.setCustomer(null);
