@@ -230,17 +230,6 @@ public class ArtseeRestController {
 		}
 	}
 	
-	@GetMapping(value = {"/artists/{userID}/rating","/artists/{userID}/rating/"})
-	public ResponseEntity<?> getArtistRating(@PathVariable("userID") String userID) {
-		try {
-			return new ResponseEntity<>(service.getArtistRating(userID), HttpStatus.OK);
-		}
-		catch (Exception e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-	}
-	
-	
 	// REST api for Administrator  __________________________________________________________
 	
 	@PostMapping(value = {"/administrators", "/administrators/"}, consumes = "application/json", produces = "application/json")
