@@ -8,6 +8,7 @@ import org.junit.After;
 import org.json.*;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,21 @@ public class TestArtistController {
     private HttpHeaders headers = new HttpHeaders();
   
     @Autowired
-    private ArtistRepository artistDao;
+	private AddressRepository addressRepository;
+	@Autowired
+	private AdministratorRepository administratorRepository;
+	@Autowired
+	private ArtistRepository artistRepository;
+	@Autowired
+	private ArtworkRepository artworkRepository;
+	@Autowired
+	private CustomerRepository customerRepository;
+	@Autowired
+	private ArtworkOrderRepository artworkOrderRepository;
+	@Autowired
+	private ReviewRepository reviewRepository;
+	@Autowired
+	private EndUserRepository endUserRepository;
 
     private static final String ARTIST_ID = "1234";
     private static final String EMAIL = "artist@gmail.com";
@@ -61,11 +76,28 @@ public class TestArtistController {
 
     private static final Artist ARTIST = TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
     private static final Artist ARTIST2 = TestUtility.createArtist(ARTIST_ID2, EMAIL2, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION2);
+    
     @Before
     @After
-    public void cleanDataBase() {
-        artistDao.deleteAll();
-    }
+	public void clearDatabase() {
+		
+		// Clear Artwork before Artist before Review to avoid inconsistency
+		artworkRepository.deleteAll();
+		artistRepository.deleteAll();
+		reviewRepository.deleteAll();
+
+		//Clear ArtworkOrder, Review Before Customer
+		artworkOrderRepository.deleteAll();
+		reviewRepository.deleteAll();
+
+		//Clear Review before Customer before Address to avoid inconsistency
+		customerRepository.deleteAll();
+		addressRepository.deleteAll();
+		
+		// Has no references, can delete in any order
+		endUserRepository.deleteAll();
+		administratorRepository.deleteAll();
+	}
 
     @Test
     public void createArtist() {

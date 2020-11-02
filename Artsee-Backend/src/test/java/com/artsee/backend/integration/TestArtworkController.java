@@ -11,6 +11,7 @@ import org.junit.After;
 import org.json.*;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,10 +45,21 @@ public class TestArtworkController {
     private HttpHeaders headers = new HttpHeaders();
   
     @Autowired
-    private ArtworkRepository artworkDao;
-
-    @Autowired
-    private ArtistRepository artistDao;
+	private AddressRepository addressRepository;
+	@Autowired
+	private AdministratorRepository administratorRepository;
+	@Autowired
+	private ArtistRepository artistRepository;
+	@Autowired
+	private ArtworkRepository artworkRepository;
+	@Autowired
+	private CustomerRepository customerRepository;
+	@Autowired
+	private ArtworkOrderRepository artworkOrderRepository;
+	@Autowired
+	private ReviewRepository reviewRepository;
+	@Autowired
+	private EndUserRepository endUserRepository;
 
     private static final String ARTIST_ID = "1234";
     private static final String EMAIL = "artist@gmail.com";
@@ -88,10 +100,25 @@ public class TestArtworkController {
     private static final Artwork ARTWORK2 = TestUtility.createArtwork(ID2, NAME2, PRICE2, DESCRIPTION2, DATE_CREATED2, NUM_IN_STOCK2, ARTIST2);
     @Before
     @After
-    public void cleanDataBase() {
-        artworkDao.deleteAll();
-        artistDao.deleteAll();
-    }
+	public void clearDatabase() {
+		
+		// Clear Artwork before Artist before Review to avoid inconsistency
+		artworkRepository.deleteAll();
+		artistRepository.deleteAll();
+		reviewRepository.deleteAll();
+
+		//Clear ArtworkOrder, Review Before Customer
+		artworkOrderRepository.deleteAll();
+		reviewRepository.deleteAll();
+
+		//Clear Review before Customer before Address to avoid inconsistency
+		customerRepository.deleteAll();
+		addressRepository.deleteAll();
+		
+		// Has no references, can delete in any order
+		endUserRepository.deleteAll();
+		administratorRepository.deleteAll();
+	}
 
     @Test
     public void createArtwork() {
@@ -105,10 +132,10 @@ public class TestArtworkController {
         HttpEntity<Artist> aentity2 = new HttpEntity<Artist>(a2, headers);
 
         ResponseEntity<String> aresponse = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity, String.class);
-        assertEquals(HttpStatus.OK, aresponse.getStatusCode());
+        assertEquals(HttpStatus.OK, aresponse.getStatusCode(), aresponse.getBody().toString());
 
         ResponseEntity<String> aresponse2 = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity2, String.class);
-        assertEquals(HttpStatus.OK, aresponse2.getStatusCode());
+        assertEquals(HttpStatus.OK, aresponse2.getStatusCode(), aresponse2.getBody().toString());
 
 
         Artwork c = ARTWORK;
@@ -149,8 +176,6 @@ public class TestArtworkController {
         // check that customer 1 was deleted -----------------------------------------------------------------------------------
         getResponse = restTemplate.getForEntity(getURLWithPort("/artworks/" + ID), String.class);
         assertEquals(HttpStatus.BAD_REQUEST, getResponse.getStatusCode());
-
-        cleanDataBase();
     }
 
     @Test
@@ -190,8 +215,6 @@ public class TestArtworkController {
         assertEquals(HttpStatus.OK, putResponse2.getStatusCode());
         assertTrue(!(putResponse2.getBody().contains(response.getBody().toString())), putResponse2.getBody().toString());
 
-        // -- delete everything created
-        cleanDataBase();
     }
 
     @Test
@@ -206,10 +229,10 @@ public class TestArtworkController {
         HttpEntity<Artist> aentity2 = new HttpEntity<Artist>(a2, headers);
 
         ResponseEntity<String> aresponse = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity, String.class);
-        assertEquals(HttpStatus.OK, aresponse.getStatusCode());
+        assertEquals(HttpStatus.OK, aresponse.getStatusCode(), aresponse.getBody().toString());
 
         ResponseEntity<String> aresponse2 = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity2, String.class);
-        assertEquals(HttpStatus.OK, aresponse2.getStatusCode());
+        assertEquals(HttpStatus.OK, aresponse2.getStatusCode(), aresponse2.getBody().toString());
 
         Artwork c = ARTWORK;
         c.setArtist(null);
@@ -231,7 +254,6 @@ public class TestArtworkController {
 
         c.setArtist(ARTIST);
 
-        cleanDataBase();
     }
 
 
