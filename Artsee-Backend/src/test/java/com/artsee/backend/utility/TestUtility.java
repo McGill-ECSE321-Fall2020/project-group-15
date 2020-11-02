@@ -1,9 +1,12 @@
 package com.artsee.backend.utility;
 
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.artsee.backend.dto.ArtistDto;
+import com.artsee.backend.dto.ArtworkDto;
 import com.artsee.backend.model.*;
 
 
@@ -96,4 +99,11 @@ public class TestUtility {
     	
     }
     
+    public static ArtistDto createArtistDto(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription, float rating) {
+    	return new ArtistDto(userID, email, password, firstName, lastName, phoneNumber, artistDescription, rating);
+    }
+    
+    public static ArtworkDto createArtworkDto(Integer id, String name, String description, int price, Date date, int numInStock, ArtistDto aDto) {
+    	return new ArtworkDto(id, name, description, price, date, numInStock, aDto);
+    }
 }
