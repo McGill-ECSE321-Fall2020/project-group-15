@@ -3,7 +3,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
-
 import java.util.Set;
 
 //Setting the primary key name in the artistID (this is inherited from endUser as a joined table structure was used)
@@ -18,15 +17,14 @@ public class Artist extends EndUser{
    public String getArtistDescription() {
 	   return this.artistDescription;
    }
-
    private float rating;
+
+   public void setRating(float value) {
+	   this.rating = value;
+   }
    public float getRating() {
 	   return this.rating;
    }
-   public void setRating(float rating) {
-	   this.rating = rating;
-   }
-
    private Set<Review> reviews;
    //Create a one to many relationship with the class Review
    @OneToMany(mappedBy="artist", cascade={CascadeType.ALL})
@@ -34,8 +32,8 @@ public class Artist extends EndUser{
 	   return this.reviews;
    }
 
-	public void setReviews(Set<Review> reviews) {
-	   this.reviews = reviews;
+	public void setReviews(Set<Review> reviewss) {
+	   this.reviews = reviewss;
 	}
 
 	private Set<Artwork> artworks;

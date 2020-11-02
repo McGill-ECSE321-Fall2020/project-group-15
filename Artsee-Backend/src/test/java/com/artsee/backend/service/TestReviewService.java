@@ -47,9 +47,6 @@ public class TestReviewService {
 	@Mock
 	private ReviewRepository reviewDao;
 	
-	@Mock
-	private ArtistRepository artistDao;
-	
 	@InjectMocks
 	private ArtseeService service;
 	
@@ -69,13 +66,6 @@ public class TestReviewService {
 	private static final Artist ARTIST2 = new Artist();
 	private static final String ARTIST_ID2 = "132234";
 	private static final String CUSTOMER_ID2 = "334245";
-	
-    private static final String EMAIL = "artist@gmail.com";
-    private static final String PASSWORD = "password";
-    private static final String FIRSTNAME = "John";
-    private static final String LASTNAME = "Doe";
-    private static final String PHONE_NUM = "8675309";
-    private static final String DESCRIPTION = "i like to paint";
 	
 	
 	@BeforeEach
@@ -119,11 +109,6 @@ public class TestReviewService {
 		lenient().when(reviewDao.save(any(Review.class))).thenAnswer((InvocationOnMock invocation) -> {
 			return invocation.getArgument(0);
 		});
-		
-		lenient().when(artistDao.save(any(Artist.class))).thenAnswer((InvocationOnMock invocation) -> {
-            return TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
-
-        });
 
 	}
 
@@ -143,7 +128,6 @@ public class TestReviewService {
         assertEquals(WOULDRECCOMEND, review.getWouldRecommend());
         assertEquals(CUSTOMER, review.getCustomer());
         assertEquals(ARTIST, review.getArtist());
-        assertEquals(ARTIST.getRating(), review.getRating(), 0.01);
 	}
 	
 
@@ -268,7 +252,6 @@ public class TestReviewService {
         assertEquals(WOULDRECCOMEND2, review.getWouldRecommend());
         assertEquals(CUSTOMER2, review.getCustomer());
         assertEquals(ARTIST2, review.getArtist());
-       
 	}
 	
 
