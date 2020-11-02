@@ -25,14 +25,14 @@ project description as well as a team introduction can be found in the [wiki](ht
 
 [Sprint1](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Sprint-1-Report)
 
-## Deliverable 2
+## [Deliverable 2](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Sprint-2-Report)
 |        Name       | Student ID | Contribution | Role                       | 
 |:-----------------:|:----------:|:------------:|:--------------------------:|
-|  Matthew Langshur |  260704964 |              |Unit & Integration Testing & Build System CI and Delivery|
-|  Matteo Barbieri  |  260805184 |              |Business Method Unit Tests & Reports/Documentation |
-|  Daniel Schwartz  |  260795149 |              |                            |
-| Enan Ashaduzzaman |  260805923 |              |                            |
-|  Ragheed Qasmieh  |  260780556 |              |                            |
+|  Matthew Langshur |  260704964 |   24 hours   |Unit & Integration Testing & Build System CI and Delivery|
+|  Matteo Barbieri  |  260805184 |   22 hours   |Business Method Unit Tests & Reports/Documentation|
+|  Daniel Schwartz  |  260795149 |   26 hours   |Controller, Service Methods, Service Tests|
+| Enan Ashaduzzaman |  260805923 |   26 hours   |Controller, Service Methods, Integration Tests|
+|  Ragheed Qasmieh  |  260780556 |   28 hours   |Controller, Service Methods, Integration Tests, RESTful API documentation|
 
 **Links to QA Plan & Report & RESTful Endpoints**<br>
 [RESTful Service Endpoints](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/RESTful-Service-Endpoints)<br>
