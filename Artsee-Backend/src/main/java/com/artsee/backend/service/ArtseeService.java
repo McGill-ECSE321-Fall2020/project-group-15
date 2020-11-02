@@ -929,8 +929,8 @@ public class ArtseeService {
 		if (e.length() > 0) {
 			throw new IllegalArgumentException(e);
 		} 
-		 
-		int totalPrice = order.getTotalPrice();
+		
+		int totalPrice = 0;
 	
 		for(Artwork art : artworks) {
 			art.setNumInStock(art.getNumInStock() - 1);

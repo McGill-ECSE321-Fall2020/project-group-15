@@ -56,7 +56,7 @@ public class TestArtworkOrderService {
 	private static final DeliveryMethod DELIVERYMETHOD = DeliveryMethod.SHIP;
 	
 	private static final Customer CUSTOMER = new Customer();
-	
+	private static final Customer CUSTOMER2 = new Customer();
 	
 	private static final OrderStatus ORDERSTATUS = OrderStatus.PROCESSING;
 	private static final String CUSTOMER_ID = "123";
@@ -234,7 +234,6 @@ public class TestArtworkOrderService {
 
 		  ArtworkOrder artworkOrder = service.createArtworkOrder(DELIVERYMETHOD, CUSTOMER, ARTLIST);
 		  int you = artworkOrder.getTotalPrice();
-		  Customer cust = new Customer();
 		  DeliveryMethod del = DeliveryMethod.SHIP;
 		  Set<Artwork> list = new HashSet<Artwork>();
 		  list.add(ARTWORK1);
@@ -243,13 +242,13 @@ public class TestArtworkOrderService {
 		  String error = null;
 		 
 		  try {
-			  artworkOrder = service.updateArtworkOrder(ID, del, ORDERSTATUS2, cust, list);
+			  artworkOrder = service.updateArtworkOrder(ID, del, ORDERSTATUS2, CUSTOMER2, list);
 		  }catch (Exception e) {
 			  error = e.getMessage();
 		  }
 		  
-
-		  assertEquals(cust, artworkOrder.getCustomer());
+		  assertNull(error);
+		  assertEquals(CUSTOMER2, artworkOrder.getCustomer());
 		  assertEquals(list, artworkOrder.getArtworks());
 		  assertEquals(del, artworkOrder.getDeliveryMethod());
 		  assertEquals(ORDERSTATUS2, artworkOrder.getOrderStatus());
@@ -354,9 +353,22 @@ public class TestArtworkOrderService {
 	   		order = service.deleteArtworkOrder(42);
 	   	} catch (Exception e) {
 	   		error = e.getMessage();
-	    	}
+	    }
 	   	
 	   	assertEquals("Artwork Order does not exist.",error);
 	    }
+	  
+	  @Test
+	  public void testGetAllArtowrkOrderByCustomerWithNullCustomer() {
+		  Customer customer = null;
+		  String error = "";
+		  List<ArtworkOrder> artworkOrdersByCustomer = new ArrayList<>();
+		  try {
+			  artworkOrdersByCustomer = service.getAllArtworkOrdersByCustomer(customer);
+		  } catch (Exception e) {
+		   		error = e.getMessage();
+		  }
+	   		assertEquals("Customer cannot be empty.",error);
+	   }
 }
 	
