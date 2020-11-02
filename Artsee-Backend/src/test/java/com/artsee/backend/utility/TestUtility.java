@@ -102,4 +102,7 @@ public class TestUtility {
     	return new ArtistDto(userID, email, password, firstName, lastName, phoneNumber, artistDescription, rating);
     }
     
+    public static ArtworkDto createArtworkDto(Integer id, String name, String description, int price, Date date, int numInStock, ArtistDto aDto) {
+    	return new ArtworkDto(id, name, description, price, date, numInStock, aDto);
+    }
 }

@@ -82,7 +82,8 @@ public class TestArtworkController {
     private static final Artist ARTIST = TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ARTIST_DESCRIPTION);
     private static final Artist ARTIST2 = TestUtility.createArtist(ARTIST_ID2, EMAIL2, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, ARTIST_DESCRIPTION2);
     
-    private static final ArtistDto ARTISTDTO = TestUtility.createArtistDto(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ARTIST_DESCRIPTION,ARTIST_RATING);
+    private static final ArtistDto ARTISTDTO = TestUtility.createArtistDto(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ARTIST_DESCRIPTION, ARTIST_RATING);
+    private static final ArtistDto ARTISTDTO2 = TestUtility.createArtistDto(ARTIST_ID2, EMAIL2, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, ARTIST_DESCRIPTION2, ARTIST_RATING);
     
     private static final int ID = 1234;
     private static final String USER_ID = "423";
@@ -102,6 +103,10 @@ public class TestArtworkController {
 
     private static final Artwork ARTWORK = TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
     private static final Artwork ARTWORK2 = TestUtility.createArtwork(ID2, NAME2, PRICE2, DESCRIPTION2, DATE_CREATED2, NUM_IN_STOCK2, ARTIST2);
+
+    private static final ArtworkDto ARTWORKDTO = TestUtility.createArtworkDto(ID, NAME, DESCRIPTION, PRICE, DATE_CREATED, NUM_IN_STOCK, ARTISTDTO);
+    private static final ArtworkDto ARTWORKDTO2 = TestUtility.createArtworkDto(ID2, NAME2, DESCRIPTION2, PRICE2, DATE_CREATED2, NUM_IN_STOCK2, ARTISTDTO2);
+
     @Before
     @After
 	public void clearDatabase() {
@@ -127,13 +132,13 @@ public class TestArtworkController {
     @Test
     public void createArtwork() {
 
-        Artist a = ARTIST;
-        Artist a2 = ARTIST2;
+        ArtistDto a = ARTISTDTO;
+        ArtistDto a2 = ARTISTDTO2;
 
         // create new artist
-        HttpEntity<Artist> aentity = new HttpEntity<Artist>(a, headers);
+        HttpEntity<ArtistDto> aentity = new HttpEntity<ArtistDto>(a, headers);
         // create new artist
-        HttpEntity<Artist> aentity2 = new HttpEntity<Artist>(a2, headers);
+        HttpEntity<ArtistDto> aentity2 = new HttpEntity<ArtistDto>(a2, headers);
 
         ResponseEntity<String> aresponse = restTemplate.exchange(getURLWithPort("/artists"), HttpMethod.POST, aentity, String.class);
         assertEquals(HttpStatus.OK, aresponse.getStatusCode(), aresponse.getBody().toString());
@@ -142,13 +147,13 @@ public class TestArtworkController {
         assertEquals(HttpStatus.OK, aresponse2.getStatusCode(), aresponse2.getBody().toString());
 
 
-        Artwork c = ARTWORK;
-        Artwork c2 = ARTWORK2;
+        ArtworkDto c = ARTWORKDTO;
+        ArtworkDto c2 = ARTWORKDTO2;
 
         // create new artist
-        HttpEntity<Artwork> entity = new HttpEntity<Artwork>(c, headers);
+        HttpEntity<ArtworkDto> entity = new HttpEntity<ArtworkDto>(c, headers);
         // create new artist
-        HttpEntity<Artwork> entity2 = new HttpEntity<Artwork>(c2, headers);
+        HttpEntity<ArtworkDto> entity2 = new HttpEntity<ArtworkDto>(c2, headers);
 
         // check that there is nothing saved so far -----------------------------------------------------------------------------------
         ResponseEntity<String> getResponse = restTemplate.getForEntity(getURLWithPort("/artworks/" + ID), String.class);
