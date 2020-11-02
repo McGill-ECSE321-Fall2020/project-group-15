@@ -99,8 +99,9 @@ public class TestEndUserController {
         getResponse = restTemplate.getForEntity(getURLWithPort("/users"), String.class);
         assertEquals(HttpStatus.OK, getResponse.getStatusCode());
 
-        assertTrue(getResponse.getBody().contains("[" + response.getBody().toString() + "," + response2.getBody().toString() + "]"), getResponse.getBody().toString());
-        
+        assertTrue(getResponse.getBody().contains(response.getBody().toString()), getResponse.getBody().toString());
+        assertTrue(getResponse.getBody().contains(response2.getBody().toString()), getResponse.getBody().toString());
+
         //delete customer 1 -----------------------------------------------------------------------------------
         restTemplate.delete(getURLWithPort("/users/" + ADMIN_ID));
 
