@@ -7,6 +7,8 @@ public class EndUserDto {
 	private String firstName;
 	private String lastName;
 	private String phoneNumber;
+	
+	public EndUserDto() {}
 
 	public EndUserDto(String userID,  String email, String password, String firstName, String lastName, String phoneNumber) {
 		this.userID = userID;
