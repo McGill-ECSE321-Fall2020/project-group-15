@@ -930,9 +930,11 @@ public class ArtseeService {
 			throw new IllegalArgumentException(e);
 		} 
 		 
-		int totalPrice = order.getTotalPrice();
-	
+		int totalPrice = 0;
 		for(Artwork art : artworks) {
+			if (art.getNumInStock() == 0) {
+				e += "Artwork is out of stock!";
+			}
 			art.setNumInStock(art.getNumInStock() - 1);
 			totalPrice += art.getPrice();
 		}
