@@ -1,21 +1,15 @@
 package com.artsee.backend.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
-import java.util.List;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.After;
-import org.json.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,7 +23,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import com.artsee.backend.ArtseeApplication;
-import com.artsee.backend.controller.*;
 import com.artsee.backend.model.*;
 import com.artsee.backend.utility.TestUtility;
 import com.artsee.backend.dao.*;
