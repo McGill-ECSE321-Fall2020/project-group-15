@@ -1,9 +1,17 @@
 package com.artsee.backend.utility;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.artsee.backend.dto.AddressDto;
+import com.artsee.backend.dto.ArtistDto;
+import com.artsee.backend.dto.ArtworkDto;
+import com.artsee.backend.dto.ArtworkOrderDto;
+import com.artsee.backend.dto.CustomerDto;
+import com.artsee.backend.dto.DeliveryMethodDto;
+import com.artsee.backend.dto.OrderStatusDto;
 import com.artsee.backend.model.*;
 
 
@@ -96,4 +104,23 @@ public class TestUtility {
     	
     }
     
+    public static ArtistDto createArtistDto(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription, float rating) {
+    	return new ArtistDto(userID, email, password, firstName, lastName, phoneNumber, artistDescription, rating);
+    }
+    
+    public static ArtworkDto createArtworkDto(Integer id, String name, String description, int price, Date date, int numInStock, ArtistDto aDto) {
+    	return new ArtworkDto(id, name, description, price, date, numInStock, aDto);
+    }
+    
+    public static ArtworkOrderDto createArtworkOrderDto(Integer orderID, DeliveryMethodDto deliveryMethodDto, CustomerDto customer, List<ArtworkDto> artworks) {
+    	return new ArtworkOrderDto(orderID, deliveryMethodDto, customer, artworks);
+    }
+    
+    public static CustomerDto createCustomerDto(String userID, String email, String password, String firstName, String lastName, String phoneNumber, AddressDto address) {
+    	return new CustomerDto(userID, email, password, firstName, lastName, phoneNumber, address);
+    }
+	
+    public static AddressDto createAddressDto(Integer addressID, String addressLine1, String addressLine2, String city, String province, String postalCode, String country) {
+    	return new AddressDto( addressID,  addressLine1,  addressLine2,  city,  province,  postalCode,  country);
+    }
 }

@@ -27,6 +27,13 @@ public class ArtworkOrderDto {
 		this.artworks = artworks;
 	}
 	
+	public ArtworkOrderDto(Integer orderID, DeliveryMethodDto deliveryMethodDto, CustomerDto customer, List<ArtworkDto> artworksDto) {
+		this.orderID = orderID;
+		this.deliveryMethodDto = deliveryMethodDto;
+		this.customer = customer;
+		this.artworks = artworksDto;
+	}
+	
 	public int getOrderID() {
 		return this.orderID;
 	}
@@ -45,6 +52,10 @@ public class ArtworkOrderDto {
 	
 	public DeliveryMethodDto getDeliveryMethodDto() {
 		return this.deliveryMethodDto;
+	}
+	
+	public void setDeliveryMethodDto(DeliveryMethodDto deliveryMethodDto) {
+		this.deliveryMethodDto = deliveryMethodDto;
 	}
 	
 	public OrderStatusDto getOrderStatusDto() {
