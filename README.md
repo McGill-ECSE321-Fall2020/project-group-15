@@ -34,8 +34,8 @@ project description as well as a team introduction can be found in the [wiki](ht
 | Enan Ashaduzzaman |  260805923 |              |                            |
 |  Ragheed Qasmieh  |  260780556 |              |                            |
 
-**Links to QA Plan & Report & RESTful Endpoints**
-[RESTful Service Endpoints](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/RESTful-Service-Endpoints)
+**Links to QA Plan & Report & RESTful Endpoints**<br>
+[RESTful Service Endpoints](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/RESTful-Service-Endpoints)<br>
 [Quality Assurance Plan & Report](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Quality-Assurance-Plan-&-Report)
 
 **Link to Sprint Report**
