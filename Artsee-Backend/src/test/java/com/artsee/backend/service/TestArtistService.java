@@ -366,7 +366,7 @@ public class TestArtistService {
     	}catch (Exception e) {
     		error = e.getMessage();
     	}
-    	System.out.println(error);
+
     	assertEquals(EMAIL2, artist.getEmail());
     	assertEquals(PASSWORD2, artist.getPassword());
     	assertEquals(FIRSTNAME2, artist.getFirstName());
@@ -485,13 +485,11 @@ public class TestArtistService {
     @Test
     public void testUpdateInvalidID() {
     	String error = "123";
-    	System.out.println(error);
     	try {
     		service.updateArtist("32d", EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION3);
     	}catch (Exception e) {
     		error = e.getMessage();
     	}
-    	System.out.println(error);
     	assertEquals("Username cannot be found.", error);
     }
     
