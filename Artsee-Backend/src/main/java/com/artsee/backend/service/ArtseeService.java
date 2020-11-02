@@ -315,6 +315,7 @@ public class ArtseeService {
 			throw new IllegalArgumentException(e.trim());
 		}
 		
+		artist.setRating(0);
 		artist.setUserID(userID);
 		artist.setEmail(email);
 		artist.setPassword(password);
@@ -323,6 +324,7 @@ public class ArtseeService {
 		artist.setArtistDescription(artistDescription);
 		artist.setPhoneNumber(phoneNumber);
 		artistRepository.save(artist);
+		
 		return artist;
 	}
 	
@@ -364,25 +366,6 @@ public class ArtseeService {
 		artistRepository.delete(artist);
 		
 		return artist;
-	}
-	
-	@Transactional
-	public Float getArtistRating(String userID) throws IllegalArgumentException{
-		Artist artist = artistRepository.findById(userID).orElse(null);
-		Float totalRatings = 0f;
-		
-		if (artist == null) {
-			throw new IllegalArgumentException("Username cannot be found.");
-		}
-		
-		for (Review r : reviewRepository.findByArtist(artist)) {
-			totalRatings += (float)r.getRating();
-		}
-		
-		totalRatings = totalRatings/((float)reviewRepository.findByArtist(artist).size());
-		
-		
-		return totalRatings;
 	}
 	
 	@Transactional
@@ -543,10 +526,6 @@ public class ArtseeService {
 			throw new IllegalArgumentException("Username cannot be found.");
 		}
 		
-//		if (!email.equals(administrator.getEmail())&&(endUserRepository.findByEmail(email) != null)) {
-//			e+="Email already exists.";
-//		}
-//		
 		if ((endUserRepository.findByEmail(email) != null) && (!email.equals(administrator.getEmail()))) {
 			e+="Email already exists.";
 		}
@@ -755,6 +734,8 @@ public class ArtseeService {
 		review.setCustomer(customer);
 		review.setArtist(artist);
 		reviewRepository.save(review);
+		setArtistRating(artist);
+	
 		return review;
 	}
 
@@ -810,6 +791,8 @@ public class ArtseeService {
 		review.setCustomer(customer);
 		review.setArtist(artist);
 		reviewRepository.save(review);
+		setArtistRating(artist);
+		
 		return review;
 	}
 	
@@ -1111,4 +1094,21 @@ public class ArtseeService {
 		return (string==null)||(string.trim().isEmpty());
 	}
 	
+	private void setArtistRating(Artist artist) {
+		// Helper method to update the artist rating whenever they receive a new review
+		
+		float totalRatings = 0f;
+		List<Review> reviews = getAllReviewsOnArtist(artist);
+		
+		if (reviews.size()>0) {
+			for (Review r : reviews) {
+				totalRatings += (float)r.getRating();
+			}
+			totalRatings = totalRatings / ((float) reviews.size());
+		}
+		
+		artist.setRating(totalRatings);
+		
+		artistRepository.save(artist);
+	}
 }

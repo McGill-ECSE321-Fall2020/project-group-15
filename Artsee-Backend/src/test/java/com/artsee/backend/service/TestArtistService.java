@@ -534,32 +534,6 @@ public class TestArtistService {
     	assertEquals(DESCRIPTION, artist.getArtistDescription());
     }
     
-    /* HOW DO WE TEST THIS ONE
-    @Test 
-    public void testgetArtistRating() {
-    	float rating = 0;
-    	String error = null;
-    	try {
-    		rating = service.getArtistRating(ARTIST_ID);
-    	}catch (Exception e) {
-    		error = e.getMessage();
-    	}
-    	assertEquals(0,rating);
-    }
-    */
-    
-    @Test 
-    public void testgetArtistRatingNoUsername() {
-    	String error = null;
-    	try {
-    		service.getArtistRating("OtherUser");
-    	}catch (Exception e){
-    	error = e.getMessage();
-    }
-    
-    assertEquals("Username cannot be found.", error);
-    }
-    
     @Test
     public void testDeleteArtistNoUser() {
     	assertEquals(0,service.getAllArtists().size());
