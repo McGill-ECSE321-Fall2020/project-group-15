@@ -183,9 +183,9 @@ public class TestReviewController {
         ResponseEntity<String> response = restTemplate.exchange(getURLWithPort("/reviews"), HttpMethod.POST, entity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
-//        // get review should now properly work -----------------------------------------------------------------------------------
-//        getResponse = restTemplate.getForEntity(getURLWithPort("/reviews/" + ID), String.class);
-//        assertEquals(HttpStatus.OK, getResponse.getStatusCode());
+        // get review should now properly work -----------------------------------------------------------------------------------
+        getResponse = restTemplate.getForEntity(getURLWithPort("/reviews/" + ID), String.class);
+        assertEquals(HttpStatus.OK, getResponse.getStatusCode());
 
         assertTrue(getResponse.getBody().contains(response.getBody().toString()), getResponse.getBody().toString());
 
