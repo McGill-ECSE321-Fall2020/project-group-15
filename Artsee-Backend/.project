@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>Artsee-Backend</name>
-	<comment>Project Artsee-Backend created by Buildship.</comment>
+	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -22,7 +22,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1604276263122</id>
+			<id>1604605304122</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
