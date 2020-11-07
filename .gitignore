@@ -25,3 +25,7 @@ out/
 .vscode/
 group15.code-workspace
 .DS_Store
+
+.project
+.classpath
+.settings/
