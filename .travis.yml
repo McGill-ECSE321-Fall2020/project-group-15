@@ -11,7 +11,7 @@ jobs:
     - language: node_js
       node_js: 15
       before_install:
-        - cd Artsee-frontend
+        - cd Artsee-Frontend
         - npm install
       script: npm run build
       deploy:
