@@ -29,3 +29,5 @@ group15.code-workspace
 .project
 .classpath
 .settings/
+.DS_Store
+
