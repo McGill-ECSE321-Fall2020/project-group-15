@@ -1,20 +1,22 @@
 jobs:
   include:
-
-    language: java
-    script:
-    - "./gradlew build"
-    deploy: 
-      provider: heroku
-      api_key:
-        secure: R7NoG/CxzfbEklLLvISmQgJlgbZvpLHkHncsAuTPI0ctdIHYL6veMRhz94FHPLh7oF2eacO9TI11cCyIwd78ZNW2RXBfTDjckg3sfPmYfG51lcmlqQSUrIPzrMW9NzVL2f+DdmCAhGWMvMGW1XPoJHUhUJyCqj5dn/D8SxWtpl/ehBW9iHH3UyzmVNzYBIu28n2d7Gq9onZH982hU5EwbBywZkEtE1ocnizeedybshb41JtMcyoaG01Rt7qEn3WoG1NdQI6M1BiyhtQtOH2i+awE+DLq9JxZH7K8uwsKCFI52VtZ7IVIZUC3PqWWOU3CD9ZPVuHBHovzCzVu2ExC9Kfd8Vy9dplOf8CFzpJ5S7AQTaI7SilfLym7ECXbQoDj8EFCDs03+DyOBAasx4plPM7lQeb8jKbynZKdCXOmR+3RrQdAfrMB3B9TUK2rqwBrzif0wgt6nGl7XqdTsYbvuZisykbTiKzF+KH1HlIj6GPY+WxaWeiLBSrddY2lsUevRnd5Iw8ZehXOV0kaPDiNzsmTferho1GhSIu8e9YkxsdY4JU13PVyHHXxgwM6PvfHhPFqBufluLuIkqnQEbAR2qLczpTh8P4cLFYTK6ZBCNzvsE6zKEqbq7nIPdRnJQkwoHPDZLfgA3XES0qPr26gz35TFA4jb9GGq1xkOwFdNTE=
-      app: artsee-backend
-      on: master
-
-      language: node_js
-      script:
-      - "npm install"
-      api_key:
-        secure: R7NoG/CxzfbEklLLvISmQgJlgbZvpLHkHncsAuTPI0ctdIHYL6veMRhz94FHPLh7oF2eacO9TI11cCyIwd78ZNW2RXBfTDjckg3sfPmYfG51lcmlqQSUrIPzrMW9NzVL2f+DdmCAhGWMvMGW1XPoJHUhUJyCqj5dn/D8SxWtpl/ehBW9iHH3UyzmVNzYBIu28n2d7Gq9onZH982hU5EwbBywZkEtE1ocnizeedybshb41JtMcyoaG01Rt7qEn3WoG1NdQI6M1BiyhtQtOH2i+awE+DLq9JxZH7K8uwsKCFI52VtZ7IVIZUC3PqWWOU3CD9ZPVuHBHovzCzVu2ExC9Kfd8Vy9dplOf8CFzpJ5S7AQTaI7SilfLym7ECXbQoDj8EFCDs03+DyOBAasx4plPM7lQeb8jKbynZKdCXOmR+3RrQdAfrMB3B9TUK2rqwBrzif0wgt6nGl7XqdTsYbvuZisykbTiKzF+KH1HlIj6GPY+WxaWeiLBSrddY2lsUevRnd5Iw8ZehXOV0kaPDiNzsmTferho1GhSIu8e9YkxsdY4JU13PVyHHXxgwM6PvfHhPFqBufluLuIkqnQEbAR2qLczpTh8P4cLFYTK6ZBCNzvsE6zKEqbq7nIPdRnJQkwoHPDZLfgA3XES0qPr26gz35TFA4jb9GGq1xkOwFdNTE=
-      app: artsee-frontend
-      on: master
+    - language: java
+      script: "./gradlew build"
+      deploy:
+        provider: heroku
+        api_key:
+          secure: R7NoG/CxzfbEklLLvISmQgJlgbZvpLHkHncsAuTPI0ctdIHYL6veMRhz94FHPLh7oF2eacO9TI11cCyIwd78ZNW2RXBfTDjckg3sfPmYfG51lcmlqQSUrIPzrMW9NzVL2f+DdmCAhGWMvMGW1XPoJHUhUJyCqj5dn/D8SxWtpl/ehBW9iHH3UyzmVNzYBIu28n2d7Gq9onZH982hU5EwbBywZkEtE1ocnizeedybshb41JtMcyoaG01Rt7qEn3WoG1NdQI6M1BiyhtQtOH2i+awE+DLq9JxZH7K8uwsKCFI52VtZ7IVIZUC3PqWWOU3CD9ZPVuHBHovzCzVu2ExC9Kfd8Vy9dplOf8CFzpJ5S7AQTaI7SilfLym7ECXbQoDj8EFCDs03+DyOBAasx4plPM7lQeb8jKbynZKdCXOmR+3RrQdAfrMB3B9TUK2rqwBrzif0wgt6nGl7XqdTsYbvuZisykbTiKzF+KH1HlIj6GPY+WxaWeiLBSrddY2lsUevRnd5Iw8ZehXOV0kaPDiNzsmTferho1GhSIu8e9YkxsdY4JU13PVyHHXxgwM6PvfHhPFqBufluLuIkqnQEbAR2qLczpTh8P4cLFYTK6ZBCNzvsE6zKEqbq7nIPdRnJQkwoHPDZLfgA3XES0qPr26gz35TFA4jb9GGq1xkOwFdNTE=
+        app: artsee-backend
+        on: master
+    - language: node_js
+      node_js: 15
+      before_install:
+        - cd Artsee-frontend
+        - npm install
+      script: npm run build
+      deploy:
+        provider: heroku
+        api_key:
+          secure: R7NoG/CxzfbEklLLvISmQgJlgbZvpLHkHncsAuTPI0ctdIHYL6veMRhz94FHPLh7oF2eacO9TI11cCyIwd78ZNW2RXBfTDjckg3sfPmYfG51lcmlqQSUrIPzrMW9NzVL2f+DdmCAhGWMvMGW1XPoJHUhUJyCqj5dn/D8SxWtpl/ehBW9iHH3UyzmVNzYBIu28n2d7Gq9onZH982hU5EwbBywZkEtE1ocnizeedybshb41JtMcyoaG01Rt7qEn3WoG1NdQI6M1BiyhtQtOH2i+awE+DLq9JxZH7K8uwsKCFI52VtZ7IVIZUC3PqWWOU3CD9ZPVuHBHovzCzVu2ExC9Kfd8Vy9dplOf8CFzpJ5S7AQTaI7SilfLym7ECXbQoDj8EFCDs03+DyOBAasx4plPM7lQeb8jKbynZKdCXOmR+3RrQdAfrMB3B9TUK2rqwBrzif0wgt6nGl7XqdTsYbvuZisykbTiKzF+KH1HlIj6GPY+WxaWeiLBSrddY2lsUevRnd5Iw8ZehXOV0kaPDiNzsmTferho1GhSIu8e9YkxsdY4JU13PVyHHXxgwM6PvfHhPFqBufluLuIkqnQEbAR2qLczpTh8P4cLFYTK6ZBCNzvsE6zKEqbq7nIPdRnJQkwoHPDZLfgA3XES0qPr26gz35TFA4jb9GGq1xkOwFdNTE=
+        app: artsee-frontend
+        on: master
