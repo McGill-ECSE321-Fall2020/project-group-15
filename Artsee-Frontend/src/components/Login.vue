@@ -45,42 +45,39 @@
   </div>
 </template>
 <script>
-function LoginDto(username, password) {
-    this.username = username
-    this.password = password
-    this.success = false
-}
+    function LoginDto(username, password) {
+        this.username = username
+        this.password = password
+        this.success = false
+    }
 
-export default {
-    name: 'login',
-    data () {
-        return {
-            username: '',
-            password: '',
-            loginDto: '',
-            response: [],
-            loginError: false
-        }
-    },
-
-    methods: {
-        submitLogin: function(userName, passWord) {
-            this.loginError = false
-            var l = new LoginDto(userName, passWord)
-            this.loginDto = l
-            this.username = ''
-            this.password = ''
+    export default {
+        name: 'login',
+        data () {
+            return {
+                username: '',
+                password: '',
+                loginDto: '',
+                response: [],
+                loginError: false
+            }
         },
-        throwLoginError: function() {
-            this.loginError = true
-            this.username = ''
-            this.password = ''
+
+        methods: {
+            submitLogin: function(userName, passWord) {
+                this.loginError = false
+                var l = new LoginDto(userName, passWord)
+                this.loginDto = l
+                this.username = ''
+                this.password = ''
+            },
+            throwLoginError: function() {
+                this.loginError = true
+                this.username = ''
+                this.password = ''
+            }
         }
     }
-    
-
-}
-
 </script>
 <style>
     body {
