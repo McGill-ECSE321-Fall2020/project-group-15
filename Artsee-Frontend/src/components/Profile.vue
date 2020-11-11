@@ -4,8 +4,8 @@
         <title>Update Profile</title>
         </head>
         <body>
-            <div id="navbarContainer">
-                <Navbar navMode="true"/>
+            <div class="navbarContainer">
+                <Navbar navMode="false"/>
             </div>
             <div class="card-container">
                 <div class="card w-25">
@@ -121,7 +121,7 @@ export default {
         width: 170px;
     }
 
-    #navbarContainer {
+    .navbarContainer {
         margin-bottom: 100px;
     }
 </style>
