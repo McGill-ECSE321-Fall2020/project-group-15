@@ -100,13 +100,16 @@
 
 <style>
     body {
-        background-image: linear-gradient(to right, #BC54C2, #5056CD);
+        background-image: linear-gradient(to right, #5160a0, #9e9e9e);
     }
     .card-container {
         display: flex;
         justify-content: center;
         align-items: center;
         margin-bottom: 50px;
+        margin-top: 60px;
+        width: 70%;
+        margin-left: 15%;
     }
     .image-style {
         width: 60%;

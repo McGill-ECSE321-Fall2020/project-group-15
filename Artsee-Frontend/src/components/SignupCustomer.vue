@@ -98,7 +98,7 @@
 
 <style>
     body {
-        background-image: linear-gradient(to right, #BC54C2, #5056CD);
+        background-image: linear-gradient(to right, #5160a0, #9e9e9e);
     }
     .card-container {
         display: flex;
