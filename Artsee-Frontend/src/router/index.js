@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Hello from '@/components/Hello'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
-import PreSignUp from '@/components/PreSignUp'
+import SignupCustomer from '@/components/SignupCustomer'
 
 Vue.use(Router)
 
@@ -25,9 +25,9 @@ export default new Router({
       component: Signup
     },
     {
-      path: '/presignup',
-      name: 'PreSignup',
-      component: PreSignUp
-    }
+      path: '/signup/customer',
+      name: 'SignupCustomer',
+      component: SignupCustomer
+    },
   ]
 })
