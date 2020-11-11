@@ -26,12 +26,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(artwork, i) in artworks" v-bind:key="`artwork-${i}`"></tr>
-              <td>{{artwork.name}}</td>
-              <td>{{artwork.price}}</td>
-              <td>{{artwork.description}}</td>
-              <td>{{artwork.dateOfCreation}}</td>
-              <td>{{artwork.artist.name}}</td>
+              <tr v-for="(artwork, i) in artworks" v-bind:key="`artwork-${i}`">
+                <td>{{artwork.name}}</td>
+                <td>{{artwork.price}}</td>
+                <td>{{artwork.description}}</td>
+                <td>{{artwork.dateOfCreation}}</td>
+                <td>{{artwork.artist.name}}</td>
+              </tr>
               
             </tbody>
           </table>

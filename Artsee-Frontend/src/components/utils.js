@@ -17,6 +17,4 @@ var AXIOS = axios.create({
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
-export default {
-  axios: AXIOS
-}
+export default AXIOS

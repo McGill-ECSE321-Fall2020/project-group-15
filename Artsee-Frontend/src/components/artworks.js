@@ -1,4 +1,4 @@
-import {axios} from './utils'
+import AXIOS from './utils'
 
 
 export default {
@@ -6,13 +6,13 @@ export default {
   data () {
     return {
       artworks: [],
-      errorArtwork = '',
+      errorArtwork: '',
       response: []
     }
   },
   created: function () {
     // Initializing artworks from backend
-    axios.get('/artworks')
+    AXIOS.get('/artworks')
     .then(response => {
       // JSON responses are automatically parsed.
       this.artworks = response.data
