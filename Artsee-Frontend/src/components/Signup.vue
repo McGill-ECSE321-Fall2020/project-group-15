@@ -8,50 +8,36 @@
                 <div class="card w-25">
                     <div class="card-body">
                         <div class="image-container">
-                        <img class="image-style" src="@/assets/logo.png">
+                            <img class="image-style" src="@/assets/logo.png">
                         </div>
                         <form>
-                            <div class="row">
-                                <div class="col">
-                                    <input type="text" class="form-control" placeholder="First name">
+                            <button type="button" class="btn user-btn-style" @click="changeUser('Customer')" v-bind:class="{ active: isCustomer }">
+                                <div class="btn-container">                                        
+                                    <div class="image-profile-container">
+                                        <img class="image-style" src="@/assets/customer.svg">
+                                    </div>
+                                    <p class="user-text-style">Customer</p>
                                 </div>
-                                <div class="col">
-                                    <input type="text" class="form-control" placeholder="Last name">
+                            </button>
+                            <button type="button" class="btn user-btn-style" @click="changeUser('Artist')" v-bind:class="{ active: isArtist }">
+                                <div class="btn-container">    
+                                    <div class="image-profile-container">
+                                        <img class="image-style" src="@/assets/artist.svg">
+                                    </div>
+                                    <p class="user-text-style">Artist</p>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Address">
-                            </div>
-                            <div class="form-group">
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Re-enter Password">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Address Line 1">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Address Line 2">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="City">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Province">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Postal Code">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Country">
-                            </div>
+                            </button>
+                            <button type="button" class="btn user-btn-style" @click="changeUser('Administrator')" v-bind:class="{ active: isAdministrator }">
+                                <div class="btn-container">    
+                                    <div class="image-profile-container">
+                                        <img class="image-style" src="@/assets/admin.svg">
+                                    </div>
+                                    <p class="user-text-style">Administrator</p>
+                                </div>
+                            </button>
                             <div class="button-container">
                                 <div>
-                                    <button type="submit" class="btn btn-light signin-btn-style">
+                                    <button type="submit" class="btn btn-light signin-btn-style navigation-btn">
                                         <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
                                         </svg>
@@ -59,7 +45,7 @@
                                     </button>
                                 </div>
                                 <div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary navigation-btn" v-bind:disabled="!userType">Next</button>
                                 </div>
                             </div>
                         </form>
@@ -71,7 +57,35 @@
 </template>
 
 <script>
-    
+    export default {
+        data () {
+            return {
+                userType: '',
+                isCustomer: false,
+                isArtist: false,
+                isAdministrator: false,
+            }
+        },
+
+        methods: {
+            changeUser: function(user) {
+                this.userType = user
+                if(user=='Customer'){
+                    this.isCustomer = true;
+                    this.isArtist = false;
+                    this.isAdministrator = false;
+                } else if(user=='Artist'){
+                    this.isCustomer = false;
+                    this.isArtist = true;
+                    this.isAdministrator = false;
+                } else if(user=='Administrator'){
+                    this.isCustomer = false;
+                    this.isArtist = false;
+                    this.isAdministrator = true;
+                }
+            }
+        }
+    }
 </script>
 
 <style>
@@ -82,9 +96,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-    }
-    .row {
-        margin-bottom: 10px;
+        margin-bottom: 50px;
     }
     .image-style {
         width: 60%;
@@ -105,8 +117,26 @@
         display: flex;
         justify-content: space-around;
     }
-    button {
+    .navigation-btn {
         height: 40px;
         width: 170px;
+    }
+    .image-profile-container {
+        height: 60px;
+        width: 60px;
+    }
+    .btn-container {
+        display: flex;
+    }
+    .user-btn-style{
+        display: flex;
+        width: 300px;
+        margin-bottom: 20px;
+    }
+    .user-text-style {
+        font-size: 30px;
+    }
+    .active {
+        border-color: lightblue;
     }
 </style>
