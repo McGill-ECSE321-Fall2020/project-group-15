@@ -5,7 +5,7 @@
         </head>
         <body>
             <div id="navbarContainer">
-                <Navbar />
+                <Navbar navMode="true"/>
             </div>
             <div class="card-container">
                 <div class="card w-25">
