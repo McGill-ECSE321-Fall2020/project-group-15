@@ -35,9 +35,11 @@
                                 <input class="form-control" type="tel" id="example-tel-input" placeholder="1-(555)-555-5555">
                             </div>
                             <div class="button-container">
-                                <div>
-                                    <button type="submit" class="btn btn-primary">Back</button>
-                                </div>
+                                <router-link to="/signup">
+                                    <div>
+                                        <button type="submit" class="btn btn-primary">Back</button>
+                                    </div>
+                                </router-link>
                                 <div>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
