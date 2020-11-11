@@ -5,7 +5,7 @@
         </head>
         <body>
             <div class="card-container">
-                <div class="card w-25">
+                <div class="card w-50">
                     <div class="card-body">
                         <div class="image-container">
                             <img class="image-style" src="@/assets/logo.png">
@@ -53,9 +53,11 @@
                                 <input type="text" class="form-control" placeholder="Country">
                             </div>
                             <div class="button-container">
-                                <div>
-                                    <button type="submit" class="btn btn-primary">Back</button>
-                                </div>
+                                <router-link to="/signup">
+                                    <div>
+                                        <button type="submit" class="btn btn-primary">Back</button>
+                                    </div>
+                                </router-link>
                                 <div>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>

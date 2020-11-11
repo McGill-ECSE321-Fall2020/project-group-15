@@ -6,7 +6,7 @@
         </head>
         <body>
             <div class="card-container">
-                <div class="card w-25">
+                <div class="card w-50">
                     <div class="card-body">
                         <div class="image-container">
                             <img class="image-style" src="@/assets/logo.png">
@@ -31,12 +31,14 @@
                                     </div>
                                 </div>
                                 <div class="signup-btn-container">
-                                    <button type="submit" class="btn btn-light signup-btn-style" @click="throwLoginError()">
-                                        Create your Account 
-                                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
-                                        </svg>
-                                    </button>
+                                    <router-link to="/signup">
+                                        <button type="submit" class="btn btn-light signup-btn-style" @click="throwLoginError()">
+                                            Create your Account 
+                                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+                                            </svg>
+                                        </button>
+                                    </router-link>
                                 </div>
                             </div>
                         </form>
@@ -97,6 +99,7 @@
     .card-container {
         display: flex;
         justify-content: center;
+        margin-bottom: 50px;
     }
     #btn-container {
         display: flex;
@@ -141,7 +144,6 @@
         width: 350px;
         height: 50px;
         margin: 5px;
-        /* background-color: lightgray; */
     }
     .login-error-style {
         color:red;
