@@ -1,15 +1,15 @@
 <template>
     <div>
         <head>
-        <title>Update Profile</title>
+            <title>Sign Up Page</title>
         </head>
         <body>
-            <div id="navbarContainer">
-                <Navbar navMode="true"/>
-            </div>
             <div class="card-container">
-                <div class="card w-25">
+                <div class="card w-50">
                     <div class="card-body">
+                        <div class="image-container">
+                            <img class="image-style" src="@/assets/logo.png">
+                        </div>
                         <form>
                             <div class="row">
                                 <div class="col">
@@ -23,7 +23,7 @@
                                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Address">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Username">
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username">
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
@@ -32,29 +32,16 @@
                                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Re-enter Password">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Phone number">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Address Line 1">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Address Line 2">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="City">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Province">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Postal Code">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Country">
+                                <input class="form-control" type="tel" id="example-tel-input" placeholder="1-(555)-555-5555">
                             </div>
                             <div class="button-container">
+                                <router-link to="/signup">
+                                    <div>
+                                        <button type="submit" class="btn btn-primary">Back</button>
+                                    </div>
+                                </router-link>
                                 <div>
-                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -66,43 +53,44 @@
 </template>
 
 <script>
-import Navbar from '@/components/Navbar'
+    export default {
+        data () {
+            return {
+                firstName: '',
+                lastName: '',
+                email: '',
+                username: '',
+                password: '',
+                reenterPassword: '',
+                phoneNumber: 0,
+            }
+        },
 
-export default {
-    components: {
-        Navbar
+        methods: {
+
+        }
     }
-}
-    
 </script>
 
 <style>
     body {
-      margin: 0;
-      padding: 0 0 0 0;
+        background-image: linear-gradient(to right, #BC54C2, #5056CD);
     }
     .card-container {
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-bottom: 50px;
     }
     .row {
         margin-bottom: 10px;
     }
-    .navbar {
-      margin-bottom: 50px;
-    }
-    .logo {
+    .image-style {
         width: 60%;
-        height: auto;
         margin: 10px 0 25px 0
     }
-    .button-container {
-      width: 100%;
-    }
     .image-container {
-        width: 25%;
-        height: 10%;
+        width: 100%;
         display: flex;
         justify-content: center;
     }
@@ -119,9 +107,5 @@ export default {
     button {
         height: 40px;
         width: 170px;
-    }
-
-    #navbarContainer {
-        margin-bottom: 100px;
     }
 </style>

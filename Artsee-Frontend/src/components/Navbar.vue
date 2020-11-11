@@ -1,6 +1,8 @@
 <template>
 <nav class="navbar fixed-top navbar-expand-lg navbar-light">
-
+  <div v-if="false">
+    NavMode: {{navMode}}
+  </div>
     <a class="navbar-brand" id="logoBox">
     <img src="@/assets/logo.png" width="100" height="30" alt="" loading="lazy">
   </a>
@@ -19,7 +21,7 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Artists</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" v-if="!navMode">
         <a class="nav-link" href="#">Orders</a>
       </li>
     </ul>
@@ -34,6 +36,14 @@
 </template>
 
 <script>
+export default {
+  props: {
+    navMode: {
+      type: Boolean,
+      default: false
+    }
+  }
+}
 
 </script>
 

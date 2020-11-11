@@ -6,6 +6,10 @@ import Signup from '@/components/Signup'
 import Profile from '@/components/Profile'
 import ArtistProfile from '@/components/ArtistProfile'
 import Navbar from '@/components/Navbar'
+import SignupCustomer from '@/components/SignupCustomer'
+import SignupArtist from '@/components/SignupArtist'
+import SignupAdministrator from '@/components/SignupAdministrator'
+
 
 Vue.use(Router)
 
@@ -13,11 +17,6 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
-    },
-    {
-      path: '/login',
       name: 'Login',
       component: Login
     },
@@ -40,6 +39,21 @@ export default new Router({
       path: '/nav',
       name: 'Navbar',
       component: Navbar
+    },
+    {
+      path: '/signup/customer',
+      name: 'SignupCustomer',
+      component: SignupCustomer
+    },
+    {
+      path: '/signup/artist',
+      name: 'SignupArtist',
+      component: SignupArtist
+    },
+    {
+      path: '/signup/administrator',
+      name: 'SignupAdministrator',
+      component: SignupAdministrator
     }
   ]
 })
