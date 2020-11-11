@@ -99,9 +99,6 @@
         align-items: center;
         margin-bottom: 50px;
     }
-    .row {
-        margin-bottom: 10px;
-    }
     .image-style {
         width: 60%;
         margin: 10px 0 25px 0

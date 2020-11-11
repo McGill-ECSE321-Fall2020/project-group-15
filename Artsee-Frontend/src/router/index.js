@@ -4,6 +4,8 @@ import Hello from '@/components/Hello'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
 import SignupCustomer from '@/components/SignupCustomer'
+import SignupArtist from '@/components/SignupArtist'
+import SignupAdministrator from '@/components/SignupAdministrator'
 
 Vue.use(Router)
 
@@ -28,6 +30,16 @@ export default new Router({
       path: '/signup/customer',
       name: 'SignupCustomer',
       component: SignupCustomer
+    },
+    {
+      path: '/signup/artist',
+      name: 'SignupArtist',
+      component: SignupArtist
+    },
+    {
+      path: '/signup/administrator',
+      name: 'SignupAdministrator',
+      component: SignupAdministrator
     },
   ]
 })

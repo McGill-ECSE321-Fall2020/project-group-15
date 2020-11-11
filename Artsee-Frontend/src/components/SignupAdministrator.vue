@@ -31,24 +31,6 @@
                             <div class="form-group">
                                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Re-enter Password">
                             </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Address Line 1">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Address Line 2">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="City">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Province">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Postal Code">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Country">
-                            </div>
                             <div class="button-container">
                                 <div>
                                     <button type="submit" class="btn btn-primary">Back</button>
