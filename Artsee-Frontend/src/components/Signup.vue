@@ -8,7 +8,7 @@
                 <div class="card w-25">
                     <div class="card-body">
                         <div class="image-container">
-                        <img class="image-style" src="@/assets/logo.png">
+                            <img class="image-style" src="@/assets/logo.png">
                         </div>
                         <form>
                             <div class="row">
@@ -82,6 +82,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-bottom: 50px;
     }
     .row {
         margin-bottom: 10px;
