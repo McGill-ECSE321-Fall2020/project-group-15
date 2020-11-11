@@ -13,44 +13,44 @@
                         <form>
                             <div class="row">
                                 <div class="col">
-                                    <input type="text" class="form-control" placeholder="First name">
+                                    <input type="text" class="form-control" v-model="firstName" placeholder="First name">
                                 </div>
                                 <div class="col">
-                                    <input type="text" class="form-control" placeholder="Last name">
+                                    <input type="text" class="form-control" v-model="lastName" placeholder="Last name">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Address">
+                                <input type="email" class="form-control" v-model="email" aria-describedby="emailHelp" placeholder="Email Address">
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username">
+                                <input type="email" class="form-control" v-model="username" aria-describedby="emailHelp" placeholder="Username">
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                <input type="password" class="form-control" v-model="password" placeholder="Password">
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Re-enter Password">
+                                <input type="password" class="form-control" v-model="reenterPassword" placeholder="Re-enter Password" @change="checkPasswordMatch()">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" type="tel" id="example-tel-input" placeholder="1-(555)-555-5555">
+                                <input class="form-control" type="tel" v-model="phoneNumber" placeholder="(123) 456-7890" @change="checkPhoneNumber()">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Address Line 1">
+                                <input type="text" class="form-control" v-model="addressLine1" placeholder="Address Line 1">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Address Line 2">
+                                <input type="text" class="form-control" v-model="addressLine2" placeholder="Address Line 2">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="City">
+                                <input type="text" class="form-control" v-model="city" placeholder="City">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Province">
+                                <input type="text" class="form-control" v-model="province" placeholder="Province">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Postal Code">
+                                <input type="text" class="form-control" v-model="postalCode" placeholder="Postal Code">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Country">
+                                <input type="text" class="form-control" v-model="country" placeholder="Country">
                             </div>
                             <div class="button-container">
                                 <router-link to="/signup">
@@ -91,7 +91,36 @@
         },
 
         methods: {
-
+            checkPasswordMatch: function() {
+                if(this.password != this.reenterPassword){
+                    this.error = "Passwords do not match"
+                    this.passwordError = true
+                    console.log(this.error)
+                } else {
+                    this.passwordError = false
+                    if(this.phoneNumberError) {
+                        this.error = "Invalid phone number"
+                        console.log(this.error) 
+                    } else {
+                        this.error = ''
+                    }
+                }
+            },
+            checkPhoneNumber: function() {
+                var isPhoneNumber = (/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(this.phoneNumber))
+                if(!isPhoneNumber){
+                    this.error = "Invalid phone number"
+                    this.phoneNumberError = true
+                    console.log(this.error)
+                } else {
+                    this.phoneNumberError = false
+                    if(this.passwordError){
+                        this.error = "Passwords do not match"
+                    } else {
+                        this.error = ''
+                    }
+                }
+            },
         }
     }
 </script>
