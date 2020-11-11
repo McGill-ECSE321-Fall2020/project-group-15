@@ -97,6 +97,7 @@
         justify-content: center;
     }
     .card-container {
+        margin-top: 50px;
         display: flex;
         justify-content: center;
         margin-bottom: 50px;
