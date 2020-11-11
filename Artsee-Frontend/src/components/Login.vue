@@ -6,7 +6,7 @@
         </head>
         <body>
             <div class="card-container">
-                <div class="card w-25">
+                <div class="card w-50">
                     <div class="card-body">
                         <div class="image-container">
                             <img class="image-style" src="@/assets/logo.png">
@@ -99,6 +99,7 @@
     .card-container {
         display: flex;
         justify-content: center;
+        margin-bottom: 50px;
     }
     #btn-container {
         display: flex;
@@ -143,7 +144,6 @@
         width: 350px;
         height: 50px;
         margin: 5px;
-        /* background-color: lightgray; */
     }
     .login-error-style {
         color:red;

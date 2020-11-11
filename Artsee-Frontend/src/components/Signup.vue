@@ -5,12 +5,14 @@
         </head>
         <body>
             <div class="card-container">
-                <div class="card w-25">
+                <div class="card w-50">
                     <div class="card-body">
                         <div class="image-container">
                             <img class="image-style" src="@/assets/logo.png">
                         </div>
                         <form>
+                            <h5>Select an account: </h5>
+                            <hr>
                             <button type="button" class="btn user-btn-style" @click="changeUser('Customer')" v-bind:class="{ active: isCustomer }">
                                 <div class="btn-container">                                        
                                     <div class="image-profile-container">
