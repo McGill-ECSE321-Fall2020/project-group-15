@@ -15,18 +15,20 @@
                             <h1>Welcome to ArtSee</h1>
                         </div>
                         <form>
-                            <div class="form-group">
-                                <input type="username" class="form-control" v-model="username" placeholder="Username">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" v-model="password" placeholder="Password">
+                            <div class="input-container">
+                                <div class="form-group">
+                                    <input type="username" class="form-control input-style LoginInput" v-model="username" placeholder="Username">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control input-style" v-model="password" placeholder="Password">
+                                </div>
                             </div>
                             <div id="btn-container">
                                 <div>
                                     <div class="login-btn-container">
                                         <button type="submit" class="btn btn-success" v-bind:disabled="!password" @click="submitLogin(username, password)">Login</button>
+                                        <p class="login-error-style" v-if="loginError">Sorry, your username or password was incorrect.</p>
                                     </div>
-                                    <p class="login_error" v-if="loginError">Sorry, your username or password was incorrect.</p>
                                 </div>
                                 <div class="signup-btn-container">
                                     <button type="submit" class="btn btn-light signup-btn-style" @click="throwLoginError()">
@@ -41,7 +43,7 @@
                     </div>
                 </div>
             </div>
-        </body>            
+        </body>           
   </div>
 </template>
 <script>
@@ -72,7 +74,7 @@
                 this.password = ''
             },
             throwLoginError: function() {
-                this.loginError = true
+                this.loginError = !this.loginError
                 this.username = ''
                 this.password = ''
             }
@@ -104,6 +106,8 @@
     }
     .login-btn-container{
         display: flex;
+        flex-direction: column;
+        align-items: center;
         justify-content: center;
         margin: 30px 0 10px 0;
     }
@@ -124,7 +128,24 @@
     }
     button {
         height: 40px;
+        width: 250px;
+    }
+    .input-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .input-style {
+        border-radius: 25px;
         width: 350px;
+        height: 50px;
+        margin: 5px;
+        /* background-color: lightgray; */
+    }
+    .login-error-style {
+        color:red;
+        margin-top: 10px;
     }
 </style>
 
