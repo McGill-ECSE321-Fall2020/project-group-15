@@ -131,6 +131,7 @@
     .user-btn-style{
         display: flex;
         width: 300px;
+        height: 80px;
         margin-bottom: 20px;
     }
     .user-text-style {
