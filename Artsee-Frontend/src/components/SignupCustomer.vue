@@ -5,7 +5,7 @@
         </head>
         <body>
             <div class="card-container">
-                <div class="card w-25">
+                <div class="card w-50">
                     <div class="card-body">
                         <div class="image-container">
                             <img class="image-style" src="@/assets/logo.png">
