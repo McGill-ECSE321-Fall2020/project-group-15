@@ -4,29 +4,9 @@
         <title>Update Profile</title>
         </head>
         <body>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-              <a class="navbar-brand" href="#">
-                <div class="image-container">
-                  <img class="logo" src="@/assets/logo.png">
-                  </div>
-                </a>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                  <li class="nav-item active">
-                    <a class="nav-link" href="#">Home </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Orders</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Personal profile <span class="sr-only">(current)</span></a>
-                  </li>
-                </ul>
-              </div>
-            </nav>
+            <div id="navbarContainer">
+                <Navbar />
+            </div>
             <div class="card-container">
                 <div class="card w-25">
                     <div class="card-body">
@@ -86,7 +66,13 @@
 </template>
 
 <script>
-import Navbar from './Navbar'
+import Navbar from '@/components/Navbar'
+
+export default {
+    components: {
+        Navbar
+    }
+}
     
 </script>
 
@@ -104,7 +90,7 @@ import Navbar from './Navbar'
         margin-bottom: 10px;
     }
     .navbar {
-      margin-bottom: 30px;
+      margin-bottom: 50px;
     }
     .logo {
         width: 60%;
@@ -133,5 +119,9 @@ import Navbar from './Navbar'
     button {
         height: 40px;
         width: 170px;
+    }
+
+    #navbarContainer {
+        margin-bottom: 100px;
     }
 </style>

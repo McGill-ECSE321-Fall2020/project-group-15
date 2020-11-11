@@ -5,6 +5,7 @@ import Login from '@/components/Login'
 import Signup from '@/components/Signup'
 import Profile from '@/components/Profile'
 import ArtistProfile from '@/components/ArtistProfile'
+import Navbar from '@/components/Navbar'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/artistprofile',
       name: 'ArtistProfile',
       component: ArtistProfile
+    },
+    {
+      path: '/nav',
+      name: 'Navbar',
+      component: Navbar
     }
   ]
 })
