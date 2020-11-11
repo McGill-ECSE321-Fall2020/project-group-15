@@ -57,7 +57,6 @@
 </template>
 
 <script>
-    //@click="throwLoginError()"
     export default {
         data () {
             return {

@@ -32,6 +32,9 @@
                                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Re-enter Password">
                             </div>
                             <div class="form-group">
+                                <input class="form-control" type="tel" id="example-tel-input" placeholder="1-(555)-555-5555">
+                            </div>
+                            <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Address Line 1">
                             </div>
                             <div class="form-group">
@@ -66,7 +69,29 @@
 </template>
 
 <script>
-    
+    export default {
+        data () {
+            return {
+                firstName: '',
+                lastName: '',
+                email: '',
+                username: '',
+                password: '',
+                reenterPassword: '',
+                phoneNumber: 0,
+                addressLine1: '',
+                addressLine2: '',
+                city: '',
+                province: '',
+                postalCode: '',
+                country: '',
+            }
+        },
+
+        methods: {
+
+        }
+    }
 </script>
 
 <style>

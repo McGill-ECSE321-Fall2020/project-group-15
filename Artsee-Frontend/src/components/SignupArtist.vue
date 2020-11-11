@@ -32,6 +32,9 @@
                                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Re-enter Password">
                             </div>
                             <div class="form-group">
+                                <input class="form-control" type="tel" id="example-tel-input" placeholder="1-(555)-555-5555">
+                            </div>
+                            <div class="form-group">
                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Tell us about yourself..."></textarea>
                             </div>
                             <div class="button-container">
@@ -51,7 +54,24 @@
 </template>
 
 <script>
-    
+    export default {
+        data () {
+            return {
+                firstName: '',
+                lastName: '',
+                email: '',
+                username: '',
+                password: '',
+                reenterPassword: '',
+                phoneNumber: 0,
+                description: '',
+            }
+        },
+
+        methods: {
+
+        }
+    }
 </script>
 
 <style>
