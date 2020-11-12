@@ -3,8 +3,8 @@ import Router from 'vue-router'
 import Hello from '@/components/Hello'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
-import Profile from '@/components/Profile'
-import ArtistProfile from '@/components/ArtistProfile'
+import CustomerSettings from '@/components/CustomerSettings'
+import ArtistSettings from '@/components/ArtistSettings'
 import Navbar from '@/components/Navbar'
 import SignupCustomer from '@/components/SignupCustomer'
 import SignupArtist from '@/components/SignupArtist'
@@ -29,14 +29,14 @@ export default new Router({
       component: Signup
     },
     {
-      path: '/profile',
-      name: 'Profile',
-      component: Profile
+      path: '/settings/customer',
+      name: 'CustomerSettings',
+      component: CustomerSettings
     },
     {
-      path: '/artistprofile',
-      name: 'ArtistProfile',
-      component: ArtistProfile
+      path: '/settings/artist',
+      name: 'ArtistSettings',
+      component: ArtistSettings
     },
     {
       path: '/nav',
