@@ -44,7 +44,9 @@ public class TestArtistService {
     private static final String LASTNAME = "Doe";
     private static final String PHONE_NUM = "8675309";
     private static final String DESCRIPTION = "i like to paint";
-    
+    private static final String profilePictureURL = "url";
+
+ 
     private static final String ARTIST_ID2 = "37292";
     private static final String EMAIL2 = "otherArtist@gmail.com";
     private static final String PASSWORD2 = "newpassword";
@@ -117,7 +119,7 @@ public class TestArtistService {
         Artist artist = null;
 
         try {
-            artist = service.createArtist(ARTIST_ID2, EMAIL2, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+            artist = service.createArtist(ARTIST_ID2, EMAIL2, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION, profilePictureURL);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -142,7 +144,7 @@ public class TestArtistService {
         String error = null;
 
         try {
-            service.createArtist("", EMAIL2, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+            service.createArtist("", EMAIL2, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION, profilePictureURL);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -156,7 +158,7 @@ public class TestArtistService {
         error = null;
 
         try {
-            service.createArtist(null, EMAIL2, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+            service.createArtist(null, EMAIL2, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION, profilePictureURL);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -174,7 +176,7 @@ public class TestArtistService {
         String error = null;
 
         try {
-            service.createArtist(ARTIST_ID2, "", PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+            service.createArtist(ARTIST_ID2, "", PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION, profilePictureURL);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -188,7 +190,7 @@ public class TestArtistService {
         error = null;
 
         try {
-            service.createArtist(ARTIST_ID2, null, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+            service.createArtist(ARTIST_ID2, null, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION, profilePictureURL);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -206,7 +208,7 @@ public class TestArtistService {
         String error = null;
 
         try {
-            service.createArtist(ARTIST_ID2, EMAIL2, "", FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+            service.createArtist(ARTIST_ID2, EMAIL2, "", FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION, profilePictureURL);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -220,7 +222,7 @@ public class TestArtistService {
         error = null;
 
         try {
-            service.createArtist(ARTIST_ID2, EMAIL2, null, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+            service.createArtist(ARTIST_ID2, EMAIL2, null, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION, profilePictureURL);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -238,7 +240,7 @@ public class TestArtistService {
         String error = null;
 
         try {
-            service.createArtist(ARTIST_ID2, EMAIL2, PASSWORD, "", LASTNAME, PHONE_NUM, DESCRIPTION);
+            service.createArtist(ARTIST_ID2, EMAIL2, PASSWORD, "", LASTNAME, PHONE_NUM, DESCRIPTION, profilePictureURL);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -252,7 +254,7 @@ public class TestArtistService {
         error = null;
 
         try {
-            service.createArtist(ARTIST_ID2, EMAIL2, PASSWORD, null, LASTNAME, PHONE_NUM, DESCRIPTION);
+            service.createArtist(ARTIST_ID2, EMAIL2, PASSWORD, null, LASTNAME, PHONE_NUM, DESCRIPTION, profilePictureURL);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -270,7 +272,7 @@ public class TestArtistService {
         String error = null;
 
         try {
-            service.createArtist(ARTIST_ID2, EMAIL2, PASSWORD, FIRSTNAME, "", PHONE_NUM, DESCRIPTION);
+            service.createArtist(ARTIST_ID2, EMAIL2, PASSWORD, FIRSTNAME, "", PHONE_NUM, DESCRIPTION, profilePictureURL);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -284,7 +286,7 @@ public class TestArtistService {
         error = null;
 
         try {
-            service.createArtist(ARTIST_ID2, EMAIL2, PASSWORD, FIRSTNAME, null, PHONE_NUM, DESCRIPTION);
+            service.createArtist(ARTIST_ID2, EMAIL2, PASSWORD, FIRSTNAME, null, PHONE_NUM, DESCRIPTION, profilePictureURL);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -328,7 +330,7 @@ public class TestArtistService {
         String error = null;
 
         try {
-            service.createArtist(ARTIST_ID, EMAIL2, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+            service.createArtist(ARTIST_ID, EMAIL2, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION, profilePictureURL);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -338,7 +340,7 @@ public class TestArtistService {
         error = null;
 
         try {
-            service.createArtist(ARTIST_ID2, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+            service.createArtist(ARTIST_ID2, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION, profilePictureURL);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -348,11 +350,11 @@ public class TestArtistService {
 
     @Test
     public void testUpdateArtist() {
-    	String error = null;
+    	String error;
     	Artist artist = null;
     	
     	try {
-    		artist = service.updateArtist(ARTIST_ID, EMAIL2, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION2);
+    		artist = service.updateArtist(ARTIST_ID, EMAIL2, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION2, profilePictureURL);
     	}catch (Exception e) {
     		error = e.getMessage();
     	}
@@ -371,7 +373,7 @@ public class TestArtistService {
     	String error = null;
 	
     	try {
-    		service.updateArtist(ARTIST_ID, "", PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION2);
+    		service.updateArtist(ARTIST_ID, "", PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION2, profilePictureURL);
     	}catch (Exception e) {
     		error = e.getMessage();
     	}
@@ -386,7 +388,7 @@ public class TestArtistService {
     	String error = null;
 	
     	try {
-    		service.updateArtist(ARTIST_ID, EMAIL2, PASSWORD2, "", LASTNAME2, PHONE_NUM2, DESCRIPTION2);
+    		service.updateArtist(ARTIST_ID, EMAIL2, PASSWORD2, "", LASTNAME2, PHONE_NUM2, DESCRIPTION2, profilePictureURL);
     	}catch (Exception e) {
     		error = e.getMessage();
     	}
@@ -401,7 +403,7 @@ public class TestArtistService {
     	String error = null;
 	
     	try {
-    		service.updateArtist(ARTIST_ID, EMAIL2, PASSWORD2, FIRSTNAME2, "", PHONE_NUM2, DESCRIPTION2);
+    		service.updateArtist(ARTIST_ID, EMAIL2, PASSWORD2, FIRSTNAME2, "", PHONE_NUM2, DESCRIPTION2, profilePictureURL);
     	}catch (Exception e) {
     		error = e.getMessage();
     	}
@@ -416,7 +418,7 @@ public class TestArtistService {
     	String error = null;
 	
     	try {
-    		service.updateArtist(ARTIST_ID, EMAIL2, "", FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION2);
+    		service.updateArtist(ARTIST_ID, EMAIL2, "", FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION2, profilePictureURL);
     	}catch (Exception e) {
     		error = e.getMessage();
     	}
@@ -430,7 +432,7 @@ public class TestArtistService {
     	String error = null;
 	
     	try {
-    		service.updateArtist("", EMAIL2, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION2);
+    		service.updateArtist("", EMAIL2, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION2, profilePictureURL);
     	}catch (Exception e) {
     		error = e.getMessage();
     	}
@@ -444,7 +446,7 @@ public class TestArtistService {
     	String error = null;
 	
     	try {
-    		service.updateArtist(ARTIST_ID3, EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION3);
+    		service.updateArtist(ARTIST_ID3, EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION3, profilePictureURL);
     	}catch (Exception e) {
     		error = e.getMessage();
     	}
@@ -456,10 +458,10 @@ public class TestArtistService {
     @Test // new email = old email
     public void testUpdateCustomerRepeatEmail() {
     	Artist artist = null;
-    	String error = "123";
+    	String error;
 	
     	try {
-    		artist = service.updateArtist(ARTIST_ID, EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION);
+    		artist = service.updateArtist(ARTIST_ID, EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION, profilePictureURL);
     	}catch (Exception e) {
     		error = e.getMessage();
     	}
@@ -476,7 +478,7 @@ public class TestArtistService {
     public void testUpdateInvalidID() {
     	String error = "123";
     	try {
-    		service.updateArtist("32d", EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION3);
+    		service.updateArtist("32d", EMAIL, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION3, profilePictureURL);
     	}catch (Exception e) {
     		error = e.getMessage();
     	}
