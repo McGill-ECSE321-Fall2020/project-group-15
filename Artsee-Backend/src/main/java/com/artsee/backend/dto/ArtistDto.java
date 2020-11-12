@@ -10,10 +10,11 @@ public class ArtistDto {
 	private String phoneNumber;
 	private String artistDescription;
 	private float rating;
+	private String profilePictureURL;
 	
 	public ArtistDto() {}
 	
-	public ArtistDto(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription, float rating) {
+	public ArtistDto(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription, float rating, String profilePictureURL) {
 		this.userID = userID;
 		this.email = email;
 		this.password = password;
@@ -22,6 +23,7 @@ public class ArtistDto {
 		this.phoneNumber = phoneNumber;
 		this.artistDescription = artistDescription;
 		this.rating = rating;
+		this.profilePictureURL = profilePictureURL;
 	}
 	
 	public String getUserID() {
@@ -54,6 +56,14 @@ public class ArtistDto {
 	
 	public String getArtistDescription() {
 		return artistDescription;
+	}
+	
+	public String getProfilePictureURL() {
+		return this.profilePictureURL;
+	}
+	
+	public void serProfilePictureURL(String profilePictureURL) {
+		this.profilePictureURL=profilePictureURL;
 	}
 	
 }

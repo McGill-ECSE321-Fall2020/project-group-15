@@ -7,6 +7,7 @@ public class EndUserDto {
 	private String firstName;
 	private String lastName;
 	private String phoneNumber;
+	private String type;
 	
 	public EndUserDto() {}
 
@@ -41,5 +42,13 @@ public class EndUserDto {
 	
 	public String getPhoneNumber() {
 		return this.phoneNumber;
+	}
+	
+	public String getType() {
+		return this.type;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
 	}
 }

@@ -215,8 +215,9 @@ public class TestArtseePersistance {
 		String phoneNumber = "123456";
 		String artistDescription = "artistTestDescription";
 		Float rating = 4.2f;
+		String profilePicURL = "url";
 
-		Artist artist = createTestArtistWithoutReviewOrArtworks(artistID, email, password, firstName, lastName, phoneNumber, artistDescription, rating);
+		Artist artist = createTestArtistWithoutReviewOrArtworks(artistID, email, password, firstName, lastName, phoneNumber, artistDescription, rating, profilePicURL);
 
 		// Saving object to DB
 		artistRepository.save(artist);
@@ -234,6 +235,8 @@ public class TestArtseePersistance {
 		assertEquals(lastName, artist.getLastName());
 		assertEquals(phoneNumber, artist.getPhoneNumber());
 		assertEquals(rating, artist.getRating());
+		assertEquals(profilePicURL, artist.getProfilePictureURL());
+
 		
 		// Testing upudate
 		email = "new_artist@mail.ca";
@@ -267,6 +270,7 @@ public class TestArtseePersistance {
 		assertEquals(lastName, artist.getLastName());
 		assertEquals(phoneNumber, artist.getPhoneNumber());
 		assertEquals(rating, artist.getRating());
+		assertEquals(profilePicURL, artist.getProfilePictureURL());
 		
 		// Testing delete
 		artistRepository.delete(artist);
@@ -371,7 +375,8 @@ public class TestArtseePersistance {
 		String phoneNumber = "123456";
 		String artistDescription = "artistTestDescription";
 		Float rating = 4.2f;
-		Artist artist = createTestArtistWithoutReviewOrArtworks(artistID, email, password, firstName, lastName, phoneNumber, artistDescription, rating);
+		String profilePicURL = "url";
+		Artist artist = createTestArtistWithoutReviewOrArtworks(artistID, email, password, firstName, lastName, phoneNumber, artistDescription, rating, profilePicURL);
 		artistRepository.save(artist);
 		
 		// Creating Artwork object with test data
@@ -380,7 +385,9 @@ public class TestArtseePersistance {
 		Integer price = 1500;
 		Date dateOfCreation = java.sql.Date.valueOf(LocalDate.of(2020, Month.SEPTEMBER, 15));
 		Integer numInStock = 3;
-		Artwork artwork = createTestArtworkWithoutArtist(name, description, price, dateOfCreation, numInStock);
+		String imageURL = "url";
+		
+		Artwork artwork = createTestArtworkWithoutArtist(name, description, price, dateOfCreation, numInStock, imageURL);
 		artwork.setArtist(artist);
 		
 		// Saving object to DB
@@ -399,6 +406,7 @@ public class TestArtseePersistance {
 		assertEquals(price, artwork.getPrice());
 		assertEquals(dateOfCreation, artwork.getDateOfCreation());
 		assertEquals(numInStock, artwork.getNumInStock());
+		assertEquals(imageURL, artwork.getImageURL());
 		
 		// Comparing by keys
 		assertEquals(artist.getEmail(), artwork.getArtist().getEmail());
@@ -432,6 +440,7 @@ public class TestArtseePersistance {
 		assertEquals(price, artwork.getPrice());
 		assertEquals(dateOfCreation, artwork.getDateOfCreation());
 		assertEquals(numInStock, artwork.getNumInStock());
+		assertEquals(imageURL, artwork.getImageURL());
 		
 		// Testing delete
 		artworkRepository.delete(artwork);
@@ -465,7 +474,7 @@ public class TestArtseePersistance {
 		String artistPhoneNumber = "123456";
 		String artistDescription = "artistTestDescription";
 		Float artistRating = 4.2f;
-		Artist artist = createTestArtistWithoutReviewOrArtworks(artistID, artistEmail, artistPassword, artistFirstName, artistLastName, artistPhoneNumber, artistDescription, artistRating);
+		Artist artist = createTestArtistWithoutReviewOrArtworks(artistID, artistEmail, artistPassword, artistFirstName, artistLastName, artistPhoneNumber, artistDescription, artistRating, null);
 		artistRepository.save(artist);
 		
 		// Creating Review object with test data
@@ -653,7 +662,7 @@ public class TestArtseePersistance {
 		return customer;
 	}
 	
-	public Artist createTestArtistWithoutReviewOrArtworks(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription, Float rating){
+	public Artist createTestArtistWithoutReviewOrArtworks(String artistID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription, Float rating, String profilePictureURL){
 		Artist artist = new Artist();
 		artist.setUserID(artistID);
 		artist.setEmail(email);
@@ -663,16 +672,18 @@ public class TestArtseePersistance {
 		artist.setPhoneNumber(phoneNumber);
 		artist.setArtistDescription(artistDescription);
 		artist.setRating(rating);
+		artist.setProfilePictureURL(profilePictureURL);
 		return artist;
 	}
 	
-	public Artwork createTestArtworkWithoutArtist(String name, String description, Integer price, Date dateOfCreation , Integer numInStock){		
+	public Artwork createTestArtworkWithoutArtist(String name, String description, Integer price, Date dateOfCreation , Integer numInStock, String imageURL){		
 		Artwork artwork = new Artwork();
 		artwork.setName(name);
 		artwork.setDescription(description);
 		artwork.setPrice(price);
 		artwork.setDateOfCreation(dateOfCreation);
 		artwork.setNumInStock(numInStock);
+		artwork.setImageURL(imageURL);
 		return artwork;
 	}
 	

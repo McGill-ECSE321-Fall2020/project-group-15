@@ -19,7 +19,7 @@ public class TestUtility {
 
 
     // ---------- Artist Methods ----------------------------------------------------------------------------------------------------------------------------------
-    public static Artist createArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber,  String artistDescription) {
+    public static Artist createArtist(String artistID, String email, String password, String firstName, String lastName, String phoneNumber,  String artistDescription, String profilePictureURL) {
         Artist artist = new Artist(); 
         artist.setUserID(artistID);
 		artist.setEmail(email);
@@ -28,6 +28,7 @@ public class TestUtility {
 		artist.setLastName(lastName);
 		artist.setArtistDescription(artistDescription);
 		artist.setPhoneNumber(phoneNumber);
+		artist.setProfilePictureURL(profilePictureURL);
 		return artist;
     }
  // ---------- Customer Methods ----------------------------------------------------------------------------------------------------------------------------------
@@ -69,7 +70,7 @@ public class TestUtility {
 		return address;
     }
  // ---------- Artwork Methods ----------------------------------------------------------------------------------------------------------------------------------
-    public static Artwork createArtwork(int id, String name, int price, String description, Date dateCreated, int numInStock, Artist artist) {
+    public static Artwork createArtwork(int id, String name, int price, String description, Date dateCreated, int numInStock, Artist artist, String imageURL) {
         Artwork artwork = new Artwork();
         artwork.setName(name);
         artwork.setDescription(description);
@@ -78,6 +79,7 @@ public class TestUtility {
         artwork.setNumInStock(numInStock);
         artwork.setArtist(artist);
         artwork.setArtworkID(id);
+        artwork.setImageURL(imageURL);
         
         return artwork;
     }
@@ -104,12 +106,12 @@ public class TestUtility {
     	
     }
     
-    public static ArtistDto createArtistDto(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription, float rating) {
-    	return new ArtistDto(userID, email, password, firstName, lastName, phoneNumber, artistDescription, rating);
+    public static ArtistDto createArtistDto(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription, float rating, String profilePictureURL) {
+    	return new ArtistDto(userID, email, password, firstName, lastName, phoneNumber, artistDescription, rating, profilePictureURL);
     }
     
-    public static ArtworkDto createArtworkDto(Integer id, String name, String description, int price, Date date, int numInStock, ArtistDto aDto) {
-    	return new ArtworkDto(id, name, description, price, date, numInStock, aDto);
+    public static ArtworkDto createArtworkDto(Integer id, String name, String description, int price, Date date, int numInStock, String imageURL, ArtistDto aDto) {
+    	return new ArtworkDto(id, name, description, price, date, numInStock, aDto, imageURL);
     }
     
     public static ArtworkOrderDto createArtworkOrderDto(Integer orderID, DeliveryMethodDto deliveryMethodDto, CustomerDto customer, List<ArtworkDto> artworks) {

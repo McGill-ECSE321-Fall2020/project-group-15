@@ -61,7 +61,8 @@ public class TestArtworkOrderService {
 	private static final Date DATEMADE1 = Date.valueOf("2020-10-31");
 	private static final int ARTSTOCK1 = 2;
 	private static final Artist ARTIST1 = new Artist();
-	private static final Artwork ARTWORK1 = TestUtility.createArtwork(ARTID, ARTNAME1, ARTPRICE1, ARTDESC1, DATEMADE1, ARTSTOCK1, ARTIST1);
+    private static final String imageURL = "url";
+	private static final Artwork ARTWORK1 = TestUtility.createArtwork(ARTID, ARTNAME1, ARTPRICE1, ARTDESC1, DATEMADE1, ARTSTOCK1, ARTIST1, imageURL);
 
 	
 	private static final int ARTID2 = 2;
@@ -71,7 +72,7 @@ public class TestArtworkOrderService {
 	private static final Date DATEMADE2 = Date.valueOf("2020-11-01");
 	private static final int ARTSTOCK2 = 4;
 	private static final Artist ARTIST2 = new Artist();
-	private static final Artwork ARTWORK2 = TestUtility.createArtwork(ARTID2, ARTNAME2, ARTPRICE2, ARTDESC2, DATEMADE2, ARTSTOCK2, ARTIST2);
+	private static final Artwork ARTWORK2 = TestUtility.createArtwork(ARTID2, ARTNAME2, ARTPRICE2, ARTDESC2, DATEMADE2, ARTSTOCK2, ARTIST2, imageURL);
 	
 	private static final int ARTID3 = 3;
 	private static final String ARTNAME3 = "early morning sun";
@@ -80,7 +81,7 @@ public class TestArtworkOrderService {
 	private static final Date DATEMADE3 = Date.valueOf("2020-11-01");
 	private static final int ARTSTOCK3 = 0;
 	private static final Artist ARTIST3 = new Artist();
-	private static final Artwork ARTWORK3 = TestUtility.createArtwork(ARTID3, ARTNAME3, ARTPRICE3, ARTDESC3, DATEMADE3, ARTSTOCK3, ARTIST3);
+	private static final Artwork ARTWORK3 = TestUtility.createArtwork(ARTID3, ARTNAME3, ARTPRICE3, ARTDESC3, DATEMADE3, ARTSTOCK3, ARTIST3, imageURL);
 	
 	private static final int ARTID4 = 4;
 	private static final String ARTNAME4 = "noon";
@@ -89,7 +90,7 @@ public class TestArtworkOrderService {
 	private static final Date DATEMADE4 = Date.valueOf("2020-11-01");
 	private static final int ARTSTOCK4 = 50;
 	private static final Artist ARTIST4 = new Artist();
-	private static final Artwork ARTWORK4 = TestUtility.createArtwork(ARTID4, ARTNAME4, ARTPRICE4, ARTDESC4, DATEMADE4, ARTSTOCK4, ARTIST4);
+	private static final Artwork ARTWORK4 = TestUtility.createArtwork(ARTID4, ARTNAME4, ARTPRICE4, ARTDESC4, DATEMADE4, ARTSTOCK4, ARTIST4, imageURL);
 
 	@BeforeEach
 	public void setMockOuput() {
