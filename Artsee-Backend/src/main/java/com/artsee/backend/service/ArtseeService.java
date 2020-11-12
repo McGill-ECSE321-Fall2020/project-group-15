@@ -51,6 +51,7 @@ public class ArtseeService {
 		} else if(!user.getPassword().equals(password)) {
 			throw new IllegalArgumentException("Password is incorrect.");
 		}
+		
 		return user;
 	}
 	

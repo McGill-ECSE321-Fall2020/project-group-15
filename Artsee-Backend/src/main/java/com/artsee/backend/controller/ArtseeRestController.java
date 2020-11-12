@@ -61,7 +61,7 @@ public class ArtseeRestController {
 	@PostMapping(value = {"/signIn", "/signIn/"})
 	public ResponseEntity<?> signIn(@RequestBody SignInDto signInDto) {
 		try {
-			return new ResponseEntity<>(service.signIn(signInDto.getUserID(), signInDto.getPassword()), HttpStatus.OK);
+			return new ResponseEntity<>(convertToDto(service.signIn(signInDto.getUserID(), signInDto.getPassword())), HttpStatus.OK);
 		}
 		catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
@@ -509,7 +509,18 @@ public class ArtseeRestController {
 			if(user==null) {
 				throw new IllegalArgumentException("There is no such User.");
 			}
-			return new EndUserDto(user.getUserID(), user.getEmail(), user.getPassword(), user.getFirstName(),user.getLastName(), user.getPhoneNumber());
+			
+			EndUserDto userDto = new EndUserDto(user.getUserID(), user.getEmail(), user.getPassword(), user.getFirstName(),user.getLastName(), user.getPhoneNumber());;
+			
+			if (user instanceof Customer) {
+				userDto.setType("Customer");
+			} else if (user instanceof Artist) {
+				userDto.setType("Artist");
+			} else if (user instanceof Administrator) {
+				userDto.setType("Administrator");
+			}
+			
+			return userDto;
 		}
 		
 	private CustomerDto convertToDto(Customer customer) {
