@@ -59,7 +59,8 @@ public class TestArtistController {
     private static final String LASTNAME = "Doe";
     private static final String PHONE_NUM = "8675309";
     private static final String DESCRIPTION = "i like to paint";
-    
+    private static final String profilePictureURL = "url";
+    		
     private static final String ARTIST_ID2 = "37292";
     private static final String EMAIL2 = "otherArtist@gmail.com";
     private static final String PASSWORD2 = "newpassword";
@@ -68,8 +69,8 @@ public class TestArtistController {
     private static final String PHONE_NUM2 = "8675310";
     private static final String DESCRIPTION2 = "i like to sculpt";
 
-    private static final Artist ARTIST = TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
-    private static final Artist ARTIST2 = TestUtility.createArtist(ARTIST_ID2, EMAIL2, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION2);
+    private static final Artist ARTIST = TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION, profilePictureURL);
+    private static final Artist ARTIST2 = TestUtility.createArtist(ARTIST_ID2, EMAIL2, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, DESCRIPTION2, profilePictureURL);
     
     @Before
     @After

@@ -46,7 +46,9 @@ public class TestArtworkService {
     private static final String DESCRIPTION = "is very nice";
     private static final Date DATE_CREATED = Date.valueOf("2010-01-05");
     private static final int NUM_IN_STOCK = 1;
+    private static final String imageURL = "url";
 
+    
     @BeforeEach
     public void setMockOutput() {
 
@@ -57,7 +59,7 @@ public class TestArtworkService {
             if (invocation.getArgument(0).equals(ARTIST)) {
                 List<Artwork> artList = new ArrayList<Artwork>();
                 artList.add(
-                        TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST));
+                        TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST, imageURL));
                 return artList;
             } else {
                 return null;
@@ -83,7 +85,7 @@ public class TestArtworkService {
         lenient().when(artworkDao.findById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
             if (invocation.getArgument(0).equals(ID)) {
                 return Optional.of(
-                        TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST));
+                        TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST, imageURL));
             } else {
                 return Optional.empty();
             }
@@ -100,7 +102,7 @@ public class TestArtworkService {
         Artwork art = null;
 
         try {
-            art = service.createArtwork(NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
+            art = service.createArtwork(NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, imageURL, ARTIST);
             art.setArtworkID(ID);
         } catch (Exception e) {
             fail(e.getMessage());
@@ -120,7 +122,7 @@ public class TestArtworkService {
         String error = null;
 
         try {
-            service.createArtwork("", PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
+            service.createArtwork("", PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, imageURL, ARTIST);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -130,7 +132,7 @@ public class TestArtworkService {
         error = null;
 
         try {
-            service.createArtwork(null, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
+            service.createArtwork(null, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, imageURL, ARTIST);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -143,7 +145,7 @@ public class TestArtworkService {
         String error = null;
 
         try {
-            service.createArtwork(NAME, -1, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
+            service.createArtwork(NAME, -1, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, imageURL, ARTIST);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -156,7 +158,7 @@ public class TestArtworkService {
         String error = null;
 
         try {
-            service.createArtwork(NAME, PRICE, "", DATE_CREATED, NUM_IN_STOCK, ARTIST);
+            service.createArtwork(NAME, PRICE, "", DATE_CREATED, NUM_IN_STOCK, imageURL, ARTIST);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -166,7 +168,7 @@ public class TestArtworkService {
         error = null;
 
         try {
-            service.createArtwork(NAME, PRICE, null, DATE_CREATED, NUM_IN_STOCK, ARTIST);
+            service.createArtwork(NAME, PRICE, null, DATE_CREATED, NUM_IN_STOCK, imageURL, ARTIST);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -179,7 +181,7 @@ public class TestArtworkService {
         String error = null;
 
         try {
-            service.createArtwork(NAME, PRICE, DESCRIPTION, Date.valueOf("2050-01-01"), NUM_IN_STOCK, ARTIST);
+            service.createArtwork(NAME, PRICE, DESCRIPTION, Date.valueOf("2050-01-01"), NUM_IN_STOCK, imageURL, ARTIST);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -189,7 +191,7 @@ public class TestArtworkService {
         error = null;
 
         try {
-            service.createArtwork(NAME, PRICE, DESCRIPTION, null, NUM_IN_STOCK, ARTIST);
+            service.createArtwork(NAME, PRICE, DESCRIPTION, null, NUM_IN_STOCK, imageURL, ARTIST);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -202,7 +204,7 @@ public class TestArtworkService {
         String error = null;
 
         try {
-            service.createArtwork(NAME, PRICE, DESCRIPTION, DATE_CREATED, -1, ARTIST);
+            service.createArtwork(NAME, PRICE, DESCRIPTION, DATE_CREATED, -1, imageURL, ARTIST);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -215,7 +217,7 @@ public class TestArtworkService {
         String error = null;
 
         try {
-            service.createArtwork(NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, null);
+            service.createArtwork(NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, imageURL, null);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -225,7 +227,7 @@ public class TestArtworkService {
         error = null;
 
         try {
-            service.createArtwork(NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, new Artist());
+            service.createArtwork(NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, imageURL, new Artist());
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -265,10 +267,10 @@ public class TestArtworkService {
     @Test
     public void testUpdateArtwork() {
         Artwork art = null;
-        Artwork a = TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
+        Artwork a = TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST, imageURL);
 
         try {
-            art = service.updateArtwork(a, "car", 123, "i dont like art", DATE_CREATED, 24, ARTIST);
+            art = service.updateArtwork(a, "car", 123, "i dont like art", DATE_CREATED, 24, imageURL, ARTIST);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -285,9 +287,9 @@ public class TestArtworkService {
     @Test
     public void testUpdateArtworkMissingName() {
         String error = null;
-        Artwork a = TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
+        Artwork a = TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST, imageURL);
         try {
-            service.updateArtwork(a, "", PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
+            service.updateArtwork(a, "", PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, imageURL, ARTIST);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -297,7 +299,7 @@ public class TestArtworkService {
         error = null;
 
         try {
-            service.updateArtwork(a, null, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
+            service.updateArtwork(a, null, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, imageURL, ARTIST);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -308,9 +310,9 @@ public class TestArtworkService {
     @Test
     public void testUpdateArtworkMissingPrice() {
         String error = null;
-        Artwork a = TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
+        Artwork a = TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST, imageURL);
         try {
-            service.updateArtwork(a, NAME, -1, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
+            service.updateArtwork(a, NAME, -1, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, imageURL, ARTIST);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -321,9 +323,9 @@ public class TestArtworkService {
     @Test
     public void testUpdateArtworkMissingDescription() {
         String error = null;
-        Artwork a = TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
+        Artwork a = TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST, imageURL);
         try {
-            service.updateArtwork(a, NAME, PRICE, "", DATE_CREATED, NUM_IN_STOCK, ARTIST);
+            service.updateArtwork(a, NAME, PRICE, "", DATE_CREATED, NUM_IN_STOCK, imageURL, ARTIST);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -333,7 +335,7 @@ public class TestArtworkService {
         error = null;
 
         try {
-            service.updateArtwork(a, NAME, PRICE, null, DATE_CREATED, NUM_IN_STOCK, ARTIST);
+            service.updateArtwork(a, NAME, PRICE, null, DATE_CREATED, NUM_IN_STOCK, imageURL, ARTIST);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -344,9 +346,9 @@ public class TestArtworkService {
     @Test
     public void testUpdateArtworkMissingDateCreated() {
         String error = null;
-        Artwork a = TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
+        Artwork a = TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST, imageURL);
         try {
-            service.updateArtwork(a, NAME, PRICE, DESCRIPTION, Date.valueOf("2050-01-01"), NUM_IN_STOCK, ARTIST);
+            service.updateArtwork(a, NAME, PRICE, DESCRIPTION, Date.valueOf("2050-01-01"), NUM_IN_STOCK, imageURL, ARTIST);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -356,7 +358,7 @@ public class TestArtworkService {
         error = null;
 
         try {
-            service.updateArtwork(a, NAME, PRICE, DESCRIPTION, null, NUM_IN_STOCK, ARTIST);
+            service.updateArtwork(a, NAME, PRICE, DESCRIPTION, null, NUM_IN_STOCK, imageURL, ARTIST);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -367,9 +369,9 @@ public class TestArtworkService {
     @Test
     public void testUpdateArtworkMissingNumInStock() {
         String error = null;
-        Artwork a = TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
+        Artwork a = TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST, imageURL);
         try {
-            service.updateArtwork(a, NAME, PRICE, DESCRIPTION, DATE_CREATED, -1, ARTIST);
+            service.updateArtwork(a, NAME, PRICE, DESCRIPTION, DATE_CREATED, -1, imageURL, ARTIST);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -380,9 +382,9 @@ public class TestArtworkService {
     @Test
     public void testUpdateArtworkMissingArtist() {
         String error = null;
-        Artwork a = TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
+        Artwork a = TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST, imageURL);
         try {
-            service.updateArtwork(a, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, null);
+            service.updateArtwork(a, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, imageURL, null);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -392,7 +394,7 @@ public class TestArtworkService {
         error = null;
 
         try {
-            service.updateArtwork(a, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, new Artist());
+            service.updateArtwork(a, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, imageURL, new Artist());
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -404,7 +406,7 @@ public class TestArtworkService {
     public void testUpdateArtworkNonExistent() {
         String error = null;
         try {
-            service.updateArtwork(null, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
+            service.updateArtwork(null, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, imageURL, ARTIST);
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -430,7 +432,7 @@ public class TestArtworkService {
     	String error = null;
     	Artist artist = new Artist();
     	Set<Artwork> artworks = new HashSet<Artwork>();
-    	Artwork artwork1 = service.createArtwork(NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
+    	Artwork artwork1 = service.createArtwork(NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, imageURL, ARTIST);
     	artworks.add(artwork1);
     	artist.setArtworks(artworks);
     	Set<Artwork> artworks2 =new HashSet<Artwork>();

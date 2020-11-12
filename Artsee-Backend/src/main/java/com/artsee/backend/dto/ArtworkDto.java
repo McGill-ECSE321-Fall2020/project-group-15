@@ -11,10 +11,11 @@ public class ArtworkDto {
 	private Date dateOfCreation;
 	private Integer numInStock;
 	private ArtistDto artist;
-
+	private String imageURL;
+	
 	public ArtworkDto() {}
 
-	public ArtworkDto(Integer id, String name, String description, int price, Date date, int numInStock, ArtistDto aDto) {
+	public ArtworkDto(Integer id, String name, String description, int price, Date date, int numInStock, ArtistDto aDto, String imageURL) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -22,6 +23,7 @@ public class ArtworkDto {
 		this.dateOfCreation = date;
 		this.numInStock = numInStock;
 		this.artist = aDto;
+		this.imageURL = imageURL;
 	}
 	
 	public Integer getID() {
@@ -68,5 +70,13 @@ public class ArtworkDto {
 	}
 	public void setArtist(ArtistDto artist) {
 	   this.artist = artist;
+	}
+	
+	public String getImageURL() {
+		return this.imageURL;
+	}
+	
+	public void setImageURL(String imageURL) {
+		this.imageURL=imageURL;
 	}
 }

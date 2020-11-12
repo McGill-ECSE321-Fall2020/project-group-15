@@ -47,4 +47,14 @@ public class Artist extends EndUser{
 	   this.artworks = artworkss;
 	}
 
+	private String profilePictureURL;
+	
+	public String getProfilePictureURL() {
+		return this.profilePictureURL;
+	}
+	
+	public void setProfilePictureURL(String profilePictureURL) {
+		this.profilePictureURL = profilePictureURL;
+	}
+	
 }
