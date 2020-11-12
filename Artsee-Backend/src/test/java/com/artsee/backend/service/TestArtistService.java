@@ -68,7 +68,7 @@ public class TestArtistService {
     public void setMockOutput() {
         lenient().when(artistDao.findByEmail(anyString())).thenAnswer((InvocationOnMock invocation) -> {
             if(invocation.getArgument(0).equals(EMAIL)) {
-                return TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+                return TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION, profilePictureURL);
             } else {
                 return null;
             }
@@ -78,9 +78,9 @@ public class TestArtistService {
 
         lenient().when(artistDao.findById(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
             if(invocation.getArgument(0).equals(ARTIST_ID)) {
-                return Optional.of(TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION));
+                return Optional.of(TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION, profilePictureURL));
             } else if(invocation.getArgument(0).equals(ARTIST_ID3)) {
-            	return Optional.of(TestUtility.createArtist(ARTIST_ID3, EMAIL3, PASSWORD3, FIRSTNAME3, LASTNAME3, PHONE_NUM3, DESCRIPTION3));
+            	return Optional.of(TestUtility.createArtist(ARTIST_ID3, EMAIL3, PASSWORD3, FIRSTNAME3, LASTNAME3, PHONE_NUM3, DESCRIPTION3, profilePictureURL));
             }else {
                 return Optional.empty();
             }
@@ -90,7 +90,7 @@ public class TestArtistService {
         lenient().when(userDao.findById(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
             if(invocation.getArgument(0).equals(ARTIST_ID)) {
                 EndUser user = Mockito.mock(EndUser.class, Mockito.CALLS_REAL_METHODS);
-                user = TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+                user = TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION, profilePictureURL);
                 return Optional.of(user);
             } else {
                 return Optional.empty();
@@ -99,7 +99,7 @@ public class TestArtistService {
 
         lenient().when(userDao.findByEmail(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
             if(invocation.getArgument(0).equals(EMAIL)) {
-                return TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+                return TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION, profilePictureURL);
             } else {
                 return null;
             }
@@ -107,7 +107,7 @@ public class TestArtistService {
 
 
         lenient().when(artistDao.save(any(Artist.class))).thenAnswer((InvocationOnMock invocation) -> {
-            return TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+            return TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION, profilePictureURL);
 
         });
     }

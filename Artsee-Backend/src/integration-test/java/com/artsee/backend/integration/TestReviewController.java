@@ -43,7 +43,8 @@ public class TestReviewController {
     private static final String LASTNAME = "Doe";
     private static final String PHONE_NUM = "8675309";
     private static final String ARTIST_DESCRIPTION = "i like to paint";
-    
+    private static final String profilePictureURL = "url";
+
     private static final String ARTIST_ID2 = "37292";
     private static final String EMAIL2 = "otherArtist@gmail.com";
     private static final String PASSWORD2 = "newpassword";
@@ -52,8 +53,8 @@ public class TestReviewController {
     private static final String PHONE_NUM2 = "8675310";
     private static final String ARTIST_DESCRIPTION2 = "i like to sculpt";
 
-    private static final Artist ARTIST = TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ARTIST_DESCRIPTION);
-    private static final Artist ARTIST2 = TestUtility.createArtist(ARTIST_ID2, EMAIL2, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, ARTIST_DESCRIPTION2);
+    private static final Artist ARTIST = TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ARTIST_DESCRIPTION, profilePictureURL);
+    private static final Artist ARTIST2 = TestUtility.createArtist(ARTIST_ID2, EMAIL2, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, ARTIST_DESCRIPTION2, profilePictureURL);
 
     private static final int ADDRESS_ID = 1;
     private static final String LINE1 = "5555 street";

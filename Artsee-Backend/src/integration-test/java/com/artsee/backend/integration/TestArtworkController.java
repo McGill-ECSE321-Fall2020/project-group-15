@@ -64,6 +64,8 @@ public class TestArtworkController {
     private static final String PHONE_NUM = "8675309";
     private static final String ARTIST_DESCRIPTION = "i like to paint";
     private static final float ARTIST_RATING = 0;
+    private static final String profilePictureURL = "url";
+    private static final String imageURL = "url";
     
     private static final String ARTIST_ID2 = "37292";
     private static final String EMAIL2 = "otherArtist@gmail.com";
@@ -73,11 +75,11 @@ public class TestArtworkController {
     private static final String PHONE_NUM2 = "8675310";
     private static final String ARTIST_DESCRIPTION2 = "i like to sculpt";
 
-    private static final Artist ARTIST = TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ARTIST_DESCRIPTION);
-    private static final Artist ARTIST2 = TestUtility.createArtist(ARTIST_ID2, EMAIL2, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, ARTIST_DESCRIPTION2);
+    private static final Artist ARTIST = TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ARTIST_DESCRIPTION, profilePictureURL);
+    private static final Artist ARTIST2 = TestUtility.createArtist(ARTIST_ID2, EMAIL2, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, ARTIST_DESCRIPTION2, profilePictureURL);
     
-    private static final ArtistDto ARTISTDTO = TestUtility.createArtistDto(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ARTIST_DESCRIPTION, ARTIST_RATING);
-    private static final ArtistDto ARTISTDTO2 = TestUtility.createArtistDto(ARTIST_ID2, EMAIL2, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, ARTIST_DESCRIPTION2, ARTIST_RATING);
+    private static final ArtistDto ARTISTDTO = TestUtility.createArtistDto(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, ARTIST_DESCRIPTION, ARTIST_RATING, profilePictureURL);
+    private static final ArtistDto ARTISTDTO2 = TestUtility.createArtistDto(ARTIST_ID2, EMAIL2, PASSWORD2, FIRSTNAME2, LASTNAME2, PHONE_NUM2, ARTIST_DESCRIPTION2, ARTIST_RATING, profilePictureURL);
     
     private static final int ID = 1234;
     private static final String USER_ID = "423";
@@ -95,11 +97,11 @@ public class TestArtworkController {
     private static final Date DATE_CREATED2 = Date.valueOf("2010-01-05");
     private static final int NUM_IN_STOCK2 = 1;
 
-    private static final Artwork ARTWORK = TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST);
-    private static final Artwork ARTWORK2 = TestUtility.createArtwork(ID2, NAME2, PRICE2, DESCRIPTION2, DATE_CREATED2, NUM_IN_STOCK2, ARTIST2);
+    private static final Artwork ARTWORK = TestUtility.createArtwork(ID, NAME, PRICE, DESCRIPTION, DATE_CREATED, NUM_IN_STOCK, ARTIST, imageURL);
+    private static final Artwork ARTWORK2 = TestUtility.createArtwork(ID2, NAME2, PRICE2, DESCRIPTION2, DATE_CREATED2, NUM_IN_STOCK2, ARTIST2, imageURL);
 
-    private static final ArtworkDto ARTWORKDTO = TestUtility.createArtworkDto(ID, NAME, DESCRIPTION, PRICE, DATE_CREATED, NUM_IN_STOCK, ARTISTDTO);
-    private static final ArtworkDto ARTWORKDTO2 = TestUtility.createArtworkDto(ID2, NAME2, DESCRIPTION2, PRICE2, DATE_CREATED2, NUM_IN_STOCK2, ARTISTDTO2);
+    private static final ArtworkDto ARTWORKDTO = TestUtility.createArtworkDto(ID, NAME, DESCRIPTION, PRICE, DATE_CREATED, NUM_IN_STOCK, imageURL, ARTISTDTO);
+    private static final ArtworkDto ARTWORKDTO2 = TestUtility.createArtworkDto(ID2, NAME2, DESCRIPTION2, PRICE2, DATE_CREATED2, NUM_IN_STOCK2, imageURL, ARTISTDTO2);
 
     @Before
     @After

@@ -183,7 +183,7 @@ public class ArtseeRestController {
 	@PostMapping(value = {"/artists", "/artists/"}, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> createArtist(@RequestBody ArtistDto artistDto) {
 		try {
-			Artist artist = service.createArtist(artistDto.getUserID(), artistDto.getEmail(), artistDto.getPassword(), artistDto.getFirstName(), artistDto.getLastName(), artistDto.getPhoneNumber(), artistDto.getArtistDescription(), profilePictureURL);
+			Artist artist = service.createArtist(artistDto.getUserID(), artistDto.getEmail(), artistDto.getPassword(), artistDto.getFirstName(), artistDto.getLastName(), artistDto.getPhoneNumber(), artistDto.getArtistDescription(), artistDto.getProfilePictureURL());
 			return new ResponseEntity<>(convertToDto(artist), HttpStatus.OK);
 		}
 		catch(IllegalArgumentException e) {
@@ -222,7 +222,7 @@ public class ArtseeRestController {
 		try {
 			Artist artist = service.updateArtist(artistDto.getUserID(), artistDto.getEmail(), 
 					artistDto.getPassword(), artistDto.getFirstName(), artistDto.getLastName(), 
-					artistDto.getPhoneNumber(), artistDto.getArtistDescription(), profilePictureURL);
+					artistDto.getPhoneNumber(), artistDto.getArtistDescription(), artistDto.getProfilePictureURL());
 			return new ResponseEntity<>(convertToDto(artist), HttpStatus.OK);
 		}
 		catch (Exception e) {
@@ -398,7 +398,7 @@ public class ArtseeRestController {
 	public ResponseEntity<?> createArtwork(@RequestBody ArtworkDto artworkDto) {
 		try {
 			Artist artist = service.getArtistByID(artworkDto.getArtist().getUserID());
-			Artwork artwork = service.createArtwork(artworkDto.getName(), artworkDto.getPrice(), artworkDto.getDescription(), artworkDto.getDateOfCreation(), artworkDto.getNumInStock(), imageURL, artist);
+			Artwork artwork = service.createArtwork(artworkDto.getName(), artworkDto.getPrice(), artworkDto.getDescription(), artworkDto.getDateOfCreation(), artworkDto.getNumInStock(), artworkDto.getImageURL(), artist);
 			return new ResponseEntity<>(convertToDto(artwork), HttpStatus.OK);
 		}
 		catch (Exception e) {
@@ -411,7 +411,7 @@ public class ArtseeRestController {
 		try {
 			Artist artist = service.getArtistByID(artworkDto.getArtist().getUserID());
 			Artwork curr = service.getArtworkById(artworkDto.getID());
-			Artwork artwork = service.updateArtwork(curr, artworkDto.getName(), artworkDto.getPrice(), artworkDto.getDescription(), artworkDto.getDateOfCreation(), artworkDto.getNumInStock(), imageURL, artist);
+			Artwork artwork = service.updateArtwork(curr, artworkDto.getName(), artworkDto.getPrice(), artworkDto.getDescription(), artworkDto.getDateOfCreation(), artworkDto.getNumInStock(), artworkDto.getImageURL(), artist);
 			return new ResponseEntity<>(convertToDto(artwork), HttpStatus.OK);
 		}
 		catch (Exception e) {
@@ -530,7 +530,7 @@ public class ArtseeRestController {
 			if(artist==null) {
 				throw new IllegalArgumentException("There is no such Artist.");
 			}
-			return new ArtistDto(artist.getUserID(), artist.getEmail(), artist.getPassword(), artist.getFirstName(),artist.getLastName(), artist.getPhoneNumber(),artist.getArtistDescription(), artist.getRating());
+			return new ArtistDto(artist.getUserID(), artist.getEmail(), artist.getPassword(), artist.getFirstName(),artist.getLastName(), artist.getPhoneNumber(),artist.getArtistDescription(), artist.getRating(), artist.getProfilePictureURL());
 		}
 		
 	private AddressDto convertToDto(Address address) {
@@ -560,7 +560,7 @@ public class ArtseeRestController {
 			if(artwork==null) {
 				throw new IllegalArgumentException("There is no such Artwork.");
 			}
-			ArtworkDto artworkDto = new ArtworkDto(artwork.getArtworkID(), artwork.getName(), artwork.getDescription(), artwork.getPrice(), artwork.getDateOfCreation(), artwork.getNumInStock(), convertToDto(artwork.getArtist()));
+			ArtworkDto artworkDto = new ArtworkDto(artwork.getArtworkID(), artwork.getName(), artwork.getDescription(), artwork.getPrice(), artwork.getDateOfCreation(), artwork.getNumInStock(), convertToDto(artwork.getArtist()), artwork.getImageURL());
 			return artworkDto;
 		}
 		
