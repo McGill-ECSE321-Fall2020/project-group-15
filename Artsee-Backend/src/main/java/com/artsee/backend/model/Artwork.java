@@ -87,5 +87,16 @@ public class Artwork{
 	public void setArtist(Artist artist) {
 	   this.artist = artist;
 	}
+	
+	private String imageURL;
+	
+	public void setImageURL(String imageURL) {
+		   this.imageURL = imageURL;
+	}
+	
+	public String getImageURL() {
+		   return this.imageURL;
+	}
+	
 }
 
