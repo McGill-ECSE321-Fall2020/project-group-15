@@ -11,6 +11,7 @@ import SignupArtist from '@/components/SignupArtist'
 import SignupAdministrator from '@/components/SignupAdministrator'
 import Artworks from '@/components/Artworks'
 import Reviews from '@/components/Reviews'
+import ArtworkForm from '@/components/ArtworkForm'
 
 
 Vue.use(Router)
@@ -66,6 +67,11 @@ export default new Router({
       path: '/reviews',
       name: 'Reviews',
       component: Reviews
+    },
+    {
+      path: '/artwork/new',
+      name: 'ArtworkForm',
+      component: ArtworkForm
     }
   ]
 })
