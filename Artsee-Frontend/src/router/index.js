@@ -9,7 +9,7 @@ import Navbar from '@/components/Navbar'
 import SignupCustomer from '@/components/SignupCustomer'
 import SignupArtist from '@/components/SignupArtist'
 import SignupAdministrator from '@/components/SignupAdministrator'
-
+import ItemListing from '@/components/ItemListing'
 
 Vue.use(Router)
 
@@ -54,6 +54,12 @@ export default new Router({
       path: '/signup/administrator',
       name: 'SignupAdministrator',
       component: SignupAdministrator
+    },
+    {
+      path: '/item',
+      name: 'itemList',
+      component: ItemListing
     }
+
   ]
 })
