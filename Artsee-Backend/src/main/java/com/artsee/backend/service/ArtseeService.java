@@ -51,6 +51,7 @@ public class ArtseeService {
 		} else if(!user.getPassword().equals(password)) {
 			throw new IllegalArgumentException("Password is incorrect.");
 		}
+		
 		return user;
 	}
 	
@@ -279,7 +280,7 @@ public class ArtseeService {
 	// Artist Service Layer ___________________________________________________________________________________
 
 	@Transactional
-	public Artist createArtist(String userID, String email, String password, String firstName, String lastName, String phoneNumber,  String artistDescription) throws IllegalArgumentException{
+	public Artist createArtist(String userID, String email, String password, String firstName, String lastName, String phoneNumber,  String artistDescription, String profilePictureURL) throws IllegalArgumentException{
 		Artist artist= new Artist();
 		String e = "";
 		
@@ -322,6 +323,7 @@ public class ArtseeService {
 		artist.setLastName(lastName);
 		artist.setArtistDescription(artistDescription);
 		artist.setPhoneNumber(phoneNumber);
+		artist.setProfilePictureURL(profilePictureURL);
 		artistRepository.save(artist);
 		return artist;
 	}
@@ -367,7 +369,7 @@ public class ArtseeService {
 	}
 	
 	@Transactional
-	public Artist updateArtist(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription) throws IllegalArgumentException{
+	public Artist updateArtist(String userID, String email, String password, String firstName, String lastName, String phoneNumber, String artistDescription, String profilePictureURL) throws IllegalArgumentException{
 		String e = "";
 
 		if (nonValidString(userID)) {
@@ -411,6 +413,7 @@ public class ArtseeService {
 		artist.setPassword(password);
 		artist.setPhoneNumber(phoneNumber);
 		artist.setArtistDescription(artistDescription);
+		artist.setProfilePictureURL(profilePictureURL);
 		artistRepository.save(artist);
 		
 		
@@ -558,7 +561,7 @@ public class ArtseeService {
 	// Artwork Service Layer ___________________________________________________________________________________
 	
 	@Transactional
-    public Artwork createArtwork(String name, int price, String description, Date dateCreated, int numInStock, Artist artist) {
+    public Artwork createArtwork(String name, int price, String description, Date dateCreated, int numInStock, String imageURL, Artist artist) {
 		String error = "";
 
         if (nonValidString(name)) {
@@ -636,7 +639,7 @@ public class ArtseeService {
 	
 	@Transactional 
 	public Artwork updateArtwork(Artwork artwork, String name, Integer price, String description,
-			Date date, Integer numInStock, Artist artist) {
+			Date date, Integer numInStock, String imageURL, Artist artist) {
 		
 		String error = "";
         if (nonValidString(name)) {

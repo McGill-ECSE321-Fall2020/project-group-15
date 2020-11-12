@@ -46,6 +46,7 @@ public class TestReviewService {
 	private static final Artist ARTIST = new Artist();
 	private static final String ARTIST_ID = "1234";
     private static final String CUSTOMER_ID = "3245";
+    private static final String profilePictureURL = "url";
     
     private static final Integer RATING2 = 2;
     private static final String COMMENT2 = "A nice artwork";
@@ -106,7 +107,7 @@ public class TestReviewService {
 		});
 		
 		lenient().when(artistDao.save(any(Artist.class))).thenAnswer((InvocationOnMock invocation) -> {
-            return TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+            return TestUtility.createArtist(ARTIST_ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION, profilePictureURL);
 
         });
 

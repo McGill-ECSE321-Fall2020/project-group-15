@@ -42,6 +42,7 @@ public class TestArtseeServiceMethods {
     private static final String LASTNAME = "Doe";
     private static final String PHONE_NUM = "8675309";
     private static final String DESCRIPTION = "i like to paint";
+    private static final String profilePictureURL = "url";
 
     @BeforeEach
     public void setMockOutput() {
@@ -49,7 +50,7 @@ public class TestArtseeServiceMethods {
         lenient().when(userDao.findById(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
             if(invocation.getArgument(0).equals(ID)) {
                 EndUser user = Mockito.mock(EndUser.class, Mockito.CALLS_REAL_METHODS);
-                user = TestUtility.createArtist(ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION);
+                user = TestUtility.createArtist(ID, EMAIL, PASSWORD, FIRSTNAME, LASTNAME, PHONE_NUM, DESCRIPTION, profilePictureURL);
                 return Optional.of(user);
             } else {
                 return Optional.empty();
