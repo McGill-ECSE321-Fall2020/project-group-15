@@ -10,6 +10,7 @@ import SignupCustomer from '@/components/SignupCustomer'
 import SignupArtist from '@/components/SignupArtist'
 import SignupAdministrator from '@/components/SignupAdministrator'
 import Artworks from '@/components/Artworks'
+import Reviews from '@/components/Reviews'
 
 
 Vue.use(Router)
@@ -58,8 +59,13 @@ export default new Router({
     },
     {
       path: '/artworks',
-      name: 'Artworks',
+      name : 'Artworks',
       component: Artworks
+    },
+    {
+      path: '/reviews',
+      name: 'Reviews',
+      component: Reviews
     }
   ]
 })

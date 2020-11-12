@@ -1,6 +1,6 @@
 <template>
 <nav class="navbar fixed-top navbar-expand-lg navbar-light">
-  <div v-if="false">
+  <div v-if= "false">
     NavMode: {{navMode}}
   </div>
     <a class="navbar-brand" id="logoBox">
