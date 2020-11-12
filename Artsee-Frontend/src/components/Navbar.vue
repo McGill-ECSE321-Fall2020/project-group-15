@@ -24,6 +24,9 @@
       <li class="nav-item" v-if="!navMode">
         <a class="nav-link" href="#">Orders</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="?/reviews">Reviews</a>
+      </li>
     </ul>
     <li class="navbar-text">
       <a class="nav-link" href="#">Settings</a>

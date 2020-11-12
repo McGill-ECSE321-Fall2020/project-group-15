@@ -7,9 +7,12 @@
       <div id="navbarContainer">
         <Navbar navMode="false" />
       </div>
-      <button type="submit" class="btn btn-primary">
-        New Artwork
-      </button>
+      <main class="container">
+        <button
+          class="btn btn-primary"
+        >New Artwork
+        </button>
+      </main>
       <table class="table">
         <thead>
           <tr>
@@ -29,33 +32,32 @@
             <td>{{ artwork.description }}</td>
             <td>{{artwork.dateOfCreation}}</td>
             <td>{{ artwork.numInStock }}</td>
-            <td>{{ artwork.artist.name }}</td>
+            <td>{{ artwork.artist.firstName + " " + artwork.artist.lastName }}</td>
           </tr>
         </tbody>
       </table>
     </body>
   </div>
-  
 </template>
-  
-  
 
-
-<script>
+<script src="./artwork.js">
 import Navbar from '@/components/Navbar'
 
 export default {
   components: {
     Navbar
   }
-  
 }
 </script>
 
 <style>
 
-.navbarContainer {
-    margin-bottom: 100px;
-  }
+#navbarContainer {
+  margin-bottom: 90px;
+}
+
+.btn {
+  margin-bottom: 20px;
+}
 
 </style>

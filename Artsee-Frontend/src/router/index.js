@@ -9,9 +9,9 @@ import Navbar from '@/components/Navbar'
 import SignupCustomer from '@/components/SignupCustomer'
 import SignupArtist from '@/components/SignupArtist'
 import SignupAdministrator from '@/components/SignupAdministrator'
-import Artworks from '@/components/Artworks'
 import Reviews from '@/components/Reviews'
 import ArtworkForm from '@/components/ArtworkForm'
+import Artworks from '@/components/Artworks'
 
 
 Vue.use(Router)
@@ -59,11 +59,6 @@ export default new Router({
       component: SignupAdministrator
     },
     {
-      path: '/artworks',
-      name : 'Artworks',
-      component: Artworks
-    },
-    {
       path: '/reviews',
       name: 'Reviews',
       component: Reviews
@@ -72,6 +67,11 @@ export default new Router({
       path: '/artwork/new',
       name: 'ArtworkForm',
       component: ArtworkForm
+    },
+    {
+      path: '/artworks',
+      name: 'Artworks',
+      component: Artworks
     }
   ]
 })
