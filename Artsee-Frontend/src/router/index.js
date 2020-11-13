@@ -12,6 +12,7 @@ import Reviews from '@/components/Reviews'
 import ArtworkForm from '@/components/ArtworkForm'
 import MyArtworks from '@/components/MyArtworks'
 import ItemListing from '@/components/ItemListing'
+import ArtistRow from '@/components/ArtistRow'
 
 Vue.use(Router)
 
@@ -76,6 +77,11 @@ export default new Router({
       path: '/item',
       name: 'itemList',
       component: ItemListing
+    },
+    {
+      path: '/artistrow',
+      name: 'artistrow',
+      component: ArtistRow
     }
 
   ]
