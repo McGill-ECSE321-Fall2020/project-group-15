@@ -12,7 +12,7 @@ import SignupAdministrator from '@/components/SignupAdministrator'
 import Reviews from '@/components/Reviews'
 import ArtworkForm from '@/components/ArtworkForm'
 import Artworks from '@/components/Artworks'
-
+import ItemListing from '@/components/ItemListing'
 
 Vue.use(Router)
 
@@ -72,6 +72,10 @@ export default new Router({
       path: '/artworks',
       name: 'Artworks',
       component: Artworks
+      path: '/item',
+      name: 'itemList',
+      component: ItemListing
     }
+
   ]
 })
