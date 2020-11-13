@@ -125,9 +125,18 @@
         var errorMsg = ""
         if(!userID){
             errorMsg += "Username cannot be empty."
-            }
+        }
+        if(userID.indexOf(' ') >= 0){
+            errorMsg += "Username cannot have white spaces."
+        }
         if(!email){
             errorMsg += "Email cannot be empty."
+        }
+        if(email.indexOf(' ') >= 0){
+            errorMsg += "Email cannot have white spaces."
+        }
+        if(email.indexOf('@') < 0){
+            errorMsg += "Please include '@' in the email address."
         }
         if(!password){
             errorMsg += "Password cannot be empty."
@@ -253,6 +262,7 @@
         background-image: linear-gradient(to right, #5160a0, #9e9e9e);
     }
     .card-container {
+        margin-top: 50px;
         display: flex;
         justify-content: center;
         align-items: center;
