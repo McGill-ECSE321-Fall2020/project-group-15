@@ -72,6 +72,8 @@ export default new Router({
       path: '/artworks',
       name: 'Artworks',
       component: Artworks
+    },
+    {
       path: '/item',
       name: 'itemList',
       component: ItemListing
