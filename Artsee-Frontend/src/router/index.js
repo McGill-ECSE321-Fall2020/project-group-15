@@ -14,6 +14,7 @@ import MyArtworks from '@/components/MyArtworks'
 import ItemListing from '@/components/ItemListing'
 import ReviewRow from '@/components/ReviewRow'
 import OrderRow from '@/components/OrderRow'
+import ArtistRow from '@/components/ArtistRow'
 
 Vue.use(Router)
 
@@ -88,6 +89,11 @@ export default new Router({
       path: '/orderitem',
       name: 'orderRow',
       component: OrderRow
+    },
+    {
+      path: '/artistrow',
+      name: 'artistrow',
+      component: ArtistRow
     }
 
 
