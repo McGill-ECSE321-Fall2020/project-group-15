@@ -8,7 +8,7 @@
             <div class="card-body">
               <div class="row text-center">
                 <div class="col-ml-1 mx-2">
-                  <img src= "https://cdn.mos.cms.futurecdn.net/SSsejZ9krDiV9N8TExmRGZ-320-80.jpg" width="100" alt="" loading="lazy">
+                  <img :src= "imageURL" width="100" alt="" loading="lazy">
                 </div>
                 <div class="col-md-6" id="infoBox">
                   <h4>{{name}}</h4> <h6> {{artistName}} </h6>
@@ -82,7 +82,7 @@ export default {
           dateOfCreation: "",
           numInStock: "",
           artistName: "NotFound",
-          imageURL: "https://cdn.mos.cms.futurecdn.net/SSsejZ9krDiV9N8TExmRGZ-320-80.jpg",
+          imageURL: "",
           artworkError: "",
     };
   },
@@ -101,7 +101,7 @@ export default {
           this.dateOfCreation = response.data.dateOfCreation,
           this.numInStock = response.data.numInStock,
           this.artistName = response.data.artist.firstName + " " + response.data.artist.lastName,
-          this.imageURL = new URL(response.data.imageURL),
+          this.imageURL = response.data.imageURL.toString(),
 
           console.log(response.data)
 
