@@ -15,7 +15,7 @@
               <div class="row text-center">
                 <div class="col-ml-1 mx-2" id="image-cropper">
                   <img
-                    :src="imageURL"
+                    :src="profilePictureURL"
                     width="100"
                     alt=""
                     loading="lazy"
@@ -23,7 +23,7 @@
                   />
                 </div>
                 <div class="col-md-3">
-                  <h4>{{firstname}} {{lastname}}</h4>
+                  <h4>{{firstName}} {{lastName}}</h4>
                   <div class="rating-block">
                     <button
                       type="button"
@@ -98,7 +98,7 @@
                   </div>
                 </div>
                 <div class="col-md-4">
-                  <p>{{ description }}</p>
+                  <p>{{ artistDescription }}</p>
                 </div>
 
                 <div class="col-md-3">
@@ -123,28 +123,82 @@
 </template>
 
 <script>
+import axios from 'axios'
+var config = require('../../config')
+
+var backendConfigurer = function(){
+  switch(process.env.NODE_ENV){
+      case 'development':
+          return 'http://' + config.dev.backendHost + ':' + config.dev.backendPort;
+      case 'production':
+          return 'https://' + config.build.backendHost + ':' + config.build.backendPort ;
+  }
+};
+
+var frontendConfigurer = function(){
+  switch(process.env.NODE_ENV){
+      case 'development':
+          return 'http://' + config.dev.host + ':' + config.dev.port;
+      case 'production':
+          return 'https://' + config.build.host + ':' + config.build.port ;
+  }
+};
+var backendUrl = backendConfigurer();
+var frontendUrl = frontendConfigurer();
+
+var AXIOS = axios.create({
+  baseURL: backendUrl,
+  headers: { 'Access-Control-Allow-Origin': frontendUrl }
+})
+
 export default {
+  props: {
+    artistID: {
+      default: "notfound",
+      type: String
+    }
+  },
   data() {
     return {
-      imageURL: "https://c8.alamy.com/comp/KTHWN4/man-has-a-poker-face-KTHWN4.jpg",
-      description: "some description here",
-      firstname: 'John',
-      lastname: 'Doe',
+      profilePictureURL: "https://i0.wp.com/www.beerleagueheroes.com/wp-content/uploads/2019/04/mystery-person-png-mystery-customer-person-9LKwzI-clipart.png?fit=750%2C481&ssl=1",
+      artistDescription: "Description not found",
+      firstName: 'first name',
+      lastName: 'last name',
+      rating: 0,
       star1: false,
       star2: false,
       star3: false,
       star4: false,
       star5: false,
-      rating: 3
+      artistError: "",
     };
   },
 
   created: function () {
+      this.fetch()
       this.updateStars(this.rating)
-      this.star1 = true
+      this.star1 = true  
   },
 
   methods: {
+    fetch (){
+      AXIOS.get('/artists/' + this.artistID.toString())
+        .then(response => {
+        // JSON responses are automatically parsed.
+          this.profilePictureURL = response.data.profilePictureURL
+          this.artistDescription = response.data.artistDescription
+          this.firstname = response.data.firstname
+          this.lastName = response.data.lastName
+          this.rating = response.data.rating
+          console.log(response.data)
+        })
+        .catch(e => {
+          var errorMsg = e.response.data
+          console.log(errorMsg)
+          this.artistError = errorMsg
+        })
+    },
+
     updateStars: function (starRating) {
       if (starRating >= 1) {
         this.star1 = true;
