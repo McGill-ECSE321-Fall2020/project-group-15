@@ -80,7 +80,7 @@
                 username: '',
                 password: '',
                 reenterPassword: '',
-                phoneNumber: 0,
+                phoneNumber: '',
                 addressLine1: '',
                 addressLine2: '',
                 city: '',
