@@ -26,7 +26,7 @@
                                 <input type="text" class="form-control" v-model="userID" placeholder="Username">
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" v-model="password" placeholder="Password">
+                                <input type="password" class="form-control" v-model="password" placeholder="Password" @change="checkPasswordMatch()">
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" v-model="reenterPassword" placeholder="Re-enter Password" @change="checkPasswordMatch()">
@@ -41,7 +41,7 @@
                                     </div>
                                 </router-link>
                                 <div>
-                                    <button type="submit" class="btn btn-primary" @click="createSignIn()">Submit</button>
+                                    <button type="submit" class="btn btn-primary" @click="createAdministrator()">Submit</button>
                                 </div>
                             </div>
                             <div v-for="(errorMsg, index) in error" :key="index">
@@ -92,34 +92,35 @@
         this.lastName = lastName
         this.phoneNumber = phoneNumber
     }
-        function checkError(userID, email, password, firstName, lastName, phoneNumber, passwordError, phoneNumberError){
-            var errorMsg = ""
-            if(!userID){
-                errorMsg += "Username cannot be empty."
+
+    function checkError(userID, email, password, firstName, lastName, phoneNumber, passwordError, phoneNumberError){
+        var errorMsg = ""
+        if(!userID){
+            errorMsg += "Username cannot be empty."
             }
-            if(!email){
-                errorMsg += "Email cannot be empty."
-            }
-            if(!password){
-                errorMsg += "Password cannot be empty."
-            }
-            if(!firstName){
-                errorMsg += "First name cannot be empty."
-            }
-            if(!lastName){
-                errorMsg += "Last Name cannot be empty."
-            }
-            if(!phoneNumber){
-                errorMsg += "Phone number cannot be empty."
-            }
-            if(passwordError){
-                errorMsg += "Passwords do not match."
-            }
-            if(phoneNumberError){
-                errorMsg += "Invalid phone number."
-            }
-            return errorMsg
+        if(!email){
+            errorMsg += "Email cannot be empty."
         }
+        if(!password){
+            errorMsg += "Password cannot be empty."
+        }
+        if(!firstName){
+            errorMsg += "First name cannot be empty."
+        }
+        if(!lastName){
+            errorMsg += "Last Name cannot be empty."
+        }
+        if(!phoneNumber){
+            errorMsg += "Phone number cannot be empty."
+        }
+        if(passwordError){
+            errorMsg += "Passwords do not match."
+        }
+        if(phoneNumberError){
+            errorMsg += "Invalid phone number."
+        }
+        return errorMsg
+    }
 
     export default {
         name: "signUpAdministrator",
@@ -140,7 +141,7 @@
         },
 
         methods: {
-            createSignIn: function (){
+            createAdministrator: function (){
                 var error = checkError(this.userID, this.email, this.password, this.firstName, this.lastName, this.phoneNumber, this.passwordError, this.phoneNumberError)
                 if(error == ""){
                     var administratorDto = new AdministratorDto(this.userID, this.email, this.password, this.firstName, this.lastName, this.phoneNumber);
@@ -169,7 +170,7 @@
                 } else {
                     this.passwordError = false
                     if(this.phoneNumberError) {
-                        var errorMsg = ["Passwords do not match"]
+                        var errorMsg = ["Invalid phone number"]
                         this.error = errorMsg
                     } else {
                         this.error = []
@@ -179,7 +180,7 @@
             checkPhoneNumber: function() {
                 var isPhoneNumber = (/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(this.phoneNumber))
                 if(!isPhoneNumber){
-                    var errorMsg = ["Passwords do not match"]
+                    var errorMsg = ["Invalid phone number"]
                     this.error = errorMsg
                     this.phoneNumberError = true
                 } else {
@@ -201,6 +202,7 @@
         background-image: linear-gradient(to right, #5160a0, #9e9e9e);
     }
     .card-container {
+        margin-top: 50px;
         display: flex;
         justify-content: center;
         align-items: center;
