@@ -1,7 +1,7 @@
 <template>
   <div>
     <head>
-      <title>Artworks</title>
+      <title>MyArtworks</title>
     </head>
     <body>
       <div id="navbarContainer">
