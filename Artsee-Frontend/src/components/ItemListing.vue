@@ -8,14 +8,14 @@
             <div class="card-body">
               <div class="row text-center">
                 <div class="col-ml-1 mx-2">
-                  <img src="https://cdn.mos.cms.futurecdn.net/SSsejZ9krDiV9N8TExmRGZ-320-80.jpg" width="100" alt="" loading="lazy">
+                  <img :src= "imageURL" width="100" alt="" loading="lazy">
                 </div>
                 <div class="col-md-6" id="infoBox">
-                  <h4>Mona Lisa</h4> <h6> Leonardo </h6>
-                  <p>This is pretty alright i guess. i mean idk about you but seems kinda overpriced...</p>
+                  <h4>{{name}}</h4> <h6> {{artistName}} </h6>
+                  <p>{{description}}</p>
                 </div>
                 <div class="col-md-3" id="priceButton">
-                  <h3>$3</h3>
+                  <h3> {{"$" + (price/100).toString()}}</h3>
                   <p> </p>
                   <p> </p>
                   <div class="sub-row">
@@ -37,7 +37,83 @@
 </template>
 
 <script>
-export default {};
+import axios from 'axios'
+var config = require('../../config')
+
+var backendConfigurer = function(){
+  switch(process.env.NODE_ENV){
+      case 'development':
+          return 'http://' + config.dev.backendHost + ':' + config.dev.backendPort;
+      case 'production':
+          return 'https://' + config.build.backendHost + ':' + config.build.backendPort ;
+  }
+};
+
+var frontendConfigurer = function(){
+  switch(process.env.NODE_ENV){
+      case 'development':
+          return 'http://' + config.dev.host + ':' + config.dev.port;
+      case 'production':
+          return 'https://' + config.build.host + ':' + config.build.port ;
+  }
+};
+var backendUrl = backendConfigurer();
+var frontendUrl = frontendConfigurer();
+
+var AXIOS = axios.create({
+  baseURL: backendUrl,
+  headers: { 'Access-Control-Allow-Origin': frontendUrl }
+})
+
+export default {
+
+  props: {
+    artworkID: {
+      default: -1,
+      type: Number
+    }
+  },
+  name: "itemListing",
+  data() {
+    return {
+		      name : "NotFound",
+          description: "NotFound",
+          price: "0",
+          dateOfCreation: "",
+          numInStock: "",
+          artistName: "NotFound",
+          imageURL: "",
+          artworkError: "",
+    };
+  },
+  created: function () {
+    this.fetch()
+  },
+
+  methods: {
+    fetch (){
+      AXIOS.get('/artworks/' + this.artworkID.toString())
+        .then(response => {
+        // JSON responses are automatically parsed.
+          this.name = response.data.name,
+          this.description = response.data.description,
+          this.price = response.data.price,
+          this.dateOfCreation = response.data.dateOfCreation,
+          this.numInStock = response.data.numInStock,
+          this.artistName = response.data.artist.firstName + " " + response.data.artist.lastName,
+          this.imageURL = response.data.imageURL.toString(),
+
+          console.log(response.data)
+
+        })
+        .catch(e => {
+          var errorMsg = e.response.data
+          console.log(errorMsg)
+          this.artworkError = errorMsg
+        })
+    },
+  }
+};
 </script>
 
 <style scoped>
