@@ -13,6 +13,7 @@ import Reviews from '@/components/Reviews'
 import ArtworkForm from '@/components/ArtworkForm'
 import Artworks from '@/components/Artworks'
 import ItemListing from '@/components/ItemListing'
+import Cart from '@/components/Cart'
 
 Vue.use(Router)
 
@@ -77,6 +78,11 @@ export default new Router({
       path: '/item',
       name: 'itemList',
       component: ItemListing
+    },
+    {
+      path: '/cart',
+      name: 'Cart',
+      component: Cart
     }
 
   ]
