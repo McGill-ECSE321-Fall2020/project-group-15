@@ -14,6 +14,7 @@ import ArtworkForm from '@/components/ArtworkForm'
 import Artworks from '@/components/Artworks'
 import ItemListing from '@/components/ItemListing'
 import Cart from '@/components/Cart'
+import OrderList from '@/components/OrderList'
 
 Vue.use(Router)
 
@@ -83,6 +84,11 @@ export default new Router({
       path: '/cart',
       name: 'Cart',
       component: Cart
+    },
+    {
+      path: '/orderList',
+      name: 'OrderList',
+      component: OrderList
     }
 
   ]
