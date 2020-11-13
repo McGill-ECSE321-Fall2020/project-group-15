@@ -5,7 +5,7 @@
         </head>
         <body>
             <div class="navbarContainer">
-                <Navbar navMode="false"/>
+                <Navbar navMode="false" />
             </div>
             <div class="card-container">
                 <div class="card w-25">
@@ -89,22 +89,8 @@ export default {
     .row {
         margin-bottom: 10px;
     }
-    .navbar {
-      margin-bottom: 50px;
-    }
-    .logo {
-        width: 60%;
-        height: auto;
-        margin: 10px 0 25px 0
-    }
     .button-container {
       width: 100%;
-    }
-    .image-container {
-        width: 25%;
-        height: 10%;
-        display: flex;
-        justify-content: center;
     }
     .signin-btn-style {
         color: #037BFF;

@@ -1,6 +1,6 @@
 <template>
 <nav class="navbar fixed-top navbar-expand-lg navbar-light">
-  <div v-if="false">
+  <div v-if= "false">
     NavMode: {{navMode}}
   </div>
     <a class="navbar-brand" id="logoBox">
@@ -23,6 +23,9 @@
       </li>
       <li class="nav-item" v-if="!navMode">
         <a class="nav-link" href="#">Orders</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="?/reviews">Reviews</a>
       </li>
     </ul>
     <li class="navbar-text">

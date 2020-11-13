@@ -18,9 +18,9 @@
               <div class="input-container">
                 <div class="form-group">
                   <input
-                    type="username"
+                    type="userID"
                     class="form-control input-style LoginInput"
-                    v-model="username"
+                    v-model="userID"
                     placeholder="Username"
                   />
                 </div>
@@ -40,12 +40,12 @@
                       type="submit"
                       class="btn btn-success"
                       v-bind:disabled="!password"
-                      @click="submitLogin(username, password)"
+                      @click="createSignIn(userID, password)"
                     >
                       Login
                     </button>
-                    <p class="login-error-style" v-if="loginError">
-                      Sorry, your username or password was incorrect.
+                    <p class="login-error-style" v-if="signInError">
+                      Sorry, your userID or password was incorrect.
                     </p>
                   </div>
                 </div>
@@ -54,7 +54,6 @@
                     <button
                       type="submit"
                       class="btn btn-light signup-btn-style"
-                      @click="throwLoginError()"
                       id="login_signup_button"
                     >
                       Create your Account
@@ -82,39 +81,75 @@
     </body>
   </div>
 </template>
+
 <script>
-function LoginDto(username, password) {
-  this.username = username;
+import axios from 'axios'
+var config = require('../../config')
+
+var backendConfigurer = function(){
+  switch(process.env.NODE_ENV){
+      case 'development':
+          return 'http://' + config.dev.backendHost + ':' + config.dev.backendPort;
+      case 'production':
+          return 'https://' + config.build.backendHost + ':' + config.build.backendPort ;
+  }
+};
+
+var frontendConfigurer = function(){
+  switch(process.env.NODE_ENV){
+      case 'development':
+          return 'http://' + config.dev.host + ':' + config.dev.port;
+      case 'production':
+          return 'https://' + config.build.host + ':' + config.build.port ;
+  }
+};
+var backendUrl = backendConfigurer();
+var frontendUrl = frontendConfigurer();
+
+var AXIOS = axios.create({
+  baseURL: backendUrl,
+  headers: { 'Access-Control-Allow-Origin': frontendUrl }
+})
+function SignInDto(userID, password) {
+  this.userID = userID;
   this.password = password;
-  this.success = false;
 }
 
 export default {
   name: "login",
   data() {
     return {
-      username: "",
+      userID: "",
       password: "",
-      loginDto: "",
-      response: [],
-      loginError: false,
+      signInDto: {},
+      signInError: "",
     };
   },
 
   methods: {
-    submitLogin: function (userName, passWord) {
-      this.loginError = false;
-      var l = new LoginDto(userName, passWord);
-      this.loginDto = l;
-      this.username = "";
-      this.password = "";
+    createSignIn: function (userID, passWord){
+      var l = new SignInDto(userID, passWord);
+      this.signInDto = l;
+      console.log(this.signInDto)
+      AXIOS.post('/signIn/', l)
+        .then(response => {
+        // JSON responses are automatically parsed.
+          console.log(response.data)
+
+
+
+        //TODO Parse userdto to get type and redirect basaed on that
+        //Store userID in the cache
+
+
+
+        })
+        .catch(e => {
+          var errorMsg = e.response.data
+          this.signInError = errorMsg
+        })
     },
-    throwLoginError: function () {
-      this.loginError = !this.loginError;
-      this.username = "";
-      this.password = "";
-    },
-  },
+  }
 };
 </script>
 <style>
