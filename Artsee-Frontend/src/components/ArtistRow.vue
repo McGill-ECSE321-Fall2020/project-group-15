@@ -23,7 +23,7 @@
                   />
                 </div>
                 <div class="col-md-3">
-                  <h4>John Doe</h4>
+                  <h4>{{firstname}} {{lastname}}</h4>
                   <div class="rating-block">
                     <button
                       type="button"
@@ -128,6 +128,8 @@ export default {
     return {
       imageURL: "https://c8.alamy.com/comp/KTHWN4/man-has-a-poker-face-KTHWN4.jpg",
       description: "some description here",
+      firstname: 'John',
+      lastname: 'Doe',
       star1: false,
       star2: false,
       star3: false,
