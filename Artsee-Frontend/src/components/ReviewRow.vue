@@ -60,7 +60,7 @@ export default {
       type: Number
     }
   },
-  name: "itemListing",
+  name: "reviewRow",
   data() {
     return {
 		rating: 0,
@@ -107,6 +107,9 @@ export default {
     background-color: white;
 }
 
+#infoBox{
+    text-align: left;
+}
 #priceButton {
     margin-top: 20px;
 }
