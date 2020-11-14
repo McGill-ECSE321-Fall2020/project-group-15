@@ -19,6 +19,7 @@ import ArtistRow from '@/components/ArtistRow'
 import ArtworkGallery  from "@/components/ArtworkGallery"
 import ArtistList from '@/components/ArtistList'
 import EndSignup from '@/components/EndSignup'
+import ErrorPage from '@/components/ErrorPage'
 
 Vue.use(Router)
 
@@ -118,6 +119,11 @@ export default new Router({
       path: '/signup/thank-you',
       name: 'EndSignup',
       component: EndSignup
+    },
+    {
+      path: '/404',
+      name: 'ErrorPage',
+      component: ErrorPage
     },
 
   ]

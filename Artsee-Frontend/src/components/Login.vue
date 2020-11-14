@@ -84,7 +84,7 @@
 
 <script>
   import axios from 'axios'
-  import { mapGetters } from 'vuex';
+  import { mapActions, mapGetters } from 'vuex';
 
   var config = require('../../config')
 
@@ -129,7 +129,9 @@
       };
     },
     methods: {
+      ...mapActions(['setUserType']),
       createSignIn: function (userID, passWord){
+
         var l = new SignInDto(userID, passWord);
         this.signInDto = l;
         console.log(this.signInDto)
@@ -138,17 +140,21 @@
           // JSON responses are automatically parsed.
             console.log(response.data)
 
+            this.setUserType(response.data.type);
 
           //TODO Parse userdto to get type and redirect basaed on that
           //Store userID in the cache
 
-
+          
           })
           .catch(e => {
             var errorMsg = e.response.data
             this.signInError = errorMsg
           })
       },
+    },
+    created() { //life cycle method which runs before the page is loaded !!
+      console.log(this.userType)
     }
   };
 </script>
