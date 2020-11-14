@@ -8,7 +8,7 @@
         <Navbar navMode="true"/>
       </div>
       <div class="row py-5 px-4">
-        <div class="col-md-5 mx-auto">
+        <div class="col-md-9 mx-auto">
             <!-- Profile widget -->
             <div class="bg-white shadow rounded overflow-hidden">
                 <div class="px-4 pt-0 pb-4 cover">
@@ -47,10 +47,9 @@
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h5 class="mb-0">Artworks</h5>
                     </div>
-                    <ArtworkRow 
-                        v-for="(artwork, i) in artworks" v-bind:key="`artwork-${i}`" v-bind:artworkID = "artwork.id" />
-                    <div class="row">
-                        
+                    <div class = "artworkRow">
+                      <ArtworkRow 
+                          v-for="(artwork, i) in artworks" v-bind:key="`artwork-${i}`" v-bind:artworkID = "artwork.id" />
                     </div>
                 </div>
                 <div class="py-4 px-4">
@@ -188,5 +187,10 @@ body {
 .mb {
   margin-bottom: 20px;
 }
+
+/* .artworkRow{
+  margin-left: auto;
+  margin-right: auto;
+} */
 
 </style>
