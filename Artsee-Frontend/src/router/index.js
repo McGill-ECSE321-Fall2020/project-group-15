@@ -20,6 +20,9 @@ import ArtworkGallery  from "@/components/ArtworkGallery"
 import ArtistList from '@/components/ArtistList'
 import EndSignup from '@/components/EndSignup'
 import ErrorPage from '@/components/ErrorPage'
+import DetailedArtwork from '@/components/DetailedArtwork'
+import ReviewStars from '@/components/ReviewStars'
+
 
 Vue.use(Router)
 
@@ -125,6 +128,16 @@ export default new Router({
       name: 'ErrorPage',
       component: ErrorPage
     },
+    {
+      path: '/artwork/item',
+      name: 'DetailedArtwork',
+      component: DetailedArtwork
+    },
+    {
+      path: '/stars',
+      name: 'ReviewStars',
+      component: ReviewStars
+    }
 
   ]
 })
