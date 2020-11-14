@@ -100,6 +100,7 @@ import { mapActions, mapGetters } from 'vuex';
         },
         created() {
             this.fetchArtworks();
+            console.log(this.$route)
         }
     }
 </script>
