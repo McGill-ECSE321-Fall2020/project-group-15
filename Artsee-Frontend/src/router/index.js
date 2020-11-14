@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
 import CustomerSettings from '@/components/CustomerSettings'
@@ -11,8 +10,15 @@ import SignupArtist from '@/components/SignupArtist'
 import SignupAdministrator from '@/components/SignupAdministrator'
 import Reviews from '@/components/Reviews'
 import ArtworkForm from '@/components/ArtworkForm'
-import Artworks from '@/components/Artworks'
+import MyArtworks from '@/components/MyArtworks'
 import ItemListing from '@/components/ItemListing'
+import ArtistProfile from '@/components/ArtistProfile';
+import ReviewRow from '@/components/ReviewRow'
+import OrderRow from '@/components/OrderRow'
+import ArtistRow from '@/components/ArtistRow'
+import ArtworkGallery  from "@/components/ArtworkGallery"
+import ArtistList from '@/components/ArtistList'
+import EndSignup from '@/components/EndSignup'
 
 Vue.use(Router)
 
@@ -69,15 +75,50 @@ export default new Router({
       component: ArtworkForm
     },
     {
-      path: '/artworks',
-      name: 'Artworks',
-      component: Artworks
+      path: '/me/artworks',
+      name: 'MyArtworks',
+      component: MyArtworks
     },
     {
       path: '/item',
       name: 'itemList',
       component: ItemListing
-    }
+    },
+    {
+      path: '/profile/artist',
+      name: 'ArtistProfile',
+      component: ArtistProfile
+    },
+    {
+      path: '/reviewitem',
+      name: 'reviewRow',
+      component: ReviewRow
+    },
+    {
+      path: '/orderitem',
+      name: 'orderRow',
+      component: OrderRow
+    },
+    {
+      path: '/artistrow',
+      name: 'artistrow',
+      component: ArtistRow
+    },
+    {
+      path: '/artwork-gallery',
+      name: 'ArtworkGallery',
+      component: ArtworkGallery
+    },
+    {
+      path: '/artists/all',
+      name: 'ArtistList',
+      component: ArtistList
+    },
+    {
+      path: '/signup/thank-you',
+      name: 'EndSignup',
+      component: EndSignup
+    },
 
   ]
 })
