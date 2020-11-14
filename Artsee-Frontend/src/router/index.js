@@ -13,6 +13,8 @@ import ArtworkForm from '@/components/ArtworkForm'
 import MyArtworks from '@/components/MyArtworks'
 import ItemListing from '@/components/ItemListing'
 import ArtistProfile from '@/components/ArtistProfile';
+import ReviewRow from '@/components/ReviewRow'
+import OrderRow from '@/components/OrderRow'
 import ArtistRow from '@/components/ArtistRow'
 import ArtistList from '@/components/ArtistList'
 
@@ -86,6 +88,16 @@ export default new Router({
       component: ArtistProfile
     },
     {
+      path: '/reviewitem',
+      name: 'reviewRow',
+      component: ReviewRow
+    },
+    {
+      path: '/orderitem',
+      name: 'orderRow',
+      component: OrderRow
+    },
+    {
       path: '/artistrow',
       name: 'artistrow',
       component: ArtistRow
@@ -95,6 +107,7 @@ export default new Router({
       name: 'ArtistList',
       component: ArtistList
     }
+
 
   ]
 })
