@@ -13,10 +13,11 @@ import ArtworkForm from '@/components/ArtworkForm'
 import MyArtworks from '@/components/MyArtworks'
 import ItemListing from '@/components/ItemListing'
 import Cart from '@/components/Cart'
-import OrderList from '@/components/OrderList'
+import OrdersList from '@/components/OrdersList'
 import ReviewRow from '@/components/ReviewRow'
 import OrderRow from '@/components/OrderRow'
 import ArtistRow from '@/components/ArtistRow'
+import Checkout from '@/components/Checkout'
 
 Vue.use(Router)
 
@@ -88,9 +89,9 @@ export default new Router({
       component: Cart
     },
     {
-      path: '/orderList',
-      name: 'OrderList',
-      component: OrderList
+      path: '/orderlist',
+      name: 'OrdersList',
+      component: OrdersList
     },
     {
       path: '/reviewitem',
@@ -102,11 +103,18 @@ export default new Router({
       name: 'orderRow',
       component: OrderRow
     },
+
     {
       path: '/artistrow',
       name: 'artistrow',
       component: ArtistRow
-    }
+    },
+
+  {
+    path: '/cart/checkout',
+    name: 'Checkout',
+    component: Checkout,
+  }
 
 
   ]
