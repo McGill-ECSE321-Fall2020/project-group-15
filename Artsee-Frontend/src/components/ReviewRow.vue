@@ -79,8 +79,8 @@ export default {
       AXIOS.get('/reviews/' + this.reviewID.toString())
         .then(response => {
         // JSON responses are automatically parsed.
-          this.rating = response.data.name
-          this.comment = response.data.description
+          this.rating = response.data.rating
+          this.comment = response.data.comment
           this.artistName = response.data.artist.firstName + " " + response.data.artist.lastName
           this.customerName = response.data.customer.firstName + " " + response.data.customer.lastName
 
