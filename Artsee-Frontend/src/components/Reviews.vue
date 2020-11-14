@@ -23,13 +23,6 @@
 </template>
 
 <script src="./review.js">
-import Navbar from '@/components/Navbar'
-
-export default {
-  components: {
-    Navbar
-  }
-}
 </script>
 
 <style>
@@ -46,6 +39,10 @@ export default {
  .card {
    padding: 30 30 30 30;
    margin-bottom: 20px;
+ }
+
+ body {
+   margin: 10 10 10 10;
  }
 
 </style>
