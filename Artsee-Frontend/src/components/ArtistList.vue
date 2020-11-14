@@ -20,6 +20,34 @@
 <script>
 import ArtistRow from '@/components/ArtistRow'
 import Navbar from '@/components/Navbar'
+import axios from 'axios'
+var config = require('../../config')
+
+var backendConfigurer = function(){
+  switch(process.env.NODE_ENV){
+      case 'development':
+          return 'http://' + config.dev.backendHost + ':' + config.dev.backendPort;
+      case 'production':
+          return 'https://' + config.build.backendHost + ':' + config.build.backendPort ;
+  }
+};
+
+var frontendConfigurer = function(){
+  switch(process.env.NODE_ENV){
+      case 'development':
+          return 'http://' + config.dev.host + ':' + config.dev.port;
+      case 'production':
+          return 'https://' + config.build.host + ':' + config.build.port ;
+  }
+};
+var backendUrl = backendConfigurer();
+var frontendUrl = frontendConfigurer();
+
+var AXIOS = axios.create({
+  baseURL: backendUrl,
+  headers: { 'Access-Control-Allow-Origin': frontendUrl }
+})
+
 
 export default {
   components: {
@@ -29,21 +57,29 @@ export default {
 
   data () {
     return {
-      artists: [
-        { // for the purpose of testing
-          userID: "newartist",
-          email: "",
-          firstName: "Gareth",
-          lastName: "Baley",
-          phoneNumber: "",
-          artistDescription: "Inspirational artworks only",
-          rating: 3
-        }
-      ]
+      artists: []
     }
+  },
+
+  created: function () {
+    this.fetch()
+  },
+
+  methods: {
+    fetch (){
+      AXIOS.get('/artists/')
+        .then(response => {
+          this.artists = response.data
+          console.log(response.data)
+        })
+        .catch(e => {
+          var errorMsg = e.response.data
+          console.log(errorMsg)
+          this.artworkError = errorMsg
+        })
+    },
   }
-  
-}
+};
 </script>
 
 <style scoped>
