@@ -110,7 +110,8 @@ var AXIOS = axios.create({
 
 export default {
   components: {
-    Navbar
+    Navbar,
+    ArtworkRow
   },
   props: {
     artistID: {
