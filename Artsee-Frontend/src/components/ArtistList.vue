@@ -10,7 +10,7 @@
       </div>
 
       <ArtistRow 
-      v-for="(artist, i) in artists" v-bind:key="`artist-${i}`" v-bind:artistData = "artist" />
+      v-for="(artist, i) in artists" v-bind:key="`artist-${i}`" v-bind:artistID = "artist.userID" />
     </body>
 </div>
   
@@ -30,23 +30,14 @@ export default {
   data () {
     return {
       artists: [
-        {
-          userID: "",
+        { // for the purpose of testing
+          userID: "newartist",
           email: "",
           firstName: "Gareth",
           lastName: "Baley",
           phoneNumber: "",
           artistDescription: "Inspirational artworks only",
           rating: 3
-        },
-        {
-          userID: "",
-          email: "",
-          firstName: "John",
-          lastName: "Smith",
-          phoneNumber: "",
-          artistDescription: "A classic era artist",
-          rating: 2
         }
       ]
     }
