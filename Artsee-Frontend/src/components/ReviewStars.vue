@@ -6,6 +6,7 @@
     />
         <div v-if="false">
             Rating: {{rating}}
+            
         </div>
         <i class="fa fa-star" v-bind:class="{'text-warning': this.star1, 'text-muted': !this.star1}"></i>
         <i class="fa fa-star" v-bind:class="{'text-warning': this.star2, 'text-muted': !this.star2}"></i>
@@ -19,7 +20,7 @@
 export default {
     props: {
         rating: {
-            default: 1,
+            default: 0,
             type: Number
         }
     },
@@ -31,7 +32,7 @@ export default {
       star3: false,
       star4: false,
       star5: false,
-      star_rating: rating
+      star_rating: this.rating
     };
   },
 

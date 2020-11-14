@@ -41,7 +41,7 @@
               ></small
             >
             <div id="stars">
-            <ReviewStars :rating="2"/>
+            <ReviewStars :rating="star_rating"/>
             </div>
           </h4>
           <hr />
@@ -62,7 +62,7 @@
             </div>
             <div class="col">
               <h3 class="price-container" id="price">
-                $129.54
+                ${{price}}
               </h3>
             </div>
             <div class="col" id="addToCart">
@@ -88,7 +88,6 @@
         <ul class="nav nav-pills">
           <li>
             <h6 id="descriptionTitle">Artist <small> {{firstname}} {{lastname}} </small></h6>
-            <h6 id="descriptionTitle">Date <small> {{creationDate}} </small></h6>
             <p id="descriptionTitle">{{ artistDescription }}</p>
           </li>
         </ul>
@@ -107,6 +106,8 @@ export default {
       artTitle: "Art Title",
       firstname: "Matt",
       lastname: "Langshur",
+      star_rating: 4,
+      price: 0,
       description:
         "This is some long winded description about the artwork and why you should buy it",
         artistDescription: 'this is where we talk about the artist',
