@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar fixed-top navbar-expand-lg navbar-light">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -7,7 +7,7 @@
       crossorigin="anonymous"
     />
     <div v-if="false">NavMode: {{ navMode }}</div>
-    <a class="navbar-brand" id="logoBox">
+    <a class="navbar-brand">
       <img
         src="@/assets/logo.png"
         width="100"
@@ -45,13 +45,13 @@
         </li>
       </ul>
       <div href="#">
-        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-cart-fill" fill="black" xmlns="http://www.w3.org/2000/svg">
+        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-cart-fill" fill="white" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
         </svg>
       </div>
         <b-dropdown size="lg" variant="link" toggle-class="text-decoration-none" no-caret id="dropdown1">
           <template #button-content>
-            <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="black" xmlns="http://www.w3.org/2000/svg">
+            <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="white" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
             </svg>
           </template>
@@ -87,8 +87,8 @@ export default {
   border-color: white;
   color: white;
 }
-.navbar-light {
-  background-color: rgb(122, 137, 160);
+.navbar-dark {
+  background-color: rgb(80, 80, 80);
 }
 
 #logoBox {
