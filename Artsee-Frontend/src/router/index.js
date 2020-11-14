@@ -18,6 +18,7 @@ import ReviewRow from '@/components/ReviewRow'
 import OrderRow from '@/components/OrderRow'
 import ArtistRow from '@/components/ArtistRow'
 import Checkout from '@/components/Checkout'
+import Order from '@/components/Order'
 
 Vue.use(Router)
 
@@ -114,6 +115,13 @@ export default new Router({
     path: '/cart/checkout',
     name: 'Checkout',
     component: Checkout,
+  },
+
+  {
+    path:'/settings/order',
+    name: 'Order',
+    component: Order,
+
   }
 
 
