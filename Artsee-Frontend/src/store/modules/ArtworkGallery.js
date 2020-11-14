@@ -42,9 +42,9 @@ const actions = {
         const response = await AXIOS.get("/artworks");
         commit('setArtworks', response.data);
     },
-    setArtworks({ commit }, userType) {
-        commit('setArtworks', artistArtworks);
-        console.log(artistArtworks);
+    async addArtworkToCart({ commit }, index) {
+        var tempArtworks = state.artistArtworks
+        tempArtworks[index].numInStock = tempArtworks[index].numInStock-1;
     }  
 };
 

@@ -3,8 +3,9 @@
         <NavBar />
         <div class="artworks-container">
             <div v-for="(artwork, index) in artistArtworks" :key="index">
-                <div class="card card-style card-container-style" style="width: 18rem;">
-                    <img class="card-img-top" :src= "artwork.imageURL" alt="Card image cap">
+                <div v-if="artwork.numInStock" class="card card-style card-container-style" style="width: 18rem;">
+                    <img v-if="artwork.imageURL" class="card-img-top" :src= "artwork.imageURL" alt="Card image cap">
+                    <img v-else class="card-img-top" src="@/assets/no-image.png" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{artwork.name}}</h5>
                         <p class="card-text">{{artwork.description}}</p>
@@ -15,7 +16,7 @@
                     </ul>
                     <div class="card-body button-container-style">
                         <button type="button" class="btn btn-primary" @click="addToCart(index)">Add to Cart</button>
-                        <p class="card-text"><b>Quantity left: </b>{{artwork.quantity}}</p>
+                        <p class="card-text"><b>Quantity left: </b>{{artwork.numInStock}}</p>
                     </div>
                 </div>
             </div>
@@ -92,7 +93,10 @@ import { mapActions, mapGetters } from 'vuex';
             };
         },
         methods: {
-            ...mapActions(["fetchArtworks"])
+            ...mapActions(['fetchArtworks', 'addArtworkToCart']),
+            addToCart: function(index) {
+                this.addArtworkToCart(index);
+            }
         },
         created() {
             this.fetchArtworks();
