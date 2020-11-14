@@ -127,7 +127,8 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
 .profile-head {
     transform: translateY(5rem)
 }
