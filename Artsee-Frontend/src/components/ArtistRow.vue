@@ -23,7 +23,7 @@
                   />
                 </div>
                 <div class="col-md-3">
-                  <h4>{{firstName}} {{lastName}}</h4>
+                  <h4>{{artistData.firstName}} {{artistData.lastName}}</h4>
                   <div class="rating-block">
                     <button
                       type="button"
@@ -98,7 +98,7 @@
                   </div>
                 </div>
                 <div class="col-md-4">
-                  <p>{{ artistDescription }}</p>
+                  <p>{{ artistData.artistDescription }}</p>
                 </div>
 
                 <div class="col-md-3">
@@ -221,6 +221,10 @@ export default {
       }
     },
   },
+
+  props: {
+    artistData: {}
+  }
 };
 </script>
 
@@ -294,5 +298,9 @@ export default {
 }
 .review-block-description {
   font-size: 13px;
+}
+
+.py-5 {
+  padding-bottom: 0!important;
 }
 </style>

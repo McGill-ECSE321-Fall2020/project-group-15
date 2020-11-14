@@ -12,9 +12,11 @@ import Reviews from '@/components/Reviews'
 import ArtworkForm from '@/components/ArtworkForm'
 import MyArtworks from '@/components/MyArtworks'
 import ItemListing from '@/components/ItemListing'
+import ArtistProfile from '@/components/ArtistProfile';
 import ReviewRow from '@/components/ReviewRow'
 import OrderRow from '@/components/OrderRow'
 import ArtistRow from '@/components/ArtistRow'
+import ArtistList from '@/components/ArtistList'
 
 Vue.use(Router)
 
@@ -81,6 +83,11 @@ export default new Router({
       component: ItemListing
     },
     {
+      path: '/profile/artist',
+      name: 'ArtistProfile',
+      component: ArtistProfile
+    },
+    {
       path: '/reviewitem',
       name: 'reviewRow',
       component: ReviewRow
@@ -94,6 +101,11 @@ export default new Router({
       path: '/artistrow',
       name: 'artistrow',
       component: ArtistRow
+    },
+    {
+      path: '/artists/all',
+      name: 'ArtistList',
+      component: ArtistList
     }
 
 
