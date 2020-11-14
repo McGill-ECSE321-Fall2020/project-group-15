@@ -87,6 +87,7 @@ export default {
     };
   },
   created: function () {
+    console.log(this.artworkID)
     this.fetch()
   },
 
@@ -95,20 +96,16 @@ export default {
       AXIOS.get('/artworks/' + this.artworkID.toString())
         .then(response => {
         // JSON responses are automatically parsed.
-          this.name = response.data.name,
-          this.description = response.data.description,
-          this.price = response.data.price,
-          this.dateOfCreation = response.data.dateOfCreation,
-          this.numInStock = response.data.numInStock,
-          this.artistName = response.data.artist.firstName + " " + response.data.artist.lastName,
-          this.imageURL = response.data.imageURL.toString(),
-
-          console.log(response.data)
-
+          this.name = response.data.name
+          this.description = response.data.description
+          this.price = response.data.price
+          this.dateOfCreation = response.data.dateOfCreation
+          this.numInStock = response.data.numInStock
+          this.artistName = response.data.artist.firstName + " " + response.data.artist.lastName
+          this.imageURL = response.data.imageURL.toString()
         })
         .catch(e => {
-          var errorMsg = e.response.data
-          console.log(errorMsg)
+          var errorMsg = e.response
           this.artworkError = errorMsg
         })
     },

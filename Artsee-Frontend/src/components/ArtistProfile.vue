@@ -48,7 +48,7 @@
                         <h5 class="mb-0">Artworks</h5>
                     </div>
                     <ArtworkRow 
-                        v-for="(artwork, i) in artworks" v-bind:key="`artwork-${i}`" v-bind:artworkID = "artwork.artworkID" />
+                        v-for="(artwork, i) in artworks" v-bind:key="`artwork-${i}`" v-bind:artworkID = "artwork.id" />
                     <div class="row">
                         
                     </div>
@@ -57,18 +57,8 @@
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h5 class="mb-0">Reviews</h5>
                     </div>
-                    <!-- COULD BE REPLACED BY REVIEW ROW COMPONENT -->
-                    <div v-for="(review, i) in reviews" v-bind:key="`review-${i}`" class="row">
-                        <div class="card" style="width: 90%">
-                          <div class="card-body">
-                            <h5 class="card-title">{{ "Customer: " + review.customer.firstName + " " + review.customer.lastName }}</h5>
-                            <p class="card-text">{{"Comment: " + review.comment }}</p>
-                          </div>
-                          <ul class="list-group list-group-flush">
-                            <li class="list-group-item">{{"Rating: " + review.rating }}</li>
-                          </ul>
-                        </div>
-                    </div>
+                    <ReviewRow 
+                        v-for="(review, i) in reviews" v-bind:key="`review-${i}`" v-bind:reviewID = "review.reviewID" />
                 </div>
             </div>
         </div>
@@ -80,6 +70,7 @@
 <script>
 import Navbar from '@/components/Navbar'
 import ArtworkRow from '@/components/ArtworkRow'
+import ReviewRow from '@/components/ReviewRow'
 import axios from 'axios'
 var config = require('../../config')
 
@@ -111,7 +102,8 @@ var AXIOS = axios.create({
 export default {
   components: {
     Navbar,
-    ArtworkRow
+    ArtworkRow,
+    ReviewRow
   },
   props: {
     artistID: {
@@ -147,7 +139,6 @@ export default {
         })
       AXIOS.get('/artworksByArtist/' + this.artistID.toString())
         .then(response => {
-          console.log(response.data)
         // JSON responses are automatically parsed.
           this.artworks = response.data
         })

@@ -92,13 +92,13 @@ export default new Router({
       props: true,
     },
     {
-      path: '/reviewitem',
-      name: 'reviewRow',
+      path: '/reviewrow',
+      name: 'ReviewRow',
       component: ReviewRow
     },
     {
-      path: '/orderitem',
-      name: 'orderRow',
+      path: '/orderrow',
+      name: 'OrderRow',
       component: OrderRow
     },
     {
