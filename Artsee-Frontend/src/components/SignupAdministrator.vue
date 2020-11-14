@@ -23,10 +23,10 @@
                                 <input type="email" class="form-control" v-model="email" aria-describedby="emailHelp" placeholder="Email Address">
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control" v-model="username" aria-describedby="emailHelp" placeholder="Username">
+                                <input type="text" class="form-control" v-model="userID" placeholder="Username">
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" v-model="password" placeholder="Password">
+                                <input type="password" class="form-control" v-model="password" placeholder="Password" @change="checkPasswordMatch()">
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" v-model="reenterPassword" placeholder="Re-enter Password" @change="checkPasswordMatch()">
@@ -41,10 +41,12 @@
                                     </div>
                                 </router-link>
                                 <div>
-                                    <button type="submit" class="btn btn-primary" @click="submitSignup()">Submit</button>
+                                    <button type="submit" class="btn btn-primary" @click="createAdministrator()">Submit</button>
                                 </div>
                             </div>
-                        <p class="login-error-style" v-if="error">{{error}}</p>
+                            <div v-for="(errorMsg, index) in error" :key="index">
+                                <p class="login-error-style" >{{errorMsg}}</p>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -54,8 +56,36 @@
 </template>
 
 <script>
-    function AdministratorDto(username, email, password, firstName, lastName, phoneNumber) {
-        this.username = username
+    import axios from 'axios'
+    var config = require('../../config')
+
+    var backendConfigurer = function(){
+    switch(process.env.NODE_ENV){
+        case 'development':
+            return 'http://' + config.dev.backendHost + ':' + config.dev.backendPort;
+        case 'production':
+            return 'https://' + config.build.backendHost + ':' + config.build.backendPort ;
+    }
+    };
+
+    var frontendConfigurer = function(){
+    switch(process.env.NODE_ENV){
+        case 'development':
+            return 'http://' + config.dev.host + ':' + config.dev.port;
+        case 'production':
+            return 'https://' + config.build.host + ':' + config.build.port ;
+    }
+    };
+    var backendUrl = backendConfigurer();
+    var frontendUrl = frontendConfigurer();
+
+    var AXIOS = axios.create({
+    baseURL: backendUrl,
+    headers: { 'Access-Control-Allow-Origin': frontendUrl }
+    })
+
+    function AdministratorDto(userID, email, password, firstName, lastName, phoneNumber) {
+        this.userID = userID
         this.email = email
         this.password = password
         this.firstName = firstName
@@ -63,53 +93,112 @@
         this.phoneNumber = phoneNumber
     }
 
+    function checkError(userID, email, password, firstName, lastName, phoneNumber, passwordError, phoneNumberError){
+        var errorMsg = ""
+        if(!userID){
+            errorMsg += "Username cannot be empty."
+        }
+        if(userID.indexOf(' ') >= 0){
+            errorMsg += "Username cannot have white spaces."
+        }
+        if(!email){
+            errorMsg += "Email cannot be empty."
+        }
+        if(email.indexOf(' ') >= 0){
+            errorMsg += "Email cannot have white spaces."
+        }
+        if(email.indexOf('@') < 0){
+            errorMsg += "Please include '@' in the email address."
+        }
+        if(!password){
+            errorMsg += "Password cannot be empty."
+        }
+        if(!firstName){
+            errorMsg += "First name cannot be empty."
+        }
+        if(!lastName){
+            errorMsg += "Last Name cannot be empty."
+        }
+        if(!phoneNumber){
+            errorMsg += "Phone number cannot be empty."
+        }
+        if(passwordError){
+            errorMsg += "Passwords do not match."
+        }
+        if(phoneNumberError){
+            errorMsg += "Invalid phone number."
+        }
+        return errorMsg
+    }
+
     export default {
+        name: "signUpAdministrator",
         data () {
             return {
                 firstName: '',
                 lastName: '',
                 email: '',
-                username: '',
+                userID: '',
                 password: '',
                 reenterPassword: '',
                 phoneNumber: '',
                 passwordError: false,
                 phoneNumberError: false,
-                error: '',
+                error: [],
+                administratorDto: {}
             }
         },
 
         methods: {
-            submitSignup: function() {
-
+            createAdministrator: function (){
+                var error = checkError(this.userID, this.email, this.password, this.firstName, this.lastName, this.phoneNumber, this.passwordError, this.phoneNumberError)
+                if(error == ""){
+                    var administratorDto = new AdministratorDto(this.userID, this.email, this.password, this.firstName, this.lastName, this.phoneNumber);
+                    this.administratorDto = administratorDto;
+                    AXIOS.post('/administrators', administratorDto)
+                        .then(response => {
+                            console.log(response.data)
+                        })
+                        .catch(e => {
+                            var errorMsg = e.response.data
+                            var errorParts = errorMsg.split(".")
+                            errorParts.pop()
+                            this.error = errorParts
+                        })
+                } else {
+                    var errorParts = error.split(".")
+                    errorParts.pop()
+                    this.error = errorParts
+                }
             },
             checkPasswordMatch: function() {
                 if(this.password != this.reenterPassword){
-                    this.error = "Passwords do not match"
+                    var errorMsg = ["Passwords do not match"]
+                    this.error = errorMsg
                     this.passwordError = true
-                    console.log(this.error)
                 } else {
                     this.passwordError = false
                     if(this.phoneNumberError) {
-                        this.error = "Invalid phone number"
-                        console.log(this.error) 
+                        var errorMsg = ["Invalid phone number"]
+                        this.error = errorMsg
                     } else {
-                        this.error = ''
+                        this.error = []
                     }
                 }
             },
             checkPhoneNumber: function() {
                 var isPhoneNumber = (/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(this.phoneNumber))
                 if(!isPhoneNumber){
-                    this.error = "Invalid phone number"
+                    var errorMsg = ["Invalid phone number"]
+                    this.error = errorMsg
                     this.phoneNumberError = true
-                    console.log(this.error)
                 } else {
                     this.phoneNumberError = false
                     if(this.passwordError){
-                        this.error = "Passwords do not match"
+                        var errorMsg = ["Passwords do not match"]
+                        this.error = errorMsg
                     } else {
-                        this.error = ''
+                        this.error = []
                     }
                 }
             }
@@ -122,6 +211,7 @@
         background-image: linear-gradient(to right, #5160a0, #9e9e9e);
     }
     .card-container {
+        margin-top: 50px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -148,9 +238,13 @@
     .button-container {
         display: flex;
         justify-content: space-around;
+        margin-bottom: 20px;
     }
     button {
         height: 40px;
         width: 170px;
+    }
+    .login-error-style {
+        color: red;
     }
 </style>
