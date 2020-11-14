@@ -108,8 +108,7 @@
                       type="button"
                       class="btn btn-warning btn-sm btn-block"
                       id="view-more-button"
-                    >
-                      View profile
+                      @click="$router.push({name: 'ArtistProfile', props: { artistID: 'artistID' },})">View profile
                     </button>
                   </div>
                 </div>
@@ -190,7 +189,7 @@ export default {
           if (response.data.artistDescription != "" && response.data.artistDescription !=null) {
             this.artistDescription = response.data.artistDescription
           }
-          
+
           this.firstName = response.data.firstName
           this.lastName = response.data.lastName
           this.rating = response.data.rating
@@ -224,6 +223,9 @@ export default {
         this.star5 = true;
       }
     },
+    // redirect: function() {
+    //   window.location.replace("/#/artistrow");
+    // }
   },
 };
 </script>

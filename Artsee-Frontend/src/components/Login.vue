@@ -38,7 +38,7 @@
                   <div class="login-btn-container">
                     <button
                       type="submit"
-                      class="btn btn-success"
+                      class="btn btn-success login-buttons-style"
                       v-bind:disabled="!password"
                       @click="createSignIn(userID, password)"
                     >
@@ -144,7 +144,8 @@
 
           //TODO Parse userdto to get type and redirect basaed on that
           //Store userID in the cache
-
+            
+            // router.push('ArtworkGallery')
           
           })
           .catch(e => {
@@ -221,7 +222,7 @@
     display: flex;
     justify-content: center;
   }
-  button {
+  .login-buttons-style {
     height: 40px;
     width: 250px;
   }
