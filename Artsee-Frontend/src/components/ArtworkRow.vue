@@ -73,7 +73,7 @@ export default {
       type: Number
     }
   },
-  name: "itemListing",
+  name: "ArtworkRow",
   data() {
     return {
 		      name : "NotFound",

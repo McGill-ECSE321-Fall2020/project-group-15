@@ -117,7 +117,7 @@
                       type="button"
                       class="btn btn-warning btn-sm btn-block"
                       id="view-more-button"
-                      @click="$router.push({name: 'ArtistProfile', props: { artistID: 'artistID' },})">View profile
+                      @click="$router.push({name: 'ArtistProfile', params: {artistID: artistID },})">View profile
                     </button>
                   </div>
                 </div>
@@ -202,7 +202,6 @@ export default {
           this.firstName = response.data.firstName
           this.lastName = response.data.lastName
           this.rating = response.data.rating
-          console.log(response.data)
         })
         .catch(e => {
           var errorMsg = e.response.data
@@ -232,9 +231,6 @@ export default {
         this.star5 = true;
       }
     },
-    // redirect: function() {
-    //   window.location.replace("/#/artistrow");
-    // }
   },
 };
 </script>

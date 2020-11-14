@@ -11,7 +11,7 @@ import SignupAdministrator from '@/components/SignupAdministrator'
 import Reviews from '@/components/Reviews'
 import ArtworkForm from '@/components/ArtworkForm'
 import MyArtworks from '@/components/MyArtworks'
-import ItemListing from '@/components/ItemListing'
+import ArtworkRow from '@/components/ArtworkRow'
 import ArtistProfile from '@/components/ArtistProfile';
 import ReviewRow from '@/components/ReviewRow'
 import OrderRow from '@/components/OrderRow'
@@ -81,14 +81,15 @@ export default new Router({
       component: MyArtworks
     },
     {
-      path: '/item',
-      name: 'itemList',
-      component: ItemListing
+      path: '/artworkrow',
+      name: 'ArtworkRow',
+      component: ArtworkRow
     },
     {
       path: '/profile/artist',
       name: 'ArtistProfile',
-      component: ArtistProfile
+      component: ArtistProfile,
+      props: true,
     },
     {
       path: '/reviewitem',
