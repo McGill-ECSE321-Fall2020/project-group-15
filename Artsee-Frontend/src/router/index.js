@@ -18,6 +18,7 @@ import OrderRow from '@/components/OrderRow'
 import ArtistRow from '@/components/ArtistRow'
 import ArtworkGallery  from "@/components/ArtworkGallery"
 import ArtistList from '@/components/ArtistList'
+import EndSignup from '@/components/EndSignup'
 
 Vue.use(Router)
 
@@ -112,6 +113,12 @@ export default new Router({
       path: '/artists/all',
       name: 'ArtistList',
       component: ArtistList
-    }
+    },
+    {
+      path: '/signup/thank-you',
+      name: 'EndSignup',
+      component: EndSignup
+    },
+
   ]
 })
