@@ -15,7 +15,16 @@
               <div class="row text-center">
                 <div class="col-ml-1 mx-2" id="image-cropper">
                   <img
+                    v-if = "profilePictureURL"
                     :src="profilePictureURL"
+                    width="100"
+                    alt=""
+                    loading="lazy"
+                    id="profile-pic"
+                  />
+                  <img
+                    v-else 
+                    src= "https://i0.wp.com/www.beerleagueheroes.com/wp-content/uploads/2019/04/mystery-person-png-mystery-customer-person-9LKwzI-clipart.png?fit=750%2C481&ssl=1"
                     width="100"
                     alt=""
                     loading="lazy"
@@ -159,7 +168,7 @@ export default {
   },
   data() {
     return {
-      profilePictureURL: "https://i0.wp.com/www.beerleagueheroes.com/wp-content/uploads/2019/04/mystery-person-png-mystery-customer-person-9LKwzI-clipart.png?fit=750%2C481&ssl=1",
+      profilePictureURL: null,
       artistDescription: "Description not found",
       firstName: 'first name',
       lastName: 'last name',
