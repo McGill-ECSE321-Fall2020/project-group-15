@@ -144,7 +144,8 @@
 
           //TODO Parse userdto to get type and redirect basaed on that
           //Store userID in the cache
-
+            
+            // router.push('ArtworkGallery')
           
           })
           .catch(e => {

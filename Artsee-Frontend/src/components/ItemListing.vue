@@ -22,8 +22,8 @@
                     <button
                       type="button"
                       class="btn btn-warning btn-sm btn-block"
+                      @click="$router.push({name: 'DetailedArtwork', props: { artworkID: 'artworkID' },})">View Details
                     >
-                      View Details
                     </button>
                   </div>
                 </div>

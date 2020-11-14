@@ -23,7 +23,7 @@
                   />
                 </div>
                 <div class="col-md-3">
-                  <h4>{{firstname}} {{lastname}}</h4>
+                  <h4>{{firstName}} {{lastName}}</h4>
                   <div class="rating-block">
                     <button
                       type="button"
@@ -98,7 +98,7 @@
                   </div>
                 </div>
                 <div class="col-md-4">
-                  <p>{{ description }}</p>
+                  <p>{{ artistDescription }}</p>
                 </div>
 
                 <div class="col-md-3">
@@ -108,8 +108,7 @@
                       type="button"
                       class="btn btn-warning btn-sm btn-block"
                       id="view-more-button"
-                    >
-                      View profile
+                      @click="$router.push({name: 'ArtistProfile', props: { artistID: 'artistID' },})">View profile
                     </button>
                   </div>
                 </div>
@@ -186,8 +185,12 @@ export default {
         .then(response => {
         // JSON responses are automatically parsed.
           this.profilePictureURL = response.data.profilePictureURL
-          this.artistDescription = response.data.artistDescription
-          this.firstname = response.data.firstname
+
+          if (response.data.artistDescription != "" && response.data.artistDescription !=null) {
+            this.artistDescription = response.data.artistDescription
+          }
+
+          this.firstName = response.data.firstName
           this.lastName = response.data.lastName
           this.rating = response.data.rating
           console.log(response.data)
@@ -220,6 +223,9 @@ export default {
         this.star5 = true;
       }
     },
+    // redirect: function() {
+    //   window.location.replace("/#/artistrow");
+    // }
   },
 };
 </script>
