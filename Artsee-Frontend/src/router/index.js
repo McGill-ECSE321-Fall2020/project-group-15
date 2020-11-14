@@ -16,6 +16,7 @@ import ArtistProfile from '@/components/ArtistProfile';
 import ReviewRow from '@/components/ReviewRow'
 import OrderRow from '@/components/OrderRow'
 import ArtistRow from '@/components/ArtistRow'
+import ArtworkGallery  from "@/components/ArtworkGallery"
 import ArtistList from '@/components/ArtistList'
 
 Vue.use(Router)
@@ -103,11 +104,14 @@ export default new Router({
       component: ArtistRow
     },
     {
+      path: '/artwork-gallery',
+      name: 'ArtworkGallery',
+      component: ArtworkGallery
+    },
+    {
       path: '/artists/all',
       name: 'ArtistList',
       component: ArtistList
     }
-
-
   ]
 })
