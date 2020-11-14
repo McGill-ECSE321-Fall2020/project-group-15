@@ -13,6 +13,7 @@ import ArtworkForm from '@/components/ArtworkForm'
 import MyArtworks from '@/components/MyArtworks'
 import ItemListing from '@/components/ItemListing'
 import ArtistProfile from '@/components/ArtistProfile';
+import ArtistRow from '@/components/ArtistRow'
 
 Vue.use(Router)
 
@@ -82,6 +83,11 @@ export default new Router({
       path: '/profile/artist',
       name: 'ArtistProfile',
       component: ArtistProfile
+    },
+    {
+      path: '/artistrow',
+      name: 'artistrow',
+      component: ArtistRow
     }
 
   ]
