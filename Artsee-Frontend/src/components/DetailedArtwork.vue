@@ -1,5 +1,8 @@
 <template>
   <div class="col-sm-12 col-md-12 col-lg-12" id="main">
+        <div class="navbarContainer">
+              <Navbar :navMode="true"/>
+        </div>
     <link
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
       rel="stylesheet"
@@ -37,52 +40,66 @@
                 >{{ firstname }} {{ lastname }}</a
               ></small
             >
-            <i class="fa fa-star fa-2x text-primary"></i>
-            <i class="fa fa-star fa-2x text-primary"></i>
-            <i class="fa fa-star fa-2x text-primary"></i>
-            <i class="fa fa-star fa-2x text-primary"></i>
-            <i class="fa fa-star fa-2x text-muted"></i>
-            <span class="fa fa-2x"><h5>(109) Votes</h5></span>
-            <a href="javascript:void(0);">109 customer reviews</a>
+            <div id="stars">
+            <ReviewStars :rating="2"/>
+            </div>
           </h4>
           <hr />
           <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-6">
-              <a href="javascript:void(0);" class="btn btn-success btn-lg">Add to cart</a>
-            </div>
-            <div class="col-sm-5">
-                <h3 class="price-container"> $129.54 <small>*includes tax</small></h3>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="col">
               <div class="btn-group pull-right">
+                <ul id="inlineList">
+                <li>
                 <button class="btn btn-white btn-default">
-                  <i class="fa fa-envelope"></i> Contact Seller
+                  <i class="fa fa-envelope"></i>
                 </button>
+                </li>
+                <li>
+                    Contact Seller
+                </li>
+                </ul>
               </div>
             </div>
-          </div>
-          <hr />
-          <div class="description description-tabs">
-            <ul id="myTab" class="nav nav-pills">
-              <li>
-                <h6 id="descriptionTitle">Description</h6>
-                <p>{{ description }}</p>
-              </li>
-            </ul>
+            <div class="col">
+              <h3 class="price-container" id="price">
+                $129.54
+              </h3>
+            </div>
+            <div class="col" id="addToCart">
+              <a href="javascript:void(0);" class="btn btn-success btn-lg">Add to cart</a>
+            </div>
           </div>
           <hr />
         </div>
       </div>
-    </div>
-    <!-- end product -->
-    <div id="artistDiv">
-      <ArtistRow artistID="1" />
+      <!-- end product -->
+      <div class="description description-tabs">
+        <ul id="myTab" class="nav nav-pills">
+          <li>
+            <h6 id="descriptionTitle">{{artTitle}}</h6>
+            <h6 id="descriptionTitle">Date <small> {{creationDate}} </small></h6>
+            <h6 id="descriptionTitle">Description</h6>
+            <p id="descriptionTitle">{{ description }}</p>
+          </li>
+        </ul>
+      </div>
+      <hr />
+      <div class="description description-tabs">
+        <ul class="nav nav-pills">
+          <li>
+            <h6 id="descriptionTitle">Artist <small> {{firstname}} {{lastname}} </small></h6>
+            <h6 id="descriptionTitle">Date <small> {{creationDate}} </small></h6>
+            <p id="descriptionTitle">{{ artistDescription }}</p>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import ArtistRow from "@/components/ArtistRow";
+import Navbar from '@/components/Navbar'
+import ReviewStars from '@/components/ReviewStars'
 
 export default {
   data() {
@@ -92,16 +109,43 @@ export default {
       lastname: "Langshur",
       description:
         "This is some long winded description about the artwork and why you should buy it",
+        artistDescription: 'this is where we talk about the artist',
+      creationDate: '2020/05/23'
     };
   },
-
-  components: {
-    ArtistRow,
-  },
+    components: {
+        Navbar,
+        ReviewStars
+    }
 };
 </script>
 
 <style scoped>
+
+#stars {
+    font-size: 1em;
+}
+
+#price {
+    margin-top: 25px;
+}
+
+#addToCart {
+    margin-top: 15px;
+}
+
+#inlineList {
+    display: inline;
+}
+
+ul {
+  list-style-type: none;
+}
+
+    .navbarContainer {
+        margin-bottom: 100px;
+    }
+
 #img {
   width: 550px;
 }
@@ -119,7 +163,8 @@ export default {
 }
 
 #descriptionTitle {
-  width: 80px;
+    text-align: left;
+  width: 500px;
 }
 body {
   margin-top: 20px;
