@@ -14,7 +14,9 @@
                 <div class="px-4 pt-0 pb-4 cover">
                     <div class="media align-items-end profile-head">
                         <div class="profile mr-3">
-                          <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                          <img v-if = "artist.profilePictureURL" src= "artist.profilePictureURL" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                          <img v-else src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+
                           <!-- Should be a vue-router and conditionally rendered depednding on artist or customer view-->
                           <a href="#" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a>
                         </div>
@@ -77,52 +79,95 @@
 
 <script>
 import Navbar from '@/components/Navbar'
+import axios from 'axios'
+var config = require('../../config')
+
+var backendConfigurer = function(){
+  switch(process.env.NODE_ENV){
+      case 'development':
+          return 'http://' + config.dev.backendHost + ':' + config.dev.backendPort;
+      case 'production':
+          return 'https://' + config.build.backendHost + ':' + config.build.backendPort ;
+  }
+};
+
+var frontendConfigurer = function(){
+  switch(process.env.NODE_ENV){
+      case 'development':
+          return 'http://' + config.dev.host + ':' + config.dev.port;
+      case 'production':
+          return 'https://' + config.build.host + ':' + config.build.port ;
+  }
+};
+var backendUrl = backendConfigurer();
+var frontendUrl = frontendConfigurer();
+
+var AXIOS = axios.create({
+  baseURL: backendUrl,
+  headers: { 'Access-Control-Allow-Origin': frontendUrl }
+})
 
 export default {
   components: {
     Navbar
   },
+  props: {
+    artistID: {
+      default: "notfound",
+      type: String
+    }
+  },
   data () {
     return {
-      artist: {
-        userID: "",
-        email: "",
-        firstName: "Gareth",
-        lastName: "Baley",
-        phoneNumber: "",
-        artistDescription: "Inspirational artworks only",
-        rating: 3
-      },
-      artworks: [
-        {
-          id: 1,
-          name: "newart2",
-          description: "latest",
-          price: 9,
-          dateOfCreation: "2020-03-09",
-          numInStock: 5,
-          artist: {}
-        }
-      ],
-      reviews: [
-        {
-          comment: "Best artist",
-          rating: 5,
-          customer: {
-            userID: "",
-            email: "",
-            firstName: "John",
-            lastName: "Smith"
-          }
-        }
-      ]
+      artist: "",
+      artworks: [],
+      reviews: [],
+      artistError: "",
+      artworkError: "",
+      reviewError: ""
     }
+  },
+  created: function () {
+      console.log(artistID)
+      this.fetch()
   },
 
   methods: {
-    getArtist: function(id) {
-      // GET THE ARTIST BY ID IN CACHE USING AXIOS, SET ARTIST OBJECT AND RENDER THE DETAILS 
-    }
+    fetch (){
+      AXIOS.get('/artists/' + this.artistID.toString())
+        .then(response => {
+        // JSON responses are automatically parsed.
+          this.artist = response.data
+          console.log(response.data)
+        })
+        .catch(e => {
+          var errorMsg = e.response.data
+          console.log(errorMsg)
+          this.artistError = errorMsg
+        })
+      AXIOS.get('/artworksByArtist/' + this.artistID.toString())
+        .then(response => {
+        // JSON responses are automatically parsed.
+          this.artworks = response.data
+          console.log(response.data)
+        })
+        .catch(e => {
+          var errorMsg = e.response.data
+          console.log(errorMsg)
+          this.artworkError = errorMsg
+        })
+      AXIOS.get('/reviewsOnArtist/' + this.artistID.toString())
+        .then(response => {
+        // JSON responses are automatically parsed.
+          this.reviews = response.data
+          console.log(response.data)
+        })
+        .catch(e => {
+          var errorMsg = e.response.data
+          console.log(errorMsg)
+          this.reviewError = errorMsg
+        })
+    },
   }
 }
 </script>
