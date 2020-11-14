@@ -56,8 +56,7 @@ export default {
 
   props: {
     reviewID: {
-      default: -1,
-      type: Number
+      default: "notfound",
     }
   },
   name: "reviewRow",
@@ -67,10 +66,11 @@ export default {
 		comment: "",
 		customerName: "Not Found",
 		artistName: "Not Found",
-        reviewError: "",
+    reviewError: "",
     };
   },
   created: function () {
+    console.log(this.reviewID)
     this.fetch()
   },
 
@@ -79,10 +79,10 @@ export default {
       AXIOS.get('/reviews/' + this.reviewID.toString())
         .then(response => {
         // JSON responses are automatically parsed.
-          this.rating = response.data.name,
-          this.comment = response.data.description,
-          this.artistName = response.data.artist.firstName + " " + response.data.artist.lastName,
-          this.customerName = response.data.customer.firstName + " " + response.data.customer.lastName,
+          this.rating = response.data.name
+          this.comment = response.data.description
+          this.artistName = response.data.artist.firstName + " " + response.data.artist.lastName
+          this.customerName = response.data.customer.firstName + " " + response.data.customer.lastName
 
           console.log(response.data)
 

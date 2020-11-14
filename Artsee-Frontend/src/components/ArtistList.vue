@@ -70,7 +70,6 @@ export default {
       AXIOS.get('/artists/')
         .then(response => {
           this.artists = response.data
-          console.log(response.data)
         })
         .catch(e => {
           var errorMsg = e.response.data
