@@ -15,6 +15,7 @@ import ItemListing from '@/components/ItemListing'
 import ReviewRow from '@/components/ReviewRow'
 import OrderRow from '@/components/OrderRow'
 import ArtistRow from '@/components/ArtistRow'
+import ArtworkGallery  from "@/components/ArtworkGallery"
 
 Vue.use(Router)
 
@@ -94,8 +95,12 @@ export default new Router({
       path: '/artistrow',
       name: 'artistrow',
       component: ArtistRow
+    },
+    {
+      path: '/artwork-gallery',
+      name: 'ArtworkGallery',
+      component: ArtworkGallery
     }
-
 
   ]
 })
