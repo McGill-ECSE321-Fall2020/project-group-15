@@ -8,7 +8,8 @@
             <div class="card-body">
               <div class="row text-center">
                 <div class="col-ml-1 mx-2">
-                  <img :src= "imageURL" width="100" alt="" loading="lazy">
+                  <img v-if = "imageURL" :src= "imageURL" width="100" alt="" loading="lazy">
+                  <img v-else src= "@/assets/no-image.png" width="100" alt="" loading="lazy">
                 </div>
                 <div class="col-md-6" id="infoBox">
                   <h4>{{name}}</h4> <h6> {{artistName}} </h6>
@@ -22,7 +23,7 @@
                     <button
                       type="button"
                       class="btn btn-warning btn-sm btn-block"
-                      @click="$router.push({name: 'DetailedArtwork', props: { artworkID: 'artworkID' },})">View Details
+                      @click="$router.push({name: 'DetailedArtwork', params: {artworkID: artworkID }})">View Details
                     >
                     </button>
                   </div>
