@@ -88,7 +88,6 @@ export default {
     };
   },
   created: function () {
-    console.log(this.artworkID)
     this.fetch()
   },
 

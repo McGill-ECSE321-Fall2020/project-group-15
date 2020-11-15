@@ -70,7 +70,6 @@ export default {
     };
   },
   created: function () {
-    console.log(this.reviewID)
     this.fetch()
   },
 
@@ -83,9 +82,6 @@ export default {
           this.comment = response.data.comment
           this.artistName = response.data.artist.firstName + " " + response.data.artist.lastName
           this.customerName = response.data.customer.firstName + " " + response.data.customer.lastName
-
-          console.log(response.data)
-
         })
         .catch(e => {
           var errorMsg = e.response.data
