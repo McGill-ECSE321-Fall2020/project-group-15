@@ -14,7 +14,7 @@
         <h1>Cart</h1>
       </div>
       <div>
-      <CartRow v-for="(itemListing, i) in CartRow" v-bind:key="`itemListing-${i}`"/>
+      <CartRow v-for="(itemListing, i) in items" v-bind:key="`itemListing-${i}`"/>
       </div>
     </div>
     <div class="bottom">
@@ -67,6 +67,7 @@ var AXIOS = axios.create({
 export default {
   components: {
     Navbar,
+    CartRow
   },
   props: {
     artworkID: {
