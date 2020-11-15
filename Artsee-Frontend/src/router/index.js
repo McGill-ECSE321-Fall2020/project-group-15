@@ -26,6 +26,9 @@ import EndSignup from '@/components/EndSignup'
 import ErrorPage from '@/components/ErrorPage'
 import DetailedArtwork from '@/components/DetailedArtwork'
 import ReviewStars from '@/components/ReviewStars'
+import ThankYouOrder from '@/components/ThankYouOrder'
+import ArtistDashboard from '@/components/ArtistDashboard'
+
 
 Vue.use(Router)
 
@@ -140,6 +143,11 @@ export default new Router({
     name: 'Order',
     component: Order,
   },
+  {
+    path:'/settings/orderlist',
+    name: 'OrdersList',
+    component: OrdersList,
+  },
 
     {
       path: '/artwork-gallery',
@@ -172,7 +180,18 @@ export default new Router({
       name: 'ReviewStars',
       component: ReviewStars,
       props: true
-    }
+    },
+
+    {
+      path: '/order/thankyou',
+      name: 'ThankYouOrder',
+      component: ThankYouOrder
+    },
+    {
+      path: '/artist-dashboard',
+      name: 'ArtistDashboard',
+      component: ArtistDashboard
+    },
 
   ]
 })

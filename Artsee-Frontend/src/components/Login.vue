@@ -129,7 +129,7 @@
       };
     },
     methods: {
-      ...mapActions(['setUserType', 'setUserName', 'setUserData']),
+      ...mapActions(['setUserType', 'setUserName', 'setUserData', 'artistArtworks']),
       async createSignIn(userID, passWord, event) {
         if (event) {
           event.preventDefault()
@@ -142,12 +142,14 @@
             this.setUserType(response.data.type);
             this.setUserData(response.data);
             this.setUserName(response.data.userID);
+
           //Store userID in the cache
             if(response.data.type == "Customer"){
               window.location.replace("#/artwork-gallery");
-            }
-            // router.push({ name: 'ArtworkGallery' })
 
+            } else if (response.data.type == "Artist"){
+              window.location.replace("#/artist-dashboard");
+            }
           
           })
           .catch(e => {
@@ -155,6 +157,12 @@
             this.signInError = errorMsg
           })
       },
+      created() {
+        console.log(this.userType)
+        console.log(this.userName)
+        console.log(this.userData)
+        console.log(this.artistArtworks)
+      }
     }
   };
 </script>
