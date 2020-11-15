@@ -44,6 +44,7 @@ const getters = {
 
     // Cart Getters
     customerCart: (state) => state.customerCart,
+    cartTotal: (state) => state.cartTotal,
 };
 
 const actions = {
@@ -55,9 +56,11 @@ const actions = {
     
     // Cart Actions
     addArtworkToCart({ commit }, artworkIndex) {
+        var totalPrice = state.cartTotal;
         let copiedArtistArtworks = JSON.parse(JSON.stringify(state.artistArtworks));
         copiedArtistArtworks[artworkIndex].numInStock--;
         commit('setArtworks', copiedArtistArtworks);
+        totalPrice += copiedArtistArtworks[artworkIndex].price;
         console.log(copiedArtistArtworks)
 
         let copiedCustomerCart = JSON.parse(JSON.stringify(state.customerCart));
@@ -92,6 +95,7 @@ const actions = {
 
     },
     incrementArtwork({ commit }, artworkData) {
+        var totalPrice = state.cartTotal;
         var artworkID = artworkData.artworkID
         var customerCartIndex = artworkData.cartIndex
         let copiedArtistArtworks = JSON.parse(JSON.stringify(state.artistArtworks));
@@ -99,6 +103,7 @@ const actions = {
         for(var i=0; i<copiedArtistArtworks.length; i++){
             if(copiedArtistArtworks[i].id == artworkID){
                 copiedArtistArtworks[i].numInStock--;
+                totalPrice += copiedArtistArtworks[i].price;
                 artworkIndex = i;
                 break;
             }
@@ -113,6 +118,7 @@ const actions = {
         commit('setCustomerCart', copiedCustomerCart);
     },
     decrementArtwork({ commit }, artworkData) {
+        var totalPrice = state.cartTotal;
         var artworkID = artworkData.artworkID
         var customerCartIndex = artworkData.cartIndex
         let copiedArtistArtworks = JSON.parse(JSON.stringify(state.artistArtworks));
@@ -120,6 +126,7 @@ const actions = {
         for(var i=0; i<copiedArtistArtworks.length; i++){
             if(copiedArtistArtworks[i].id == artworkID){
                 copiedArtistArtworks[i].numInStock++;
+                totalPrice -= copiedArtistArtworks[i].price;
                 artworkIndex = i;
                 break;
             }
@@ -137,7 +144,9 @@ const actions = {
         commit('setCustomerCart', copiedCustomerCart);
     },
     removeFromCart({ commit }, customerCartIndex) {
+        var totalPrice = state.totalPrice;
         let copiedCustomerCart = JSON.parse(JSON.stringify(state.customerCart));
+        totalPrice -= copiedCustomerCart[customerCartIndex].orderSubtotal
         copiedCustomerCart.splice(customerCartIndex, 1);
         commit('setCustomerCart', copiedCustomerCart);
     }
