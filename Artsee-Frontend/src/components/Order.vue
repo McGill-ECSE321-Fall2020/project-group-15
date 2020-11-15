@@ -32,12 +32,7 @@
                   <h6>{{ item.artistName }}</h6>
                   <p>{{ item.description }}</p>
                   <div class="col">
-                    <input
-                      type="int"
-                      class="quantity"
-                      v-model="quantity"
-                      placeholder="Qty"
-                    />
+                    <h3> Quantity: </h3>
                   </div>
                 </div>
                 <div class="col-md-4" id="priceButton">

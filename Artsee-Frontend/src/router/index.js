@@ -13,6 +13,7 @@ import ArtworkForm from '@/components/ArtworkForm'
 import MyArtworks from '@/components/MyArtworks'
 import ItemListing from '@/components/ItemListing'
 import Cart from '@/components/Cart'
+import CartRow from '@/components/CartRow'
 import OrdersList from '@/components/OrdersList'
 import ReviewRow from '@/components/ReviewRow'
 import OrderRow from '@/components/OrderRow'
@@ -88,6 +89,11 @@ export default new Router({
       path: '/cart',
       name: 'Cart',
       component: Cart
+    },
+    {
+      path: '/cart/row',
+      name: 'CartRow',
+      component: CartRow
     },
     {
       path: '/orderlist',

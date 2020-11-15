@@ -13,76 +13,12 @@
       <div class="title">
         <h1>Cart</h1>
       </div>
-      <div v-for="(item, index) in items" :key="index">
-      <div class="row xl-6">
-        <div class="col-md-8">
-          <div class="card shadow">
-            <div class="card-body">
-              <div class="row text-center">
-                <div class="col-ml-1 mx-2">
-                  <img :src="item.imageURL" width="170" alt="" loading="lazy" />
-                </div>
-                <div class="col-md-4" id="infoBox">
-                  <h4>{{ item.name }}</h4>
-                  <h6>{{ item.artistName }}</h6>
-                  <p>{{ item.description }}</p>
-                  <div class="col">
-                    <input
-                      type="int"
-                      class="quantity"
-                      v-model="quantity"
-                      placeholder="Qty"
-                    />
-                  </div>
-                </div>
-                <div class="col-md-4" id="priceButton">
-                  <h4>{{ "$" + (item.price / 100).toString() }}</h4>
-                  <p>per Item</p>
-                  <p></p>
-                  <div class="sub-row">
-                    <button
-                      type="button"
-                      class="btn btn-warning btn-sm btn-block"
-                    >
-                      View Details
-                    </button>
-                    <button
-                      class="btn btn-danger btn-sm btn-block"
-                      id="RemoveFromCart"
-                    >
-                      <svg
-                        width="1em"
-                        height="1em"
-                        viewBox="0 0 16 16"
-                        class="bi bi-trash"
-                        fill="currentColor"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
-                        />
-                        <path
-                          fill-rule="evenodd"
-                          d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-                <div id="subTotal">
-                  <h3>
-                    {{ "SubTotal: $" + ((item.price * quantity) / 100).toString() }}
-                  </h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div>
+      <CartRow v-for="(itemListing, i) in CartRow" v-bind:key="`itemListing-${i}`"/>
       </div>
     </div>
     <div class="bottom">
-    <h2> {{"Total:" + ((price*quantity)/100).toString() }}
+      <p> The Total Price will appear in the checkout window    </p>
       <router-link to="/cart/checkout">
       <button
       class="btn btn-success btn-sm btn-block"
@@ -90,8 +26,6 @@
       Checkout
       </button>
       </router-link>
-    </h2>
-    
       </div>
 
   </section>
@@ -99,6 +33,7 @@
 
 <script>
 import Navbar from "@/components/Navbar";
+import CartRow from "@/components/CartRow";
 import axios from "axios";
 var config = require("../../config");
 
@@ -171,6 +106,18 @@ export default {
           artworkError: "",
           quantity: "",
         },
+        {
+          name: "Starry Night",
+          description: "a famous painting",
+          price: "300",
+          dateOfCreation: "1889",
+          numInStock: "3",
+          artistName: "Van Gogh",
+          imageURL:
+            "https://homepages.cae.wisc.edu/~ece533/images/airplane.png",
+          artworkError: "",
+          quantity: "",
+        },
       ],
     };
   },
@@ -215,9 +162,13 @@ export default {
 .title {
   margin-top: 40px;
   margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 200%;
 }
 #itemSection {
   background-color: white;
+  padding-left: 200px;
 }
 
 .quantity {
@@ -241,7 +192,8 @@ export default {
   margin-right: 5px;
 }
 #Checkout {
- width:150%;
+  width: 150%;
+  margin-left: 10px;
 }
 
 .bottom {

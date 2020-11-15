@@ -34,6 +34,9 @@
                             <div class="form-group">
                                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Address">
                             </div>
+                                                       <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Shipping Method: Pickup or Delivery">
+                            </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Billing Address Line 1">
                             </div>
@@ -53,6 +56,7 @@
                                 <input type="text" class="form-control" placeholder="Country">
                             </div>
                             <div class="button-container">
+                                <h1> Total Price: </h1>
                                 <div>
                                     <button type="submit" class="btn btn-success">Place Order</button>
                                 </div>
