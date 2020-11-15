@@ -208,6 +208,7 @@
                     AXIOS.post('/customers', customerDto)
                         .then(response => {
                             console.log(response.data)
+                            this.router.push("EndSignup")
                         })
                         .catch(e => {
                             console.log(e)
@@ -252,6 +253,12 @@
                         this.error = []
                     }
                 }
+            },
+            redirect: function(event) {
+                if (event) {
+                    event.preventDefault()
+                }
+                window.location.replace("/");
             }
         }
     }

@@ -165,6 +165,7 @@
                     AXIOS.post('/artists', artistDto)
                         .then(response => {
                             console.log(response.data)
+                            window.location.replace("/signup/thank-you");
                         })
                         .catch(e => {
                             var errorMsg = e.response.data
