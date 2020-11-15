@@ -12,7 +12,9 @@
                     <div class="card-body">
                         <form>
                             <div class="form-group">
-                                <h4>First Name: </h4>
+                                <div class="header-style">
+                                    <h4>First Name: </h4>
+                                </div>
                                 <div v-if="!fields.editFirstName" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.firstName}}</p>
                                     <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editFirstName')">
@@ -42,7 +44,9 @@
                                 <hr>
                             </div>
                             <div class="form-group">
-                                <h4>Last Name: </h4>
+                                <div class="header-style">
+                                    <h4>Last Name: </h4>
+                                </div>
                                 <div v-if="!fields.editLastName" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.lastName}}</p>
                                     <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editLastName')">
@@ -72,7 +76,9 @@
                                 <hr>
                             </div>
                             <div class="form-group">
-                                <h4>Email: </h4>
+                                <div class="header-style">
+                                    <h4>Email: </h4>
+                                </div>
                                 <div v-if="!fields.editEmail" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.email}}</p>
                                     <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editEmail')">
@@ -141,7 +147,9 @@
                             </div>
 
                             <div class="form-group">
-                                <h4>Phone Number: </h4>
+                                <div class="header-style">
+                                    <h4>Phone Number: </h4>
+                                </div>
                                 <div v-if="!fields.editPhoneNumber" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.phoneNumber}}</p>
                                     <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editPhoneNumber')">
@@ -172,7 +180,9 @@
                             </div>
 
                             <div class="form-group">
-                                <h4>Profile Picture URL: </h4>
+                                <div class="header-style">
+                                    <h4>Profile Picture URL: </h4>
+                                </div>
                                 <div v-if="!fields.editProfilePictureURL" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.profilePictureURL}}</p>
                                     <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editProfilePictureURL')">
@@ -203,7 +213,9 @@
                             </div>
 
                             <div class="form-group">
-                                <h4>Description: </h4>
+                                <div class="header-style">
+                                    <h4>Description: </h4>
+                                </div>
                                 <div v-if="!fields.editArtistDescription" class="non-edit-container">
                                     <p class="description-text-style">{{this.userData.artistDescription}}</p>
                                     <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editArtistDescription')">
@@ -456,5 +468,9 @@ export default {
     }
     .edit-new-password-text-container {
         margin-bottom: 10px;
+    }
+    .header-style{
+        display: flex;
+        width: 100%
     }
 </style>
