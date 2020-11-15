@@ -119,7 +119,7 @@
 
   export default {
     name: "login",
-    computed: mapGetters(['userType']),
+    computed: mapGetters(['userType', 'userName', 'userData']),
     data() {
       return {
         userID: "",
@@ -129,23 +129,24 @@
       };
     },
     methods: {
-      ...mapActions(['setUserType']),
-      createSignIn: function (userID, passWord){
+      ...mapActions(['setUserType', 'setUserName', 'setUserData']),
+      async createSignIn(userID, passWord) {
 
         var l = new SignInDto(userID, passWord);
         this.signInDto = l;
-        console.log(this.signInDto)
-        AXIOS.post('/signIn/', l)
+        await AXIOS.post('/signIn/', l)
           .then(response => {
           // JSON responses are automatically parsed.
             console.log(response.data)
-
             this.setUserType(response.data.type);
-
-          //TODO Parse userdto to get type and redirect basaed on that
+            this.setUserData(response.data);
+            this.setUserName(response.data.userID);
           //Store userID in the cache
-            
-            // router.push('ArtworkGallery')
+            if(response.data.type == "Customer"){
+              window.location.replace("#/artwork-gallery");
+            }
+            // router.push({ name: 'ArtworkGallery' })
+
           
           })
           .catch(e => {
@@ -156,6 +157,8 @@
     },
     created() { //life cycle method which runs before the page is loaded !!
       console.log(this.userType)
+      console.log(this.userName)
+      console.log(this.userData)
     }
   };
 </script>
