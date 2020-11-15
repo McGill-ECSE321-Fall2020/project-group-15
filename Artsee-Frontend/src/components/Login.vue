@@ -146,8 +146,9 @@
           //Store userID in the cache
             if(response.data.type == "Customer"){
               window.location.replace("#/artwork-gallery");
-            } else if(response.data.type == "Customer") {
-              
+
+            } else if (response.data.type == "Artist"){
+              window.location.replace("#/artist-dashboard");
             }
           
           })
