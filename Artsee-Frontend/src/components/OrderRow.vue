@@ -8,6 +8,9 @@
             <th>{{datePlaced}}</th>
             <th>{{totalPrice}}</th>
             <th>{{orderStatus}}</th>
+            <th> <button type="button" class="btn btn-warning btn-sm btn-block">
+                  View Details
+                </button></th>
           </tr>
         </thead>
       </table>

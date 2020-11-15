@@ -11,21 +11,65 @@
     </div>
     <div class="container">
       <div class="title">
-        <h1>Cart</h1>
+          <router-link to="/orderlist">
+          <button class="btn btn-default btn-sm btn-block">
+              Back to myOrders
+          </button>
+          </router-link>
+        <h1>Previous Order</h1>
       </div>
-      <div>
-      <CartRow v-for="(itemListing, i) in items" v-bind:key="`itemListing-${i}`"/>
+      <div v-for="(item, index) in items" :key="index">
+      <div class="row xl-6">
+        <div class="col-md-8">
+          <div class="card shadow">
+            <div class="card-body">
+              <div class="row text-center">
+                <div class="col-ml-1 mx-2">
+                  <img :src="item.imageURL" width="170" alt="" loading="lazy" />
+                </div>
+                <div class="col-md-4" id="infoBox">
+                  <h4>{{ item.name }}</h4>
+                  <h6>{{ item.artistName }}</h6>
+                  <p>{{ item.description }}</p>
+                  <div class="col">
+                    <h3> Quantity: </h3>
+                  </div>
+                </div>
+                <div class="col-md-4" id="priceButton">
+                  <h4>{{ "$" + (item.price / 100).toString() }}</h4>
+                  <p>per Item</p>
+                  <p></p>
+                  <div class="sub-row">
+                    <button
+                      type="button"
+                      class="btn btn-warning btn-sm btn-block"
+                    >
+                      View Details
+                    </button>
+                    <button
+                      class="btn btn-success btn-sm btn-block"
+                      id="Review"
+                    >
+                    Add Review
+                    </button>
+                  </div>
+                </div>
+                <div id="subTotal">
+                  <h3>
+                    {{ "SubTotal: $" + ((item.price * quantity) / 100).toString() }}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       </div>
     </div>
     <div class="bottom">
-      <p> The Total Price will appear in the checkout window    </p>
-      <router-link to="/cart/checkout">
-      <button
-      class="btn btn-success btn-sm btn-block"
-      id="Checkout">
-      Checkout
-      </button>
-      </router-link>
+    <h2> {{"Total:" + ((price*quantity)/100).toString() }}
+    </h2>
+    
       </div>
 
   </section>
@@ -33,7 +77,6 @@
 
 <script>
 import Navbar from "@/components/Navbar";
-import CartRow from "@/components/CartRow";
 import axios from "axios";
 var config = require("../../config");
 
@@ -67,7 +110,6 @@ var AXIOS = axios.create({
 export default {
   components: {
     Navbar,
-    CartRow
   },
   props: {
     artworkID: {
@@ -90,10 +132,8 @@ export default {
           dateOfCreation: "1503",
           numInStock: "1",
           artistName: "Da Vinci",
-          imageURL:
-            "https://homepages.cae.wisc.edu/~ece533/images/airplane.png",
-          artworkError: "",
-          quantity: "",
+          imageURL: "https://homepages.cae.wisc.edu/~ece533/images/airplane.png",
+          artworkError: "",        
         },
         {
           name: "Starry Night",
@@ -102,22 +142,8 @@ export default {
           dateOfCreation: "1889",
           numInStock: "3",
           artistName: "Van Gogh",
-          imageURL:
-            "https://homepages.cae.wisc.edu/~ece533/images/airplane.png",
+          imageURL: "https://homepages.cae.wisc.edu/~ece533/images/airplane.png",
           artworkError: "",
-          quantity: "",
-        },
-        {
-          name: "Starry Night",
-          description: "a famous painting",
-          price: "300",
-          dateOfCreation: "1889",
-          numInStock: "3",
-          artistName: "Van Gogh",
-          imageURL:
-            "https://homepages.cae.wisc.edu/~ece533/images/airplane.png",
-          artworkError: "",
-          quantity: "",
         },
       ],
     };
@@ -163,13 +189,9 @@ export default {
 .title {
   margin-top: 40px;
   margin-bottom: 20px;
-  display: flex;
-  justify-content: flex-start;
-  font-size: 200%;
 }
 #itemSection {
   background-color: white;
-  padding-left: 200px;
 }
 
 .quantity {
@@ -193,8 +215,7 @@ export default {
   margin-right: 5px;
 }
 #Checkout {
-  width: 150%;
-  margin-left: 10px;
+ width:150%;
 }
 
 .bottom {

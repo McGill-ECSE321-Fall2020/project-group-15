@@ -11,18 +11,22 @@ import SignupAdministrator from '@/components/SignupAdministrator'
 import Reviews from '@/components/Reviews'
 import ArtworkForm from '@/components/ArtworkForm'
 import MyArtworks from '@/components/MyArtworks'
-import ArtworkRow from '@/components/ArtworkRow'
-import ArtistProfile from '@/components/ArtistProfile';
+import Cart from '@/components/Cart'
+import CartRow from '@/components/CartRow'
+import OrdersList from '@/components/OrdersList'
 import ReviewRow from '@/components/ReviewRow'
 import OrderRow from '@/components/OrderRow'
 import ArtistRow from '@/components/ArtistRow'
+import Checkout from '@/components/Checkout'
+import Order from '@/components/Order'
+import ArtworkRow from '@/components/ArtworkRow'
+import ArtistProfile from '@/components/ArtistProfile';
 import ArtworkGallery  from "@/components/ArtworkGallery"
 import ArtistList from '@/components/ArtistList'
 import EndSignup from '@/components/EndSignup'
 import ErrorPage from '@/components/ErrorPage'
 import DetailedArtwork from '@/components/DetailedArtwork'
 import ReviewStars from '@/components/ReviewStars'
-
 
 Vue.use(Router)
 
@@ -95,6 +99,23 @@ export default new Router({
       props: true,
     },
     {
+
+      path: '/cart',
+      name: 'Cart',
+      component: Cart
+    },
+    {
+      path: '/cart/row',
+      name: 'CartRow',
+      component: CartRow
+    },
+    {
+      path: '/orderlist',
+      name: 'OrdersList',
+      component: OrdersList
+    },
+    {
+
       path: '/reviewrow',
       name: 'ReviewRow',
       component: ReviewRow
@@ -104,11 +125,26 @@ export default new Router({
       name: 'OrderRow',
       component: OrderRow
     },
+
     {
       path: '/artistrow',
       name: 'artistrow',
       component: ArtistRow
     },
+
+  {
+    path: '/cart/checkout',
+    name: 'Checkout',
+    component: Checkout,
+  },
+
+  {
+    path:'/settings/order',
+    name: 'Order',
+    component: Order,
+
+  },
+
     {
       path: '/artwork-gallery',
       name: 'ArtworkGallery',
