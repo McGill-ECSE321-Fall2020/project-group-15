@@ -72,6 +72,7 @@ import Navbar from '@/components/Navbar'
 import ArtworkRow from '@/components/ArtworkRow'
 import ReviewRow from '@/components/ReviewRow'
 import { mapGetters, mapActions} from 'vuex'
+
 import axios from 'axios'
 var config = require('../../config')
 
