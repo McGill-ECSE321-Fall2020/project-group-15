@@ -7,7 +7,7 @@
     <body>
       <div class="card-container">
         <div class="image-container" id="login_logo">
-            <img class="image-style" src="@/assets/logo.png" />
+            <img class="image-style" src="~@/assets/logo.png" />
         </div>
         <div class="card w-50" id="loginCard">
           <div class="card-body">
