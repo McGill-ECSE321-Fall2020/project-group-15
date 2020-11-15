@@ -7,8 +7,8 @@
           <div class="card shadow">
             <div class="card-body">
               <div class="row text-center">
-                <div class="col-md-3" id="rating">
-                  <h3> {{rating.toString() + "/5"}}</h3>
+                <div id="stars">
+                  <ReviewStars v-bind:rating= "artwork.artist.rating"/>
                 </div>
                 <div class="col-md-6" id="infoBox">
                   <h4>{{artistName}}</h4> <h6> {{customerName}} </h6>
