@@ -26,6 +26,7 @@ import EndSignup from '@/components/EndSignup'
 import ErrorPage from '@/components/ErrorPage'
 import DetailedArtwork from '@/components/DetailedArtwork'
 import ReviewStars from '@/components/ReviewStars'
+import ArtistDashboard from '@/components/ArtistDashboard'
 
 Vue.use(Router)
 
@@ -172,7 +173,12 @@ export default new Router({
       name: 'ReviewStars',
       component: ReviewStars,
       props: true
-    }
+    },
+    {
+      path: '/artist-dashboard',
+      name: 'ArtistDashboard',
+      component: ArtistDashboard
+    },
 
   ]
 })
