@@ -23,7 +23,9 @@
           </router-link>
         </li>
         <li v-if="isCustomer" class="nav-item active">
-          <a class="nav-link">Artists</a>
+          <router-link to="/artists/all">
+            <button class="btn nav-link" id="nav-bar-link-style">Artists</button>
+          </router-link>
         </li>
         <li v-if="isArtist" class="nav-item">
           <router-link to="/artowrk-gallery">
@@ -44,7 +46,7 @@
               <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
             </svg>
           </template>
-          <b-dropdown-item v-if="isCustomer">Orders</b-dropdown-item>
+          <b-dropdown-item v-if="isCustomer" @click="routeToOrders()">Orders</b-dropdown-item>
           <b-dropdown-item @click="routeToSetting()">Settings</b-dropdown-item>
           <b-dropdown-divider></b-dropdown-divider>
           <b-dropdown-item @click="logoutAction()">Logout</b-dropdown-item>
@@ -77,6 +79,9 @@
         } else if(this.userType == "Artist"){
           window.location.replace("#/settings/artist");
         }
+      },
+      routeToOrders() {
+        window.location.replace("/cart");
       }
     },
     created() {
@@ -99,7 +104,7 @@
 }
 
 .navbar-dark {
-  background-color: rgb(80, 80, 80);
+  background-color: rgb(60, 60, 60);
 }
 
 .navbar-btn-style {

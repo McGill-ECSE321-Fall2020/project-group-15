@@ -48,21 +48,16 @@ const actions = {
         if(state.userType == "Customer"){
             const tempUserData = await AXIOS.get("/customers/" + userData.userID)
             commit('setUserData', tempUserData.data);
-            console.log(tempUserData)
         } else if(state.userType == "Artist") {
             const tempUserData = await AXIOS.get("/artists/" + userData.userID)
             commit('setUserData', tempUserData.data);
-            console.log(tempUserData)
         }
-        console.log(userData)
     },
     async setUserType({ commit }, userType) {
         commit('setUserType', userType);
-        console.log(userType);
     },
     setUserName({ commit }, userName) {
         commit('setUserName', userName);
-        console.log(userName);
     },
     logoutUser({ commit }) {
         var data = {

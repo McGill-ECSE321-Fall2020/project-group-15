@@ -139,7 +139,6 @@
         await AXIOS.post('/signIn/', l)
           .then(response => {
           // JSON responses are automatically parsed.
-            console.log(response.data)
             this.setUserType(response.data.type);
             this.setUserData(response.data);
             this.setUserName(response.data.userID);
@@ -156,11 +155,6 @@
             this.signInError = errorMsg
           })
       },
-    },
-    created() { //life cycle method which runs before the page is loaded !!
-      console.log(this.userType)
-      console.log(this.userName)
-      console.log(this.userData)
     }
   };
 </script>

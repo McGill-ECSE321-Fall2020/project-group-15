@@ -2,7 +2,6 @@ import Vuex from 'vuex';
 import Vue from 'vue';
 import login from './modules/Login'
 import artworkGallery from './modules/ArtworkGallery'
-import cart from './modules/Cart'
 
 //Add Vuex to the Application
 Vue.use(Vuex);
@@ -12,6 +11,5 @@ export default new Vuex.Store({
     modules: {
         login,
         artworkGallery,
-        cart
     }
 })
