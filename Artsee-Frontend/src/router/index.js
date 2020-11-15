@@ -168,7 +168,8 @@ export default new Router({
     {
       path: '/artwork/item',
       name: 'DetailedArtwork',
-      component: DetailedArtwork
+      component: DetailedArtwork,
+      props: true,
     },
     {
       path: '/stars',
