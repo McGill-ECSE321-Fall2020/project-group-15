@@ -107,7 +107,8 @@ export default new Router({
     {
       path: '/cart/row',
       name: 'CartRow',
-      component: CartRow
+      component: CartRow,
+      props: true
     },
     {
       path: '/orderlist',
@@ -124,13 +125,15 @@ export default new Router({
     {
       path: '/orderrow',
       name: 'OrderRow',
-      component: OrderRow
+      component: OrderRow,
+      props: true
     },
 
     {
       path: '/artistrow',
       name: 'artistrow',
-      component: ArtistRow
+      component: ArtistRow,
+      props: true
     },
 
   {
@@ -143,7 +146,6 @@ export default new Router({
     path:'/settings/order',
     name: 'Order',
     component: Order,
-
   },
 
     {
@@ -175,7 +177,8 @@ export default new Router({
     {
       path: '/stars',
       name: 'ReviewStars',
-      component: ReviewStars
+      component: ReviewStars,
+      props: true
     }
 
   ]
