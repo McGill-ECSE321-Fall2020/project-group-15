@@ -146,6 +146,9 @@ const actions = {
         totalPrice -= copiedCustomerCart[customerCartIndex].orderSubtotal
         copiedCustomerCart.splice(customerCartIndex, 1);
         commit('setCustomerCart', copiedCustomerCart);
+    },
+    emptyCart({ commit }) {
+        commit('setCustomerCart', []);
     }
 };
 
