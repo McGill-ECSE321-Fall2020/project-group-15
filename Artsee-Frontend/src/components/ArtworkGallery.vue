@@ -96,7 +96,6 @@ import { mapActions, mapGetters } from 'vuex';
         },
         created() {
             this.fetchArtworks();
-            console.log(this.artistArtworks)
         }
     }
 </script>

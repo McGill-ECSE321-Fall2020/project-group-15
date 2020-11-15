@@ -78,7 +78,6 @@
 
 <script>
 import Navbar from "@/components/Navbar";
-import CartRow from "@/components/CartRow";
 import axios from "axios";
 import { mapActions, mapGetters } from 'vuex';
 
@@ -113,8 +112,7 @@ var AXIOS = axios.create({
 
 export default {
   components: {
-    Navbar,
-    CartRow
+    Navbar
   },
   name: "Cart",
   computed: mapGetters(['customerCart']),

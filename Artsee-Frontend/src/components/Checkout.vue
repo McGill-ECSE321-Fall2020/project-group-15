@@ -94,10 +94,6 @@ function CustomerDTO(userID) {
     this.userID = userID;
 }
 
-// function DeliveryMethodDTO(deliveryMethodDto) {
-//     this.deliveryMethodDto = deliveryMethodDto;
-// }
-
 function ArtworkOrderDTO(customer, artworks, deliveryMethodDto) {
     this.customer = customer
     this.artworks = artworks
@@ -130,7 +126,6 @@ export default {
             var error = this.checkError();
             if(error == "") {
                 var deliveryMethod = document.getElementById("deliveryMethod").value
-                // var deliveryMethodDto = new DeliveryMethodDTO(deliveryMethod)
                 var customerDto = new CustomerDTO(this.userData.userID)
                 var artworks = []
                 for(var i=0; i<this.customerCart.length; i++){
