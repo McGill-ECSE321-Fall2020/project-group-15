@@ -173,18 +173,18 @@
 
                             <div class="form-group">
                                 <h4>Profile Picture URL: </h4>
-                                <div v-if="!fields.editImageURL" class="non-edit-container">
-                                    <p class="setting-text-style">{{this.userData.imageURL}}</p>
-                                    <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editImageURL')">
+                                <div v-if="!fields.editProfilePictureURL" class="non-edit-container">
+                                    <p class="setting-text-style">{{this.userData.profilePictureURL}}</p>
+                                    <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editProfilePictureURL')">
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                                         </svg>
                                     </button>
                                 </div>
                                 <div v-else class="edit-container">
-                                    <input type="text" class="form-control" v-model="fields.phoneNumber">
+                                    <input type="text" class="form-control" v-model="fields.profilePictureURL">
                                     <div class="edit-btn-container">
-                                        <button type="button" class="btn btn-success edit-button-style" @click="submitEdit('phoneNumber', fields.phoneNumber, false)">
+                                        <button type="button" class="btn btn-success edit-button-style" @click="submitEdit('profilePictureURL', fields.profilePictureURL, false)">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
                                             </svg>
@@ -196,7 +196,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div v-if="fields.errorImageURL" class="alert alert-danger" role="alert">
+                                <div v-if="fields.errorProfilePictureURL" class="alert alert-danger" role="alert">
                                     {{error}}
                                 </div>
                                 <hr>
@@ -204,18 +204,18 @@
 
                             <div class="form-group">
                                 <h4>Description: </h4>
-                                <div v-if="!fields.editDescription" class="non-edit-container">
-                                    <p class="description-text-style">{{this.userData.description}}</p>
-                                    <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editDescription')">
+                                <div v-if="!fields.editArtistDescription" class="non-edit-container">
+                                    <p class="description-text-style">{{this.userData.artistDescription}}</p>
+                                    <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editArtistDescription')">
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                                         </svg>
                                     </button>
                                 </div>
                                 <div v-else class="edit-container">
-                                    <input type="text" class="form-control" v-model="fields.imageURL">
+                                    <input type="text" class="form-control" v-model="fields.artistDescription">
                                     <div class="edit-btn-container">
-                                        <button type="button" class="btn btn-success edit-button-style" @click="submitEdit('imageURL', fields.imageURL, false)">
+                                        <button type="button" class="btn btn-success edit-button-style" @click="submitEdit('artistDescription', fields.artistDescription, false)">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
                                             </svg>
@@ -227,7 +227,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div v-if="fields.errorDescription" class="alert alert-danger" role="alert">
+                                <div v-if="fields.errorArtistDescription" class="alert alert-danger" role="alert">
                                     {{error}}
                                 </div>
                                 <hr>
@@ -291,8 +291,8 @@ export default {
                 password: '',
                 reenterPassword: '',
                 phoneNumber: '',
-                imageURL: '',
-                description: '',
+                profilePictureURL: '',
+                artistDescription: '',
                 
                 editFirstName: false,
                 editLastName: false,
@@ -300,8 +300,8 @@ export default {
                 editUserID: false,
                 editPassword: false,
                 editPhoneNumber: false,
-                editImageURL: false,
-                editDescription: false,
+                editProfilePictureURL: false,
+                editArtistDescription: false,
                 
                 errorFirstName: false,
                 errorLastName: false,
@@ -309,8 +309,8 @@ export default {
                 errorUserID: false,
                 errorPassword: false,
                 errorPhoneNumber: false,
-                errorImageURL: false,
-                errorDescription: false,
+                errorProfilePictureURL: false,
+                errorArtistDescription: false,
             },
             error: ''
         }
