@@ -44,9 +44,8 @@
             <h2>{{ artwork.name }}</h2>
             <small
               >By
-              <a href="#" onclick = "$router.push({name: 'ArtistProfile', params: {artistID: artistID },})">
+              <a @click="$router.push({name: 'ArtistProfile', params: {artistID: artwork.artist.userID },})" class="hyperlinkstyle">
                 {{ artwork.artist.firstName }} {{ artwork.artist.lastName }}
-                
               </a>
             </small
             >
@@ -72,7 +71,7 @@
             </div>
             <div class="col">
               <h3 class="price-container" id="price">
-                ${{artwork.price}}
+                ${{artwork.price / 100}}
               </h3>
             </div>
             <div class="col" id="addToCart">
@@ -158,14 +157,6 @@ export default {
           artistDescription: String,
         }
       }
-      // artworkName: "Art Title",
-      // artistFirstName: "Matt",
-      // artistLastName: "Langshur",
-      // artistRating: 4,
-      // price: 0,
-      // artworkDescription: "This is some long winded description about the artwork and why you should buy it",
-      // artistDescription: 'this is where we talk about the artist',
-      // dateOfCreation: '2020/05/23'
     };
   },
   components: {
@@ -180,21 +171,16 @@ export default {
     fetch (){
       AXIOS.get('/artworks/' + this.artworkID.toString())
         .then(response => {
-        // JSON responses are automatically parsed.
-        this.artwork = response.data
-          // this.artworkName = response.data.name
-          // this.artistFirstName = response.data.artist.firstName
-          // this.artistLastName = response.data.artist.lastName
-          // this.artistRating = response.data.artist.rating
-          // this.price = response.data.price
-          // this.artworkDescription = response.data.description
-          // this.artistDescription = response.data.artist.artistDescription
-          // this.dateOfCreation = (response.data.dateOfCreation).toString()
+          // Pull artwork object
+          this.artwork = response.data
         })
         .catch(e => {
           var errorMsg = e.response
           this.artworkError = errorMsg
         })
+    },
+    routeToArtist(){
+      $router.push({name: 'ArtistProfile', params: {artistID: this.artistID },})
     }
   }
    
@@ -572,5 +558,10 @@ body {
 .message img.online {
   width: 40px;
   height: 40px;
+}
+
+.hyperlinkstyle{
+  color: blue;
+  text-decoration: underline;
 }
 </style>
