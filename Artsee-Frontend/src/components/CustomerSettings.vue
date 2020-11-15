@@ -3,7 +3,6 @@
         <head>
         <title>Update Profile</title>
         </head>
-        <!-- <body> -->
         <section class="py-5" id="settings-container">
             <div class="navbarContainer">
                 <Navbar navMode="false" />
@@ -354,7 +353,6 @@
                     </div>
                 </div>
             </div>
-        <!-- </body> -->
         </section>
     </div>
 </template>
@@ -582,22 +580,6 @@ export default {
         justify-content: center;
         align-items: center;
         margin-bottom: 50px;
-    }
-    .row {
-        margin-bottom: 10px;
-    }
-    .button-container {
-      width: 100%;
-    }
-    .signin-btn-style {
-        color: #037BFF;
-    }
-    .signin-btn-style:hover {
-        color: #037BFF;
-    }
-    .button-container {
-        display: flex;
-        justify-content: space-around;
     }
     .edit-button-style {
         height: 40px;
