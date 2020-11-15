@@ -571,7 +571,7 @@ export default {
     
 </script>
 
-<style>
+<style scoped>
     #settings-container {
         background-color: #FAFAFA;
     }

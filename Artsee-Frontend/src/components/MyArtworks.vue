@@ -50,7 +50,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 #navbarContainer {
   margin-bottom: 90px;

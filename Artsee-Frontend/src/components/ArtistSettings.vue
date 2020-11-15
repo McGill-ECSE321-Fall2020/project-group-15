@@ -496,10 +496,11 @@ export default {
     
 </script>
 
+
 <style>
     #settings-container {
         background-color: #FAFAFA;
-    }
+    },
     .card-container {
         display: flex;
         justify-content: center;

@@ -43,7 +43,7 @@
                                     <h4> {{ cartTotal }} </h4>
                                 </div>
                                 <div>
-                                    <button type="submit" class="btn btn-success" @click="placeOrder()">Place Order</button>
+                                    <button type="submit" class="btn btn-success" @click="placeOrder($event)">Place Order</button>
                                 </div>
                             </div>
                             <div v-for="(errorMsg, index) in error" :key="index">
@@ -123,7 +123,10 @@ export default {
     },
     methods: {
         ...mapActions(['emptyCart']),
-        async placeOrder() {
+        async placeOrder(event) {
+            if (event) {
+            event.preventDefault()
+            }
             var error = this.checkError();
             if(error == "") {
                 var deliveryMethod = document.getElementById("deliveryMethod").value
@@ -136,6 +139,7 @@ export default {
                     }
                     artworks.push(artwork)
                 }
+                console.log(artworks)
                 var artworkDto = new ArtworkOrderDTO(customerDto, artworks, deliveryMethod)
                 await AXIOS.post("/artworkOrders", artworkDto)
                     .then(response => {
@@ -197,7 +201,7 @@ export default {
     
 </script>
 
-<style>
+<style scoped>
     .card-container {
         display: flex;
         width: 100%;
