@@ -90,8 +90,22 @@ var AXIOS = axios.create({
     headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
+function CustomerDTO(userID) {
+    this.userID = userID;
+}
+
+// function DeliveryMethodDTO(deliveryMethodDto) {
+//     this.deliveryMethodDto = deliveryMethodDto;
+// }
+
+function ArtworkOrderDTO(customer, artworks, deliveryMethodDto) {
+    this.customer = customer
+    this.artworks = artworks
+    this.deliveryMethodDto = deliveryMethodDto
+}
+
 export default {
-    computed: mapGetters(['cartTotal']),
+    computed: mapGetters(['cartTotal', 'userData', 'customerCart']),
     components: {
         Navbar
     },
@@ -103,22 +117,36 @@ export default {
             cvv: '',
             month: '',
             year: '',
-            error : []
+            error : [],
+            // DTO fields
+            artworks: [],
+            artworkDto: {},
+            deliveryMethodDto: '',
+            customer: {},
         }
     },
     methods: {
         async placeOrder() {
             var error = this.checkError();
-            console.log(error)
-            var deliveryMethod = document.getElementById("deliveryMethod").value
-            console.log(deliveryMethod)
             if(error == "") {
-                await AXIOS.post()
+                var deliveryMethod = document.getElementById("deliveryMethod").value
+                // var deliveryMethodDto = new DeliveryMethodDTO(deliveryMethod)
+                var customerDto = new CustomerDTO(this.userData.userID)
+                var artworks = []
+                for(var i=0; i<this.customerCart.length; i++){
+                    for(var j=0; j<this.customerCart[i].artworkQuantity; j++)
+                    var artwork = {
+                        "id" : this.customerCart[i].artworkID
+                    }
+                    artworks.push(artwork)
+                }
+                var artworkDto = new ArtworkOrderDTO(customerDto, artworks, deliveryMethod)
+                await AXIOS.post("/artworkOrders", artworkDto)
                     .then(response => {
-
+                        console.log(response)
                     })
                     .catch(e => {
-
+                        console.log(e)
                     })
             } else {
                 var errorParts = error.split(".")
@@ -146,17 +174,23 @@ export default {
             if(!this.year){
                 errorMsg += "Year cannot be empty."
             }
-            if(/^\d+$/.test(this.cardNumber) || this.cardNumber.length!=16 ){
+            if(!(/^\d+$/.test(this.cardNumber)) || this.cardNumber.length!=16 ){
+                console.log(this.cardNumber)
+                console.log(this.cardNumber.length)
+                console.log(/^\d+$/.test(this.cardNumber))
                 errorMsg += "Credit Card needs to be 16 digits long with no space."
             }
-            if(/^\d+$/.test(this.cvv || this.cvv.length!=3)){
+            if(!(/^\d+$/.test(this.cvv)) || this.cvv.length!=3){
+                console.log(this.cvv)
+                console.log(this.cvv.length)
+                console.log(/^\d+$/.test(this.cvv))
                 errorMsg += "CVV needs to be 3 digits long with no space."
             }
-            if(/^\d+$/.test(this.month) || parseInt(this.month)<0 || parseInt(this.month)>12 ){
+            if(!(/^\d+$/.test(this.month)) || parseInt(this.month)<0 || parseInt(this.month)>12 ){
                 errorMsg += "Month needs to be a value between 1 to 12."
             }
-            if(/^\d+$/.test(this.year || this.cvv.length!=4 || parseInt(this.month)<2020)){
-                errorMsg += "Year needs to be 3 digits long with no space and greater than 2020."
+            if(!(/^\d+$/.test(this.year)) || this.year.length!=4 || parseInt(this.year)<2020) {
+                errorMsg += "Year needs to be 4 digits long with no space and greater than 2020."
             }
             return errorMsg
         }
