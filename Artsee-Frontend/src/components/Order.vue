@@ -67,7 +67,7 @@
       </div>
     </div>
     <div class="bottom">
-    <h2> {{"Total:" + ((item.price*quantity)/100).toString() }}
+    <h2> {{"Total:" + ((price*quantity)/100).toString() }}
     </h2>
     
       </div>
@@ -133,8 +133,7 @@ export default {
           numInStock: "1",
           artistName: "Da Vinci",
           imageURL: "https://homepages.cae.wisc.edu/~ece533/images/airplane.png",
-          artworkError: "",
-          quantity: "",
+          artworkError: "",        
         },
         {
           name: "Starry Night",
@@ -145,7 +144,6 @@ export default {
           artistName: "Van Gogh",
           imageURL: "https://homepages.cae.wisc.edu/~ece533/images/airplane.png",
           artworkError: "",
-          quantity: "",
         },
       ],
     };
