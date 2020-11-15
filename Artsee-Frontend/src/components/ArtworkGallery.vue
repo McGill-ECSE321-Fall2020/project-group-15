@@ -100,7 +100,6 @@ import { mapActions, mapGetters } from 'vuex';
         },
         created() {
             this.fetchArtworks();
-            console.log(this.$route)
         }
     }
 </script>
@@ -123,7 +122,7 @@ import { mapActions, mapGetters } from 'vuex';
         align-items: center;
     }
     .artworks-container {
-        margin-top: 80px;
+        margin-top: 100px;
         display: flex;
         flex-wrap: wrap;
     }

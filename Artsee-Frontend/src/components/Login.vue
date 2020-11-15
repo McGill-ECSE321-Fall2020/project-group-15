@@ -119,7 +119,7 @@
 
   export default {
     name: "login",
-    computed: mapGetters(['userType', 'userName']),
+    computed: mapGetters(['userType', 'userName', 'userData']),
     data() {
       return {
         userID: "",
@@ -129,7 +129,7 @@
       };
     },
     methods: {
-      ...mapActions(['setUserType', 'setUserName']),
+      ...mapActions(['setUserType', 'setUserName', 'setUserData']),
       async createSignIn(userID, passWord) {
 
         var l = new SignInDto(userID, passWord);
@@ -139,9 +139,12 @@
           // JSON responses are automatically parsed.
             console.log(response.data)
             this.setUserType(response.data.type);
+            this.setUserData(response.data);
             this.setUserName(response.data.userID);
           //Store userID in the cache
-            window.location.replace("#/artwork-gallery");
+            if(response.data.type == "Customer"){
+              window.location.replace("#/artwork-gallery");
+            }
             // router.push({ name: 'ArtworkGallery' })
 
           
@@ -155,6 +158,7 @@
     created() { //life cycle method which runs before the page is loaded !!
       console.log(this.userType)
       console.log(this.userName)
+      console.log(this.userData)
     }
   };
 </script>

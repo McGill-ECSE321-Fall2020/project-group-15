@@ -6,7 +6,7 @@
       integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
       crossorigin="anonymous"
     />
-    <div v-if="false">NavMode: {{ navMode }}</div>
+    <!-- <div v-if="false">NavMode: {{ navMode }}</div> -->
     <a class="navbar-brand">
       <img
         src="@/assets/logo.png"
@@ -44,35 +44,63 @@
           <a class="nav-link" href="?/reviews">Reviews</a>
         </li>
       </ul>
-      <div href="#">
+      <button v-if="isCustomer" type="button" class="btn cart-btn-style navbar-btn-style">
         <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-cart-fill" fill="white" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
         </svg>
-      </div>
-        <b-dropdown size="lg" variant="link" toggle-class="text-decoration-none" no-caret id="dropdown1">
+      </button>
+        <b-dropdown class="navbar-btn-style" size="lg" variant="link" toggle-class="text-decoration-none" no-caret id="dropdown1">
           <template #button-content>
             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="white" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
             </svg>
           </template>
           <b-dropdown-item>Orders</b-dropdown-item>
-          <b-dropdown-item>Settings</b-dropdown-item>
+          <b-dropdown-item @click="routeToSetting()">Settings</b-dropdown-item>
           <b-dropdown-divider></b-dropdown-divider>
-          <b-dropdown-item>Logout</b-dropdown-item>
+          <b-dropdown-item @click="logoutAction()">Logout</b-dropdown-item>
         </b-dropdown>
     </div>
   </nav>
 </template>
 
 <script>
-export default {
-  props: {
-    navMode: {
-      type: Boolean,
-      default: false,
+  import { mapActions, mapGetters } from 'vuex';
+
+  export default {
+    name: "navbar",
+    computed: mapGetters(['userType']),
+    data() {
+      return {
+        isCustomer: false,
+        isArtist: false,
+      };
     },
-  },
-};
+    methods: {
+      ...mapActions(['logoutUser']),
+      logoutAction() {
+        window.location.replace("/");
+        this.logoutUser();
+      },
+      routeToSetting() {
+        if(this.userType == "Customer"){
+          window.location.replace("#/settings/customer");
+        } else if(this.userType == "Artist"){
+          window.location.replace("#/settings/artist");
+        }
+      }
+    },
+    created() {
+      if(this.userType == "Customer"){
+        this.isArtist - false;
+        this.isCustomer = true;
+      } else if(this.userType == "Artist") {
+        this.isCustomer = false;
+        this.isArtist - true;
+      }
+    }
+
+  };
 </script>
 <style>
 
@@ -110,7 +138,11 @@ export default {
   justify-self: right;
 }
 
-button {
+.navbar-btn-style {
   width: 100px;
+}
+
+.cart-btn-style {
+  background-color: none
 }
 </style>
