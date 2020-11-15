@@ -8,13 +8,13 @@
         <Navbar navMode="true"/>
       </div>
       <div class="row py-5 px-4">
-        <div class="col-md-5 mx-auto">
+        <div class="col-md-9 mx-auto">
             <!-- Profile widget -->
             <div class="bg-white shadow rounded overflow-hidden">
                 <div class="px-4 pt-0 pb-4 cover">
                     <div class="media align-items-end profile-head">
                         <div class="profile mr-3">
-                          <img v-if = "artist.profilePictureURL" src= "artist.profilePictureURL" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                          <img v-if = "artist.profilePictureURL" :src= "artist.profilePictureURL" alt="..." width="130" class="rounded mb-2 img-thumbnail">
                           <img v-else src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="..." width="130" class="rounded mb-2 img-thumbnail">
 
                           <!-- Should be a vue-router and conditionally rendered depednding on artist or customer view-->
@@ -47,28 +47,17 @@
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h5 class="mb-0">Artworks</h5>
                     </div>
-                    <!-- NEED TO ADD v-for AND RENDER AN ITEMLISTING COMPONENT PASSING THE DETAILS OF  ITEM 
-                    THROUGH PROPS (DIDNT DO BECAUSE ITEMLISTING HAD TO BE MODIFIED BY ADDING MORE PROPS) -->
-                    <div class="row">
-                        
+                    <div class = "artworkRow">
+                      <ArtworkRow 
+                          v-for="(artwork, i) in artworks" v-bind:key="`artwork-${i}`" v-bind:artworkID = "artwork.id" />
                     </div>
                 </div>
                 <div class="py-4 px-4">
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h5 class="mb-0">Reviews</h5>
                     </div>
-                    <!-- COULD BE REPLACED BY REVIEW ROW COMPONENT -->
-                    <div v-for="(review, i) in reviews" v-bind:key="`review-${i}`" class="row">
-                        <div class="card" style="width: 90%">
-                          <div class="card-body">
-                            <h5 class="card-title">{{ "Customer: " + review.customer.firstName + " " + review.customer.lastName }}</h5>
-                            <p class="card-text">{{"Comment: " + review.comment }}</p>
-                          </div>
-                          <ul class="list-group list-group-flush">
-                            <li class="list-group-item">{{"Rating: " + review.rating }}</li>
-                          </ul>
-                        </div>
-                    </div>
+                    <ReviewRow 
+                        v-for="(review, i) in reviews" v-bind:key="`review-${i}`" v-bind:reviewID = "review.reviewID" />
                 </div>
             </div>
         </div>
@@ -79,6 +68,8 @@
 
 <script>
 import Navbar from '@/components/Navbar'
+import ArtworkRow from '@/components/ArtworkRow'
+import ReviewRow from '@/components/ReviewRow'
 import axios from 'axios'
 var config = require('../../config')
 
@@ -109,11 +100,13 @@ var AXIOS = axios.create({
 
 export default {
   components: {
-    Navbar
+    Navbar,
+    ArtworkRow,
+    ReviewRow
   },
   props: {
     artistID: {
-      default: "notfound",
+      default: "NotReceived",
       type: String
     }
   },
@@ -128,7 +121,6 @@ export default {
     }
   },
   created: function () {
-      console.log(artistID)
       this.fetch()
   },
 
@@ -138,18 +130,16 @@ export default {
         .then(response => {
         // JSON responses are automatically parsed.
           this.artist = response.data
-          console.log(response.data)
         })
         .catch(e => {
           var errorMsg = e.response.data
-          console.log(errorMsg)
+          console.log(response.data)
           this.artistError = errorMsg
         })
       AXIOS.get('/artworksByArtist/' + this.artistID.toString())
         .then(response => {
         // JSON responses are automatically parsed.
           this.artworks = response.data
-          console.log(response.data)
         })
         .catch(e => {
           var errorMsg = e.response.data
@@ -158,9 +148,9 @@ export default {
         })
       AXIOS.get('/reviewsOnArtist/' + this.artistID.toString())
         .then(response => {
+          console.log(response.data)
         // JSON responses are automatically parsed.
           this.reviews = response.data
-          console.log(response.data)
         })
         .catch(e => {
           var errorMsg = e.response.data
@@ -197,5 +187,10 @@ body {
 .mb {
   margin-bottom: 20px;
 }
+
+/* .artworkRow{
+  margin-left: auto;
+  margin-right: auto;
+} */
 
 </style>

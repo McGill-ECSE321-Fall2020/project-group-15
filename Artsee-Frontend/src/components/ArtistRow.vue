@@ -34,76 +34,7 @@
                 <div class="col-md-3">
                   <h4>{{firstName}} {{lastName}}</h4>
                   <div class="rating-block">
-                    <button
-                      type="button"
-                      class="btn btn-sm"
-                      v-bind:class="{
-                        'btn-warning': this.star1,
-                        'btn-default btn-grey': !this.star1,
-                      }"
-                      aria-label="Left Align"
-                    >
-                      <span
-                        class="glyphicon glyphicon-star"
-                        aria-hidden="true"
-                      ></span>
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-sm"
-                      v-bind:class="{
-                        'btn-warning': this.star2,
-                        'btn-default btn-grey': !this.star2,
-                      }"
-                      aria-label="Left Align"
-                    >
-                      <span
-                        class="glyphicon glyphicon-star"
-                        aria-hidden="true"
-                      ></span>
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-sm"
-                      v-bind:class="{
-                        'btn-warning': this.star3,
-                        'btn-default btn-grey': !this.star3,
-                      }"
-                      aria-label="Left Align"
-                    >
-                      <span
-                        class="glyphicon glyphicon-star"
-                        aria-hidden="true"
-                      ></span>
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-sm"
-                      v-bind:class="{
-                        'btn-warning': this.star4,
-                        'btn-default btn-grey': !this.star4,
-                      }"
-                      aria-label="Left Align"
-                    >
-                      <span
-                        class="glyphicon glyphicon-star"
-                        aria-hidden="true"
-                      ></span>
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-sm"
-                      v-bind:class="{
-                        'btn-warning': this.star5,
-                        'btn-default btn-grey': !this.star5,
-                      }"
-                      aria-label="Left Align"
-                    >
-                      <span
-                        class="glyphicon glyphicon-star"
-                        aria-hidden="true"
-                      ></span>
-                    </button>
+                    <ReviewStars :review="3"/>
                   </div>
                 </div>
                 <div class="col-md-4">
@@ -117,7 +48,7 @@
                       type="button"
                       class="btn btn-warning btn-sm btn-block"
                       id="view-more-button"
-                      @click="$router.push({name: 'ArtistProfile', props: { artistID: 'artistID' },})">View profile
+                      @click="$router.push({name: 'ArtistProfile', params: {artistID: artistID },})">View profile
                     </button>
                   </div>
                 </div>
@@ -131,6 +62,7 @@
 </template>
 
 <script>
+import ReviewStars from '@/components/ReviewStars'
 import axios from 'axios'
 var config = require('../../config')
 
@@ -202,7 +134,6 @@ export default {
           this.firstName = response.data.firstName
           this.lastName = response.data.lastName
           this.rating = response.data.rating
-          console.log(response.data)
         })
         .catch(e => {
           var errorMsg = e.response.data
@@ -232,10 +163,10 @@ export default {
         this.star5 = true;
       }
     },
-    // redirect: function() {
-    //   window.location.replace("/#/artistrow");
-    // }
   },
+  components: {
+    ReviewStars
+  }
 };
 </script>
 
@@ -263,7 +194,7 @@ export default {
 #profile-pic {
   display: inline;
   margin: 0 auto;
-  margin-left: -10%;
+  margin-left: -30%;
   height: 100%;
   width: auto;
 }
