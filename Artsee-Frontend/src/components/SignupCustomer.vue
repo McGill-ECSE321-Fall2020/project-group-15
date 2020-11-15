@@ -208,6 +208,7 @@
                     AXIOS.post('/customers', customerDto)
                         .then(response => {
                             console.log(response.data)
+                            window.location.replace("#/signup/thank-you");
                         })
                         .catch(e => {
                             console.log(e)
@@ -252,6 +253,12 @@
                         this.error = []
                     }
                 }
+            },
+            redirect: function(event) {
+                if (event) {
+                    event.preventDefault()
+                }
+                window.location.replace("/");
             }
         }
     }
