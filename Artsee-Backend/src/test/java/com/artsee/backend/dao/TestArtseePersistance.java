@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -563,6 +565,35 @@ public class TestArtseePersistance {
 		OrderStatus orderStatus = OrderStatus.PROCESSING;
 		int totalPrice =12;
 
+		String artistID = "artistID";
+		String email = "artist@mail.ca";
+		String password = "artistPassword";
+		String firstName = "artistfirst";
+		String lastName = "artistlast";
+		String phoneNumber = "123456";
+		String artistDescription = "artistTestDescription";
+		Float rating = 4.2f;
+		String profilePicURL = "url";
+		Artist artist = createTestArtistWithoutReviewOrArtworks(artistID, email, password, firstName, lastName, phoneNumber, artistDescription, rating, profilePicURL);
+		artistRepository.save(artist);
+		
+		// Creating Artwork object with test data
+		String name = "ArtworkTestName";
+		String description = "Artwork description test";
+		Integer price = 1500;
+		Date dateOfCreation = java.sql.Date.valueOf(LocalDate.of(2020, Month.SEPTEMBER, 15));
+		Integer numInStock = 3;
+		String imageURL = "url";
+		
+		Artwork artwork = createTestArtworkWithoutArtist(name, description, price, dateOfCreation, numInStock, imageURL);
+		artwork.setArtist(artist);
+		
+		// Saving object to DB
+		artworkRepository.save(artwork);
+		
+		Set<Artwork> artworks = new HashSet<Artwork>();
+		artworks.add(artwork);
+		
 		ArtworkOrder order = new ArtworkOrder();
 		
 		order.setDatePlaced(datePlaced);
@@ -571,7 +602,8 @@ public class TestArtseePersistance {
 		order.setOrderStatus(orderStatus);
 		order.setCustomer(customer);
 		order.setTotalPrice(totalPrice);
-
+		order.setArtworks(artworks);
+		
 		// Saving object to DB
 		artworkOrderRepository.save(order);
 		Integer orderID = order.getOrderID();
@@ -592,7 +624,8 @@ public class TestArtseePersistance {
 		// Comparing by keys
 		assertEquals(orderStatus, order.getOrderStatus());
 		assertEquals(customer.getEmail(), order.getCustomer().getEmail());
-		
+		assertEquals(artworks.size(), order.getArtworks().size());
+
 		
 		// Testing update
 		customerPhoneNumber= "567890";
