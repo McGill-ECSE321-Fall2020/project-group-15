@@ -42,21 +42,23 @@
 
 <script>
 export default {
-  props: {
-    artworkID: {
-      default: -1,
-      type: Number,
-    },
-    quantity: {
-      default: 1,
-      type: Number,
-    },
-  },
+  props: ['artwork'],
+  // props: {
+  //   artworkID: {
+  //     default: -1,
+  //     type: Number,
+  //   },
+  //   quantity: {
+  //     default: 1,
+  //     type: Number,
+  //   },
+  // },
   name: "itemListing",
   data() {
     return {
-          name: "Mona Lisa",
-          description: "A classic",
+      quantity : "1",
+          name: "Moa Lisa",
+          description: " classic",
           price: "400",
           dateOfCreation: "1503",
           numInStock: "1",

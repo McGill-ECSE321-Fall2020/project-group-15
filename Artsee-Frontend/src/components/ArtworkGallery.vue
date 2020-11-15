@@ -11,7 +11,7 @@
                         <p class="card-text">{{artwork.description}}</p>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><b>Price:</b> $ <span>{{(artwork.price/10).toFixed(2)}}</span></li>
+                        <li class="list-group-item"><b>Price:</b> $ <span>{{(artwork.price/100).toFixed(2)}}</span></li>
                         <li class="list-group-item"><b>Artist: </b><span>{{artwork.artist.userID}}</span></li>
                     </ul>
                     <div class="card-body button-container-style">
@@ -96,6 +96,7 @@ import { mapActions, mapGetters } from 'vuex';
         },
         created() {
             this.fetchArtworks();
+            console.log(this.artistArtworks)
         }
     }
 </script>

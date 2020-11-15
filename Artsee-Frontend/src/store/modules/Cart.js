@@ -1,33 +1,34 @@
-const state = {
-   customerCart : [],
-   cartTotal: 0,
-};
+// const state = {
+//    customerCart : [],
+//    cartTotal: 0,
+// };
 
-const getters = {
-    customerCart: (state) => state.customerCart,
-};
+// const getters = {
+//     customerCart: (state) => state.customerCart,
+// };
 
-const actions = {
-    addItemToCart({ commit }, itemDetails) {
-        var cartItem = {
-            imageURL: itemDetails.imageURL,
-            itemName: itemDetails.itemName,
-            itemArtist: itemDetails.itemArtist,
-            quantityInCart: itemDetails.quantityInCart,
-            itemQuantityLeft: itemDetails.itemQuantityLeft,
-            itemPrice: itemDetails.price,
-            itemSubtotal: itemDetails.itemSubtotal
-        }
-    }
-};
+// const actions = {
+//     addArtworkToCart({ commit }, orderData) {
+//         // var cartItem = {
+//         //     imageURL: itemDetails.imageURL,
+//         //     itemID: itemDetails.itemID,
+//         //     itemName: itemDetails.itemName,
+//         //     itemArtist: itemDetails.itemArtist,
+//         //     quantityInCart: itemDetails.quantityInCart,
+//         //     itemQuantityLeft: itemDetails.itemQuantityLeft,
+//         //     itemPrice: itemDetails.price,
+//         //     itemSubtotal: itemDetails.itemSubtotal
+//         // }
+//     }
+// };
 
-const mutations = {
+// const mutations = {
     
-};
+// };
 
-export default {
-    state,
-    getters, 
-    actions, 
-    mutations
-};
+// export default {
+//     state,
+//     getters, 
+//     actions, 
+//     mutations
+// };
