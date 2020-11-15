@@ -106,9 +106,9 @@
     }
 </script>
 
-<style>
+<style scoped>
     body {
-        background-image: linear-gradient(to right, #5160a0, #9e9e9e);
+        background-color:#FAFAFA;
     }
     .card-container {
         display: flex;

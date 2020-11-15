@@ -8,7 +8,7 @@
             <div class="card-body">
               <div class="row text-center">
                 <div id="stars">
-                  <ReviewStars v-bind:rating= "artwork.artist.rating"/>
+                  <ReviewStars v-bind:rating= "rating"/>
                 </div>
                 <div class="col-md-6" id="infoBox">
                   <h4>{{artistName}}</h4> <h6> {{customerName}} </h6>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import ReviewStars from '@/components/ReviewStars'
 import axios from 'axios'
 var config = require('../../config')
 
@@ -58,6 +59,9 @@ export default {
     reviewID: {
       default: "notfound",
     }
+  },
+    components: {
+      ReviewStars
   },
   name: "reviewRow",
   data() {
