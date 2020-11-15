@@ -15,22 +15,20 @@
         loading="lazy"
       />
     </a>
-
-
-      <div class="navbar-style">
+    <div class="navbar-style">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="?/profile"
-            >Gallery <span class="sr-only">(current)</span></a
-          >
+        <li v-if="isCustomer" class="nav-item active">
+          <router-link to="/artwork-gallery">
+            <button class="btn nav-link" id="nav-bar-link-style">Artwork Gallery</button>
+          </router-link>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="?/profile"
-            >Artists <span class="sr-only">(current)</span></a
-          >
+        <li v-if="isCustomer" class="nav-item active">
+          <a class="nav-link">Artists</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="?/reviews">Reviews</a>
+        <li v-if="isArtist" class="nav-item">
+          <router-link to="/artowrk-gallery">
+            <button class="btn nav-link" id="nav-bar-link-style">Reviews</button>
+          </router-link>
         </li>
       </ul>
       <button v-if="isCustomer" type="button" class="btn cart-btn-style navbar-btn-style">
@@ -44,7 +42,7 @@
               <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
             </svg>
           </template>
-          <b-dropdown-item>Orders</b-dropdown-item>
+          <b-dropdown-item v-if="isCustomer">Orders</b-dropdown-item>
           <b-dropdown-item @click="routeToSetting()">Settings</b-dropdown-item>
           <b-dropdown-divider></b-dropdown-divider>
           <b-dropdown-item @click="logoutAction()">Logout</b-dropdown-item>
@@ -92,39 +90,14 @@
   };
 </script>
 <style>
-
 .logo {
   width: 20%;
   color: white;
   padding: 0;
 }
 
-.btn-secondary {
-  background-color: white;
-  border-color: white;
-  color: white;
-}
 .navbar-dark {
   background-color: rgb(80, 80, 80);
-}
-
-#logoBox {
-  border-style: solid;
-  padding: 0;
-  border-width: 7px;
-  border-color: white;
-  background-color: white;
-  border-radius: 15px;
-}
-
-#logoutButton {
-  color: white;
-  border-width: 2.5px;
-  width: 100px;
-}
-
-#right-nav-item {
-  justify-self: right;
 }
 
 .navbar-btn-style {
@@ -140,4 +113,9 @@
   display: flex;
   justify-content: space-between;
 }
+
+#nav-bar-link-style {
+  color: white;
+}
+
 </style>
