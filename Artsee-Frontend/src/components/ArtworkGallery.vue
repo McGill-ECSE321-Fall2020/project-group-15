@@ -1,5 +1,5 @@
 <template>
-    <body>
+    <section class="py-5" id="gallery-container">
         <NavBar />
         <div class="artworks-container">
             <div v-for="(artwork, index) in artistArtworks" :key="index">
@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-    </body>
+    </section>
 </template>
 
 <script>
@@ -101,10 +101,8 @@ import { mapActions, mapGetters } from 'vuex';
 </script>
 
 <style scoped>
-    body {
-        height: 100%;
-        width: 100%;
-        background-color: white;
+    #gallery-container {
+        background-color: #FAFAFA;
     }
     .card-style {
         margin: 30px;

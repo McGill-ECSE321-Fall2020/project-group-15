@@ -1,14 +1,10 @@
 <template>
-<div class="container">
-  <div class="row xl-6">
-    <div class="col-md-8">
+  <div class="card-container">
       <div class="card shadow">
         <div class="card-body">
           <div class="row text-center">
-            <div class="col-ml-1 mx-2">
-              <img :src="imageURL" width="170" alt="" loading="lazy" />
-            </div>
-            <div class="col-md-4" id="infoBox">
+            <img :src="imageURL" class="cart-img-style" width="170" alt="" loading="lazy" />
+            <div>
               <h4>{{ name }}</h4>
               <h6>{{ artistName }}</h6>
               <p>{{ description }}</p>
@@ -21,7 +17,7 @@
                 />
               </div>
             </div>
-            <div class="col-md-4" id="priceButton">
+            <div class="col">
               <h4>{{ "$" + (price / 100).toString() }}</h4>
               <p>per Item</p>
               <p></p>
@@ -60,8 +56,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
   </div>
 </template>
 
@@ -92,3 +86,13 @@ export default {
   },
 }
 </script>
+
+<style>
+  .card-container {
+    width: 600px;
+  }
+  .cart-img-style {
+    margin-left: 10px;
+    width: 170;
+  }
+</style>

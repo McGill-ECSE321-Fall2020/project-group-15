@@ -3,7 +3,8 @@
         <head>
         <title>Update Profile</title>
         </head>
-        <body>
+        <!-- <body> -->
+        <section class="py-5" id="settings-container">
             <div class="navbarContainer">
                 <Navbar navMode="false" />
             </div>
@@ -353,7 +354,8 @@
                     </div>
                 </div>
             </div>
-        </body>
+        <!-- </body> -->
+        </section>
     </div>
 </template>
 
@@ -572,6 +574,9 @@ export default {
 </script>
 
 <style>
+    #settings-container {
+        background-color: #FAFAFA;
+    }
     .card-container {
         display: flex;
         justify-content: center;
