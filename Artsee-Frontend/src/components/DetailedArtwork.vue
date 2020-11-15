@@ -36,9 +36,11 @@
             <h2>{{ artworkName }}</h2>
             <small
               >By
-              <a href="javascript:void(0);"
-                >{{ artistFirstName }} {{ artistLastName }}</a
-              ></small
+              <a href="#" onclick = "$router.push({name: 'ArtistProfile', params: {artistID: artistID },})">
+                {{ artistFirstName }} {{ artistLastName }}
+                
+              </a>
+            </small
             >
             <div id="stars">
             <ReviewStars :rating="artistRating"/>
@@ -135,14 +137,15 @@ export default {
   },
   data() {
     return {
-      artworkName: "Art Title",
-      artistFirstName: "Matt",
-      artistLastName: "Langshur",
-      artistRating: 4,
-      price: 0,
-      artworkDescription: "This is some long winded description about the artwork and why you should buy it",
-      artistDescription: 'this is where we talk about the artist',
-      dateOfCreation: '2020/05/23'
+      artwork: ""
+      // artworkName: "Art Title",
+      // artistFirstName: "Matt",
+      // artistLastName: "Langshur",
+      // artistRating: 4,
+      // price: 0,
+      // artworkDescription: "This is some long winded description about the artwork and why you should buy it",
+      // artistDescription: 'this is where we talk about the artist',
+      // dateOfCreation: '2020/05/23'
     };
   },
   components: {
@@ -158,14 +161,15 @@ export default {
       AXIOS.get('/artworks/' + this.artworkID.toString())
         .then(response => {
         // JSON responses are automatically parsed.
-          this.artworkName = response.data.name
-          this.artistFirstName = response.data.artist.firstName
-          this.artistLastName = response.data.artist.lastName
-          this.artistRating = response.data.artist.rating
-          this.price = response.data.price
-          this.artworkDescription = response.data.description
-          this.artistDescription = response.data.artist.artistDescription
-          this.dateOfCreation = (response.data.dateOfCreation).toString()
+        this.artwork = response.data
+          // this.artworkName = response.data.name
+          // this.artistFirstName = response.data.artist.firstName
+          // this.artistLastName = response.data.artist.lastName
+          // this.artistRating = response.data.artist.rating
+          // this.price = response.data.price
+          // this.artworkDescription = response.data.description
+          // this.artistDescription = response.data.artist.artistDescription
+          // this.dateOfCreation = (response.data.dateOfCreation).toString()
         })
         .catch(e => {
           var errorMsg = e.response
