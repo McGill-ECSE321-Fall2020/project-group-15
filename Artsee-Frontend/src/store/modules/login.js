@@ -60,7 +60,7 @@ const actions = {
         commit('setUserType', userType);
     },
     setUserName({ commit }, userName) {
-        console.log(userType)
+        console.log(userName)
         commit('setUserName', userName);
     },
     logoutUser({ commit }) {

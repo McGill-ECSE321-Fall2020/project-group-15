@@ -146,8 +146,6 @@
             if(response.data.type == "Customer"){
               window.location.replace("#/artwork-gallery");
             }
-            // router.push({ name: 'ArtworkGallery' })
-
           
           })
           .catch(e => {
