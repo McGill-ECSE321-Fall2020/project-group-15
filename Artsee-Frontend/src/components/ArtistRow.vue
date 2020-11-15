@@ -105,11 +105,6 @@ export default {
       firstName: 'first name',
       lastName: 'last name',
       rating: 0,
-      star1: false,
-      star2: false,
-      star3: false,
-      star4: false,
-      star5: false,
       artistError: "",
     };
   },

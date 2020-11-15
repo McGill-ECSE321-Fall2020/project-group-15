@@ -118,7 +118,8 @@ export default new Router({
 
       path: '/reviewrow',
       name: 'ReviewRow',
-      component: ReviewRow
+      component: ReviewRow,
+      props: true
     },
     {
       path: '/orderrow',

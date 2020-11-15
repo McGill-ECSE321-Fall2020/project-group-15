@@ -32,34 +32,33 @@ export default {
       star3: false,
       star4: false,
       star5: false,
-      star_rating: this.rating
     };
   },
 
   created: function () {
-    this.updateStars(this.star_rating);
-    this.star1 = true;
+    this.updateStars(this.rating);
+    // this.star1 = true;
   },
 
   methods: {
-    updateStars: function (starRating) {
-      if (starRating >= 1) {
+    updateStars: function () {
+      if (this.rating >= 1) {
         this.star1 = true;
-      }
+      } 
 
-      if (starRating >= 2) {
+      if (this.rating >= 2) {
         this.star2 = true;
       }
 
-      if (starRating >= 3) {
+      if (this.rating >= 3) {
         this.star3 = true;
       }
 
-      if (starRating >= 4) {
+      if (this.rating >= 4) {
         this.star4 = true;
       }
 
-      if (starRating >= 5) {
+      if (this.rating >= 5) {
         this.star5 = true;
       }
     },
