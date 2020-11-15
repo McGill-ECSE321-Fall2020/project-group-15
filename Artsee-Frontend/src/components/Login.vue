@@ -40,7 +40,7 @@
                       type="submit"
                       class="btn btn-success login-buttons-style"
                       v-bind:disabled="!password"
-                      @click="createSignIn(userID, password)"
+                      @click="createSignIn(userID, password, $event)"
                     >
                       Login
                     </button>
@@ -130,8 +130,10 @@
     },
     methods: {
       ...mapActions(['setUserType', 'setUserName', 'setUserData']),
-      async createSignIn(userID, passWord) {
-
+      async createSignIn(userID, passWord, event) {
+        if (event) {
+          event.preventDefault()
+        }
         var l = new SignInDto(userID, passWord);
         this.signInDto = l;
         await AXIOS.post('/signIn/', l)
