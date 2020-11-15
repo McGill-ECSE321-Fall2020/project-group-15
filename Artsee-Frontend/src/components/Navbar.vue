@@ -85,7 +85,7 @@
         window.location.replace("#/cart");
       },
       routeToOrders() {
-        window.location.replace("#/settings/order");
+        window.location.replace("#/settings/orderlist");
       },
       routeToReviews() {
          window.location.replace("#/reviews");
