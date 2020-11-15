@@ -7,7 +7,12 @@
       crossorigin="anonymous"
     />
     <Navbar />
-    <div class="cart-container">
+    <div v-if="customerCart.length == 0" class="title-style">
+      <h1>Your Shopping Cart is Empty</h1>
+      <img class="empty-cart-style" src="@/assets/emptycart.png">
+      <p class="subtext-style">Head to the Artwork Gallery to add Artowrks to your cart.</p>
+    </div>
+    <div v-else class="cart-container">
       <div class="title-style">
         <h1>Cart</h1>
       </div>
@@ -59,8 +64,6 @@
             </div>
         </div>
       </div>
-
-
       <div>
         <p>The Total Price will appear in the checkout window</p>
         <router-link to="/cart/checkout">
@@ -214,5 +217,11 @@ export default {
     box-shadow: 2px 2px 4px #000000;
     margin-left: 2px;
     margin-right: 2px;
+  }
+  .empty-cart-style {
+    height: 300px
+  }
+  .subtext-style {
+    font-size: 18px
   }
 </style>
