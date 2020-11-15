@@ -95,10 +95,10 @@ import { mapActions, mapGetters } from 'vuex';
             };
         },
         methods: {
-            ...mapActions(['fetchArtworks', 'addArtworkToCart']),
-            addToCart: function(index) {
-                this.addArtworkToCart(index);
-            }
+        ...mapActions(['fetchArtworks', 'addArtworkToCart']),
+        addToCart: function(index) {
+            this.addArtworkToCart(index);
+        }
         },
         created() {
             this.fetchArtworks();

@@ -114,6 +114,49 @@ const actions = {
         copiedCustomerCart[customerCartIndex].artworkNumInStock = copiedArtistArtworks[artworkIndex].numInStock;
         commit('setCustomerCart', copiedCustomerCart);
     },
+    addToCart({ commit }, artworkID) {
+        var totalPrice = state.cartTotal;
+        let copiedArtistArtworks = JSON.parse(JSON.stringify(state.artistArtworks));
+        var artworkIndex = 0;
+        for(var i=0; i<copiedArtistArtworks.length; i++){
+            if(copiedArtistArtworks[i].id == artworkID){
+                copiedArtistArtworks[i].numInStock--;
+                totalPrice += copiedArtistArtworks[i].price;
+                artworkIndex = i;
+                break;
+            }
+        }
+        commit('setArtworks', copiedArtistArtworks);
+
+        let copiedCustomerCart = JSON.parse(JSON.stringify(state.customerCart));
+        var isInCart = false
+        for(var i=0; i < copiedCustomerCart.length; i++){
+            if(copiedCustomerCart[i].artworkID == artworkID){
+                isInCart = true;
+                copiedCustomerCart[i].artworkQuantity++;
+                copiedCustomerCart[i].orderSubtotal += copiedCustomerCart[i].artworkPrice;
+                copiedCustomerCart[i].artworkNumInStock = copiedArtistArtworks[artworkIndex].numInStock;
+                break;
+            }
+        }
+
+        if(!isInCart){
+            var artwork = {
+                artworkImageURL: copiedArtistArtworks[artworkIndex].imageURL,
+                artworkID: copiedArtistArtworks[artworkIndex].id,
+                artworkName: copiedArtistArtworks[artworkIndex].name,
+                artistFirstName: copiedArtistArtworks[artworkIndex].artist.firstName,
+                artistLastName: copiedArtistArtworks[artworkIndex].artist.lastName,
+                artworkQuantity: 1,
+                artworkNumInStock: copiedArtistArtworks[artworkIndex].numInStock,
+                artworkPrice: copiedArtistArtworks[artworkIndex].price,
+                orderSubtotal: copiedArtistArtworks[artworkIndex].price,
+            }
+            copiedCustomerCart.push(artwork);
+        }
+        commit('setCustomerCart', copiedCustomerCart);
+
+    },
     decrementArtwork({ commit }, artworkData) {
         var totalPrice = state.cartTotal;
         var artworkID = artworkData.artworkID
