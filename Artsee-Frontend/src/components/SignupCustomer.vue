@@ -208,7 +208,7 @@
                     AXIOS.post('/customers', customerDto)
                         .then(response => {
                             console.log(response.data)
-                            this.router.push("EndSignup")
+                            window.location.replace("#/signup/thank-you");
                         })
                         .catch(e => {
                             console.log(e)

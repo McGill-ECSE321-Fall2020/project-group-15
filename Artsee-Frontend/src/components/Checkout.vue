@@ -122,6 +122,7 @@ export default {
         }
     },
     methods: {
+        ...mapActions(['emptyCart']),
         async placeOrder() {
             var error = this.checkError();
             if(error == "") {
@@ -139,6 +140,8 @@ export default {
                 await AXIOS.post("/artworkOrders", artworkDto)
                     .then(response => {
                         console.log(response)
+                        
+                        this.emptyCart();
                     })
                     .catch(e => {
                         console.log(e)
