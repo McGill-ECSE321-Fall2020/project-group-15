@@ -1,7 +1,10 @@
 <template>
     <section class="py-5" id="gallery-container">
         <NavBar />
-        <div class="artworks-container">
+        <div v-if="artistArtworks.length == 0" class="title-style">
+            <h1> The Gallery is Empty</h1>
+        </div>
+        <div v-else class="artworks-container">
             <div v-for="(artwork, index) in artistArtworks" :key="index">
                 <div v-if="artwork.numInStock" class="card card-style card-container-style" style="width: 18rem;">
                     <img v-if="artwork.imageURL" class="card-img-top" :src= "artwork.imageURL" alt="Card image cap">

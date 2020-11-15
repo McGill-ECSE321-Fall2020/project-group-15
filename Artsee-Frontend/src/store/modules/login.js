@@ -45,6 +45,7 @@ const getters = {
 
 const actions = {
     async setUserData({ commit }, userData) {
+        console.log(userData)
         if(state.userType == "Customer"){
             const tempUserData = await AXIOS.get("/customers/" + userData.userID)
             commit('setUserData', tempUserData.data);
