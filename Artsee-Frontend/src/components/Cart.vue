@@ -6,28 +6,23 @@
       integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1"
       crossorigin="anonymous"
     />
-    <div class="navbarContainer">
-      <Navbar navMode="true" />
-    </div>
-    <div class="container">
-      <div class="title">
+    <Navbar />
+    <div class="cart-container">
+      <div class="title-style">
         <h1>Cart</h1>
       </div>
-      <div>
       <CartRow v-for="(itemListing, i) in items" v-bind:key="`itemListing-${i}`"/>
+      <div>
+        <p>The Total Price will appear in the checkout window</p>
+        <router-link to="/cart/checkout">
+          <button
+            class="btn btn-success btn-sm btn-block"
+            id="Checkout">
+            Checkout
+          </button>
+        </router-link>
       </div>
     </div>
-    <div class="bottom">
-      <p> The Total Price will appear in the checkout window    </p>
-      <router-link to="/cart/checkout">
-      <button
-      class="btn btn-success btn-sm btn-block"
-      id="Checkout">
-      Checkout
-      </button>
-      </router-link>
-      </div>
-
   </section>
 </template>
 
@@ -153,28 +148,23 @@ export default {
 };
 </script>
 
-<style scoped>
-.container {
-  background: transparent;
-  max-width: 2000px;
-  border-top: 500px;
-}
-
-.title {
-  margin-top: 40px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: flex-start;
-  font-size: 200%;
-}
+<style>
 #itemSection {
   background-color: white;
-  padding-left: 200px;
 }
 
-.quantity {
-  width: 30%;
+.cart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+.title-style {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  font-size: 200%;
+}
+
 #priceButton {
   margin-top: 20px;
 }
@@ -190,15 +180,7 @@ export default {
   justify-content: flex-end;
   width: 100%;
   margin-top: 20px;
-  margin-right: 5px;
-}
-#Checkout {
-  width: 150%;
-  margin-left: 10px;
+  margin-right: 15px;
 }
 
-.bottom {
-  display: flex;
-  justify-content: center;
-}
 </style>
