@@ -166,7 +166,7 @@
     }
   };
 </script>
-<style>
+<style >
   #login_signup_button {
       background: white;
       border-width: 0;
@@ -184,9 +184,9 @@
       padding-bottom: 400px;
       padding-top: 150px;
   }  
-  body {
-    background-image: linear-gradient(to right, #5160a0, #9e9e9e);
-  }
+    body {
+        background-color:#FAFAFA;
+    }
   .image-style {
     width: 60%;
     margin: 10px 0 50px 0;

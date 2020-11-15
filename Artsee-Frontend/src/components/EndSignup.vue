@@ -45,7 +45,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .card-container {
         margin-top: 50px;
         display: flex;

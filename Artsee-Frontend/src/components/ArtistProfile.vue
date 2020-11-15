@@ -175,12 +175,6 @@ export default {
     background-repeat: no-repeat
 }
 
-body {
-    background: #654ea3;
-    background: linear-gradient(to right, #e96443, #904e95);
-    min-height: 100vh
-}
-
 .navbarContainer {
   margin-bottom: 80px;
 }
