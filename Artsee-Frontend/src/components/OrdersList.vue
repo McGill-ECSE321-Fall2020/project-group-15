@@ -34,10 +34,12 @@
 
 <script>
 import Navbar from '@/components/Navbar'
+import OrderRow from '@/components/OrderRow'
 
 export default {
   components: {
-    Navbar
+    Navbar,
+    OrderRow
   }
 }
 </script>
