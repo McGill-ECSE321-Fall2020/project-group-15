@@ -601,6 +601,7 @@ public class ArtseeService {
         artwork.setDateOfCreation(dateCreated);
         artwork.setNumInStock(numInStock);
         artwork.setArtist(artist);
+        artwork.setImageURL(imageURL);
         
         artworkRepository.save(artwork);
         return artwork;

@@ -11,7 +11,6 @@ import SignupAdministrator from '@/components/SignupAdministrator'
 import Reviews from '@/components/Reviews'
 import ArtworkForm from '@/components/ArtworkForm'
 import MyArtworks from '@/components/MyArtworks'
-import ItemListing from '@/components/ItemListing'
 import Cart from '@/components/Cart'
 import CartRow from '@/components/CartRow'
 import OrdersList from '@/components/OrdersList'
@@ -20,6 +19,14 @@ import OrderRow from '@/components/OrderRow'
 import ArtistRow from '@/components/ArtistRow'
 import Checkout from '@/components/Checkout'
 import Order from '@/components/Order'
+import ArtworkRow from '@/components/ArtworkRow'
+import ArtistProfile from '@/components/ArtistProfile';
+import ArtworkGallery  from "@/components/ArtworkGallery"
+import ArtistList from '@/components/ArtistList'
+import EndSignup from '@/components/EndSignup'
+import ErrorPage from '@/components/ErrorPage'
+import DetailedArtwork from '@/components/DetailedArtwork'
+import ReviewStars from '@/components/ReviewStars'
 
 Vue.use(Router)
 
@@ -81,11 +88,18 @@ export default new Router({
       component: MyArtworks
     },
     {
-      path: '/item',
-      name: 'itemList',
-      component: ItemListing
+      path: '/artworkrow',
+      name: 'ArtworkRow',
+      component: ArtworkRow
     },
     {
+      path: '/profile/artist',
+      name: 'ArtistProfile',
+      component: ArtistProfile,
+      props: true,
+    },
+    {
+
       path: '/cart',
       name: 'Cart',
       component: Cart
@@ -101,13 +115,14 @@ export default new Router({
       component: OrdersList
     },
     {
-      path: '/reviewitem',
-      name: 'reviewRow',
+
+      path: '/reviewrow',
+      name: 'ReviewRow',
       component: ReviewRow
     },
     {
-      path: '/orderitem',
-      name: 'orderRow',
+      path: '/orderrow',
+      name: 'OrderRow',
       component: OrderRow
     },
 
@@ -128,8 +143,38 @@ export default new Router({
     name: 'Order',
     component: Order,
 
-  }
+  },
 
+    {
+      path: '/artwork-gallery',
+      name: 'ArtworkGallery',
+      component: ArtworkGallery
+    },
+    {
+      path: '/artists/all',
+      name: 'ArtistList',
+      component: ArtistList
+    },
+    {
+      path: '/signup/thank-you',
+      name: 'EndSignup',
+      component: EndSignup
+    },
+    {
+      path: '/404',
+      name: 'ErrorPage',
+      component: ErrorPage
+    },
+    {
+      path: '/artwork/item',
+      name: 'DetailedArtwork',
+      component: DetailedArtwork
+    },
+    {
+      path: '/stars',
+      name: 'ReviewStars',
+      component: ReviewStars
+    }
 
   ]
 })
