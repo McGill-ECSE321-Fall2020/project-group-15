@@ -23,7 +23,7 @@
                     <button
                       type="button"
                       class="btn btn-warning btn-sm btn-block"
-                      @click="$router.push({name: 'DetailedArtwork', params: {artworkID: artworkID }})">View Details
+                      @click="$router.push({name: 'DetailedArtwork', params: {artworkID: artworkID },})">View Details
                     >
                     </button>
                   </div>

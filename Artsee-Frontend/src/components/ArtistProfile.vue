@@ -148,7 +148,6 @@ export default {
         })
       AXIOS.get('/reviewsOnArtist/' + this.artistID.toString())
         .then(response => {
-          console.log(response.data)
         // JSON responses are automatically parsed.
           this.reviews = response.data
         })

@@ -33,15 +33,15 @@
 
         <div class="col-md-6 col-md-offset-1 col-sm-12 col-xs-12">
           <h4 class="name">
-            <h2>{{ artTitle }}</h2>
+            <h2>{{ artworkName }}</h2>
             <small
               >By
               <a href="javascript:void(0);"
-                >{{ firstname }} {{ lastname }}</a
+                >{{ artistFirstName }} {{ artistLastName }}</a
               ></small
             >
             <div id="stars">
-            <ReviewStars :rating="star_rating"/>
+            <ReviewStars :rating="artistRating"/>
             </div>
           </h4>
           <hr />
@@ -76,10 +76,10 @@
       <div class="description description-tabs">
         <ul id="myTab" class="nav nav-pills">
           <li>
-            <h6 id="descriptionTitle">{{artTitle}}</h6>
-            <h6 id="descriptionTitle">Date <small> {{creationDate}} </small></h6>
+            <h6 id="descriptionTitle">{{artworkName}}</h6>
+            <h6 id="descriptionTitle">Date <small> {{dateOfCreation}} </small></h6>
             <h6 id="descriptionTitle">Description</h6>
-            <p id="descriptionTitle">{{ description }}</p>
+            <p id="descriptionTitle">{{ artworkDescription }}</p>
           </li>
         </ul>
       </div>
@@ -87,7 +87,7 @@
       <div class="description description-tabs">
         <ul class="nav nav-pills">
           <li>
-            <h6 id="descriptionTitle">Artist <small> {{firstname}} {{lastname}} </small></h6>
+            <h6 id="descriptionTitle">Artist <small> {{artistFirstName}} {{artistLastName}} </small></h6>
             <p id="descriptionTitle">{{ artistDescription }}</p>
           </li>
         </ul>
@@ -99,25 +99,81 @@
 <script>
 import Navbar from '@/components/Navbar'
 import ReviewStars from '@/components/ReviewStars'
+import axios from 'axios'
+var config = require('../../config')
 
+var backendConfigurer = function(){
+  switch(process.env.NODE_ENV){
+      case 'development':
+          return 'http://' + config.dev.backendHost + ':' + config.dev.backendPort;
+      case 'production':
+          return 'https://' + config.build.backendHost + ':' + config.build.backendPort ;
+  }
+};
+
+var frontendConfigurer = function(){
+  switch(process.env.NODE_ENV){
+      case 'development':
+          return 'http://' + config.dev.host + ':' + config.dev.port;
+      case 'production':
+          return 'https://' + config.build.host + ':' + config.build.port ;
+  }
+};
+var backendUrl = backendConfigurer();
+var frontendUrl = frontendConfigurer();
+
+var AXIOS = axios.create({
+  baseURL: backendUrl,
+  headers: { 'Access-Control-Allow-Origin': frontendUrl }
+})
 export default {
+  props: {
+    artworkID: {
+      default: -1,
+      type: Number
+    }
+  },
   data() {
     return {
-      artTitle: "Art Title",
-      firstname: "Matt",
-      lastname: "Langshur",
-      star_rating: 4,
+      artworkName: "Art Title",
+      artistFirstName: "Matt",
+      artistLastName: "Langshur",
+      artistRating: 4,
       price: 0,
-      description:
-        "This is some long winded description about the artwork and why you should buy it",
-        artistDescription: 'this is where we talk about the artist',
-      creationDate: '2020/05/23'
+      artworkDescription: "This is some long winded description about the artwork and why you should buy it",
+      artistDescription: 'this is where we talk about the artist',
+      dateOfCreation: '2020/05/23'
     };
   },
-    components: {
-        Navbar,
-        ReviewStars
+  components: {
+      Navbar,        
+      ReviewStars
+  },
+    created: function () {
+    console.log(this.artworkID)
+    this.fetch()
+  },
+    methods: {
+    fetch (){
+      AXIOS.get('/artworks/' + this.artworkID.toString())
+        .then(response => {
+        // JSON responses are automatically parsed.
+          this.artworkName = response.data.name
+          this.artistFirstName = response.data.artist.firstName
+          this.artistLastName = response.data.artist.lastName
+          this.artistRating = response.data.artist.rating
+          this.price = response.data.price
+          this.artworkDescription = response.data.description
+          this.artistDescription = response.data.artist.artistDescription
+          this.dateOfCreation = (response.data.dateOfCreation).toString()
+        })
+        .catch(e => {
+          var errorMsg = e.response
+          this.artworkError = errorMsg
+        })
     }
+  }
+   
 };
 </script>
 
