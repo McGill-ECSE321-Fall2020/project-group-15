@@ -34,7 +34,7 @@
                 <div class="col-md-3">
                   <h4>{{firstName}} {{lastName}}</h4>
                   <div class="rating-block">
-                    <ReviewStars :review="3"/>
+                    <ReviewStars :review="rating"/>
                   </div>
                 </div>
                 <div class="col-md-4">

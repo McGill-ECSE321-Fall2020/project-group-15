@@ -20,7 +20,15 @@
                 <!-- Slide 1 -->
                 <div class="item active">
                   <img
-                    src="https://via.placeholder.com/700x400/FFB6C1/000000"
+                    v-if = "artwork.imageURL"
+                    :src="artwork.imageURL"
+                    id="img"
+                    class="img-responsive"
+                    alt=""
+                  />
+                  <img
+                    v-else
+                    src="@/assets/no-image.png"
                     id="img"
                     class="img-responsive"
                     alt=""
@@ -33,17 +41,17 @@
 
         <div class="col-md-6 col-md-offset-1 col-sm-12 col-xs-12">
           <h4 class="name">
-            <h2>{{ artworkName }}</h2>
+            <h2>{{ artwork.name }}</h2>
             <small
               >By
               <a href="#" onclick = "$router.push({name: 'ArtistProfile', params: {artistID: artistID },})">
-                {{ artistFirstName }} {{ artistLastName }}
+                {{ artwork.artist.firstName }} {{ artwork.artist.lastName }}
                 
               </a>
             </small
             >
             <div id="stars">
-            <ReviewStars :rating="artistRating"/>
+            <ReviewStars :rating="artwork.artist.rating"/>
             </div>
           </h4>
           <hr />
@@ -64,7 +72,7 @@
             </div>
             <div class="col">
               <h3 class="price-container" id="price">
-                ${{price}}
+                ${{artwork.price}}
               </h3>
             </div>
             <div class="col" id="addToCart">
@@ -78,10 +86,10 @@
       <div class="description description-tabs">
         <ul id="myTab" class="nav nav-pills">
           <li>
-            <h6 id="descriptionTitle">{{artworkName}}</h6>
-            <h6 id="descriptionTitle">Date <small> {{dateOfCreation}} </small></h6>
+            <h6 id="descriptionTitle">{{artwork.name}}</h6>
+            <h6 id="descriptionTitle">Date <small> {{artwork.dateOfCreation}} </small></h6>
             <h6 id="descriptionTitle">Description</h6>
-            <p id="descriptionTitle">{{ artworkDescription }}</p>
+            <p id="descriptionTitle">{{ artwork.description }}</p>
           </li>
         </ul>
       </div>
@@ -89,8 +97,8 @@
       <div class="description description-tabs">
         <ul class="nav nav-pills">
           <li>
-            <h6 id="descriptionTitle">Artist <small> {{artistFirstName}} {{artistLastName}} </small></h6>
-            <p id="descriptionTitle">{{ artistDescription }}</p>
+            <h6 id="descriptionTitle">Artist <small> {{artwork.artist.firstName}} {{artwork.artist.lastName}} </small></h6>
+            <p id="descriptionTitle">{{ artwork.artist.artistDescription }}</p>
           </li>
         </ul>
       </div>
@@ -137,7 +145,19 @@ export default {
   },
   data() {
     return {
-      artwork: ""
+      artwork: {
+        name: String,
+        price: Number,
+        description: String,
+        dateOfCreation: Date,
+        imageURL: String,
+        artist: {
+          firstName: String,
+          lastName: String,
+          rating: Number,
+          artistDescription: String,
+        }
+      }
       // artworkName: "Art Title",
       // artistFirstName: "Matt",
       // artistLastName: "Langshur",
