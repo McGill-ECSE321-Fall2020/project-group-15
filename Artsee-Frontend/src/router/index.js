@@ -27,6 +27,7 @@ import EndSignup from '@/components/EndSignup'
 import ErrorPage from '@/components/ErrorPage'
 import DetailedArtwork from '@/components/DetailedArtwork'
 import ReviewStars from '@/components/ReviewStars'
+import ThankYouOrder from '@/components/ThankYouOrder'
 
 Vue.use(Router)
 
@@ -174,6 +175,11 @@ export default new Router({
       path: '/stars',
       name: 'ReviewStars',
       component: ReviewStars
+    },
+    {
+      path: '/order/thankyou',
+      name: 'ThankYouOrder',
+      component: ThankYouOrder
     }
 
   ]
