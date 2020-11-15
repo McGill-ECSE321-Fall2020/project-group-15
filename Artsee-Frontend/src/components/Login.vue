@@ -18,9 +18,9 @@
               <div class="input-container">
                 <div class="form-group">
                   <input
-                    type="username"
+                    type="userID"
                     class="form-control input-style LoginInput"
-                    v-model="username"
+                    v-model="userID"
                     placeholder="Username"
                   />
                 </div>
@@ -38,14 +38,14 @@
                   <div class="login-btn-container">
                     <button
                       type="submit"
-                      class="btn btn-success"
+                      class="btn btn-success login-buttons-style"
                       v-bind:disabled="!password"
-                      @click="submitLogin(username, password)"
+                      @click="createSignIn(userID, password, $event)"
                     >
                       Login
                     </button>
-                    <p class="login-error-style" v-if="loginError">
-                      Sorry, your username or password was incorrect.
+                    <p class="login-error-style" v-if="signInError">
+                      Sorry, your userID or password was incorrect.
                     </p>
                   </div>
                 </div>
@@ -54,7 +54,6 @@
                     <button
                       type="submit"
                       class="btn btn-light signup-btn-style"
-                      @click="throwLoginError()"
                       id="login_signup_button"
                     >
                       Create your Account
@@ -82,125 +81,165 @@
     </body>
   </div>
 </template>
+
 <script>
-function LoginDto(username, password) {
-  this.username = username;
-  this.password = password;
-  this.success = false;
-}
+  import axios from 'axios'
+  import { mapActions, mapGetters } from 'vuex';
 
-export default {
-  name: "login",
-  data() {
-    return {
-      username: "",
-      password: "",
-      loginDto: "",
-      response: [],
-      loginError: false,
-    };
-  },
+  var config = require('../../config')
 
-  methods: {
-    submitLogin: function (userName, passWord) {
-      this.loginError = false;
-      var l = new LoginDto(userName, passWord);
-      this.loginDto = l;
-      this.username = "";
-      this.password = "";
+  var backendConfigurer = function(){
+    switch(process.env.NODE_ENV){
+        case 'development':
+            return 'http://' + config.dev.backendHost + ':' + config.dev.backendPort;
+        case 'production':
+            return 'https://' + config.build.backendHost + ':' + config.build.backendPort ;
+    }
+  };
+
+  var frontendConfigurer = function(){
+    switch(process.env.NODE_ENV){
+        case 'development':
+            return 'http://' + config.dev.host + ':' + config.dev.port;
+        case 'production':
+            return 'https://' + config.build.host + ':' + config.build.port ;
+    }
+  };
+  var backendUrl = backendConfigurer();
+  var frontendUrl = frontendConfigurer();
+
+  var AXIOS = axios.create({
+    baseURL: backendUrl,
+    headers: { 'Access-Control-Allow-Origin': frontendUrl }
+  })
+  function SignInDto(userID, password) {
+    this.userID = userID;
+    this.password = password;
+  }
+
+  export default {
+    name: "login",
+    computed: mapGetters(['userType', 'userName', 'userData']),
+    data() {
+      return {
+        userID: "",
+        password: "",
+        signInDto: {},
+        signInError: "",
+      };
     },
-    throwLoginError: function () {
-      this.loginError = !this.loginError;
-      this.username = "";
-      this.password = "";
-    },
-  },
-};
+    methods: {
+      ...mapActions(['setUserType', 'setUserName', 'setUserData']),
+      async createSignIn(userID, passWord, event) {
+        if (event) {
+          event.preventDefault()
+        }
+        var l = new SignInDto(userID, passWord);
+        this.signInDto = l;
+        await AXIOS.post('/signIn/', l)
+          .then(response => {
+          // JSON responses are automatically parsed.
+            this.setUserType(response.data.type);
+            this.setUserData(response.data);
+            this.setUserName(response.data.userID);
+          //Store userID in the cache
+            if(response.data.type == "Customer"){
+              window.location.replace("#/artwork-gallery");
+            }
+            // router.push({ name: 'ArtworkGallery' })
+
+          
+          })
+          .catch(e => {
+            var errorMsg = e.response.data
+            this.signInError = errorMsg
+          })
+      },
+    }
+  };
 </script>
 <style>
+  #login_signup_button {
+      background: white;
+      border-width: 0;
+  }
 
-#login_signup_button {
-    background: white;
-    border-width: 0;
-}
-
-#login_logo {
-    width: 45%;
-    position: absolute;
-    left: 10px;
-    top:250px;
-}
-#loginCard {
-    position: absolute;
-    right: 50px;
-    padding-bottom: 400px;
-    padding-top: 150px;
-}  
-body {
-  background-image: linear-gradient(to right, #5160a0, #9e9e9e);
-}
-.image-style {
-  width: 60%;
-  margin: 10px 0 50px 0;
-}
-.image-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-.card-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 50px;
-}
-#btn-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 300px;
-}
-.login-btn-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 30px 0 10px 0;
-}
-.signup-btn-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 15px;
-}
-.signup-btn-style {
-  color: #037bff;
-}
-.signup-btn-style:hover {
-  color: #037bff;
-}
-.text-container {
-  display: flex;
-  justify-content: center;
-}
-button {
-  height: 40px;
-  width: 250px;
-}
-.input-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-.input-style {
-  border-radius: 25px;
-  width: 350px;
-  height: 50px;
-  margin: 5px;
-}
-.login-error-style {
-  color: red;
-  margin-top: 10px;
-}
-
+  #login_logo {
+      width: 45%;
+      position: absolute;
+      left: 10px;
+      top:250px;
+  }
+  #loginCard {
+      position: absolute;
+      right: 50px;
+      padding-bottom: 400px;
+      padding-top: 150px;
+  }  
+  body {
+    background-image: linear-gradient(to right, #5160a0, #9e9e9e);
+  }
+  .image-style {
+    width: 60%;
+    margin: 10px 0 50px 0;
+  }
+  .image-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .card-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+  }
+  #btn-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 300px;
+  }
+  .login-btn-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0 10px 0;
+  }
+  .signup-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+  .signup-btn-style {
+    color: #037bff;
+  }
+  .signup-btn-style:hover {
+    color: #037bff;
+  }
+  .text-container {
+    display: flex;
+    justify-content: center;
+  }
+  .login-buttons-style {
+    height: 40px;
+    width: 250px;
+  }
+  .input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .input-style {
+    border-radius: 25px;
+    width: 350px;
+    height: 50px;
+    margin: 5px;
+  }
+  .login-error-style {
+    color: red;
+    margin-top: 10px;
+  }
 </style>
 

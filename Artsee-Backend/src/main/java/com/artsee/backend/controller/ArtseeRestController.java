@@ -510,7 +510,7 @@ public class ArtseeRestController {
 				throw new IllegalArgumentException("There is no such User.");
 			}
 			
-			EndUserDto userDto = new EndUserDto(user.getUserID(), user.getEmail(), user.getPassword(), user.getFirstName(),user.getLastName(), user.getPhoneNumber());;
+			EndUserDto userDto = new EndUserDto(user.getUserID(), user.getEmail(), "", user.getFirstName(),user.getLastName(), user.getPhoneNumber());;
 			
 			if (user instanceof Customer) {
 				userDto.setType("Customer");
@@ -527,21 +527,21 @@ public class ArtseeRestController {
 			if(customer==null) {
 				throw new IllegalArgumentException("There is no such Customer.");
 			}
-			return new CustomerDto(customer.getUserID(), customer.getEmail(), customer.getPassword(), customer.getFirstName(),customer.getLastName(), customer.getPhoneNumber(), convertToDto(customer.getAddress()));
+			return new CustomerDto(customer.getUserID(), customer.getEmail(), "", customer.getFirstName(),customer.getLastName(), customer.getPhoneNumber(), convertToDto(customer.getAddress()));
 		}
 		
 	private AdministratorDto convertToDto(Administrator admin) {
 			if(admin==null) {
 				throw new IllegalArgumentException("There is no such Administrator.");
 			}
-			return new AdministratorDto(admin.getUserID(), admin.getEmail(), admin.getPassword(), admin.getFirstName(),admin.getLastName(), admin.getPhoneNumber());
+			return new AdministratorDto(admin.getUserID(), admin.getEmail(), "", admin.getFirstName(),admin.getLastName(), admin.getPhoneNumber());
 		}
 		
 	private ArtistDto convertToDto(Artist artist) {
 			if(artist==null) {
 				throw new IllegalArgumentException("There is no such Artist.");
 			}
-			return new ArtistDto(artist.getUserID(), artist.getEmail(), artist.getPassword(), artist.getFirstName(),artist.getLastName(), artist.getPhoneNumber(),artist.getArtistDescription(), artist.getRating(), artist.getProfilePictureURL());
+			return new ArtistDto(artist.getUserID(), artist.getEmail(), "", artist.getFirstName(),artist.getLastName(), artist.getPhoneNumber(),artist.getArtistDescription(), artist.getRating(), artist.getProfilePictureURL());
 		}
 		
 	private AddressDto convertToDto(Address address) {

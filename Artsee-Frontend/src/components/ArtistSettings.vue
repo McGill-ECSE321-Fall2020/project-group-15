@@ -5,7 +5,7 @@
         </head>
         <body>
             <div class="navbarContainer">
-                <Navbar navMode="false"/>
+              <Navbar navMode="true"/>
             </div>
             <div class="card-container">
                 <div class="card w-25">
@@ -20,7 +20,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Address">
+                                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email Address">
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Username">
@@ -33,24 +33,6 @@
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Phone number">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Address Line 1">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Address Line 2">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="City">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Province">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Postal Code">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Country">
                             </div>
                             <div class="button-container">
                                 <div>
@@ -74,6 +56,7 @@ export default {
     }
 }
     
+    
 </script>
 
 <style>
@@ -90,7 +73,7 @@ export default {
         margin-bottom: 10px;
     }
     .navbar {
-      margin-bottom: 50px;
+      margin-bottom: 30px;
     }
     .logo {
         width: 60%;
