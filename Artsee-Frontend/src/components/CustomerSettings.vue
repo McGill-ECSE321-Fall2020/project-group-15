@@ -11,7 +11,7 @@
                 <div class="card w-75">
                     <div class="card-body">
                         <form>
-                            <div class="form-group settings-text-container">
+                            <div class="form-group">
                                 <h4>First Name: </h4>
                                 <div v-if="!fields.editFirstName" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.firstName}}</p>
@@ -41,7 +41,7 @@
                                 </div>
                                 <hr>
                             </div>
-                            <div class="form-group settings-text-container">
+                            <div class="form-group">
                                 <h4>Last Name: </h4>
                                 <div v-if="!fields.editLastName" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.lastName}}</p>
@@ -71,7 +71,7 @@
                                 </div>
                                 <hr>
                             </div>
-                            <div class="form-group settings-text-container">
+                            <div class="form-group">
                                 <h4>Email: </h4>
                                 <div v-if="!fields.editEmail" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.email}}</p>
@@ -101,7 +101,7 @@
                                 </div>
                                 <hr>
                             </div>
-                            <div class="form-group settings-text-container">
+                            <div class="form-group">
                                 <div v-if="!fields.editPassword" class="non-edit-container">
                                     <h4>Password</h4>
                                     <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editPassword')">
@@ -140,7 +140,7 @@
                                 <hr>
                             </div>
 
-                            <div class="form-group settings-text-container">
+                            <div class="form-group">
                                 <h4>Phone Number: </h4>
                                 <div v-if="!fields.editPhoneNumber" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.phoneNumber}}</p>
@@ -170,7 +170,7 @@
                                 </div>
                                 <hr>
                             </div>
-                            <div class="form-group settings-text-container">
+                            <div class="form-group">
                                 <h4>Address Line 1: </h4>
                                 <div v-if="!fields.editAddressLine1" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.address.addressLine1}}</p>
@@ -200,7 +200,7 @@
                                 </div>
                                 <hr>
                             </div>
-                            <div class="form-group settings-text-container">
+                            <div class="form-group">
                                 <h4>Address Line 2: </h4>
                                 <div v-if="!fields.editAddressLine2" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.address.addressLine2}}</p>
@@ -230,7 +230,7 @@
                                 </div>
                                 <hr>
                             </div>
-                            <div class="form-group settings-text-container">
+                            <div class="form-group">
                                 <h4>City: </h4>
                                 <div v-if="!fields.editCity" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.address.city}}</p>
@@ -260,7 +260,7 @@
                                 </div>
                                 <hr>
                             </div>
-                            <div class="form-group settings-text-container">
+                            <div class="form-group">
                                 <h4>Province: </h4>
                                 <div v-if="!fields.editProvince" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.address.province}}</p>
@@ -290,7 +290,7 @@
                                 </div>
                                 <hr>
                             </div>
-                            <div class="form-group settings-text-container">
+                            <div class="form-group">
                                 <h4>Postal Code: </h4>
                                 <div v-if="!fields.editPostalCode" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.address.postalCode}}</p>
@@ -320,7 +320,7 @@
                                 </div>
                                 <hr>
                             </div>
-                            <div class="form-group settings-text-container">
+                            <div class="form-group">
                                 <h4>Country: </h4>
                                 <div v-if="!fields.editCountry" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.address.country}}</p>
@@ -601,9 +601,6 @@ export default {
     }
     .navbarContainer {
         margin-bottom: 100px;
-    }
-    .settings-text-container {
-        /* margin-top: 15px; */
     }
     .non-edit-container {
         display: flex;
