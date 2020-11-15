@@ -141,6 +141,11 @@ export default new Router({
     name: 'Order',
     component: Order,
   },
+  {
+    path:'/settings/orderlist',
+    name: 'OrdersList',
+    component: OrdersList,
+  },
 
     {
       path: '/artwork-gallery',
