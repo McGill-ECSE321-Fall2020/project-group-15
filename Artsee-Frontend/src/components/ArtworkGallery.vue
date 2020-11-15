@@ -123,4 +123,7 @@ import { mapActions, mapGetters } from 'vuex';
         display: flex;
         flex-wrap: wrap;
     }
+    .title-style {
+        margin-top: 100px;
+    }
 </style>
