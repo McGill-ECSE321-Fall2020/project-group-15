@@ -17,6 +17,9 @@
                         <li class="list-group-item"><b>Price:</b> $ <span>{{(artwork.price/100).toFixed(2)}}</span></li>
                         <li class="list-group-item"><b>Artist: </b><span>{{artwork.artist.userID}}</span></li>
                     </ul>
+                    <div class="details-body details-container-style">
+                        <button type="button" class="btn btn-primary detailbutton" @click="$router.push({name: 'DetailedArtwork', params: {artworkID: artwork.id },})">View Details</button>
+                    </div>
                     <div class="card-body button-container-style">
                         <button type="button" class="btn btn-primary" @click="addToCart(index)">Add to Cart</button>
                         <p class="card-text"><b>Quantity left: </b>{{artwork.numInStock}}</p>
@@ -119,11 +122,17 @@ import { mapActions, mapGetters } from 'vuex';
         align-items: center;
     }
     .artworks-container {
-        margin-top: 100px;
+        margin-top: 10px;
         display: flex;
         flex-wrap: wrap;
     }
     .title-style {
         margin-top: 100px;
+    }
+    .details-container-style{
+        margin-top: 10px;
+    }
+    .detailbutton{
+        width: 85%;
     }
 </style>
