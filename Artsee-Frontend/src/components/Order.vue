@@ -18,7 +18,7 @@
           </router-link>
         <h1>{{"Order #" + orderID}}</h1>
       </div>
-      <div v-for="(artwork, index) in order.artworks" :key="index">
+      <div v-for="(artwork, index) in this.order.artworks" :key="index">
       <div class="row xl-6">
         <div class="col-md-8">
           <div class="card shadow">
@@ -58,7 +58,7 @@
       </div>
     </div>
     <div class="bottom">
-    <h2> {{ "Total: $" + (order.totalPrice/100).toString()}}
+    <h2> {{ "Total: $" + (this.order.totalPrice/100).toString()}}
     </h2>
     
       </div>
@@ -123,13 +123,11 @@ export default {
   
   data() {
     return {
-      order: "",
-
       order: {
         id: "",
         totalPrice: "",
         artworks: [{
-          name: "Mona Lisa",
+          name: "",
           description: "",
           price: "",
           dateOfCreation: "",
@@ -155,6 +153,7 @@ export default {
         .then((response) => {
           // JSON responses are automatically parsed.
           this.order = response.data
+          console.log(response.data)
         })
         .catch((e) => {
           var errorMsg = e.response.data;
