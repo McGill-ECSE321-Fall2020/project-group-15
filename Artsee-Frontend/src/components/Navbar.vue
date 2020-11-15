@@ -6,7 +6,6 @@
       integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
       crossorigin="anonymous"
     />
-    <!-- <div v-if="false">NavMode: {{ navMode }}</div> -->
     <a class="navbar-brand">
       <img
         src="@/assets/logo.png"
@@ -16,46 +15,39 @@
         loading="lazy"
       />
     </a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="navbar-style">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="?/profile"
-            >Gallery <span class="sr-only">(current)</span></a
-          >
+        <li v-if="isCustomer" class="nav-item active">
+          <router-link to="/artwork-gallery">
+            <button class="btn nav-link" id="nav-bar-link-style">Artwork Gallery</button>
+          </router-link>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="?/profile"
-            >Artists <span class="sr-only">(current)</span></a
-          >
+        <li v-if="isCustomer" class="nav-item active">
+          <router-link to="/artists/all">
+            <button class="btn nav-link" id="nav-bar-link-style">Artists</button>
+          </router-link>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="?/reviews">Reviews</a>
+        <li v-if="isArtist" class="nav-item">
+          <router-link to="/reviews">
+            <button class="btn nav-link" id="nav-bar-link-style">Reviews</button>
+          </router-link>
         </li>
       </ul>
-      <button v-if="isCustomer" type="button" class="btn cart-btn-style navbar-btn-style">
-        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-cart-fill" fill="white" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-        </svg>
-      </button>
+      <router-link to="/cart">
+        <button v-if="isCustomer" type="button" class="btn cart-btn-style navbar-btn-style">
+          <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-cart-fill" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+          </svg>
+        </button>
+      </router-link>
         <b-dropdown class="navbar-btn-style" size="lg" variant="link" toggle-class="text-decoration-none" no-caret id="dropdown1">
           <template #button-content>
             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="white" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
             </svg>
           </template>
-          <b-dropdown-item>Orders</b-dropdown-item>
+          <b-dropdown-item v-if="isCustomer" @click="routeToOrders()">Your Orders</b-dropdown-item>
+          <b-dropdown-item v-if="isCustomer" @click="routeToReviews()">Your Reviews</b-dropdown-item>
           <b-dropdown-item @click="routeToSetting()">Settings</b-dropdown-item>
           <b-dropdown-divider></b-dropdown-divider>
           <b-dropdown-item @click="logoutAction()">Logout</b-dropdown-item>
@@ -88,6 +80,15 @@
         } else if(this.userType == "Artist"){
           window.location.replace("#/settings/artist");
         }
+      },
+      routeToCart() {
+        window.location.replace("#/cart");
+      },
+      routeToOrders() {
+        window.location.replace("#/settings/order");
+      },
+      routeToReviews() {
+         window.location.replace("#/reviews");
       }
     },
     created() {
@@ -103,39 +104,14 @@
   };
 </script>
 <style>
-
 .logo {
   width: 20%;
   color: white;
   padding: 0;
 }
 
-.btn-secondary {
-  background-color: white;
-  border-color: white;
-  color: white;
-}
 .navbar-dark {
-  background-color: rgb(80, 80, 80);
-}
-
-#logoBox {
-  border-style: solid;
-  padding: 0;
-  border-width: 7px;
-  border-color: white;
-  background-color: white;
-  border-radius: 15px;
-}
-
-#logoutButton {
-  color: white;
-  border-width: 2.5px;
-  width: 100px;
-}
-
-#right-nav-item {
-  justify-self: right;
+  background-color: rgb(60, 60, 60);
 }
 
 .navbar-btn-style {
@@ -145,4 +121,16 @@
 .cart-btn-style {
   background-color: none
 }
+
+.navbar-style {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+#nav-bar-link-style {
+  color: white;
+}
+
 </style>

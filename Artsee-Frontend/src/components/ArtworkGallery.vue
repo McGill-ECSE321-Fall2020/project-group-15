@@ -1,5 +1,5 @@
 <template>
-    <body>
+    <section class="py-5" id="gallery-container">
         <NavBar />
         <div class="artworks-container">
             <div v-for="(artwork, index) in artistArtworks" :key="index">
@@ -11,7 +11,7 @@
                         <p class="card-text">{{artwork.description}}</p>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><b>Price:</b> $ <span>{{(artwork.price/10).toFixed(2)}}</span></li>
+                        <li class="list-group-item"><b>Price:</b> $ <span>{{(artwork.price/100).toFixed(2)}}</span></li>
                         <li class="list-group-item"><b>Artist: </b><span>{{artwork.artist.userID}}</span></li>
                     </ul>
                     <div class="card-body button-container-style">
@@ -21,16 +21,12 @@
                 </div>
             </div>
         </div>
-    </body>
+    </section>
 </template>
 
 <script>
 import NavBar from "./Navbar"
 import { mapActions, mapGetters } from 'vuex';
-
-
-// axios get requrest 
-// artowrks = response
 
     export default {
         name: "gallery",
@@ -105,10 +101,8 @@ import { mapActions, mapGetters } from 'vuex';
 </script>
 
 <style scoped>
-    body {
-        height: 100%;
-        width: 100%;
-        background-color: white;
+    #gallery-container {
+        background-color: #FAFAFA;
     }
     .card-style {
         margin: 30px;

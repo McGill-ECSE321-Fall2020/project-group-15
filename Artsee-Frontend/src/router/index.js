@@ -12,7 +12,6 @@ import Reviews from '@/components/Reviews'
 import ArtworkForm from '@/components/ArtworkForm'
 import MyArtworks from '@/components/MyArtworks'
 import Cart from '@/components/Cart'
-import CartRow from '@/components/CartRow'
 import OrdersList from '@/components/OrdersList'
 import ReviewRow from '@/components/ReviewRow'
 import OrderRow from '@/components/OrderRow'
@@ -28,6 +27,8 @@ import ErrorPage from '@/components/ErrorPage'
 import DetailedArtwork from '@/components/DetailedArtwork'
 import ReviewStars from '@/components/ReviewStars'
 import ThankYouOrder from '@/components/ThankYouOrder'
+import ArtistDashboard from '@/components/ArtistDashboard'
+
 
 Vue.use(Router)
 
@@ -106,11 +107,6 @@ export default new Router({
       component: Cart
     },
     {
-      path: '/cart/row',
-      name: 'CartRow',
-      component: CartRow
-    },
-    {
       path: '/orderlist',
       name: 'OrdersList',
       component: OrdersList
@@ -119,18 +115,21 @@ export default new Router({
 
       path: '/reviewrow',
       name: 'ReviewRow',
-      component: ReviewRow
+      component: ReviewRow,
+      props: true
     },
     {
       path: '/orderrow',
       name: 'OrderRow',
-      component: OrderRow
+      component: OrderRow,
+      props: true
     },
 
     {
       path: '/artistrow',
       name: 'artistrow',
-      component: ArtistRow
+      component: ArtistRow,
+      props: true
     },
 
   {
@@ -143,7 +142,6 @@ export default new Router({
     path:'/settings/order',
     name: 'Order',
     component: Order,
-
   },
 
     {
@@ -169,18 +167,26 @@ export default new Router({
     {
       path: '/artwork/item',
       name: 'DetailedArtwork',
-      component: DetailedArtwork
+      component: DetailedArtwork,
+      props: true,
     },
     {
       path: '/stars',
       name: 'ReviewStars',
-      component: ReviewStars
+      component: ReviewStars,
+      props: true
     },
+
     {
       path: '/order/thankyou',
       name: 'ThankYouOrder',
       component: ThankYouOrder
-    }
+    },
+    {
+      path: '/artist-dashboard',
+      name: 'ArtistDashboard',
+      component: ArtistDashboard
+    },
 
   ]
 })

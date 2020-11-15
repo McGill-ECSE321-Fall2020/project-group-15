@@ -1,7 +1,7 @@
 <template>
   <div>
     <head>
-        <title>Artist Profile</title>
+        <title>Artist Dashboard</title>
     </head>
     <body>
       <div class="navbarContainer">
@@ -71,6 +71,7 @@
 import Navbar from '@/components/Navbar'
 import ArtworkRow from '@/components/ArtworkRow'
 import ReviewRow from '@/components/ReviewRow'
+import { mapGetters, mapActions} from 'vuex'
 import axios from 'axios'
 var config = require('../../config')
 
@@ -100,16 +101,11 @@ var AXIOS = axios.create({
 })
 
 export default {
+    computed: mapGetters(["userName","userType"]),
   components: {
     Navbar,
     ArtworkRow,
     ReviewRow
-  },
-  props: {
-    artistID: {
-      default: "NotReceived",
-      type: String
-    }
   },
   data () {
     return {
@@ -122,13 +118,13 @@ export default {
     }
   },
   created: function () {
-      console.log(this.artistID)
+      console.log(this.userName)
       this.fetch()
   },
 
   methods: {
     fetch (){
-      AXIOS.get('/artists/' + this.artistID.toString())
+      AXIOS.get('/artists/' + this.userName.toString())
         .then(response => {
         // JSON responses are automatically parsed.
           this.artist = response.data
@@ -138,7 +134,7 @@ export default {
           console.log(response.data)
           this.artistError = errorMsg
         })
-      AXIOS.get('/artworksByArtist/' + this.artistID.toString())
+      AXIOS.get('/artworksByArtist/' + this.userName.toString())
         .then(response => {
         // JSON responses are automatically parsed.
           this.artworks = response.data
@@ -148,7 +144,7 @@ export default {
           console.log(errorMsg)
           this.artworkError = errorMsg
         })
-      AXIOS.get('/reviewsOnArtist/' + this.artistID.toString())
+      AXIOS.get('/reviewsOnArtist/' + this.userName.toString())
         .then(response => {
         // JSON responses are automatically parsed.
           this.reviews = response.data

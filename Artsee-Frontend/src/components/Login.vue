@@ -40,7 +40,7 @@
                       type="submit"
                       class="btn btn-success login-buttons-style"
                       v-bind:disabled="!password"
-                      @click="createSignIn(userID, password)"
+                      @click="createSignIn(userID, password, $event)"
                     >
                       Login
                     </button>
@@ -130,23 +130,25 @@
     },
     methods: {
       ...mapActions(['setUserType', 'setUserName', 'setUserData']),
-      async createSignIn(userID, passWord) {
-
+      async createSignIn(userID, passWord, event) {
+        if (event) {
+          event.preventDefault()
+        }
         var l = new SignInDto(userID, passWord);
         this.signInDto = l;
         await AXIOS.post('/signIn/', l)
           .then(response => {
           // JSON responses are automatically parsed.
-            console.log(response.data)
             this.setUserType(response.data.type);
             this.setUserData(response.data);
             this.setUserName(response.data.userID);
           //Store userID in the cache
             if(response.data.type == "Customer"){
               window.location.replace("#/artwork-gallery");
+            } 
+            else if (response.data.type == "Artist"){
+              window.location.replace("#/artist-dashboard");
             }
-            // router.push({ name: 'ArtworkGallery' })
-
           
           })
           .catch(e => {
@@ -154,11 +156,6 @@
             this.signInError = errorMsg
           })
       },
-    },
-    created() { //life cycle method which runs before the page is loaded !!
-      console.log(this.userType)
-      console.log(this.userName)
-      console.log(this.userData)
     }
   };
 </script>
