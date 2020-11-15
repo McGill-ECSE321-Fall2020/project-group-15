@@ -4,5 +4,9 @@
     "dev": "cd Artsee-Frontend && node build/dev-server.js",
     "start": "cd Artsee-Frontend && node build/dev-server.js",
     "build": "cd Artsee-Frontend && node build/build.js"
+  },
+  "engines": {
+    "node": "15.x",
+    "npm": "7.x"
   }
 }
