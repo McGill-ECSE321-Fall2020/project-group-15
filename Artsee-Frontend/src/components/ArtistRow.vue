@@ -34,7 +34,7 @@
                 <div class="col-md-3">
                   <h4>{{firstName}} {{lastName}}</h4>
                   <div class="rating-block">
-                    <ReviewStars :review="3"/>
+                    <ReviewStars :review="rating"/>
                   </div>
                 </div>
                 <div class="col-md-4">
@@ -105,11 +105,6 @@ export default {
       firstName: 'first name',
       lastName: 'last name',
       rating: 0,
-      star1: false,
-      star2: false,
-      star3: false,
-      star4: false,
-      star5: false,
       artistError: "",
     };
   },

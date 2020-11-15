@@ -17,8 +17,9 @@
                           <img v-if = "artist.profilePictureURL" :src= "artist.profilePictureURL" alt="..." width="130" class="rounded mb-2 img-thumbnail">
                           <img v-else src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="..." width="130" class="rounded mb-2 img-thumbnail">
 
-                          <!-- Should be a vue-router and conditionally rendered depednding on artist or customer view-->
-                          <a href="#" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a>
+                          <!-- Should be a vue-router and conditionally rendered depednding on artist or customer view
+                          <a href="#" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a> -->
+                          
                         </div>
                         <div class="media-body mb-5 text-white">
                             <h4 class="mt-0 mb">{{ artist.firstName + " " + artist.lastName }}</h4>
@@ -121,6 +122,7 @@ export default {
     }
   },
   created: function () {
+      console.log(this.artistID)
       this.fetch()
   },
 
@@ -148,7 +150,6 @@ export default {
         })
       AXIOS.get('/reviewsOnArtist/' + this.artistID.toString())
         .then(response => {
-          console.log(response.data)
         // JSON responses are automatically parsed.
           this.reviews = response.data
         })

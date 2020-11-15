@@ -20,7 +20,15 @@
                 <!-- Slide 1 -->
                 <div class="item active">
                   <img
-                    src="https://via.placeholder.com/700x400/FFB6C1/000000"
+                    v-if = "artwork.imageURL"
+                    :src="artwork.imageURL"
+                    id="img"
+                    class="img-responsive"
+                    alt=""
+                  />
+                  <img
+                    v-else
+                    src="@/assets/no-image.png"
                     id="img"
                     class="img-responsive"
                     alt=""
@@ -33,15 +41,16 @@
 
         <div class="col-md-6 col-md-offset-1 col-sm-12 col-xs-12">
           <h4 class="name">
-            <h2>{{ artTitle }}</h2>
+            <h2>{{ artwork.name }}</h2>
             <small
               >By
-              <a href="javascript:void(0);"
-                >{{ firstname }} {{ lastname }}</a
-              ></small
+              <a @click="$router.push({name: 'ArtistProfile', params: {artistID: artwork.artist.userID },})" class="hyperlinkstyle">
+                {{ artwork.artist.firstName }} {{ artwork.artist.lastName }}
+              </a>
+            </small
             >
             <div id="stars">
-            <ReviewStars :rating="star_rating"/>
+            <ReviewStars :rating="artwork.artist.rating"/>
             </div>
           </h4>
           <hr />
@@ -62,7 +71,7 @@
             </div>
             <div class="col">
               <h3 class="price-container" id="price">
-                ${{price}}
+                ${{artwork.price / 100}}
               </h3>
             </div>
             <div class="col" id="addToCart">
@@ -76,10 +85,10 @@
       <div class="description description-tabs">
         <ul id="myTab" class="nav nav-pills">
           <li>
-            <h6 id="descriptionTitle">{{artTitle}}</h6>
-            <h6 id="descriptionTitle">Date <small> {{creationDate}} </small></h6>
+            <h6 id="descriptionTitle">{{artwork.name}}</h6>
+            <h6 id="descriptionTitle">Date <small> {{artwork.dateOfCreation}} </small></h6>
             <h6 id="descriptionTitle">Description</h6>
-            <p id="descriptionTitle">{{ description }}</p>
+            <p id="descriptionTitle">{{ artwork.description }}</p>
           </li>
         </ul>
       </div>
@@ -87,8 +96,8 @@
       <div class="description description-tabs">
         <ul class="nav nav-pills">
           <li>
-            <h6 id="descriptionTitle">Artist <small> {{firstname}} {{lastname}} </small></h6>
-            <p id="descriptionTitle">{{ artistDescription }}</p>
+            <h6 id="descriptionTitle">Artist <small> {{artwork.artist.firstName}} {{artwork.artist.lastName}} </small></h6>
+            <p id="descriptionTitle">{{ artwork.artist.artistDescription }}</p>
           </li>
         </ul>
       </div>
@@ -99,25 +108,82 @@
 <script>
 import Navbar from '@/components/Navbar'
 import ReviewStars from '@/components/ReviewStars'
+import axios from 'axios'
+var config = require('../../config')
 
+var backendConfigurer = function(){
+  switch(process.env.NODE_ENV){
+      case 'development':
+          return 'http://' + config.dev.backendHost + ':' + config.dev.backendPort;
+      case 'production':
+          return 'https://' + config.build.backendHost + ':' + config.build.backendPort ;
+  }
+};
+
+var frontendConfigurer = function(){
+  switch(process.env.NODE_ENV){
+      case 'development':
+          return 'http://' + config.dev.host + ':' + config.dev.port;
+      case 'production':
+          return 'https://' + config.build.host + ':' + config.build.port ;
+  }
+};
+var backendUrl = backendConfigurer();
+var frontendUrl = frontendConfigurer();
+
+var AXIOS = axios.create({
+  baseURL: backendUrl,
+  headers: { 'Access-Control-Allow-Origin': frontendUrl }
+})
 export default {
+  props: {
+    artworkID: {
+      default: -1,
+      type: Number
+    }
+  },
   data() {
     return {
-      artTitle: "Art Title",
-      firstname: "Matt",
-      lastname: "Langshur",
-      star_rating: 4,
-      price: 0,
-      description:
-        "This is some long winded description about the artwork and why you should buy it",
-        artistDescription: 'this is where we talk about the artist',
-      creationDate: '2020/05/23'
+      artwork: {
+        name: String,
+        price: Number,
+        description: String,
+        dateOfCreation: Date,
+        imageURL: String,
+        artist: {
+          firstName: String,
+          lastName: String,
+          rating: Number,
+          artistDescription: String,
+        }
+      }
     };
   },
-    components: {
-        Navbar,
-        ReviewStars
+  components: {
+      Navbar,        
+      ReviewStars
+  },
+    created: function () {
+    console.log(this.artworkID)
+    this.fetch()
+  },
+    methods: {
+    fetch (){
+      AXIOS.get('/artworks/' + this.artworkID.toString())
+        .then(response => {
+          // Pull artwork object
+          this.artwork = response.data
+        })
+        .catch(e => {
+          var errorMsg = e.response
+          this.artworkError = errorMsg
+        })
+    },
+    routeToArtist(){
+      $router.push({name: 'ArtistProfile', params: {artistID: this.artistID },})
     }
+  }
+   
 };
 </script>
 
@@ -492,5 +558,10 @@ body {
 .message img.online {
   width: 40px;
   height: 40px;
+}
+
+.hyperlinkstyle{
+  color: blue;
+  text-decoration: underline;
 }
 </style>
