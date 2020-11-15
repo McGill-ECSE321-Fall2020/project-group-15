@@ -140,7 +140,7 @@ export default {
                 await AXIOS.post("/artworkOrders", artworkDto)
                     .then(response => {
                         console.log(response)
-                        
+                        window.location.replace("#/order/thankyou");
                         this.emptyCart();
                     })
                     .catch(e => {
