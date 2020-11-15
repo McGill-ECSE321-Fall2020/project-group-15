@@ -142,6 +142,7 @@ export default new Router({
     path:'/settings/order',
     name: 'Order',
     component: Order,
+    props: true
   },
   {
     path:'/settings/orderlist',
