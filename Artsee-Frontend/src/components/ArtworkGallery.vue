@@ -28,10 +28,6 @@
 import NavBar from "./Navbar"
 import { mapActions, mapGetters } from 'vuex';
 
-
-// axios get requrest 
-// artowrks = response
-
     export default {
         name: "gallery",
         components: {
