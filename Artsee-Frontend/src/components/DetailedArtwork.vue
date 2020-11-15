@@ -50,7 +50,7 @@
             </small
             >
             <div id="stars">
-            <ReviewStars :rating="artwork.artist.rating"/>
+              <ReviewStars v-bind:rating= "artwork.artist.rating"/>
             </div>
           </h4>
           <hr />
@@ -164,7 +164,6 @@ export default {
       ReviewStars
   },
     created: function () {
-    console.log(this.artworkID)
     this.fetch()
   },
     methods: {
