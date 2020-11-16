@@ -40,7 +40,7 @@
                             <div class="button-container">
                                 <div class="price-container">
                                     <h4> Total Price: $</h4>
-                                    <h4> {{ cartTotal }} </h4>
+                                    <h4> {{ (cartTotal/100).toFixed(2) }} </h4>
                                 </div>
                                 <div>
                                     <button type="submit" class="btn btn-success" @click="placeOrder($event)">Place Order</button>
