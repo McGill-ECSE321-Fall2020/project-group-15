@@ -1,5 +1,8 @@
 package com.artsee.backend.model;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -9,14 +12,19 @@ import java.util.Set;
 
 import javax.persistence.ManyToMany;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+
 import java.sql.Date;
 import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 
 @Entity
 public class ArtworkOrder{
-	private Set<Artwork> artworks;
 	//Create a many to many relationship with the class Artwork
-	@ManyToMany(cascade = CascadeType.MERGE, mappedBy="artworkOrders", fetch = FetchType.EAGER) 
+	@ManyToMany(mappedBy="artworks")
+	@ElementCollection(targetClass=Artwork.class)
+//	@Access(AccessType.PROPERTY)
+	private Set<Artwork> artworks;
 	public Set<Artwork> getArtworks() {
 	   return this.artworks;
 	}
@@ -25,11 +33,10 @@ public class ArtworkOrder{
 	   this.artworks = artworkss;
 	}
 	
-	private Integer orderID;
-	
 	//Create primary key called orderID
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer orderID;
 	public Integer getOrderID() {
 		return this.orderID;
     }
@@ -63,9 +70,9 @@ public class ArtworkOrder{
 		return this.dateCompleted;
     }
 
-	private Customer customer;
 	//Create a many to one relationship with the class Customer
 	@ManyToOne(optional=false)
+	private Customer customer;
 	public Customer getCustomer() {
 	   return this.customer;
 	}

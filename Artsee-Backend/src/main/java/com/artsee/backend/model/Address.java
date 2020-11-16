@@ -7,7 +7,6 @@ import javax.persistence.Id;
 
 @Entity
 public class Address{
-	private Integer addressID;
 
 	public void setAddressID(Integer addressID) {
 		this.addressID = addressID;
@@ -16,6 +15,8 @@ public class Address{
    //Create primary key called addressID
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer addressID;
+	
 	public Integer getAddressID() {
 		return this.addressID;
     }

@@ -1,5 +1,10 @@
 package com.artsee.backend.model;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -7,14 +12,25 @@ import java.util.Set;
 
 import javax.persistence.ManyToMany;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+
 import java.sql.Date;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class Artwork{
-	private Set<ArtworkOrder> artworkOrders;
 	//Create a many to many relationship with the class ArtworkOrder
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@JoinTable(name = "artwork_artwork_orders",
+		joinColumns = @JoinColumn (name = "artwork_id", referencedColumnName = "artworkid"),
+		inverseJoinColumns = @JoinColumn (name = "order_id", referencedColumnName = "orderid"),
+		schema = "public"
+		)	
+//	@ElementCollection(targetClass=ArtworkOrder.class)
+//	@Access(AccessType.PROPERTY)
+	private Set<ArtworkOrder> artworkOrders;
+
 	public Set<ArtworkOrder> getArtworkOrders() {
 	   return this.artworkOrders;
 	}
@@ -22,12 +38,11 @@ public class Artwork{
 	public void setArtworkOrders(Set<ArtworkOrder> artworkOrderss) {
 	   this.artworkOrders = artworkOrderss;
 	}
-	
-	private Integer artworkID;
 
 	 //Create primary key called artworkID
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer artworkID;
 	public Integer getArtworkID() {
 		return this.artworkID;
     }
@@ -77,9 +92,10 @@ public class Artwork{
 		return this.numInStock;
     }
 	
-	private Artist artist;
 	//Create a many to one relationship with the class Artist
 	@ManyToOne(optional=false)
+	private Artist artist;
+
 	public Artist getArtist() {
 	   return this.artist;
 	}
