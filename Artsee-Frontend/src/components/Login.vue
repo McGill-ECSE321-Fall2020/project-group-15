@@ -169,7 +169,11 @@
   };
 </script>
 
-<style scoped>
+<style>
+
+body {
+  background-color: #FAFAFA;
+}
 
   #login_signup_button {
       background: white;
@@ -193,7 +197,7 @@
   }  
 
   #loginBody {
-    background-image: linear-gradient(to right, #5160a0, #9e9e9e);
+    background-image: linear-gradient(to right, #bebebe, #FAFAFA);
     height: 100%;
     width: 100%;
     position: fixed;
