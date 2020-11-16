@@ -155,7 +155,7 @@
           
           })
           .catch(e => {
-            var errorMsg = e.response.data
+            var errorMsg = e.response
             this.signInError = errorMsg
           })
       },
