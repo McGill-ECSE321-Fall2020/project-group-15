@@ -8,7 +8,7 @@
         <Navbar navMode="true"/>
       </div>
       <div class="row py-5 px-4">
-        <div class="col-md-9 mx-auto">
+        <div class="col-md-9 mxa-auto">
             <!-- Profile widget -->
             <div class="bg-white shadow rounded overflow-hidden">
                 <div class="px-4 pt-0 pb-4 cover">
@@ -96,7 +96,7 @@ var frontendUrl = frontendConfigurer();
 
 var AXIOS = axios.create({
   baseURL: backendUrl,
-  headers: { 'Access-Control-Allow-Origin': frontendUrl }
+  //headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
 export default {
