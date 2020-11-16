@@ -104,7 +104,6 @@ export default new Router({
       props: true,
     },
     {
-
       path: '/cart',
       name: 'Cart',
       component: Cart
@@ -199,7 +198,8 @@ export default new Router({
     {
       path: '/review/new',
       name: 'ReviewForm',
-      component: ReviewForm
+      component: ReviewForm,
+      props:true
     },
     {
       path: '/artwork/new/success',

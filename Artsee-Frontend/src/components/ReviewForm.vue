@@ -1,22 +1,26 @@
 <template>
     <div>
+        
         <head>
             <title>Review Form</title>
         </head>
         <body>
+        <div id="navbarContainer">
+            <Navbar navMode="false" />
+        </div>
             <div class="card-container">
                 <div class="card w-50">
                     <div class="card-body">
                         <form>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="comment" rows="3" placeholder="Comment">
+                                <input type="text" class="form-control" v-model="comment"  rows="3" placeholder="Comment">
                             </div>
                             <div class="form-group">
-                                <input type="number" class="form-control" id="rating" placeholder="Enter a rating between 1 and 5">
+                                <input type="number" class="form-control" v-model="rating" placeholder="Enter a rating between 1 and 5">
                             </div>
                             <div class="button-container">
                                 <div>
-                                    <button type="submit" class="btn btn-primary" @click="saveReview()">Save</button>
+                                    <button type="submit" class="btn btn-primary" @click="addReview($event)">Save</button>
                                 </div>
                             </div>
                             <div v-for="(errorMsg, index) in error" :key="index">
@@ -32,6 +36,10 @@
 
 <script>
     import axios from 'axios'
+    import Navbar from '@/components/Navbar'
+
+    import { mapActions, mapGetters } from 'vuex';
+
     var config = require('../../config')
 
     var backendConfigurer = function(){
@@ -59,13 +67,6 @@
     //headers: { 'Access-Control-Allow-Origin': frontendUrl }
     })
 
-    function ReviewDto(comment, rating, customerID, artistID) {
-        this.comment = comment
-        this.rating = rating
-        this.customer.customerID = customerID
-        this.artist.artistID = artistID
-    }
-
     function checkError(comment, rating){
         var errorMsg = ""
         if(!comment){
@@ -80,73 +81,75 @@
         return errorMsg
     }
 
+    // function CustomerDto(userID) {
+    //     userID: userID;
+    // }
+    // function ArtistDto(userID) {
+    //     userID: userID;
+    // }
+    function ReviewDto(ArtistDto,CustomerDto,rating,comment) {
+        this.rating = rating;
+        this.wouldRecommend = true;
+        this.comment = comment;
+        this.artist = ArtistDto;
+        this.customer = CustomerDto;
+    }
+
     export default {
         name: "reviewForm",
+          props: {
+            artistID: {
+                default: "notfound",
+                type: String
+        }
+  },
+    components: {
+    Navbar
+      },
+      computed: mapGetters(['userType', 'userName', 'userData']),
+
         data () {
             return {
                 comment: '',
                 rating: 0,
+                wouldRecommend: true,
+                artist: {},
+                customer: {},
+                reviewDto:{},
                 error: [],
-                administratorDto: {}
             }
         },
 
-        methods: {
-            createAdministrator: function (){
-                var error = checkError(this.userID, this.email, this.password, this.firstName, this.lastName, this.phoneNumber, this.passwordError, this.phoneNumberError)
-                if(error == ""){
-                    var administratorDto = new AdministratorDto(this.userID, this.email, this.password, this.firstName, this.lastName, this.phoneNumber);
-                    this.administratorDto = administratorDto;
-                    AXIOS.post('/administrators', administratorDto)
-                        .then(response => {
-                            console.log(response.data)
-                            window.location.replace("#/signup/thank-you");
-                        })
-                        .catch(e => {
-                            var errorMsg = e.response.data
-                            var errorParts = errorMsg.split(".")
-                            errorParts.pop()
-                            this.error = errorParts
-                        })
-                } else {
-                    var errorParts = error.split(".")
-                    errorParts.pop()
-                    this.error = errorParts
-                }
-            },
-            checkPasswordMatch: function() {
-                if(this.password != this.reenterPassword){
-                    var errorMsg = ["Passwords do not match"]
-                    this.error = errorMsg
-                    this.passwordError = true
-                } else {
-                    this.passwordError = false
-                    if(this.phoneNumberError) {
-                        var errorMsg = ["Invalid phone number"]
-                        this.error = errorMsg
-                    } else {
-                        this.error = []
-                    }
-                }
-            },
-            checkPhoneNumber: function() {
-                var isPhoneNumber = (/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(this.phoneNumber))
-                if(!isPhoneNumber){
-                    var errorMsg = ["Invalid phone number"]
-                    this.error = errorMsg
-                    this.phoneNumberError = true
-                } else {
-                    this.phoneNumberError = false
-                    if(this.passwordError){
-                        var errorMsg = ["Passwords do not match"]
-                        this.error = errorMsg
-                    } else {
-                        this.error = []
-                    }
-                }
-            }
+  methods: {
+    async addReview (event){
+        console.log(this.userName)
+        console.log(this.artistID)
+        console.log(this.rating)
+        console.log(this.comment)
+
+        if (event) {
+          event.preventDefault()
         }
-    }
+        // var customerDto = new CustomerDto(this.userName)
+        // var artistDto = new ArtistDto(this.artistID)
+        var customerDto = {"userID": this.userName}
+        var artistDto = {"userID": this.artistID}
+        console.log(artistDto)
+        console.log(customerDto)
+        var reviewDto = new ReviewDto(artistDto,customerDto,this.rating,this.comment)
+      await AXIOS.post('/reviews/', reviewDto)
+        .then(response => {
+        // JSON responses are automatically parsed.
+          console.log(response.data)
+        })
+        .catch(e => {
+          var errorMsg = e.response.data
+          console.log(errorMsg)
+          this.error = errorMsg
+        })
+    },
+  }
+}
 </script>
 
 <style scoped>
@@ -188,4 +191,7 @@
     .login-error-style {
         color: red;
     }
+    #navbarContainer {
+        margin-bottom: 90px;
+    }   
 </style>

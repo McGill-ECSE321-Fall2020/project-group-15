@@ -35,6 +35,12 @@
                             <h5 class="font-weight-bold mb-0 d-block">{{ artist.rating }}</h5><small class="text-muted"> <i class="fas fa-user mr-1"></i>Rating</small>
                         </li>
                     </ul>
+                    <button
+                      type="button"
+                      class="btn btn-warning btn-sm btn-block"
+                      id="view-more-button"
+                      @click="$router.push({name: 'ReviewForm', params: {artistID: artistID },})">Add a Review
+                    </button>
                 </div>
                 <div class="px-4 py-3">
                     <h5 class="mb-0">About</h5>

@@ -4,6 +4,9 @@
             <title>Artwork Posted</title>
         </head>
         <body>
+            <div class="navbarContainer">
+                <Navbar navMode="false" />
+            </div>
             <div class="card-container">
                 <div class="card w-50">
                     <div class="card-body card-style">
@@ -27,9 +30,20 @@
 </template>
 
 <script>
-</script>
+import Navbar from '@/components/Navbar'
 
+export default {
+    components: {
+        Navbar
+    }
+}
+</script>
 <style scoped>
+
+    .navbarConatiner {
+        margin-bottom: 20px;
+    }
+
     .card-container {
         margin-top: 50px;
         display: flex;
