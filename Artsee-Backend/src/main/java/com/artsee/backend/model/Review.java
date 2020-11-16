@@ -8,7 +8,6 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Review{
-	private Integer reviewID;
 	
 	public void setReviewID(Integer reviewID) {
 		this.reviewID = reviewID;
@@ -16,6 +15,8 @@ public class Review{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer reviewID;
+
 	public Integer getReviewID() {
 		return this.reviewID;
 	}
@@ -45,9 +46,10 @@ public class Review{
 		return this.wouldRecommend;
     }
 	
-	private Artist artist;
 	//Create a many to one relationship with the class Artist
 	@ManyToOne(optional=false)
+	private Artist artist;
+
 	public Artist getArtist() {
 	   return this.artist;
 	}
@@ -56,9 +58,10 @@ public class Review{
 	   this.artist = artist;
 	}
 	
-	private Customer customer;
 	//Create a many to one relationship with the class Customer
 	@ManyToOne(optional=false)
+	private Customer customer;
+
 	public Customer getCustomer() {
 	   return this.customer;
 	}
