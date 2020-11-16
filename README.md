@@ -51,8 +51,10 @@ project description as well as a team introduction can be found in the [wiki](ht
 | Enan Ashaduzzaman |  260805923 |  25 hours    | Integration of backend with frontend|
 |  Ragheed Qasmieh  |  260780556 |  21 hours    | Web frontend GUI & Architecture model|
 
+**Link to Architecture model**<br>
+https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Architecture-Model
+
 **Link to Sprint Report**<br>
-[Architecture model] https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Architecture-Model<br>
 [Sprint3] https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Sprint-3-Report
 
 ## Deliverable 4
