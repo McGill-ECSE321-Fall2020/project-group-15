@@ -111,8 +111,8 @@
   var frontendUrl = frontendConfigurer();
 
   var AXIOS = axios.create({
-    baseURL: backendUrl,
-    headers: { 'Access-Control-Allow-Origin': "*" }
+    // baseURL: backendUrl,
+    // headers: { 'Access-Control-Allow-Origin': "*" }
   })
   function SignInDto(userID, password) {
     this.userID = userID;
