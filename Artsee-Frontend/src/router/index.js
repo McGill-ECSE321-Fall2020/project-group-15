@@ -28,6 +28,7 @@ import DetailedArtwork from '@/components/DetailedArtwork'
 import ReviewStars from '@/components/ReviewStars'
 import ThankYouOrder from '@/components/ThankYouOrder'
 import ArtistDashboard from '@/components/ArtistDashboard'
+import ReviewForm from '@/components/ReviewForm'
 
 
 Vue.use(Router)
@@ -193,6 +194,11 @@ export default new Router({
       name: 'ArtistDashboard',
       component: ArtistDashboard
     },
+    {
+      path: '/review/new',
+      name: 'ReviewForm',
+      component: ReviewForm
+    }
 
   ]
 })
