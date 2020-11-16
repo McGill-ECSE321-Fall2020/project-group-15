@@ -80,7 +80,7 @@
     var frontendUrl = frontendConfigurer();
 
     var AXIOS = axios.create({
-    //baseURL: backendUrl,
+    baseURL: backendUrl
     //headers: { 'Access-Control-Allow-Origin': frontendUrl }
     })
 
