@@ -1,8 +1,8 @@
 <template>
   <div class="col-sm-12 col-md-12 col-lg-12" id="main">
-        <div class="navbarContainer">
-              <Navbar :navMode="true"/>
-        </div>
+    <div class="navbarContainer">
+      <Navbar :navMode="true" />
+    </div>
     <link
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
       rel="stylesheet"
@@ -20,7 +20,7 @@
                 <!-- Slide 1 -->
                 <div class="item active">
                   <img
-                    v-if = "artwork.imageURL"
+                    v-if="artwork.imageURL"
                     :src="artwork.imageURL"
                     id="img"
                     class="img-responsive"
@@ -44,13 +44,20 @@
             <h2>{{ artwork.name }}</h2>
             <small
               >By
-              <a @click="$router.push({name: 'ArtistProfile', params: {artistID: artwork.artist.userID },})" class="hyperlinkstyle">
+              <a
+                @click="
+                  $router.push({
+                    name: 'ArtistProfile',
+                    params: { artistID: artwork.artist.userID },
+                  })
+                "
+                class="hyperlinkstyle"
+              >
                 {{ artwork.artist.firstName }} {{ artwork.artist.lastName }}
               </a>
-            </small
-            >
+            </small>
             <div id="stars">
-              <ReviewStars v-bind:rating= "artwork.artist.rating"/>
+              <ReviewStars v-bind:rating="artwork.artist.rating" />
             </div>
           </h4>
           <hr />
@@ -58,76 +65,96 @@
             <div class="col">
               <div class="btn-group pull-right">
                 <ul id="inlineList">
-                <li>
-                <button class="btn btn-white btn-default">
-                  <i class="fa fa-envelope"></i>
-                </button>
-                </li>
-                <li>
-                    Contact Seller
-                </li>
+                  <li>
+                    <button class="btn btn-white btn-default">
+                      <i class="fa fa-envelope"></i>
+                    </button>
+                  </li>
+                  <li>Contact Seller</li>
                 </ul>
               </div>
             </div>
             <div class="col">
               <h3 class="price-container" id="price">
-                ${{artwork.price / 100}}
+                ${{ artwork.price / 100 }}
               </h3>
             </div>
             <div class="card-body button-container-style">
-                <button type="button" class="btn btn-primary" @click="addDetailedArtToCart()">Add to Cart</button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                @click="addDetailedArtToCart()"
+              >
+                Add to Cart
+              </button>
             </div>
           </div>
           <hr />
+          <div id="descriptionDiv">
+            <div class="description description-tabs">
+              <ul id="myTab" class="nav nav-pills">
+                <li>
+                  <h6 id="descriptionTitle">{{ artwork.name }}</h6>
+                  <h6 id="descriptionTitle">
+                    Date <small> {{ artwork.dateOfCreation }} </small>
+                  </h6>
+                  <h6 id="descriptionTitle">Description</h6>
+                  <p id="descriptionTitle">{{ artwork.description }}</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+                      <hr />
+        <div id="descriptionDiv">
+            <div class="description description-tabs">
+              <ul class="nav nav-pills">
+                <li>
+                  <h6 id="descriptionTitle">
+                    Artist
+                    <small>
+                      {{ artwork.artist.firstName }}
+                      {{ artwork.artist.lastName }}
+                    </small>
+                  </h6>
+                  <p id="descriptionTitle">
+                    {{ artwork.artist.artistDescription }}
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
       <!-- end product -->
-      <div class="description description-tabs">
-        <ul id="myTab" class="nav nav-pills">
-          <li>
-            <h6 id="descriptionTitle">{{artwork.name}}</h6>
-            <h6 id="descriptionTitle">Date <small> {{artwork.dateOfCreation}} </small></h6>
-            <h6 id="descriptionTitle">Description</h6>
-            <p id="descriptionTitle">{{ artwork.description }}</p>
-          </li>
-        </ul>
-      </div>
-      <hr />
-      <div class="description description-tabs">
-        <ul class="nav nav-pills">
-          <li>
-            <h6 id="descriptionTitle">Artist <small> {{artwork.artist.firstName}} {{artwork.artist.lastName}} </small></h6>
-            <p id="descriptionTitle">{{ artwork.artist.artistDescription }}</p>
-          </li>
-        </ul>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar'
-import ReviewStars from '@/components/ReviewStars'
-import { mapActions, mapGetters } from 'vuex';
+import Navbar from "@/components/Navbar";
+import ReviewStars from "@/components/ReviewStars";
+import { mapActions, mapGetters } from "vuex";
 
-import axios from 'axios'
-var config = require('../../config')
+import axios from "axios";
+var config = require("../../config");
 
-var backendConfigurer = function(){
-  switch(process.env.NODE_ENV){
-      case 'development':
-          return 'http://' + config.dev.backendHost + ':' + config.dev.backendPort;
-      case 'production':
-          return 'https://' + config.build.backendHost + ':' + config.build.backendPort ;
+var backendConfigurer = function () {
+  switch (process.env.NODE_ENV) {
+    case "development":
+      return "http://" + config.dev.backendHost + ":" + config.dev.backendPort;
+    case "production":
+      return (
+        "https://" + config.build.backendHost + ":" + config.build.backendPort
+      );
   }
 };
 
-var frontendConfigurer = function(){
-  switch(process.env.NODE_ENV){
-      case 'development':
-          return 'http://' + config.dev.host + ':' + config.dev.port;
-      case 'production':
-          return 'https://' + config.build.host + ':' + config.build.port ;
+var frontendConfigurer = function () {
+  switch (process.env.NODE_ENV) {
+    case "development":
+      return "http://" + config.dev.host + ":" + config.dev.port;
+    case "production":
+      return "https://" + config.build.host + ":" + config.build.port;
   }
 };
 var backendUrl = backendConfigurer();
@@ -136,13 +163,13 @@ var frontendUrl = frontendConfigurer();
 var AXIOS = axios.create({
   baseURL: backendUrl,
   //headers: { 'Access-Control-Allow-Origin': frontendUrl }
-})
+});
 export default {
   props: {
     artworkID: {
       default: -1,
-      type: Number
-    }
+      type: Number,
+    },
   },
   data() {
     return {
@@ -157,66 +184,71 @@ export default {
           lastName: String,
           rating: Number,
           artistDescription: String,
-        }
-      }
+        },
+      },
     };
   },
   components: {
-      Navbar,        
-      ReviewStars
+    Navbar,
+    ReviewStars,
   },
-    created: function () {
-    this.fetch()
+  created: function () {
+    this.fetch();
   },
-    methods: {
-    fetch (){
-      AXIOS.get('/artworks/' + this.artworkID.toString())
-        .then(response => {
+  methods: {
+    fetch() {
+      AXIOS.get("/artworks/" + this.artworkID.toString())
+        .then((response) => {
           // Pull artwork object
-          this.artwork = response.data
+          this.artwork = response.data;
         })
-        .catch(e => {
-          var errorMsg = e.response
-          this.artworkError = errorMsg
-        })
+        .catch((e) => {
+          var errorMsg = e.response;
+          this.artworkError = errorMsg;
+        });
     },
-    routeToArtist(){
-      $router.push({name: 'ArtistProfile', params: {artistID: this.artistID },})
+    routeToArtist() {
+      $router.push({
+        name: "ArtistProfile",
+        params: { artistID: this.artistID },
+      });
     },
-    ...mapActions(['addToCart']),
-    addDetailedArtToCart: function() {
-        this.addToCart(this.artworkID);
-    }
-  }
-   
+    ...mapActions(["addToCart"]),
+    addDetailedArtToCart: function () {
+      this.addToCart(this.artworkID);
+    },
+  },
 };
 </script>
 
 <style scoped>
 
+#descriptionDiv {
+  padding-left: 30px;
+}
 #stars {
-    font-size: 1em;
+  font-size: 1em;
 }
 
 #price {
-    margin-top: 25px;
+  margin-top: 25px;
 }
 
 #addToCart {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 #inlineList {
-    display: inline;
+  display: inline;
 }
 
 ul {
   list-style-type: none;
 }
 
-    .navbarContainer {
-        margin-bottom: 100px;
-    }
+.navbarContainer {
+  margin-bottom: 100px;
+}
 
 #img {
   width: 550px;
@@ -235,7 +267,7 @@ ul {
 }
 
 #descriptionTitle {
-    text-align: left;
+  text-align: left;
   width: 500px;
 }
 body {
@@ -565,7 +597,7 @@ body {
   height: 40px;
 }
 
-.hyperlinkstyle{
+.hyperlinkstyle {
   color: blue;
   text-decoration: underline;
 }
