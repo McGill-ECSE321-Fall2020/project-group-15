@@ -12,9 +12,9 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Artwork{
-	private Set<ArtworkOrder> artworkOrders;
 	//Create a many to many relationship with the class ArtworkOrder
 	@ManyToMany
+	private Set<ArtworkOrder> artworkOrders;
 	public Set<ArtworkOrder> getArtworkOrders() {
 	   return this.artworkOrders;
 	}
@@ -23,11 +23,11 @@ public class Artwork{
 	   this.artworkOrders = artworkOrderss;
 	}
 	
-	private Integer artworkID;
 
 	 //Create primary key called artworkID
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer artworkID;
 	public Integer getArtworkID() {
 		return this.artworkID;
     }
@@ -77,9 +77,10 @@ public class Artwork{
 		return this.numInStock;
     }
 	
-	private Artist artist;
 	//Create a many to one relationship with the class Artist
 	@ManyToOne(optional=false)
+	private Artist artist;
+
 	public Artist getArtist() {
 	   return this.artist;
 	}

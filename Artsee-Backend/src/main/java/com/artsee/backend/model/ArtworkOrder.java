@@ -14,9 +14,10 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class ArtworkOrder{
-	private Set<Artwork> artworks;
 	//Create a many to many relationship with the class Artwork
 	@ManyToMany(cascade = CascadeType.MERGE, mappedBy="artworkOrders", fetch = FetchType.EAGER) 
+	private Set<Artwork> artworks;
+
 	public Set<Artwork> getArtworks() {
 	   return this.artworks;
 	}
@@ -25,11 +26,12 @@ public class ArtworkOrder{
 	   this.artworks = artworkss;
 	}
 	
-	private Integer orderID;
 	
 	//Create primary key called orderID
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer orderID;
+
 	public Integer getOrderID() {
 		return this.orderID;
     }
@@ -63,9 +65,10 @@ public class ArtworkOrder{
 		return this.dateCompleted;
     }
 
-	private Customer customer;
 	//Create a many to one relationship with the class Customer
 	@ManyToOne(optional=false)
+	private Customer customer;
+
 	public Customer getCustomer() {
 	   return this.customer;
 	}
