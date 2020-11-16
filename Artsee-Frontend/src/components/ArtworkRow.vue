@@ -26,6 +26,13 @@
                       @click="$router.push({name: 'DetailedArtwork', params: {artworkID: artworkID },})">View Details
                     >
                     </button>
+                    <button
+                      v-if="userType == 'Artist'"
+                      type="button"
+                      class="btn btn-primary btn-sm btn-block"
+                      @click="$router.push({name: 'ModifyArtwork', params: {artworkID: artworkID },})">Update
+                    >
+                    </button>
                   </div>
                 </div>
               </div>
@@ -39,7 +46,10 @@
 
 <script>
 import axios from 'axios'
+import { mapActions, mapGetters } from 'vuex'; 
+
 var config = require('../../config')
+
 
 var backendConfigurer = function(){
   switch(process.env.NODE_ENV){
@@ -67,7 +77,7 @@ var AXIOS = axios.create({
 })
 
 export default {
-
+  computed: mapGetters(['userType']),
   props: {
     artworkID: {
       default: -1,

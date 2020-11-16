@@ -1,9 +1,5 @@
 <template>
-    <div>
-        <head>
-        <title>New Artwork</title>
-        </head>
-        <body>
+    <body>
             <div class="navbarContainer">
                 <Navbar navMode="false" />
             </div>
@@ -11,7 +7,7 @@
                 <div class="card w-50">
                     <div class="card-body">
                       <div class="header-container">
-                          <h3>Artwork Form</h3>
+                          <h3>Update Artwork Form</h3>
                         </div>
                         <form>
                             <div class="form-group add-artwork-container">
@@ -43,7 +39,7 @@
                             </div>
                             <div class="button-container">
                                 <div>
-                                    <button type="submit" class="btn btn-primary" @click="addArtworkToStore($event)">Post Artwork</button>
+                                    <button type="submit" class="btn btn-primary" @click="updateArtwork($event)">Update Artwork</button>
                                 </div>
                             </div>
                             <div v-if="error.length != 0">
@@ -55,43 +51,43 @@
                     </div>
                 </div>
             </div>
-        </body>
-    </div>
+    </body>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar'
 import axios from 'axios'
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex'; 
+import Navbar from '@/components/Navbar'
 
 var config = require('../../config')
 
 var backendConfigurer = function(){
-    switch(process.env.NODE_ENV){
-        case 'development':
-            return 'http://' + config.dev.backendHost + ':' + config.dev.backendPort;
-        case 'production':
-            return 'https://' + config.build.backendHost + ':' + config.build.backendPort ;
-    }
+  switch(process.env.NODE_ENV){
+      case 'development':
+          return 'http://' + config.dev.backendHost + ':' + config.dev.backendPort;
+      case 'production':
+          return 'https://' + config.build.backendHost + ':' + config.build.backendPort ;
+  }
 };
 
 var frontendConfigurer = function(){
-    switch(process.env.NODE_ENV){
-        case 'development':
-            return 'http://' + config.dev.host + ':' + config.dev.port;
-        case 'production':
-            return 'https://' + config.build.host + ':' + config.build.port ;
-    }
+  switch(process.env.NODE_ENV){
+      case 'development':
+          return 'http://' + config.dev.host + ':' + config.dev.port;
+      case 'production':
+          return 'https://' + config.build.host + ':' + config.build.port ;
+  }
 };
-  var backendUrl = backendConfigurer();
-  var frontendUrl = frontendConfigurer();
+var backendUrl = backendConfigurer();
+var frontendUrl = frontendConfigurer();
 
-  var AXIOS = axios.create({
-    baseURL: backendUrl
-    // headers: { 'Access-Control-Allow-Origin': "*" }
-  })
+var AXIOS = axios.create({
+  baseURL: backendUrl,
+  //headers: { 'Access-Control-Allow-Origin': frontendUrl }
+})
 
-  function isNormalInteger(str) {
+
+function isNormalInteger(str) {
     str = str.trim();
     if (!str) {
         return false;
@@ -105,7 +101,8 @@ function ArtistDTO(userID){
     this.userID = userID
 }
 
-function ArtworkDTO(name, description, price, dateOfCreation, numInStock, artist, imageURL) {
+function ArtworkDTO(id, name, description, price, dateOfCreation, numInStock, artist, imageURL) {
+    this.id = id;
     this.name = name;
     this.description = description;
     this.price = price;
@@ -116,34 +113,45 @@ function ArtworkDTO(name, description, price, dateOfCreation, numInStock, artist
 }
 
 export default {
-    computed: mapGetters(['userName']),
+
+  props: {
+    artworkID: {
+      default: -1,
+      type: Number
+    }
+  },
+  name: "ArtworkRow",
+computed: mapGetters(['userName']),
     components: {
         Navbar
     },
-    data() {
-      return {
-        name: "",
-        price: "",
-        description: "",
-        dateOfCreation: '',
+  data() {
+    return {
+        id: "",
+	    name : "NotFound",
+        description: "NotFound",
+        price: "0",
+        dateOfCreation: "",
         numInStock: "",
+        artistName: "NotFound",
         imageURL: "",
+        artworkError: "",
         artist : {},
         userID: "",
         artworkDto : {},
         error: [],
-      };
-    },
-    methods: {
-        async addArtworkToStore(event) {
+    };
+  },
+  methods: {
+    async updateArtwork(event) {
             if (event) {
                 event.preventDefault()
             }
             var error = this.checkError();
             if(error == ""){
                 var artistDto = new ArtistDTO(this.userName);
-                var artworkDto = new ArtworkDTO(this.name, this.description, parseInt(this.price)*100, this.dateOfCreation, parseInt(this.numInStock), artistDto, this.imageURL)
-                await AXIOS.post("/artworks", artworkDto)
+                var artworkDto = new ArtworkDTO(this.artworkID.toString(), this.name, this.description, parseInt(this.price)*100, this.dateOfCreation, parseInt(this.numInStock), artistDto, this.imageURL)
+                await AXIOS.put("/artworks", artworkDto)
                         .then(response => {
                             console.log(response)
                             window.location.replace("#/artwork/new/success");
@@ -160,6 +168,24 @@ export default {
                 errorParts.pop()
                 this.error = errorParts
             }
+
+        },
+        fetch() {
+            AXIOS.get('/artworks/' + this.artworkID.toString())
+                .then(response => {
+                // JSON responses are automatically parsed.
+                this.name = response.data.name
+                this.description = response.data.description
+                this.price = response.data.price
+                this.dateOfCreation = response.data.dateOfCreation
+                this.numInStock = response.data.numInStock
+                this.artistName = response.data.artist.firstName + " " + response.data.artist.lastName
+                this.imageURL = response.data.imageURL.toString()
+                })
+                .catch(e => {
+                var errorMsg = e.response
+                this.artworkError = errorMsg
+                })
         },
         checkError() {
             var error = "";
@@ -183,11 +209,14 @@ export default {
             }
             return error;
         }
-    }
-}
+  },
+  created() {
+    this.fetch()
+  },
+};
 </script>
 
-<style scoped>
+<style>
   .card-container {
       margin-top: 100px;
       display: flex;
