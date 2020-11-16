@@ -45,11 +45,17 @@ project description as well as a team introduction can be found in the [wiki](ht
 ## Deliverable 3
 |        Name       | Student ID | Contribution | Role                       | 
 |:-----------------:|:----------:|:------------:|:--------------------------:|
-|  Matthew Langshur |  260704964 |              |                            |
-|  Matteo Barbieri  |  260805184 |              |                            |
-|  Daniel Schwartz  |  260795149 |              |                            |
-| Enan Ashaduzzaman |  260805923 |              |                            |
-|  Ragheed Qasmieh  |  260780556 |              |                            |
+|  Matthew Langshur |  260704964 |  25 hours    | Web frontend GUI & Build System CI and Delivery |
+|  Matteo Barbieri  |  260805184 |  20 hours    | Web frontend GUI & Architecture model/ Sprint report|
+|  Daniel Schwartz  |  260795149 |  25 hours    | Integration of backend with frontend|
+| Enan Ashaduzzaman |  260805923 |  25 hours    | Integration of backend with frontend|
+|  Ragheed Qasmieh  |  260780556 |  21 hours    | Web frontend GUI & Architecture model|
+
+**Link to Architecture model**<br>
+https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Architecture-Model
+
+**Link to Sprint Report**<br>
+[Sprint3] https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Sprint-3-Report
 
 ## Deliverable 4
 |        Name       | Student ID | Contribution | Role                       | 
