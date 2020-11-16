@@ -33,10 +33,11 @@
           </router-link>
         </li>
       </ul>
-
-      <button v-if="isArtist" type="button" class="btn btn-light add-artwork-btn">
-        + Add Artwork
-      </button>
+      <router-link to="artwork/new">
+        <button v-if="isArtist" type="button" class="btn btn-light add-artwork-btn">
+          + Add Artwork
+        </button>
+      </router-link>
 
       <router-link to="/cart">
         <button v-if="isCustomer" type="button" class="btn cart-btn-style navbar-btn-style">
