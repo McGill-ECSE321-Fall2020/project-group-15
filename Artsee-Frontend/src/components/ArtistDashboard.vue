@@ -47,6 +47,7 @@
                 <div class="py-4 px-4"> 
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h5 class="mb-0">Artworks</h5>
+                        <button type="button" class="btn btn-primary detailbutton" @click="$router.push({name: 'ArtworkForm'})"> Add New Artwork </button>
                     </div>
                     <div class = "artworkRow">
                       <ArtworkRow 

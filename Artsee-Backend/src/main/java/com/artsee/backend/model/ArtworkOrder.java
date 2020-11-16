@@ -1,4 +1,5 @@
 package com.artsee.backend.model;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,7 +16,7 @@ import javax.persistence.ManyToOne;
 public class ArtworkOrder{
 	private Set<Artwork> artworks;
 	//Create a many to many relationship with the class Artwork
-	@ManyToMany(mappedBy="artworkOrders", fetch = FetchType.EAGER) 
+	@ManyToMany(cascade = CascadeType.MERGE, mappedBy="artworkOrders", fetch = FetchType.EAGER) 
 	public Set<Artwork> getArtworks() {
 	   return this.artworks;
 	}
