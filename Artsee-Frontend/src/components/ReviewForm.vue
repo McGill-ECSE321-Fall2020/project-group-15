@@ -26,6 +26,11 @@
                             <div v-for="(errorMsg, index) in error" :key="index">
                                 <p class="login-error-style" >{{errorMsg}}</p>
                             </div>
+                            <div class="button-container">
+                                <div>
+                                    <button type="submit" class="btn btn-primary" @click="$router.push({name: 'ArtistProfile', params: {artistID: artistID },})">Back to Artist</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -72,9 +77,9 @@
         if(!comment){
             errorMsg += "You need to add a comment."
         }
-        if(!Number.isInteger(rating)){
-            errorMsg += "The rating needs to a whole number."
-        }
+        // if(!Number.isInteger(rating)){
+        //     errorMsg += "The rating needs to a whole number."
+        // }
         if(rating < 1 || rating > 5){
             errorMsg += "The rating should be between 1 and 5."
         }
@@ -122,31 +127,35 @@
 
   methods: {
     async addReview (event){
-        console.log(this.userName)
-        console.log(this.artistID)
-        console.log(this.rating)
-        console.log(this.comment)
 
         if (event) {
           event.preventDefault()
         }
-        // var customerDto = new CustomerDto(this.userName)
-        // var artistDto = new ArtistDto(this.artistID)
-        var customerDto = {"userID": this.userName}
-        var artistDto = {"userID": this.artistID}
-        console.log(artistDto)
-        console.log(customerDto)
-        var reviewDto = new ReviewDto(artistDto,customerDto,this.rating,this.comment)
-      await AXIOS.post('/reviews/', reviewDto)
-        .then(response => {
-        // JSON responses are automatically parsed.
-          console.log(response.data)
-        })
-        .catch(e => {
-          var errorMsg = e.response.data
-          console.log(errorMsg)
-          this.error = errorMsg
-        })
+
+        var error = ""
+        error = checkError(this.comment, parseInt(this.rating))
+
+        if (error == ""){
+            var customerDto = {"userID": this.userName}
+            var artistDto = {"userID": this.artistID}
+            var reviewDto = new ReviewDto(artistDto,customerDto, parseInt(this.rating),this.comment)
+            
+            await AXIOS.post('/reviews/', reviewDto)
+            .then(response => {
+            // JSON responses are automatically parsed.
+            console.log(response.data)
+            })
+            .catch(e => {
+                var errorMsg = e.response.data
+                var errorParts = errorMsg.split(".")
+                errorParts.pop()
+                this.error = errorParts
+            })
+        } else {
+            var errorParts = error.split(".")
+            errorParts.pop()
+            this.error = errorParts
+        }
     },
   }
 }

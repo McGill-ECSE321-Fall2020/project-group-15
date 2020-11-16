@@ -171,6 +171,11 @@ export default {
 
 <style scoped>
 
+#view-more-button {
+  width: 150px;
+  margin-left: 30px;
+}
+
 .profile-head {
     transform: translateY(5rem)
 }
