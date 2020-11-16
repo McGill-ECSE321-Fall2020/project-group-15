@@ -111,7 +111,7 @@
   var frontendUrl = frontendConfigurer();
 
   var AXIOS = axios.create({
-    baseURL: backendUrl,
+    baseURL: backendUrl
     // headers: { 'Access-Control-Allow-Origin': "*" }
   })
   function SignInDto(userID, password) {
@@ -191,7 +191,7 @@
       padding-bottom: 400px;
       padding-top: 150px;
   }  
- 
+
   #loginBody {
     background-image: linear-gradient(to right, #5160a0, #9e9e9e);
     height: 100%;
