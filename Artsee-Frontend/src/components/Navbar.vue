@@ -28,11 +28,16 @@
           </router-link>
         </li>
         <li v-if="isArtist" class="nav-item">
-          <router-link to="/reviews">
-            <button class="btn nav-link" id="nav-bar-link-style">Reviews</button>
+          <router-link to="/artist-dashboard">
+            <button class="btn nav-link" id="nav-bar-link-style">Dashboard</button>
           </router-link>
         </li>
       </ul>
+
+      <button v-if="isArtist" type="button" class="btn btn-light add-artwork-btn">
+        + Add Artwork
+      </button>
+
       <router-link to="/cart">
         <button v-if="isCustomer" type="button" class="btn cart-btn-style navbar-btn-style">
           <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-cart-fill" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -93,11 +98,12 @@
     },
     created() {
       if(this.userType == "Customer"){
-        this.isArtist - false;
+        this.isArtist = false;
         this.isCustomer = true;
       } else if(this.userType == "Artist") {
+        console.log(this.userType)
         this.isCustomer = false;
-        this.isArtist - true;
+        this.isArtist = true;
       }
     }
 
@@ -126,11 +132,17 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
 }
 
 #nav-bar-link-style {
   color: white;
 }
 
+.add-artwork-btn {
+  color: #037BFF;
+}
+.add-artwork-btn:hover {
+  color: #037BFF;
+}
 </style>

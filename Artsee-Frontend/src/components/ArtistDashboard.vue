@@ -5,7 +5,7 @@
     </head>
     <body>
       <div class="navbarContainer">
-        <Navbar navMode="true"/>
+        <Navbar/>
       </div>
       <div class="row py-5 px-4">
         <div class="col-md-9 mx-auto">
