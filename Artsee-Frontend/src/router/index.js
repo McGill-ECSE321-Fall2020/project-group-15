@@ -30,6 +30,7 @@ import ThankYouOrder from '@/components/ThankYouOrder'
 import ArtistDashboard from '@/components/ArtistDashboard'
 import ReviewForm from '@/components/ReviewForm'
 import ArtworkPosted from '@/components/ArtworkPosted'
+import ModifyArtwork from '@/components/ModifyArtworkForm'
 
 
 Vue.use(Router)
@@ -204,6 +205,12 @@ export default new Router({
       path: '/artwork/new/success',
       name: 'ArtworkPosted',
       component: ArtworkPosted
+    },
+    {
+      path: '/artwork/update',
+      name: 'ModifyArtwork',
+      component: ModifyArtwork,
+      props: true,
     },
 
   ]

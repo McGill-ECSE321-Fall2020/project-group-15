@@ -56,6 +56,9 @@
 
 <script>
 import axios from 'axios'
+import { mapActions, mapGetters } from 'vuex'; 
+import Navbar from '@/components/Navbar'
+
 var config = require('../../config')
 
 var backendConfigurer = function(){
@@ -118,7 +121,10 @@ export default {
     }
   },
   name: "ArtworkRow",
-    computed: mapGetters(['userName']),
+computed: mapGetters(['userName']),
+    components: {
+        Navbar
+    },
   data() {
     return {
         id: "",
@@ -136,8 +142,8 @@ export default {
         error: [],
     };
   },
-  method: {
-        async updateArtwork(event) {
+  methods: {
+    async updateArtwork(event) {
             if (event) {
                 event.preventDefault()
             }
@@ -164,6 +170,23 @@ export default {
             }
 
         },
+        fetch() {
+            AXIOS.get('/artworks/' + this.artworkID.toString())
+                .then(response => {
+                // JSON responses are automatically parsed.
+                this.name = response.data.name
+                this.description = response.data.description
+                this.price = response.data.price
+                this.dateOfCreation = response.data.dateOfCreation
+                this.numInStock = response.data.numInStock
+                this.artistName = response.data.artist.firstName + " " + response.data.artist.lastName
+                this.imageURL = response.data.imageURL.toString()
+                })
+                .catch(e => {
+                var errorMsg = e.response
+                this.artworkError = errorMsg
+                })
+        },
         checkError() {
             var error = "";
             if(!this.name){
@@ -187,32 +210,51 @@ export default {
             return error;
         }
   },
-  created: function () {
+  created() {
     this.fetch()
   },
-
-  methods: {
-    fetch (){
-      AXIOS.get('/artworks/' + this.artworkID.toString())
-        .then(response => {
-        // JSON responses are automatically parsed.
-          this.name = response.data.name
-          this.description = response.data.description
-          this.price = response.data.price
-          this.dateOfCreation = response.data.dateOfCreation
-          this.numInStock = response.data.numInStock
-          this.artistName = response.data.artist.firstName + " " + response.data.artist.lastName
-          this.imageURL = response.data.imageURL.toString()
-        })
-        .catch(e => {
-          var errorMsg = e.response
-          this.artworkError = errorMsg
-        })
-    },
-  }
 };
 </script>
 
 <style>
+  .card-container {
+      margin-top: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 50px;
+  }
 
+  .header-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+  }
+
+  .button-container {
+        display: flex;
+        justify-content: space-around;
+  }
+
+  button {
+      height: 40px;
+      width: 170px;
+  }
+
+  .navbarConatiner {
+    margin-bottom: 20px;
+  }
+
+  .date-text-style {
+      width: 200px;
+  }
+
+  .date-container {
+      display: flex;
+      align-items: center;
+  }
+
+  .alert-style {
+      margin: 5px;
+  }
 </style>
