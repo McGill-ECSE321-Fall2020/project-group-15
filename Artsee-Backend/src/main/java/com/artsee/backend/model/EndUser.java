@@ -13,7 +13,6 @@ import javax.persistence.InheritanceType;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class EndUser{
 	private String email;
-	private String userID;
 	
 	public void setUserID(String userID) {
 		this.userID = userID;
@@ -21,6 +20,8 @@ public abstract class EndUser{
 	
 	
 	@Id
+	private String userID;
+
 	public String getUserID() {
 		return this.userID;
 	}

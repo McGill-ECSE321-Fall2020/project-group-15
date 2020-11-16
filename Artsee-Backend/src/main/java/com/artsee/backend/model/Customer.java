@@ -9,9 +9,10 @@ import javax.persistence.ManyToOne;
 @Entity
 @PrimaryKeyJoinColumn(name = "customerID")
 public class Customer extends EndUser{
-	private Set<ArtworkOrder> artworkOrders;
 	//Create a one to many relationship with the class ArtworkOrder
 	@OneToMany(mappedBy="customer")
+	private Set<ArtworkOrder> artworkOrders;
+
 	public Set<ArtworkOrder> getArtworkOrders() {
 	   return this.artworkOrders;
 	}
@@ -20,9 +21,10 @@ public class Customer extends EndUser{
 	   this.artworkOrders = artworkOrderss;
 	}
 	
-	private Address address;
 	//Create a many to one relationship with the class Address
 	@ManyToOne
+	private Address address;
+
 	public Address getAddress() {
 	   return this.address;
 	}

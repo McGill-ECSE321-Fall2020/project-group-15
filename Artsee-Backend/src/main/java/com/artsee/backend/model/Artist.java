@@ -25,9 +25,9 @@ public class Artist extends EndUser{
    public float getRating() {
 	   return this.rating;
    }
-   private Set<Review> reviews;
    //Create a one to many relationship with the class Review
    @OneToMany(mappedBy="artist", cascade={CascadeType.ALL})
+   private Set<Review> reviews;
    public Set<Review> getReviews() {
 	   return this.reviews;
    }
@@ -36,9 +36,9 @@ public class Artist extends EndUser{
 	   this.reviews = reviewss;
 	}
 
-	private Set<Artwork> artworks;
 	//Create a one to many relationship with the class Artwork
 	@OneToMany(mappedBy="artist")
+	private Set<Artwork> artworks;
 	public Set<Artwork> getArtworks() {
 	   return this.artworks;
 	}
