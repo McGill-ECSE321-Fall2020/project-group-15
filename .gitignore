@@ -25,6 +25,7 @@ out/
 group15.code-workspace
 .DS_Store
 
+/build/
 .project
 .classpath
 .settings/
