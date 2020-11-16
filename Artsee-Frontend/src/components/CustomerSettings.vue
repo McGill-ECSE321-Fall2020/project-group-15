@@ -12,7 +12,9 @@
                     <div class="card-body">
                         <form>
                             <div class="form-group">
-                                <h4>First Name: </h4>
+                                <div class="header-style">
+                                    <h4>First Name: </h4>
+                                </div>
                                 <div v-if="!fields.editFirstName" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.firstName}}</p>
                                     <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editFirstName')">
@@ -21,20 +23,26 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div v-else class="edit-container">
-                                    <input type="text" class="form-control" v-model="fields.firstName">
-                                    <div class="edit-btn-container">
-                                        <button type="button" class="btn btn-success edit-button-style" @click="submitEdit('firstName', fields.firstName, false)">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
-                                            </svg>
-                                        </button>
-                                        <button type="button" class="btn btn-danger edit-button-style" @click="cancelEdit()">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                                            </svg>
-                                        </button>
+                                <div v-else>
+                                    <div class="edit-container">
+                                        <input type="text" class="form-control" v-model="fields.firstName">
+                                        <div class="edit-btn-container">
+                                            <button type="button" class="btn btn-success edit-button-style" @click="submitEdit('firstName', fields.firstName, false)">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                                                </svg>
+                                            </button>
+                                            <button type="button" class="btn btn-danger edit-button-style" @click="cancelEdit()">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
+                                    <div class="password-style">
+                                        <h5>Enter Password: </h5> 
+                                    </div>
+                                    <input type="password" class="form-control" v-model="fields.verifyPassword">
                                 </div>
                                 <div v-if="fields.errorFirstName" class="alert alert-danger" role="alert">
                                     {{error}}
@@ -42,7 +50,9 @@
                                 <hr>
                             </div>
                             <div class="form-group">
-                                <h4>Last Name: </h4>
+                                <div class="header-style">
+                                    <h4>Last Name: </h4>
+                                </div>
                                 <div v-if="!fields.editLastName" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.lastName}}</p>
                                     <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editLastName')">
@@ -51,20 +61,26 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div v-else class="edit-container">
-                                    <input type="text" class="form-control" v-model="fields.lastName">
-                                    <div class="edit-btn-container">
-                                        <button type="button" class="btn btn-success edit-button-style" @click="submitEdit('lastName', fields.lastName, false)">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
-                                            </svg>
-                                        </button>
-                                        <button type="button" class="btn btn-danger edit-button-style" @click="cancelEdit()">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                                            </svg>
-                                        </button>
+                                <div v-else>
+                                    <div class="edit-container">
+                                        <input type="text" class="form-control" v-model="fields.lastName">
+                                        <div class="edit-btn-container">
+                                            <button type="button" class="btn btn-success edit-button-style" @click="submitEdit('lastName', fields.lastName, false)">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                                                </svg>
+                                            </button>
+                                            <button type="button" class="btn btn-danger edit-button-style" @click="cancelEdit()">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
+                                    <div class="password-style">
+                                        <h5>Enter Password: </h5> 
+                                    </div>
+                                    <input type="password" class="form-control" v-model="fields.verifyPassword">
                                 </div>
                                 <div v-if="fields.errorLastName" class="alert alert-danger" role="alert">
                                     {{error}}
@@ -72,7 +88,9 @@
                                 <hr>
                             </div>
                             <div class="form-group">
-                                <h4>Email: </h4>
+                                <div class="header-style">
+                                    <h4>Email: </h4>
+                                </div>
                                 <div v-if="!fields.editEmail" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.email}}</p>
                                     <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editEmail')">
@@ -81,20 +99,26 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div v-else class="edit-container">
-                                    <input type="text" class="form-control" v-model="fields.email">
-                                    <div class="edit-btn-container">
-                                        <button type="button" class="btn btn-success edit-button-style" @click="submitEdit('email', fields.email, false)">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
-                                            </svg>
-                                        </button>
-                                        <button type="button" class="btn btn-danger edit-button-style" @click="cancelEdit()">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                                            </svg>
-                                        </button>
+                                <div v-else>
+                                    <div class="edit-container">
+                                        <input type="text" class="form-control" v-model="fields.email">
+                                        <div class="edit-btn-container">
+                                            <button type="button" class="btn btn-success edit-button-style" @click="submitEdit('email', fields.email, false)">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                                                </svg>
+                                            </button>
+                                            <button type="button" class="btn btn-danger edit-button-style" @click="cancelEdit()">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
+                                    <div class="password-style">
+                                        <h5>Enter Password: </h5> 
+                                    </div>
+                                    <input type="password" class="form-control" v-model="fields.verifyPassword">
                                 </div>
                                 <div v-if="fields.errorEmail" class="alert alert-danger" role="alert">
                                     {{error}}
@@ -111,12 +135,18 @@
                                     </button>
                                 </div>
                                 <div v-else class="edit-password-container">
-                                    <div class="edit-new-password-text-container">
-                                        <h4>New Password</h4>
-                                        <input type="password" class="form-control" v-model="fields.password" @change="checkPasswordMatch()">
+                                    <div class="password-style">
+                                        <h4>Old Password</h4>
                                     </div>
+                                    <input type="password" class="form-control" v-model="fields.verifyPassword">
+                                    <div class="password-style">
+                                        <h4>New Password</h4>
+                                    </div>
+                                    <input type="password" class="form-control" v-model="fields.password" @change="checkPasswordMatch()">
                                     <div class="edit-reenter-password-text-container">
-                                        <h4>Re-enter Password</h4>
+                                        <div class="password-style">
+                                            <h4>Re-enter New Password</h4>
+                                        </div>
                                         <div class="edit-container">
                                             <input type="password" class="form-control" v-model="fields.reenterPassword" @change="checkPasswordMatch()">
                                             <div class="edit-btn-container">
@@ -141,7 +171,9 @@
                             </div>
 
                             <div class="form-group">
-                                <h4>Phone Number: </h4>
+                                <div class="header-style">
+                                    <h4>Phone Number: </h4>
+                                </div>
                                 <div v-if="!fields.editPhoneNumber" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.phoneNumber}}</p>
                                     <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editPhoneNumber')">
@@ -150,20 +182,26 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div v-else class="edit-container">
-                                    <input type="text" class="form-control" v-model="fields.phoneNumber">
-                                    <div class="edit-btn-container">
-                                        <button type="button" class="btn btn-success edit-button-style" @click="submitEdit('phoneNumber', fields.phoneNumber, false)">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
-                                            </svg>
-                                        </button>
-                                        <button type="button" class="btn btn-danger edit-button-style" @click="cancelEdit()">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                                            </svg>
-                                        </button>
+                                <div v-else>
+                                    <div class="edit-container"> 
+                                        <input type="text" class="form-control" v-model="fields.phoneNumber">
+                                        <div class="edit-btn-container">
+                                            <button type="button" class="btn btn-success edit-button-style" @click="submitEdit('phoneNumber', fields.phoneNumber, false)">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                                                </svg>
+                                            </button>
+                                            <button type="button" class="btn btn-danger edit-button-style" @click="cancelEdit()">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
+                                    <div class="password-style">
+                                        <h5>Enter Password: </h5> 
+                                    </div>
+                                    <input type="password" class="form-control" v-model="fields.verifyPassword">
                                 </div>
                                 <div v-if="fields.errorPhoneNumber" class="alert alert-danger" role="alert">
                                     {{error}}
@@ -171,7 +209,9 @@
                                 <hr>
                             </div>
                             <div class="form-group">
-                                <h4>Address Line 1: </h4>
+                                <div class="header-style">
+                                    <h4>Address Line 1: </h4>
+                                </div>
                                 <div v-if="!fields.editAddressLine1" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.address.addressLine1}}</p>
                                     <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editAddressLine1')">
@@ -180,7 +220,8 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div v-else class="edit-container">
+                                <div v-else>
+                                    <div class="edit-container">
                                     <input type="text" class="form-control" v-model="fields.addressLine1">
                                     <div class="edit-btn-container">
                                         <button type="button" class="btn btn-success edit-button-style" @click="submitEdit('addressLine1', fields.addressLine1, true)">
@@ -194,6 +235,11 @@
                                             </svg>
                                         </button>
                                     </div>
+                                    </div>
+                                    <div class="password-style">
+                                        <h5>Enter Password: </h5> 
+                                    </div>
+                                    <input type="password" class="form-control" v-model="fields.verifyPassword">
                                 </div>
                                 <div v-if="fields.errorAddressLine1" class="alert alert-danger" role="alert">
                                     {{error}}
@@ -201,7 +247,9 @@
                                 <hr>
                             </div>
                             <div class="form-group">
-                                <h4>Address Line 2: </h4>
+                                <div class="header-style">
+                                    <h4>Address Line 2: </h4>
+                                </div>
                                 <div v-if="!fields.editAddressLine2" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.address.addressLine2}}</p>
                                     <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editAddressLine2')">
@@ -210,7 +258,8 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div v-else class="edit-container">
+                                <div v-else>
+                                    <div class="edit-container">
                                     <input type="text" class="form-control" v-model="fields.addressLine2">
                                     <div class="edit-btn-container">
                                         <button type="button" class="btn btn-success edit-button-style" @click="submitEdit('addressLine2', fields.addressLine2, true)">
@@ -224,6 +273,11 @@
                                             </svg>
                                         </button>
                                     </div>
+                                    </div>
+                                    <div class="password-style">
+                                        <h5>Enter Password: </h5> 
+                                    </div>
+                                    <input type="password" class="form-control" v-model="fields.verifyPassword">
                                 </div>
                                 <div v-if="fields.errorAddressLine2" class="alert alert-danger" role="alert">
                                     {{error}}
@@ -231,7 +285,9 @@
                                 <hr>
                             </div>
                             <div class="form-group">
-                                <h4>City: </h4>
+                                <div class="header-style">
+                                    <h4>City: </h4>
+                                </div>
                                 <div v-if="!fields.editCity" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.address.city}}</p>
                                     <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editCity')">
@@ -240,7 +296,8 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div v-else class="edit-container">
+                                <div v-else>
+                                    <div class="edit-container">
                                     <input type="text" class="form-control" v-model="fields.city">
                                     <div class="edit-btn-container">
                                         <button type="button" class="btn btn-success edit-button-style" @click="submitEdit('city', fields.city, true)">
@@ -254,6 +311,11 @@
                                             </svg>
                                         </button>
                                     </div>
+                                    </div>
+                                    <div class="password-style">
+                                        <h5>Enter Password: </h5> 
+                                    </div>
+                                    <input type="password" class="form-control" v-model="fields.verifyPassword">
                                 </div>
                                 <div v-if="fields.errorCity" class="alert alert-danger" role="alert">
                                     {{error}}
@@ -261,7 +323,9 @@
                                 <hr>
                             </div>
                             <div class="form-group">
-                                <h4>Province: </h4>
+                                <div class="header-style">
+                                    <h4>Province: </h4>
+                                </div>
                                 <div v-if="!fields.editProvince" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.address.province}}</p>
                                     <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editProvince')">
@@ -270,7 +334,8 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div v-else class="edit-container">
+                                <div v-else>
+                                    <div class="edit-container">
                                     <input type="text" class="form-control" v-model="fields.province">
                                     <div class="edit-btn-container">
                                         <button type="button" class="btn btn-success edit-button-style" @click="submitEdit('province', fields.province, true)">
@@ -284,6 +349,12 @@
                                             </svg>
                                         </button>
                                     </div>
+                                    </div>
+
+                                    <div class="password-style">
+                                        <h5>Enter Password: </h5> 
+                                    </div>
+                                    <input type="password" class="form-control" v-model="fields.verifyPassword">
                                 </div>
                                 <div v-if="fields.errorProvince" class="alert alert-danger" role="alert">
                                     {{error}}
@@ -291,7 +362,9 @@
                                 <hr>
                             </div>
                             <div class="form-group">
-                                <h4>Postal Code: </h4>
+                                <div class="header-style">
+                                    <h4>Postal Code: </h4>
+                                </div>
                                 <div v-if="!fields.editPostalCode" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.address.postalCode}}</p>
                                     <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editPostalCode')">
@@ -300,7 +373,8 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div v-else class="edit-container">
+                                <div v-else>
+                                    <div class="edit-container">
                                     <input type="text" class="form-control" v-model="fields.postalCode">
                                     <div class="edit-btn-container">
                                         <button type="button" class="btn btn-success edit-button-style"  @click="submitEdit('postalCode', fields.postalCode, true)">
@@ -314,6 +388,11 @@
                                             </svg>
                                         </button>
                                     </div>
+                                    </div>
+                                    <div class="password-style">
+                                        <h5>Enter Password: </h5> 
+                                    </div>
+                                    <input type="password" class="form-control" v-model="fields.verifyPassword">
                                 </div>
                                 <div v-if="fields.errorPostalCode" class="alert alert-danger" role="alert">
                                     {{error}}
@@ -321,7 +400,9 @@
                                 <hr>
                             </div>
                             <div class="form-group">
-                                <h4>Country: </h4>
+                                <div class="header-style">
+                                    <h4>Country: </h4>
+                                </div>
                                 <div v-if="!fields.editCountry" class="non-edit-container">
                                     <p class="setting-text-style">{{this.userData.address.country}}</p>
                                     <button type="submit" class="btn btn-primary edit-button-style" @click="editField('editCountry')">
@@ -330,7 +411,8 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div v-else class="edit-container">
+                                <div v-else>
+                                    <div class="edit-container">
                                     <input type="text" class="form-control" v-model="fields.country">
                                     <div class="edit-btn-container">
                                         <button type="button" class="btn btn-success edit-button-style" @click="submitEdit('country', fields.country, true)">
@@ -344,6 +426,11 @@
                                             </svg>
                                         </button>
                                     </div>
+                                    </div>
+                                    <div class="password-style">
+                                        <h5>Enter Password: </h5> 
+                                    </div>
+                                    <input type="password" class="form-control" v-model="fields.verifyPassword">
                                 </div>
                                 <div v-if="fields.errorCountry" class="alert alert-danger" role="alert">
                                     {{error}}
@@ -389,14 +476,17 @@ var AXIOS = axios.create({
     headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
-
+function SignInDto(userID, password) {
+    this.userID = userID;
+    this.password = password;
+}
 
 export default {
     name: 'customerSettings',
     components: {
         Navbar
     },
-    computed: mapGetters(['userData']),
+    computed: mapGetters(['userData', 'userName']),
     data () {
         return {
             fields: {
@@ -413,6 +503,8 @@ export default {
                 province: '',
                 postalCode: '',
                 country: '',
+
+                verifyPassword: '',
                 
                 editFirstName: false,
                 editLastName: false,
@@ -456,26 +548,63 @@ export default {
             if(this.fields.errorPassword || this.fields.errorPhoneNumber) {
                 return;
             }
-            var customerDTO = this.getCustomerDTO();
-            if(!isAddressField) {
-                customerDTO[fieldName] = fieldValue
-                console.log(customerDTO)
-                await AXIOS.put("/customers", customerDTO)
-                    .then(response => {
+            if(fieldName == "email" && this.fields.email.indexOf('@') < 0){
+                var errorString = "error" + fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
+                this.fields[errorString] = true;
+                this.error = "Please include '@' in the email address."
+                return;
+            }
+            if(!this.fields.verifyPassword){
+                var errorString = "error" + fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
+                this.fields[errorString] = true;
+                this.error = "Enter password to edit profile"
+            } else {
+                var signindto = new SignInDto(this.userName, this.fields.verifyPassword);
+                await AXIOS.post("/signIn/", signindto)
+                    .then(async response => {
                         console.log(response);
-                        this.setUserData(response.data);
-                        this.resetFields();
+                        var customerDTO = this.getCustomerDTO();
+                        if(!isAddressField) {
+                            customerDTO[fieldName] = fieldValue
+                            console.log(customerDTO)
+                            await AXIOS.put("/customers", customerDTO)
+                                .then(response => {
+                                    console.log(response);
+                                    this.setUserData(response.data);
+                                    this.resetFields();
+                                })
+                                .catch(e => {
+                                    console.log(e);
+                                    var errorString = "error" + fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
+                                    this.fields[errorString] = true;
+                                    var errorMsg = e.response.data
+                                    this.error = errorMsg
+                                })
+                        } else if(isAddressField){
+                            customerDTO.address[fieldName] = fieldValue
+                            console.log(customerDTO)
+                            await AXIOS.put("/customers", customerDTO)
+                                .then(response => {
+                                    console.log(response);
+                                    this.setUserData(response.data);
+                                    this.resetFields();
+                                })
+                                .catch(e => {
+                                    console.log(e);
+                                    var errorString = "error" + fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
+                                    this.fields[errorString] = true;
+                                    var errorMsg = e.response.data
+                                    this.error = errorMsg
+                                })
+                        }
                     })
                     .catch(e => {
                         console.log(e);
                         var errorString = "error" + fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
                         this.fields[errorString] = true;
-                        // var errorMsg = e.response.data
-                        // this.error = errorMsg
+                        var errorMsg = e.response.data
+                        this.error = errorMsg
                     })
-            } else if(isAddressField){
-                customerDTO[address][fieldName] = fieldValue
-                console.log(customerDTO)
             }
         },
         cancelEdit: function() {
@@ -485,7 +614,7 @@ export default {
             var dto = {
                 "userID" : this.userData.userID,
                 "email" : this.userData.email,
-                "password" : this.userData.password,
+                "password" : this.fields.verifyPassword,
                 "firstName" : this.userData.firstName,
                 "lastName" : this.userData.lastName,
                 "phoneNumber" : this.userData.phoneNumber,
@@ -514,6 +643,8 @@ export default {
             this.fields.province = '';
             this.fields.postalCode = '';
             this.fields.country = '';
+
+            this.fields.verifyPassword = '';
             
             this.fields.editFirstName = false;
             this.fields.editLastName = false;
@@ -606,5 +737,14 @@ export default {
     }
     .edit-new-password-text-container {
         margin-bottom: 10px;
+    }
+    .header-style{
+        display: flex;
+        width: 100%
+    }
+    .password-style{
+        margin-top: 15px;
+        display: flex;
+        width: 100%
     }
 </style>
