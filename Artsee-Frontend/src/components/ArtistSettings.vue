@@ -334,7 +334,7 @@ var frontendUrl = frontendConfigurer();
 
 var AXIOS = axios.create({
     baseURL: backendUrl,
-    headers: { 'Access-Control-Allow-Origin': frontendUrl }
+    //headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
 function SignInDto(userID, password) {
