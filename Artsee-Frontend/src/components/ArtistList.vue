@@ -67,6 +67,7 @@ export default {
 
   methods: {
     fetch (){
+      // get the artists to display
       AXIOS.get('/artists/')
         .then(response => {
           this.artists = response.data

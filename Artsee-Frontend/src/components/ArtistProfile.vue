@@ -128,6 +128,7 @@ export default {
 
   methods: {
     fetch (){
+      // get the artist by id
       AXIOS.get('/artists/' + this.artistID.toString())
         .then(response => {
         // JSON responses are automatically parsed.
@@ -138,6 +139,7 @@ export default {
           console.log(response.data)
           this.artistError = errorMsg
         })
+      // get the artworks by artist
       AXIOS.get('/artworksByArtist/' + this.artistID.toString())
         .then(response => {
         // JSON responses are automatically parsed.
@@ -148,6 +150,7 @@ export default {
           console.log(errorMsg)
           this.artworkError = errorMsg
         })
+      // get the reviews on artist
       AXIOS.get('/reviewsOnArtist/' + this.artistID.toString())
         .then(response => {
         // JSON responses are automatically parsed.

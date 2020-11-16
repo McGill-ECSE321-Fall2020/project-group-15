@@ -13,6 +13,7 @@
         >New Artwork
         </button>
       </main>
+      <!-- Rendering a table of artworks -->
       <table class="table">
         <thead>
           <tr>
@@ -24,7 +25,7 @@
             <th>Artist</th>
           </tr>
         </thead>
-
+  
         <tbody>
           <tr v-for="(artwork, i) in artworks" v-bind:key="`artwork-${i}`">
             <td>{{ artwork.name }}</td>

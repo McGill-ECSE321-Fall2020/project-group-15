@@ -92,7 +92,7 @@
         this.lastName = lastName
         this.phoneNumber = phoneNumber
     }
-
+    // Basic input checks
     function checkError(userID, email, password, firstName, lastName, phoneNumber, passwordError, phoneNumberError){
         var errorMsg = ""
         if(!userID){
@@ -187,6 +187,7 @@
                     }
                 }
             },
+            // check the phone number through regex
             checkPhoneNumber: function() {
                 var isPhoneNumber = (/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(this.phoneNumber))
                 if(!isPhoneNumber){

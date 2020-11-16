@@ -337,6 +337,7 @@ var AXIOS = axios.create({
     //headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
+// Sending a signIn request
 function SignInDto(userID, password) {
     this.userID = userID;
     this.password = password;
