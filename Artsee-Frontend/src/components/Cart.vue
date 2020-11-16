@@ -86,6 +86,7 @@ import { mapActions, mapGetters } from 'vuex';
 
 var config = require("../../config");
 
+// configure the backend url
 var backendConfigurer = function () {
   switch (process.env.NODE_ENV) {
     case "development":
@@ -97,6 +98,7 @@ var backendConfigurer = function () {
   }
 };
 
+// configure the frontend url
 var frontendConfigurer = function () {
   switch (process.env.NODE_ENV) {
     case "development":

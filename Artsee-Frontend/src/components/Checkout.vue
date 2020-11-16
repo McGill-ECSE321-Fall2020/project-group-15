@@ -122,6 +122,7 @@ export default {
         }
     },
     methods: {
+        // use the vuex state to set the cart
         ...mapActions(['emptyCart']),
         async placeOrder(event) {
             if (event) {

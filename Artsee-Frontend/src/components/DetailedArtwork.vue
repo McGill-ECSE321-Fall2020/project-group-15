@@ -196,6 +196,7 @@ export default {
     this.fetch();
   },
   methods: {
+    // get the artwork by id
     fetch() {
       AXIOS.get("/artworks/" + this.artworkID.toString())
         .then((response) => {
