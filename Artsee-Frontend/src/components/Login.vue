@@ -5,9 +5,10 @@
       <title>Login Page</title>
     </head>
     <body>
+      <div id="loginBody">
       <div class="card-container">
         <div class="image-container" id="login_logo">
-            <img class="image-style" src="@/assets/logo.png" />
+            <img class="image-style" src="~@/assets/logo.png" />
         </div>
         <div class="card w-50" id="loginCard">
           <div class="card-body">
@@ -78,6 +79,7 @@
           </div>
         </div>
       </div>
+      </div>
     </body>
   </div>
 </template>
@@ -109,8 +111,8 @@
   var frontendUrl = frontendConfigurer();
 
   var AXIOS = axios.create({
-    baseURL: backendUrl,
-    headers: { 'Access-Control-Allow-Origin': frontendUrl }
+    // baseURL: backendUrl,
+    // headers: { 'Access-Control-Allow-Origin': "*" }
   })
   function SignInDto(userID, password) {
     this.userID = userID;
@@ -153,7 +155,7 @@
           
           })
           .catch(e => {
-            var errorMsg = e.response.data
+            var errorMsg = e.response
             this.signInError = errorMsg
           })
       },
@@ -166,10 +168,13 @@
     }
   };
 </script>
-<style >
+
+<style scoped>
+
   #login_signup_button {
       background: white;
       border-width: 0;
+      width: 100%;
   }
 
   #login_logo {
@@ -177,18 +182,29 @@
       position: absolute;
       left: 10px;
       top:250px;
+      height: 20%;
   }
   #loginCard {
       position: absolute;
       right: 50px;
+      top: 0px;
       padding-bottom: 400px;
       padding-top: 150px;
   }  
-    body {
-        background-color:#FAFAFA;
-    }
+    //body {
+     //   background-color:#FAFAFA;
+    //}
+
+  #loginBody {
+    background-image: linear-gradient(to right, #5160a0, #9e9e9e);
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    margin: 0;
+  }
   .image-style {
     width: 60%;
+    height: 100%;
     margin: 10px 0 50px 0;
   }
   .image-container {

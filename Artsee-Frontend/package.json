@@ -4,6 +4,10 @@
   "description": "A vue.js frontend for the artsee app",
   "author": "Matt Langshur <matthew.langshur@mail.mcgill.ca>",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/McGill-ECSE321-Fall2020/project-group-15"
+  },
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
@@ -80,8 +84,8 @@
     "webpack-merge": "^4.1.0"
   },
   "engines": {
-    "node": ">= 4.0.0",
-    "npm": ">= 3.0.0"
+    "node": "15.x",
+    "npm": "7.x"
   },
   "browserslist": [
     "> 1%",
