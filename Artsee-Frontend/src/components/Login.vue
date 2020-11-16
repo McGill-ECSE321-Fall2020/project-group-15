@@ -191,10 +191,7 @@
       padding-bottom: 400px;
       padding-top: 150px;
   }  
-    //body {
-     //   background-color:#FAFAFA;
-    //}
-
+ 
   #loginBody {
     background-image: linear-gradient(to right, #5160a0, #9e9e9e);
     height: 100%;
