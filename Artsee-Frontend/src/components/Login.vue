@@ -169,11 +169,7 @@
   };
 </script>
 
-<style>
-
-body {
-  background-color: #FAFAFA;
-}
+<style scoped>
 
   #login_signup_button {
       background: white;
