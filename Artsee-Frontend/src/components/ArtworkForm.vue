@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                             <div v-if="error.length != 0">
-                                <div v-for="(errorMsg, index) in error" :key="index" class="alert alert-danger" role="alert">
+                                <div v-for="(errorMsg, index) in error" :key="index" class="alert alert-danger alert-style" role="alert">
                                     {{errorMsg}}
                                 </div>    
                             </div>
@@ -150,6 +150,10 @@ export default {
                         })
                         .catch(e => {
                             console.log(e.response.data)
+                            var errorMsg = e.response.data
+                            var errorParts = errorMsg.split(".")
+                            errorParts.pop()
+                            this.error = errorParts
                         })
             } else {
                 var errorParts = error.split(".")
@@ -219,5 +223,9 @@ export default {
   .date-container {
       display: flex;
       align-items: center;
+  }
+
+  .alert-style {
+      margin: 5px;
   }
 </style>
