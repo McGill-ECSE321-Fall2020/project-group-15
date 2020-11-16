@@ -80,8 +80,8 @@
     var frontendUrl = frontendConfigurer();
 
     var AXIOS = axios.create({
-    baseURL: backendUrl,
-    headers: { 'Access-Control-Allow-Origin': frontendUrl }
+    baseURL: backendUrl
+    //headers: { 'Access-Control-Allow-Origin': frontendUrl }
     })
 
     function AdministratorDto(userID, email, password, firstName, lastName, phoneNumber) {

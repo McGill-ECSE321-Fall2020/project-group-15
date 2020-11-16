@@ -5,7 +5,7 @@
     </head>
     <body>
       <div class="navbarContainer">
-        <Navbar navMode="true"/>
+        <Navbar/>
       </div>
       <div class="row py-5 px-4">
         <div class="col-md-9 mx-auto">
@@ -99,7 +99,7 @@ var frontendUrl = frontendConfigurer();
 
 var AXIOS = axios.create({
   baseURL: backendUrl,
-  headers: { 'Access-Control-Allow-Origin': frontendUrl }
+  //headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
 export default {
