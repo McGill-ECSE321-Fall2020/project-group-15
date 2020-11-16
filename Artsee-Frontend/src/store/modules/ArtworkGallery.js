@@ -61,6 +61,8 @@ const actions = {
         copiedArtistArtworks[artworkIndex].numInStock--;
         commit('setArtworks', copiedArtistArtworks);
         totalPrice += copiedArtistArtworks[artworkIndex].price;
+        commit('setCartTotal', totalPrice);
+
 
         let copiedCustomerCart = JSON.parse(JSON.stringify(state.customerCart));
         var artworkID = copiedArtistArtworks[artworkIndex].id
@@ -107,12 +109,57 @@ const actions = {
             }
         }
         commit('setArtworks', copiedArtistArtworks);
+        commit('setCartTotal', totalPrice);
 
         let copiedCustomerCart = JSON.parse(JSON.stringify(state.customerCart));
         copiedCustomerCart[customerCartIndex].artworkQuantity++;
         copiedCustomerCart[customerCartIndex].orderSubtotal += copiedCustomerCart[customerCartIndex].artworkPrice;
         copiedCustomerCart[customerCartIndex].artworkNumInStock = copiedArtistArtworks[artworkIndex].numInStock;
         commit('setCustomerCart', copiedCustomerCart);
+    },
+    addToCart({ commit }, artworkID) {
+        var totalPrice = state.cartTotal;
+        let copiedArtistArtworks = JSON.parse(JSON.stringify(state.artistArtworks));
+        var artworkIndex = 0;
+        for(var i=0; i<copiedArtistArtworks.length; i++){
+            if(copiedArtistArtworks[i].id == artworkID){
+                copiedArtistArtworks[i].numInStock--;
+                totalPrice += copiedArtistArtworks[i].price;
+                artworkIndex = i;
+                break;
+            }
+        }
+        commit('setArtworks', copiedArtistArtworks);
+        commit('setCartTotal', totalPrice);
+
+        let copiedCustomerCart = JSON.parse(JSON.stringify(state.customerCart));
+        var isInCart = false
+        for(var i=0; i < copiedCustomerCart.length; i++){
+            if(copiedCustomerCart[i].artworkID == artworkID){
+                isInCart = true;
+                copiedCustomerCart[i].artworkQuantity++;
+                copiedCustomerCart[i].orderSubtotal += copiedCustomerCart[i].artworkPrice;
+                copiedCustomerCart[i].artworkNumInStock = copiedArtistArtworks[artworkIndex].numInStock;
+                break;
+            }
+        }
+
+        if(!isInCart){
+            var artwork = {
+                artworkImageURL: copiedArtistArtworks[artworkIndex].imageURL,
+                artworkID: copiedArtistArtworks[artworkIndex].id,
+                artworkName: copiedArtistArtworks[artworkIndex].name,
+                artistFirstName: copiedArtistArtworks[artworkIndex].artist.firstName,
+                artistLastName: copiedArtistArtworks[artworkIndex].artist.lastName,
+                artworkQuantity: 1,
+                artworkNumInStock: copiedArtistArtworks[artworkIndex].numInStock,
+                artworkPrice: copiedArtistArtworks[artworkIndex].price,
+                orderSubtotal: copiedArtistArtworks[artworkIndex].price,
+            }
+            copiedCustomerCart.push(artwork);
+        }
+        commit('setCustomerCart', copiedCustomerCart);
+
     },
     decrementArtwork({ commit }, artworkData) {
         var totalPrice = state.cartTotal;
@@ -129,6 +176,7 @@ const actions = {
             }
         }
         commit('setArtworks', copiedArtistArtworks);
+        commit('setCartTotal', totalPrice);
 
         let copiedCustomerCart = JSON.parse(JSON.stringify(state.customerCart));
         copiedCustomerCart[customerCartIndex].artworkQuantity--;
@@ -149,12 +197,14 @@ const actions = {
     },
     emptyCart({ commit }) {
         commit('setCustomerCart', []);
+        commit('setCartTotal', 0);
     }
 };
 
 const mutations = {
     setArtworks: (state, artistArtworks) => (state.artistArtworks = artistArtworks),
     setCustomerCart: (state, customerCart) => (state.customerCart = customerCart),
+    setCartTotal: (state, cartTotal) => (state.cartTotal = cartTotal),
 };
 
 export default {

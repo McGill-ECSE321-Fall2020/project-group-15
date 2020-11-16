@@ -74,8 +74,8 @@
                 ${{artwork.price / 100}}
               </h3>
             </div>
-            <div class="col" id="addToCart">
-              <a href="javascript:void(0);" class="btn btn-success btn-lg">Add to cart</a>
+            <div class="card-body button-container-style">
+                <button type="button" class="btn btn-primary" @click="addDetailedArtToCart()">Add to Cart</button>
             </div>
           </div>
           <hr />
@@ -108,6 +108,8 @@
 <script>
 import Navbar from '@/components/Navbar'
 import ReviewStars from '@/components/ReviewStars'
+import { mapActions, mapGetters } from 'vuex';
+
 import axios from 'axios'
 var config = require('../../config')
 
@@ -180,6 +182,10 @@ export default {
     },
     routeToArtist(){
       $router.push({name: 'ArtistProfile', params: {artistID: this.artistID },})
+    },
+    ...mapActions(['addToCart']),
+    addDetailedArtToCart: function() {
+        this.addToCart(this.artworkID);
     }
   }
    

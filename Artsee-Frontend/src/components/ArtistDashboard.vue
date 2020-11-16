@@ -47,6 +47,7 @@
                 <div class="py-4 px-4"> 
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h5 class="mb-0">Artworks</h5>
+                        <button type="button" class="btn btn-primary detailbutton" @click="$router.push({name: 'ArtworkForm'})"> Add New Artwork </button>
                     </div>
                     <div class = "artworkRow">
                       <ArtworkRow 
@@ -72,6 +73,7 @@ import Navbar from '@/components/Navbar'
 import ArtworkRow from '@/components/ArtworkRow'
 import ReviewRow from '@/components/ReviewRow'
 import { mapGetters, mapActions} from 'vuex'
+
 import axios from 'axios'
 var config = require('../../config')
 
@@ -169,12 +171,6 @@ export default {
     background-image: url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);
     background-size: cover;
     background-repeat: no-repeat
-}
-
-body {
-    background: #654ea3;
-    background: linear-gradient(to right, #e96443, #904e95);
-    min-height: 100vh
 }
 
 .navbarContainer {

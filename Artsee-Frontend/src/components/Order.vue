@@ -16,28 +16,24 @@
               Back to myOrders
           </button>
           </router-link>
-        <h1>Previous Order</h1>
+        <h1>{{"Order #" + orderID}}</h1>
       </div>
-      <div v-for="(item, index) in items" :key="index">
+      <div v-for="(artwork, index) in this.order.artworks" :key="index">
       <div class="row xl-6">
         <div class="col-md-8">
           <div class="card shadow">
             <div class="card-body">
               <div class="row text-center">
                 <div class="col-ml-1 mx-2">
-                  <img :src="item.imageURL" width="170" alt="" loading="lazy" />
+                  <img :src="artwork.imageURL" width="170" alt="" loading="lazy" />
                 </div>
                 <div class="col-md-4" id="infoBox">
-                  <h4>{{ item.name }}</h4>
-                  <h6>{{ item.artistName }}</h6>
-                  <p>{{ item.description }}</p>
-                  <div class="col">
-                    <h3> Quantity: </h3>
-                  </div>
+                  <h4>{{ artwork.name }}</h4>
+                  <h6>{{ artwork.artist.firstName + " " + artwork.artist.lastName }}</h6>
+                  <p>{{ artwork.description }}</p>
                 </div>
                 <div class="col-md-4" id="priceButton">
-                  <h4>{{ "$" + (item.price / 100).toString() }}</h4>
-                  <p>per Item</p>
+                  <h4>{{ "$" + (artwork.price / 100).toString() }}</h4>
                   <p></p>
                   <div class="sub-row">
                     <button
@@ -54,11 +50,6 @@
                     </button>
                   </div>
                 </div>
-                <div id="subTotal">
-                  <h3>
-                    {{ "SubTotal: $" + ((item.price * quantity) / 100).toString() }}
-                  </h3>
-                </div>
               </div>
             </div>
           </div>
@@ -67,7 +58,7 @@
       </div>
     </div>
     <div class="bottom">
-    <h2> {{"Total:" + ((price*quantity)/100).toString() }}
+    <h2> {{ "Total: $" + (this.order.totalPrice/100).toString()}}
     </h2>
     
       </div>
@@ -122,30 +113,34 @@ export default {
     },
   },
   name: "itemListing",
+  
+    props: {
+    orderID: {
+      default: -1,
+      type: Number
+    }
+  },
+  
   data() {
     return {
-      items: [
-        {
-          name: "Mona Lisa",
-          description: "A classic",
-          price: "400",
-          dateOfCreation: "1503",
-          numInStock: "1",
-          artistName: "Da Vinci",
-          imageURL: "https://homepages.cae.wisc.edu/~ece533/images/airplane.png",
-          artworkError: "",        
-        },
-        {
-          name: "Starry Night",
-          description: "a famous painting",
-          price: "300",
-          dateOfCreation: "1889",
-          numInStock: "3",
-          artistName: "Van Gogh",
-          imageURL: "https://homepages.cae.wisc.edu/~ece533/images/airplane.png",
-          artworkError: "",
-        },
-      ],
+      order: {
+        id: "",
+        totalPrice: "",
+        artworks: [{
+          name: "",
+          description: "",
+          price: "",
+          dateOfCreation: "",
+          numInStock: "",
+          artistName: "",
+          imageURL: "",
+          artworkError: "",      
+          artist:{
+            firstName: "",
+            lastName: "",
+          } 
+        }]
+      }
     };
   },
   created: function () {
@@ -154,20 +149,11 @@ export default {
 
   methods: {
     fetch() {
-      AXIOS.get("/artworks/" + this.artworkID.toString())
+      AXIOS.get("/artworkOrders/" + this.orderID.toString())
         .then((response) => {
           // JSON responses are automatically parsed.
-          (this.name = response.data.name),
-            (this.description = response.data.description),
-            (this.price = response.data.price),
-            (this.dateOfCreation = response.data.dateOfCreation),
-            (this.numInStock = response.data.numInStock),
-            (this.artistName =
-              response.data.artist.firstName +
-              " " +
-              response.data.artist.lastName),
-            (this.imageURL = response.data.imageURL.toString()),
-            console.log(response.data);
+          this.order = response.data
+          console.log(response.data)
         })
         .catch((e) => {
           var errorMsg = e.response.data;

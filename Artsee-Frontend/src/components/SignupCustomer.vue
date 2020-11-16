@@ -264,10 +264,8 @@
     }
 </script>
 
-<style>
-    body {
-        background-image: linear-gradient(to right, #5160a0, #9e9e9e);
-    }
+<style scoped>
+
     .card-container {
         margin-top: 50px;
         display: flex;
