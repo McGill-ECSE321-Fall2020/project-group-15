@@ -9,7 +9,7 @@
         android:id="@+id/FirstFragment"
         android:name="com.artsee.artsee_android.FirstFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/detailed_artwork_nav_bar">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"

@@ -82,7 +82,8 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/login_fields_container"
-                app:rippleColor="#A69090" />
+                app:rippleColor="#A69090"
+                android:onClick="login"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

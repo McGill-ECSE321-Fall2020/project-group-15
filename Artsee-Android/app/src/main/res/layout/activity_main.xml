@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <include
-        layout="@layout/content_main"
+        layout="@layout/login_page"
         android:background="@color/app_white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

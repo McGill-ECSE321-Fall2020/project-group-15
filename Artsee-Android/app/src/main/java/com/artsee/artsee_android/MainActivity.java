@@ -2,9 +2,6 @@ package com.artsee.artsee_android;
 
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -28,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public void login(View v) {
+        setContentView(R.layout.detailed_artwork_nav_bar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -36,7 +39,13 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
+            // logout of the application
+            setContentView(R.layout.login_page);
+        }
+
+        if (id == R.id.action_gallery) {
+            // this is what will bring you to the gallery
             return true;
         }
 
