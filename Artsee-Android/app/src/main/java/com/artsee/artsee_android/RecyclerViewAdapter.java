@@ -43,8 +43,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         holder.tv_artwork_name.setText(data.get(position).getName());
-        holder.tv_artist_name.setText(data.get(position).getArtist().getName());
-        holder.tv_artwork_price.setText(Integer.toString(data.get(position).getPrice()));
+        holder.tv_artist_name.setText("By " + data.get(position).getArtist().getName());
+        holder.tv_artwork_price.setText("$" + Integer.toString(data.get(position).getPrice()));
         // convert url to image
         new DownloadImageTask(holder.artwork_image)
                 .execute(data.get(position).getUrl());
