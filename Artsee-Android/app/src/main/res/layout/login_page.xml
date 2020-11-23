@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:id="@+id/background_container"
+        android:layout_width="411dp"
+        android:layout_height="351dp"
+        android:layout_marginTop="300dp"
+        android:background="#989898"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdgeLength="15dp">
+
+            <LinearLayout
+                android:id="@+id/login_fields_container"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="75dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/login_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <EditText
+                    android:id="@+id/username_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/round_corners"
+                    android:hint="@string/username_hint"
+                    android:inputType="text"
+                    android:textAlignment="center"
+                    android:textColorHighlight="#4A4A4A"
+                    android:textColorHint="#7A7A7A" />
+
+                <EditText
+                    android:id="@+id/password_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/round_corners"
+                    android:hint="@string/password_hint"
+                    android:inputType="text"
+                    android:textAlignment="center"
+                    android:textColorHighlight="#FFFFFF"
+                    android:textColorHint="#7A7A7A" />
+
+                <TextView
+                    android:id="@+id/error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="#FF0000"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/login_button"
+                style="@style/AppTheme.Button"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="75dp"
+                android:background="@drawable/round_corners_login_button"
+                android:backgroundTint="#A69797"
+                android:text="@string/newperson_button"
+                android:theme="@style/AppTheme.Button"
+                app:iconTint="#9C1010"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/login_fields_container"
+                app:rippleColor="#A69090"
+                android:onClick="login"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="363dp"
+        android:layout_height="238dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/background_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
