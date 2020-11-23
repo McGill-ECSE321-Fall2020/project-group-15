@@ -17,23 +17,23 @@ public class ViewGalleryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_view_gallery);
 
         artworks = new ArrayList<>();
         artworks.add(new Artwork("Mona Lisa", 14,
-                "https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FLisa_del_Giocondo&psig=AOvVaw3NfDVKauPiNBAoYYzedj9X&ust=1606245413430000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIiD8Mywme0CFQAAAAAdAAAAABAI",
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Leonardo_da_Vinci_043-mod.jpg/330px-Leonardo_da_Vinci_043-mod.jpg",
                 new Artist("Adrien")));
         artworks.add(new Artwork("white", 12,
-                "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dreamstime.com%2Fabstract-art-painting-white-gray-color-texture-background-ideas-image148073133&psig=AOvVaw3-zQErIS_8oX2ANbxCYSZC&ust=1606245722516000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNi5nuCxme0CFQAAAAAdAAAAABAN",
+                "https://thumbs.dreamstime.com/z/abstract-art-painting-white-gray-color-texture-background-ideas-148073133.jpg",
                 new Artist("Bob")));
         artworks.add(new Artwork("new", 10,
-                "https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FLisa_del_Giocondo&psig=AOvVaw3NfDVKauPiNBAoYYzedj9X&ust=1606245413430000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIiD8Mywme0CFQAAAAAdAAAAABAI",
+                "https://i.cbc.ca/1.5387286.1575662626!/fileImage/httpImage/image.jpg_gen/derivatives/original_1180/van-gogh-immersive-art.jpg",
                 new Artist("John")));
         artworks.add(new Artwork("Simple", 20,
-                "https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FLisa_del_Giocondo&psig=AOvVaw3NfDVKauPiNBAoYYzedj9X&ust=1606245413430000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIiD8Mywme0CFQAAAAAdAAAAABAI",
+                "https://hgtvhome.sndimg.com/content/dam/images/hgtv/fullset/2013/2/11/2/RX-HGMAG008_Dont-Buy-It-DIY-It-084-a_s4x3.jpg.rend.hgtvcom.966.725.suffix/1400979946360.jpeg",
                 new Artist("Jack")));
-        artworks.add(new Artwork("", 24,
-                "https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FLisa_del_Giocondo&psig=AOvVaw3NfDVKauPiNBAoYYzedj9X&ust=1606245413430000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIiD8Mywme0CFQAAAAAdAAAAABAI",
+        artworks.add(new Artwork("Recent art", 24,
+                "https://www.artranked.com/images/s_d3/d321bbcbd45eb95ab0dedf766cb7a742.jpeg",
                 new Artist("Gareth")));
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view_id);
