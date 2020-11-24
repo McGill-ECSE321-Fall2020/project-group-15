@@ -1,6 +1,7 @@
 package com.artsee.artsee_android;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -12,23 +13,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import java.io.InputStream;
 import java.util.List;
 
 /**
- * An adapter class that should be used for the gallery. It is used with recycler view componenets.
+ * An adapter class that should be used for the gallery. It is used with recycler view components.
  */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     private Context context;
-    private List<Artwork> data;
+    private List<Artwork> data; // data to populate
 
     public RecyclerViewAdapter(Context context, List<Artwork> list) {
         this.context = context;
         this.data = list;
     }
 
+    /**
+     * Creates an instance of MyViewHolder which is adapted to the generic viewHolder
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,6 +47,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return new MyViewHolder(view);
     }
 
+    /**
+     * Populates the data in MyViewHolder by using the bindings throug view Ids
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
@@ -49,6 +62,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         new DownloadImageTask(holder.artwork_image)
                 .execute(data.get(position).getUrl());
 
+        //add an event listener when clicking on an artwork card
+        holder.cardView.setOnClickListener(v -> {
+
+            // create an intent for the next activity (page)
+            Intent intent = new Intent(context, DetailedArtworkActivity.class);
+            // passing data to the detailed artwork activity
+            intent.putExtra("Name", data.get(position).getName());
+            intent.putExtra("Artist", data.get(position).getArtist().getName());
+            intent.putExtra("Price", data.get(position).getPrice());
+            intent.putExtra("Url", data.get(position).getUrl());
+            // starting the detailed artwork activity
+            context.startActivity(intent);
+        });
+
     }
 
     @Override
@@ -56,12 +83,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return data.size();
     }
 
-    // A class to pass into the view adapter that uses the cardview.xml ids
+    /**
+     * A class to pass into the view adapter that uses the cardview.xml components
+     */
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv_artwork_name;
         TextView tv_artist_name;
         TextView tv_artwork_price;
         ImageView artwork_image;
+        CardView cardView;
+
         public MyViewHolder(View itemView) {
             super(itemView);
 
@@ -69,12 +100,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tv_artist_name = (TextView) itemView.findViewById(R.id.by_artist_id);
             tv_artwork_price = (TextView) itemView.findViewById(R.id.price_id);
             artwork_image = (ImageView) itemView.findViewById(R.id.artwork_img_id);
+            cardView = (CardView) itemView.findViewById(R.id.card_view_id);
 
         }
     }
 
-    // A class to create an asyncTask for a separate thread to download the
-    // images because the main thread was crashing on image rendering
+    /**
+     * A class to create an asyncTask for a separate thread to download the
+     *  images because the main thread crashes on image rendering.
+     */
     class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bitImage;
 

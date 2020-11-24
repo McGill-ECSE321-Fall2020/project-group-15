@@ -23,10 +23,9 @@
         </activity>
         <activity android:name=".ViewGalleryActivity"
             android:exported="true">
-            <!--Default Intent Filter-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.DEFAULT" />-->
-<!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".DetailedArtworkActivity"
+            android:exported="true">
         </activity>
     </application>
 
