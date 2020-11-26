@@ -25,36 +25,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("test1");
-
-        RequestParams params = new RequestParams();
-        params.put("userID", "john");
-        params.put("password", "123");
-        params.setUseJsonStreamer(true);
-
-        HttpUtils.post("signIn/", params, new JsonHttpResponseHandler() {
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                try {
-                    System.out.println("pass1");
-                    System.out.println(response.get("type").toString());
-                } catch (JSONException e) {
-                    System.out.println("pass2");
-                    error += e.getMessage();
-                }
-                refreshErrorMessage();
-            }
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    System.out.println("fail1");
-                    error += errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    System.out.println("fail2");
-                    error += e.getMessage();
-                }
-                refreshErrorMessage();
-            }
-        });
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
@@ -67,9 +37,46 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void login(View v) {
-        setContentView(R.layout.detailed_artwork_nav_bar);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+        final TextView username = (TextView) findViewById(R.id.username_input);
+        final TextView password = (TextView) findViewById(R.id.password_input);
+        final String usernameString = username.getText().toString();
+        final String passwordString = password.getText().toString();
+        if(usernameString == null || usernameString.length() == 0 || passwordString == null || passwordString.length() == 0){
+
+        } else {
+            RequestParams params = new RequestParams();
+            params.put("userID", usernameString);
+            params.put("password", passwordString);
+            params.setUseJsonStreamer(true);
+
+            HttpUtils.post("signIn/", params, new JsonHttpResponseHandler() {
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    try {
+                        setContentView(R.layout.detailed_artwork_nav_bar);
+                        Toolbar toolbar = findViewById(R.id.toolbar);
+                        setSupportActionBar(toolbar);
+
+                        System.out.println("pass1");
+                        System.out.println(response.get("type").toString());
+                    } catch (JSONException e) {
+                        System.out.println("pass2");
+                        error += e.getMessage();
+                    }
+                    refreshErrorMessage();
+                }
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    try {
+                        System.out.println("fail1");
+                        error += errorResponse.get("message").toString();
+                    } catch (JSONException e) {
+                        System.out.println("fail2");
+                        error += e.getMessage();
+                    }
+                    refreshErrorMessage();
+                }
+            });
+        }
     }
 
     @Override

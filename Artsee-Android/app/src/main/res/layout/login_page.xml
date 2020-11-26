@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:id="@+id/background_container"
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="351dp"
         android:layout_marginTop="300dp"
         android:background="#989898"
@@ -17,13 +17,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/textfield_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fadingEdgeLength="15dp">
 
             <LinearLayout
                 android:id="@+id/login_fields_container"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="75dp"
                 android:orientation="vertical"
@@ -75,6 +76,7 @@
                 android:layout_marginTop="75dp"
                 android:background="@drawable/round_corners_login_button"
                 android:backgroundTint="#A69797"
+                android:onClick="login"
                 android:text="@string/newperson_button"
                 android:theme="@style/AppTheme.Button"
                 app:iconTint="#9C1010"
@@ -82,8 +84,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/login_fields_container"
-                app:rippleColor="#A69090"
-                android:onClick="login"/>
+                app:rippleColor="#A69090" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
