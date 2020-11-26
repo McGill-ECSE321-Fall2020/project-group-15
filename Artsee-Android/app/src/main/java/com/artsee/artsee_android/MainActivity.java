@@ -11,12 +11,50 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
+
 public class MainActivity extends AppCompatActivity {
 
     private String error = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("test1");
+
+        RequestParams params = new RequestParams();
+        params.put("userID", "john");
+        params.put("password", "123");
+        params.setUseJsonStreamer(true);
+
+        HttpUtils.post("signIn/", params, new JsonHttpResponseHandler() {
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    System.out.println("pass1");
+                    System.out.println(response.get("type").toString());
+                } catch (JSONException e) {
+                    System.out.println("pass2");
+                    error += e.getMessage();
+                }
+                refreshErrorMessage();
+            }
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+                    System.out.println("fail1");
+                    error += errorResponse.get("message").toString();
+                } catch (JSONException e) {
+                    System.out.println("fail2");
+                    error += e.getMessage();
+                }
+                refreshErrorMessage();
+            }
+        });
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
