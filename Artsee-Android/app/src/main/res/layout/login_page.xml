@@ -9,8 +9,8 @@
     <LinearLayout
         android:id="@+id/background_container"
         android:layout_width="match_parent"
-        android:layout_height="351dp"
-        android:layout_marginTop="300dp"
+        android:layout_height="350dp"
+        android:layout_marginTop="250dp"
         android:background="#989898"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,6 +61,7 @@
                     android:id="@+id/error"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textAlignment="center"
                     android:text=""
                     android:textColor="#FF0000"
                     android:visibility="gone" />

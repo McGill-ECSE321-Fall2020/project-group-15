@@ -37,41 +37,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void login(View v) {
-
+        error = "";
         final TextView username = (TextView) findViewById(R.id.username_input);
         final TextView password = (TextView) findViewById(R.id.password_input);
-        final String usernameString = username.getText().toString();
-        final String passwordString = password.getText().toString();
-        if(usernameString == null || usernameString.length() == 0 || passwordString == null || passwordString.length() == 0){
 
+        if(username.getText().toString() == null || username.getText().toString().length() == 0 || password.getText().toString() == null || password.getText().toString().length() == 0){
+            error += "Username and/or password cannot be empty";
+            refreshErrorMessage();
         } else {
             RequestParams params = new RequestParams();
-            params.put("userID", usernameString);
-            params.put("password", passwordString);
+            params.put("userID", username.getText().toString());
+            params.put("password", password.getText().toString());
             params.setUseJsonStreamer(true);
 
             HttpUtils.post("signIn/", params, new JsonHttpResponseHandler() {
+                @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    try {
-                        setContentView(R.layout.detailed_artwork_nav_bar);
-                        Toolbar toolbar = findViewById(R.id.toolbar);
-                        setSupportActionBar(toolbar);
-
-                        System.out.println("pass1");
-                        System.out.println(response.get("type").toString());
-                    } catch (JSONException e) {
-                        System.out.println("pass2");
-                        error += e.getMessage();
-                    }
                     refreshErrorMessage();
+                    username.setText("");
+                    password.setText("");
+
+                    setContentView(R.layout.detailed_artwork_nav_bar);
+                    Toolbar toolbar = findViewById(R.id.toolbar);
+                    setSupportActionBar(toolbar);
                 }
+                @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     try {
-                        System.out.println("fail1");
                         error += errorResponse.get("message").toString();
+                        System.out.println("=========================");
+                        System.out.println("fail1");
+                        System.out.println(error);
+                        System.out.println("=========================");
                     } catch (JSONException e) {
-                        System.out.println("fail2");
                         error += e.getMessage();
+                        System.out.println("=========================");
+                        System.out.println("fail2");
+                        System.out.println(error);
+                        System.out.println("=========================");
                     }
                     refreshErrorMessage();
                 }
@@ -104,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         // set the error message
         TextView tvError = (TextView) findViewById(R.id.error);
         tvError.setText(error);
-
+        System.out.println(error);
         if (error == null || error.length() == 0) {
             tvError.setVisibility(View.GONE);
         } else {
