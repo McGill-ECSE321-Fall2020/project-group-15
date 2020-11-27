@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
@@ -62,20 +61,8 @@ public class MainActivity extends AppCompatActivity {
                     setSupportActionBar(toolbar);
                 }
                 @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    try {
-                        error += errorResponse.get("message").toString();
-                        System.out.println("=========================");
-                        System.out.println("fail1");
-                        System.out.println(error);
-                        System.out.println("=========================");
-                    } catch (JSONException e) {
-                        error += e.getMessage();
-                        System.out.println("=========================");
-                        System.out.println("fail2");
-                        System.out.println(error);
-                        System.out.println("=========================");
-                    }
+                public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
+                    error += errorResponse;
                     refreshErrorMessage();
                 }
             });

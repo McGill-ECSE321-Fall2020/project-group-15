@@ -178,26 +178,14 @@
             <Button
                 android:id="@+id/purchase_item"
                 style="@style/AppTheme.Button"
-                android:layout_width="125dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@drawable/round_corners_login_button"
                 android:text="Purchase"
                 android:theme="@style/AppTheme.Button"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:backgroundTint="@color/app_grey"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/ic_dialog_email" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
