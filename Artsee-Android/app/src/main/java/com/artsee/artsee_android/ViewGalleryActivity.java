@@ -3,11 +3,20 @@ package com.artsee.artsee_android;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
 
 public class ViewGalleryActivity extends AppCompatActivity {
 
@@ -20,6 +29,7 @@ public class ViewGalleryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_gallery);
 
         artworks = new ArrayList<>();
+
         artworks.add(new Artwork("Mona Lisa", 14,
                 "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Leonardo_da_Vinci_043-mod.jpg/330px-Leonardo_da_Vinci_043-mod.jpg",
                 new Artist("Adrien")));

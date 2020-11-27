@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                     username.setText("");
                     password.setText("");
 
-                    setContentView(R.layout.detailed_artwork_nav_bar);
+                    setContentView(R.layout.activity_view_gallery);
                     Toolbar toolbar = findViewById(R.id.toolbar);
                     setSupportActionBar(toolbar);
                 }
