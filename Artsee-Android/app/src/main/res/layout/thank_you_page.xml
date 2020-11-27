@@ -7,22 +7,22 @@
     tools:context=".SecondFragment">
 
     <TextView
-        android:id="@+id/textview_second"
+        android:id="@+id/thank_you_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/thankyoupage"
-        app:layout_constraintBottom_toTopOf="@id/button_second"
+        app:layout_constraintBottom_toTopOf="@id/gallery_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button_second"
+        android:id="@+id/gallery_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/gallery"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_second" />
+        app:layout_constraintTop_toBottomOf="@id/thank_you_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>
