@@ -67,9 +67,12 @@ public class MainActivity extends AppCompatActivity {
 
                     refreshErrorMessage();
 
-                    setContentView(R.layout.content_view_gallery);
-                    Toolbar toolbar = findViewById(R.id.toolbar);
-                    setSupportActionBar(toolbar);
+                    Intent myIntent = new Intent(MainActivity.this, ViewGalleryActivity.class);
+                    MainActivity.this.startActivity(myIntent);
+
+//                    setContentView(R.layout.content_view_gallery);
+//                    Toolbar toolbar = findViewById(R.id.toolbar);
+//                    setSupportActionBar(toolbar);
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
