@@ -99,7 +99,7 @@ public class DetailedArtworkActivity extends AppCompatActivity {
         // Takes you to the checkout page and passes artworkID parameter
 
         Intent myIntent = new Intent(DetailedArtworkActivity.this, CheckoutActivity.class);
-        myIntent.putExtra("ArtworkID", artworkID);
+        myIntent.putExtra("artworkID", artworkID);
         DetailedArtworkActivity.this.startActivity(myIntent);
     }
 
