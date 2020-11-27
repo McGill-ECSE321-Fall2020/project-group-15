@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             params.put("userID", username.getText().toString());
             params.put("password", password.getText().toString());
             params.setUseJsonStreamer(true);
-            
+
             HttpUtils.post("signIn/", params, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
