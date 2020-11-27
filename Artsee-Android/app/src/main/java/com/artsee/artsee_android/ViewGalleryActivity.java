@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.AsyncHttpClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,7 +18,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import cz.msebera.android.httpclient.entity.mime.Header;
+import cz.msebera.android.httpclient.Header;
 
 public class ViewGalleryActivity extends AppCompatActivity {
 
@@ -51,25 +52,30 @@ public class ViewGalleryActivity extends AppCompatActivity {
 //                "https://www.artranked.com/images/s_d3/d321bbcbd45eb95ab0dedf766cb7a742.jpeg",
 //                new Artist("Gareth")));
 //
-//        initRecyclerView();
+        initRecyclerView();
     }
 
         private void initArtworks(){
         // Get request to fill gallery
 
             System.out.println("=============================================");
-            System.out.println("Inside the init artowrks");
+            System.out.println("Inside the init artworks");
             System.out.println("=============================================");
 
         HttpUtils.get("artworks/",  new RequestParams(), new JsonHttpResponseHandler() {
 
-//            @Override
+            @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 
                 // Clear past artworks
                 artworks.clear();
                 Artwork artwork;
                 JSONObject data;
+
+                System.out.println("=============================================");
+                System.out.println("Inside the success");
+                System.out.println("response:" + response.toString());
+                System.out.println("=============================================");
 
                 for(int i = 0; i < response.length(); i++){
                     // Get artworks from JSOn
@@ -78,19 +84,34 @@ public class ViewGalleryActivity extends AppCompatActivity {
                     System.out.println("Inside the loop");
                     System.out.println("=============================================");
 
-//                    try{
-//                        data = response.getJSONObject(i);
-//                        artwork = new Artwork((Integer) data.get("id"), data.getString("name"), data.getString("description"), data.getInt("price"), (Date) data.get("date"), data.getInt("numInStock"), data.getString("artistID"), data.getString("url"));
-//                        artworks.add(artwork);
-//                        initRecyclerView();
-//                    } catch (Exception e) {
-//                        error += e.getMessage();
-//                    }
+                    try{
+                        data = response.getJSONObject(i);
+
+                        Artist artist = new Artist();
+
+                        artwork = new Artwork((Integer) data.get("id"), data.getString("name"), data.getString("description"), data.getInt("price"), data.getString("dateOfCreation"), data.getInt("numInStock"), ((JSONObject) data.get("artist")).getString("userID"), data.getString("imageURL"));
+                        artworks.add(artwork);
+                        System.out.println("=============================================");
+                        System.out.println("Inside the try");
+                        System.out.println("=============================================");
+                        initRecyclerView();
+                    } catch (Exception e) {
+                        System.out.println("=============================================");
+                        System.out.println("Inside the catch");
+                        System.out.println(e.getMessage());
+                        System.out.println("=============================================");
+                        error += e.getMessage();
+                    }
                 }
             }
 
-//            @Override
+            @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+
+                System.out.println("=============================================");
+                System.out.println("Inside the failure");
+                System.out.println("=============================================");
+
                 try {
                     error += errorResponse.get("message").toString();
                 } catch (JSONException e) {
