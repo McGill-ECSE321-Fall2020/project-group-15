@@ -119,6 +119,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @Override
         protected Bitmap doInBackground(String... urls) {
             String urldisplay = urls[0];
+
             Bitmap mBmp = null;
             try {
                 InputStream in = new java.net.URL(urldisplay).openStream();
@@ -126,6 +127,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             } catch (Exception e) {
                 Log.e("Error", e.getMessage());
                 e.printStackTrace();
+
             }
             return mBmp;
         }

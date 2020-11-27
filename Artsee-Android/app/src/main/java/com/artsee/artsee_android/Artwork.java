@@ -19,14 +19,14 @@ public class Artwork {
 
     public Artwork() {}
 
-    public Artwork(Integer id, String name, String description, int price, String date, int numInStock, String artistID, String url){
+    public Artwork(Integer id, String name, String description, int price, String date, int numInStock, Artist artist, String url){
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.date = date;
         this.numInStock = numInStock;
-        this.artistID = artistID;
+        this.artist = artist;
         this.url = url;
     }
 

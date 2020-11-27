@@ -71,6 +71,7 @@ public class ViewGalleryActivity extends AppCompatActivity {
                 artworks.clear();
                 Artwork artwork;
                 JSONObject data;
+                String url;
 
                 System.out.println("=============================================");
                 System.out.println("Inside the success");
@@ -86,15 +87,25 @@ public class ViewGalleryActivity extends AppCompatActivity {
 
                     try{
                         data = response.getJSONObject(i);
+                        JSONObject artistResponse = (JSONObject) data.get("artist");
 
-                        Artist artist = new Artist();
+                        // Create artist object based on JSON
+                        Artist artist = new Artist(artistResponse.getString("userID"), artistResponse.getString("email"), artistResponse.getString("firstName"), artistResponse.getString("lastName"), artistResponse.getString("phoneNumber"), artistResponse.getString("artistDescription"), (Double) artistResponse.get("rating"), artistResponse.getString("profilePictureURL"));
 
-                        artwork = new Artwork((Integer) data.get("id"), data.getString("name"), data.getString("description"), data.getInt("price"), data.getString("dateOfCreation"), data.getInt("numInStock"), ((JSONObject) data.get("artist")).getString("userID"), data.getString("imageURL"));
+                        url = data.getString("imageURL");
+                        if (url == null || url.isEmpty()){
+                            // If no image exists, set default image
+                             url = "https://icon-library.com/images/no-image-icon/no-image-icon-1.jpg";
+                        }
+
+                        //Create artwork object based on JSON
+                        artwork = new Artwork((Integer) data.get("id"), data.getString("name"), data.getString("description"), data.getInt("price"), data.getString("dateOfCreation"), data.getInt("numInStock"), artist, url);
+
+                        //Add artwork to list to be rendered
                         artworks.add(artwork);
-                        System.out.println("=============================================");
-                        System.out.println("Inside the try");
-                        System.out.println("=============================================");
+
                         initRecyclerView();
+
                     } catch (Exception e) {
                         System.out.println("=============================================");
                         System.out.println("Inside the catch");
@@ -107,11 +118,7 @@ public class ViewGalleryActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-
-                System.out.println("=============================================");
-                System.out.println("Inside the failure");
-                System.out.println("=============================================");
-
+                
                 try {
                     error += errorResponse.get("message").toString();
                 } catch (JSONException e) {
