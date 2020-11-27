@@ -11,22 +11,22 @@ public class Artwork {
     private String name;
     private String description;
     private int price;
-    private Date date;
+    private String date;
     private int numInStock;
-    private String artistID;
     private String url;
     private Artist artist;
+    private String artistID;
 
     public Artwork() {}
 
-    public Artwork(Integer id, String name, String description, int price, Date date, int numInStock, String artistID, String url){
+    public Artwork(Integer id, String name, String description, int price, String date, int numInStock, Artist artist, String url){
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.date = date;
         this.numInStock = numInStock;
-        this.artistID = artistID;
+        this.artist = artist;
         this.url = url;
     }
 
