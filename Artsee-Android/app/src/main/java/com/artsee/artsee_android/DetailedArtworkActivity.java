@@ -20,6 +20,7 @@ import java.io.InputStream;
 public class DetailedArtworkActivity extends AppCompatActivity {
 
     private TextView tvName, tvArtistName, tvPrice, tvDescription, tvDate, tvNumInStock, tvArtistDescription;
+    private Integer artworkID;
     private ImageView img;
 
     @Override
@@ -46,7 +47,7 @@ public class DetailedArtworkActivity extends AppCompatActivity {
         String artistName =  intent.getExtras().getString("ArtistName");
         String price = Integer.toString(intent.getExtras().getInt("Price") / 100);
         String url = intent.getExtras().getString("Url");
-        Integer artworkID = intent.getExtras().getInt("artworkID");
+        artworkID = intent.getExtras().getInt("artworkID");
         String artistDescription = intent.getExtras().getString("artistDescription");
 
         // Setting values
@@ -92,6 +93,14 @@ public class DetailedArtworkActivity extends AppCompatActivity {
         protected void onPostExecute(Bitmap result) {
             bitImage.setImageBitmap(result);
         }
+    }
+
+    public void purchaseItem(View v){
+        // Takes you to the checkout page and passes artworkID parameter
+
+        Intent myIntent = new Intent(DetailedArtworkActivity.this, CheckoutActivity.class);
+        myIntent.putExtra("artworkID", artworkID);
+        DetailedArtworkActivity.this.startActivity(myIntent);
     }
 
 }

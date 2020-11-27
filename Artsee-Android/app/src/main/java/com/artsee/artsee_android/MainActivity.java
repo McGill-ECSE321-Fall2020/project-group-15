@@ -83,10 +83,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void purchaseItem(View v) {
-        System.out.println("purchase");
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

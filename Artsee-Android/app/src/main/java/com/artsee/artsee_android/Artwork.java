@@ -19,6 +19,9 @@ public class Artwork {
 
     public Artwork() {}
 
+    public Artwork(Integer id){
+        this.id = id;
+    }
     public Artwork(Integer id, String name, String description, int price, String date, int numInStock, Artist artist, String url){
         this.id = id;
         this.name = name;

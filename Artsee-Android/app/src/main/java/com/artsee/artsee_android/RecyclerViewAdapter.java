@@ -48,7 +48,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     /**
-     * Populates the data in MyViewHolder by using the bindings throug view Ids
+     * Populates the data in MyViewHolder by using the bindings through view Ids
      * @param holder
      * @param position
      */
