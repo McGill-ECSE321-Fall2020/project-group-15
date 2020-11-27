@@ -24,11 +24,11 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     private Context context;
-    private List<Artwork> data; // data to populate
+    private List<Artwork> artworks; // data to populate
 
     public RecyclerViewAdapter(Context context, List<Artwork> list) {
         this.context = context;
-        this.data = list;
+        this.artworks = list;
     }
 
     /**
@@ -48,19 +48,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     /**
-     * Populates the data in MyViewHolder by using the bindings throug view Ids
+     * Populates the data in MyViewHolder by using the bindings through view Ids
      * @param holder
      * @param position
      */
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.tv_artwork_name.setText(data.get(position).getName());
-        holder.tv_artist_name.setText("By " + data.get(position).getArtist().getName());
-        holder.tv_artwork_price.setText("$" + Integer.toString(data.get(position).getPrice()));
+        holder.tv_artwork_name.setText(artworks.get(position).getName());
+        holder.tv_artist_name.setText("By " + artworks.get(position).getArtist().getName());
+        holder.tv_artwork_price.setText("$" + Integer.toString(artworks.get(position).getPrice() / 100));
         // convert url to image
         new DownloadImageTask(holder.artwork_image)
-                .execute(data.get(position).getUrl());
+                .execute(artworks.get(position).getUrl());
 
         //add an event listener when clicking on an artwork card
         holder.cardView.setOnClickListener(v -> {
@@ -68,10 +68,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             // create an intent for the next activity (page)
             Intent intent = new Intent(context, DetailedArtworkActivity.class);
             // passing data to the detailed artwork activity
-            intent.putExtra("Name", data.get(position).getName());
-            intent.putExtra("Artist", data.get(position).getArtist().getName());
-            intent.putExtra("Price", data.get(position).getPrice());
-            intent.putExtra("Url", data.get(position).getUrl());
+            intent.putExtra("Name", artworks.get(position).getName());
+            intent.putExtra("ArtistName", artworks.get(position).getArtist().getName());
+            intent.putExtra("Price", artworks.get(position).getPrice());
+            intent.putExtra("Url", artworks.get(position).getUrl());
+            intent.putExtra("description", artworks.get(position).getDescription());
+            intent.putExtra("date", artworks.get(position).getDate());
+            intent.putExtra("numInStock", artworks.get(position).getNumInStock());
+            intent.putExtra("artworkID",artworks.get(position).getID());
+            intent.putExtra("artistDescription", artworks.get(position).getArtist().getArtistDescription());
+
             // starting the detailed artwork activity
             context.startActivity(intent);
         });
@@ -80,7 +86,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return artworks.size();
     }
 
     /**
@@ -119,6 +125,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @Override
         protected Bitmap doInBackground(String... urls) {
             String urldisplay = urls[0];
+
             Bitmap mBmp = null;
             try {
                 InputStream in = new java.net.URL(urldisplay).openStream();
@@ -126,6 +133,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             } catch (Exception e) {
                 Log.e("Error", e.getMessage());
                 e.printStackTrace();
+
             }
             return mBmp;
         }
