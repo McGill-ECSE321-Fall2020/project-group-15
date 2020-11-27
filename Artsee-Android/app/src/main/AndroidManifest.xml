@@ -27,6 +27,9 @@
         <activity android:name=".DetailedArtworkActivity"
             android:exported="true">
         </activity>
+        <activity android:name=".CheckoutActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>
