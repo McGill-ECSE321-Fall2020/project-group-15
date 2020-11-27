@@ -53,121 +53,132 @@
             android:id="@+id/artwork_price"
             android:layout_width="98dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="45dp"
             android:text="Price"
             android:textAlignment="center"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+            app:layout_constraintBottom_toTopOf="@+id/scrollView3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/artwork_title"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.35000002" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/scrollView2"
-            android:layout_width="0dp"
+        <ScrollView
+            android:id="@+id/scrollView3"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="60dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/artist_name_text">
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Date:"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Description"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-            <TextView
-                android:id="@+id/artwork_description"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginEnd="16dp"
-                android:text="Artwork Description"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-            <View
-                android:id="@+id/divider"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/scrollView2"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="30dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/artwork_description" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Artist:"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider" />
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="60dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Description"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Date:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/artist_description"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="16dp"
-                android:text="Artist Description"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Description"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-            <TextView
-                android:id="@+id/artist_name_text2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="16dp"
-                android:text="Artist Name"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/textView4"
-                app:layout_constraintTop_toBottomOf="@+id/divider" />
+                <TextView
+                    android:id="@+id/artwork_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="Artwork Description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-            <TextView
-                android:id="@+id/artwork_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="16dp"
-                android:text="date"
-                app:layout_constraintStart_toEndOf="@+id/textView"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="30dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/artwork_description" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Artist:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Description"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+                <TextView
+                    android:id="@+id/artist_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="25dp"
+                    android:text="Artist Description"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+                <TextView
+                    android:id="@+id/artist_name_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Artist Name"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/textView4"
+                    app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+                <TextView
+                    android:id="@+id/artwork_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="16dp"
+                    android:text="date"
+                    app:layout_constraintStart_toEndOf="@+id/textView"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/app_grey"
@@ -181,8 +192,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/round_corners_login_button"
-                android:text="Purchase"
                 android:onClick="purchaseItem"
+                android:text="Purchase"
                 android:theme="@style/AppTheme.Button"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
