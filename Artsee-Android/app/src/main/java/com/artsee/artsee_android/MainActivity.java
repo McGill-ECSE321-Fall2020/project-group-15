@@ -40,9 +40,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void login(View v) {
         error = "";
+        Customer.resetCustomer();
         final TextView username = (TextView) findViewById(R.id.username_input);
         final TextView password = (TextView) findViewById(R.id.password_input);
 
+        final String[] customerType = {""};
         if(username.getText().toString() == null || username.getText().toString().length() == 0 || password.getText().toString() == null || password.getText().toString().length() == 0){
             error += "Username and/or password cannot be empty";
             refreshErrorMessage();
@@ -57,22 +59,24 @@ public class MainActivity extends AppCompatActivity {
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
                     try {
-                        Customer.initialize(response.get("userID").toString(), response.get("email").toString(), response.get("firstName").toString(), response.get("lastName").toString());
+                        customerType[0] = response.get("type").toString();
+                        if(customerType[0].equals("Customer")){
+                            Customer.initialize(response.get("userID").toString(), response.get("email").toString(), response.get("firstName").toString(), response.get("lastName").toString());
+                        }
                     } catch (JSONException e) {
                         error += e.getMessage();
                     }
 
-                    username.setText("");
-                    password.setText("");
+                    if(customerType[0].equals("Customer")){
+                        username.setText("");
+                        password.setText("");
+                        Intent myIntent = new Intent(MainActivity.this, ViewGalleryActivity.class);
+                        MainActivity.this.startActivity(myIntent);
+                    } else if(customerType[0].equals("Administrator") || customerType[0].equals("Artist")) {
+                        error+= "Artist and Customer can only login through the web application.";
+                    }
 
                     refreshErrorMessage();
-
-                    Intent myIntent = new Intent(MainActivity.this, ViewGalleryActivity.class);
-                    MainActivity.this.startActivity(myIntent);
-
-//                    setContentView(R.layout.content_view_gallery);
-//                    Toolbar toolbar = findViewById(R.id.toolbar);
-//                    setSupportActionBar(toolbar);
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
