@@ -1,5 +1,6 @@
 package com.artsee.artsee_android;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -99,7 +100,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_gallery) {
             // this is what will bring you to the gallery
-            return true;
+
+            Intent myIntent = new Intent(this, ViewGalleryActivity.class);
+            this.startActivity(myIntent);
+
+//            setContentView(R.layout.login_page);
         }
 
         return super.onOptionsItemSelected(item);
