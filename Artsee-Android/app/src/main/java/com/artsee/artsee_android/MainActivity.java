@@ -14,7 +14,9 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
 
 import cz.msebera.android.httpclient.Header;
 
@@ -52,13 +54,19 @@ public class MainActivity extends AppCompatActivity {
             HttpUtils.post("signIn/", params, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    refreshErrorMessage();
-                    username.setText("");
-                    password.setText("");
+                    try {
+                        username.setText("");
+                        password.setText("");
 
-                    setContentView(R.layout.activity_view_gallery);
-                    Toolbar toolbar = findViewById(R.id.toolbar);
-                    setSupportActionBar(toolbar);
+                        Customer.initialize(response.get("userID").toString(), response.get("email").toString(), response.get("firstName").toString(), response.get("lastName").toString());
+
+                        setContentView(R.layout.detailed_artwork_nav_bar);
+                        Toolbar toolbar = findViewById(R.id.toolbar);
+                        setSupportActionBar(toolbar);
+                    } catch (JSONException e) {
+                        error += e.getMessage();
+                    }
+                    refreshErrorMessage();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
