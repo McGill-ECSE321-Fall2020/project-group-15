@@ -36,7 +36,7 @@ public class DetailedArtworkActivity extends AppCompatActivity {
         tvDescription = (TextView) findViewById(R.id.artwork_description);
         tvDate = (TextView) findViewById(R.id.artwork_date);
 //        tvNumInStock = (TextView) findViewById(R.id.artwork_numInStock);
-        tvArtistDescription = (TextView) findViewById(R.id.artwork_description);
+        tvArtistDescription = (TextView) findViewById(R.id.artist_description);
 
         // Receive data
         Intent intent = getIntent();

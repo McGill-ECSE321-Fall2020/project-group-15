@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,7 +29,7 @@ public class CheckoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.checkout_navbar);
         Intent intent = getIntent();
-        Integer artworkID = intent.getExtras().getInt("artworkID");
+        artworkID = intent.getExtras().getInt("artworkID");
 
         System.out.println("================================");
         System.out.println(artworkID);
@@ -47,17 +48,33 @@ public class CheckoutActivity extends AppCompatActivity {
         artworks.add(new Artwork(artworkID));
         params.put("artworks", artworks);
 
-//        Customer customer = new Customer(username);
-//        params.put("artworks", artworks);
+        // Customer placing the order
+        CustomerDto customer = new CustomerDto(Customer.getInstance().getUserID());
+        params.put("customer", customer);
 
-//        ArtworkOrder.DeliveryMethodDto = ______;
-//        params.put("deliveryMethodDto", DeliveryMethodDto);
+        // Get shipping option
+        ToggleButton deliveryOption = (ToggleButton) findViewById(R.id.toggleButton);
+        String deliveryMethodDto = deliveryOption.getText().toString().toUpperCase();
+
+//        if (deliveryOption.getText().toString().equalsIgnoreCase("ship")){
+//            deliveryMethodDto = ArtworkOrder.DeliveryMethodDto.SHIP;
+//
+//        } else if (deliveryOption.getText().toString().equalsIgnoreCase("pickup")){
+//            deliveryMethodDto = ArtworkOrder.DeliveryMethodDto.PICKUP;
+//
+//        } else {
+//            System.out.println("=======================================");
+//            System.out.println("Error with understnading delivery option");
+//            System.out.println("=======================================");
+//
+//        }
+
+        params.put("deliveryMethodDto", deliveryMethodDto);
 
         params.setUseJsonStreamer(true);
 
 
         //CHECK THAT THE PARAMS AND ALL FIELDS ARE VALID
-
 
         HttpUtils.post("artworkOrders/", params, new JsonHttpResponseHandler() {
             @Override
@@ -79,9 +96,16 @@ public class CheckoutActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
-                error += errorResponse;
-                refreshErrorMessage();
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                System.out.println("================================");
+                System.out.println("Failure in place order: "+ errorResponse.toString());
+                System.out.println("Customer: " + customer.getUserID());
+                System.out.println("Artwork: " + artworks.get(0).getID());
+                System.out.println("Artwork: " + artworks.get(0).getID());
+                System.out.println("================================");
+
+                //                error += errorResponse;
+//                refreshErrorMessage();
             }
         });
     }
