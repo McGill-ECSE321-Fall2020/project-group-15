@@ -68,4 +68,29 @@ public class Artwork {
     public void setArtist(Artist artist) {
         this.artist = artist;
     }
+
+    public Integer getID() {
+        return this.id;
+    }
+
+    public void setDescription(String value) {
+        this.description = value;
+    }
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDate(String value) {
+        this.date = value;
+    }
+    public String getDate() {
+        return this.date;
+    }
+
+    public void setNumInStock(Integer value) {
+        this.numInStock = value;
+    }
+    public Integer getNumInStock() {
+        return this.numInStock;
+    }
 }
