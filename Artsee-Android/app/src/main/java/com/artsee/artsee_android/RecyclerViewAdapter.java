@@ -57,7 +57,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.tv_artwork_name.setText(artworks.get(position).getName());
         holder.tv_artist_name.setText("By " + artworks.get(position).getArtist().getName());
-        holder.tv_artwork_price.setText("$" + Integer.toString(artworks.get(position).getPrice()));
+        holder.tv_artwork_price.setText("$" + Integer.toString(artworks.get(position).getPrice() / 100));
         // convert url to image
         new DownloadImageTask(holder.artwork_image)
                 .execute(artworks.get(position).getUrl());
@@ -69,9 +69,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             Intent intent = new Intent(context, DetailedArtworkActivity.class);
             // passing data to the detailed artwork activity
             intent.putExtra("Name", artworks.get(position).getName());
-            intent.putExtra("Artist", artworks.get(position).getArtist().getName());
+            intent.putExtra("ArtistName", artworks.get(position).getArtist().getName());
             intent.putExtra("Price", artworks.get(position).getPrice());
             intent.putExtra("Url", artworks.get(position).getUrl());
+            intent.putExtra("description", artworks.get(position).getDescription());
+            intent.putExtra("date", artworks.get(position).getDate());
+            intent.putExtra("numInStock", artworks.get(position).getNumInStock());
+            intent.putExtra("artworkID",artworks.get(position).getID());
+            intent.putExtra("artistDescription", artworks.get(position).getArtist().getArtistDescription());
+
             // starting the detailed artwork activity
             context.startActivity(intent);
         });
