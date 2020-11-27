@@ -13,6 +13,7 @@
         android:layout_marginTop="80dp"
         android:layout_marginEnd="10dp"
         android:text="@string/checkout"
+        android:onClick="checkoutItem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toggleButton" />
 
