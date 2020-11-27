@@ -15,6 +15,10 @@ public class Customer {
         this.lastName = lastName;
     }
 
+    public static void resetCustomer(){
+        customer = null;
+    }
+
     public String getUsername(){
         return this.username;
     }

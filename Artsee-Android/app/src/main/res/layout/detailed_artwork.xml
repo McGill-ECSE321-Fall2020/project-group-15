@@ -182,6 +182,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/round_corners_login_button"
                 android:text="Purchase"
+                android:onClick="purchaseItem"
                 android:theme="@style/AppTheme.Button"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

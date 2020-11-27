@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
                     refreshErrorMessage();
 
-                    setContentView(R.layout.detailed_artwork_nav_bar);
+                    setContentView(R.layout.content_view_gallery);
                     Toolbar toolbar = findViewById(R.id.toolbar);
                     setSupportActionBar(toolbar);
                 }
@@ -79,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void purchaseItem(View v) {
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -89,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
             // logout of the application
+            Customer.getInstance().resetCustomer();
             setContentView(R.layout.login_page);
         }
 
