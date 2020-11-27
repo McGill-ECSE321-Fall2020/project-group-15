@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
 
@@ -39,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void login(View v) {
+        //reset error and customer class
         error = "";
         Customer.resetCustomer();
         final TextView username = (TextView) findViewById(R.id.username_input);
@@ -49,17 +49,19 @@ public class MainActivity extends AppCompatActivity {
             error += "Username and/or password cannot be empty";
             refreshErrorMessage();
         } else {
+            //create a request params with the inputed username and password
             RequestParams params = new RequestParams();
             params.put("userID", username.getText().toString());
             params.put("password", password.getText().toString());
             params.setUseJsonStreamer(true);
-
+            
             HttpUtils.post("signIn/", params, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
                     try {
                         customerType[0] = response.get("type").toString();
+                        //verify if user type is a customer before passing the data into customer class
                         if(customerType[0].equals("Customer")){
                             Customer.initialize(response.get("userID").toString(), response.get("email").toString(), response.get("firstName").toString(), response.get("lastName").toString());
                         }
@@ -67,13 +69,14 @@ public class MainActivity extends AppCompatActivity {
                         error += e.getMessage();
                     }
 
+                    //verify is user type is a customer before navigating to the gallery
                     if(customerType[0].equals("Customer")){
                         username.setText("");
                         password.setText("");
                         Intent myIntent = new Intent(MainActivity.this, ViewGalleryActivity.class);
                         MainActivity.this.startActivity(myIntent);
                     } else if(customerType[0].equals("Administrator") || customerType[0].equals("Artist")) {
-                        error+= "Artist and Customer can only login through the web application.";
+                        error+= "Artist and Administrator can only login through the web application.";
                     }
 
                     refreshErrorMessage();
