@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void purchaseItem(View v) {
-
+        System.out.println("purchase");
     }
 
     @Override
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
             // logout of the application
-            Customer.getInstance().resetCustomer();
+            Customer.resetCustomer();
             setContentView(R.layout.login_page);
         }
 
