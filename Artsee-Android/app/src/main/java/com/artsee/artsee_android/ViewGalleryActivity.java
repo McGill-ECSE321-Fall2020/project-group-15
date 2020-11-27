@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.AsyncHttpClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,18 +24,16 @@ public class ViewGalleryActivity extends AppCompatActivity {
     // for testing purposes
     private List<Artwork> artworks = new ArrayList<Artwork>();
     private String error = "";
-//    private RecyclerView recyclerView;
-//    private RecyclerView.Adapter rvAdapter;
-//    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_gallery);
+//        setContentView(R.layout.activity_view_gallery);
+        setContentView(R.layout.content_view_gallery);
         initArtworks();
         initRecyclerView();
-        
+
     }
 
         private void initArtworks(){
