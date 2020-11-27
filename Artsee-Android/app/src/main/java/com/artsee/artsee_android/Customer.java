@@ -3,13 +3,13 @@ package com.artsee.artsee_android;
 public class Customer {
 
     private static Customer customer = null;
-    private final String username;
+    private final String userID;
     private final String email;
     private final String firstName;
     private final String lastName;
 
-    private Customer(String username, String email, String firstName, String lastName) {
-        this.username = username;
+    private Customer(String userID, String email, String firstName, String lastName) {
+        this.userID = userID;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -19,8 +19,8 @@ public class Customer {
         customer = null;
     }
 
-    public String getUsername(){
-        return this.username;
+    public String getUserID(){
+        return this.userID;
     }
 
     public String getEmail(){
@@ -42,12 +42,12 @@ public class Customer {
         return customer;
     }
 
-    public synchronized static Customer initialize(String username, String email, String firstName, String lastName) {
+    public synchronized static Customer initialize(String userID, String email, String firstName, String lastName) {
         if (customer != null)
         {
             throw new AssertionError("Customer already intialized");
         }
-        customer = new Customer(username, email, firstName, lastName);
+        customer = new Customer(userID, email, firstName, lastName);
         return customer;
     }
 

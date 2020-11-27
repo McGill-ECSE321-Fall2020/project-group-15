@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
 
@@ -39,14 +38,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void login(View v) {
+        //reset error and customer class
         error = "";
+        Customer.resetCustomer();
         final TextView username = (TextView) findViewById(R.id.username_input);
         final TextView password = (TextView) findViewById(R.id.password_input);
 
+        final String[] customerType = {""};
         if(username.getText().toString() == null || username.getText().toString().length() == 0 || password.getText().toString() == null || password.getText().toString().length() == 0){
             error += "Username and/or password cannot be empty";
             refreshErrorMessage();
         } else {
+            //create a request params with the inputed username and password
             RequestParams params = new RequestParams();
             params.put("userID", username.getText().toString());
             params.put("password", password.getText().toString());
@@ -57,22 +60,26 @@ public class MainActivity extends AppCompatActivity {
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
                     try {
-                        Customer.initialize(response.get("userID").toString(), response.get("email").toString(), response.get("firstName").toString(), response.get("lastName").toString());
+                        customerType[0] = response.get("type").toString();
+                        //verify if user type is a customer before passing the data into customer class
+                        if(customerType[0].equals("Customer")){
+                            Customer.initialize(response.get("userID").toString(), response.get("email").toString(), response.get("firstName").toString(), response.get("lastName").toString());
+                        }
                     } catch (JSONException e) {
                         error += e.getMessage();
                     }
 
-                    username.setText("");
-                    password.setText("");
+                    //verify is user type is a customer before navigating to the gallery
+                    if(customerType[0].equals("Customer")){
+                        username.setText("");
+                        password.setText("");
+                        Intent myIntent = new Intent(MainActivity.this, ViewGalleryActivity.class);
+                        MainActivity.this.startActivity(myIntent);
+                    } else if(customerType[0].equals("Administrator") || customerType[0].equals("Artist")) {
+                        error+= "Artist and Administrator can only login through the web application.";
+                    }
 
                     refreshErrorMessage();
-
-                    Intent myIntent = new Intent(MainActivity.this, ViewGalleryActivity.class);
-                    MainActivity.this.startActivity(myIntent);
-
-//                    setContentView(R.layout.content_view_gallery);
-//                    Toolbar toolbar = findViewById(R.id.toolbar);
-//                    setSupportActionBar(toolbar);
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
@@ -81,10 +88,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-    }
-
-    public void purchaseItem(View v) {
-        System.out.println("purchase");
     }
 
     @Override

@@ -22,6 +22,7 @@ public class DetailedArtworkActivity extends AppCompatActivity {
     private TextView tvName, tvArtistName, tvPrice, tvDescription, tvDate, tvNumInStock, tvArtistDescription;
     private Integer artworkID;
     private ImageView img;
+    private String price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class DetailedArtworkActivity extends AppCompatActivity {
         tvDescription = (TextView) findViewById(R.id.artwork_description);
         tvDate = (TextView) findViewById(R.id.artwork_date);
 //        tvNumInStock = (TextView) findViewById(R.id.artwork_numInStock);
-        tvArtistDescription = (TextView) findViewById(R.id.artwork_description);
+        tvArtistDescription = (TextView) findViewById(R.id.artist_description);
 
         // Receive data
         Intent intent = getIntent();
@@ -45,7 +46,7 @@ public class DetailedArtworkActivity extends AppCompatActivity {
         String date = intent.getExtras().getString("date");
         int numInStock = intent.getExtras().getInt("numInStock");
         String artistName =  intent.getExtras().getString("ArtistName");
-        String price = Integer.toString(intent.getExtras().getInt("Price") / 100);
+        price = Integer.toString(intent.getExtras().getInt("Price") / 100);
         String url = intent.getExtras().getString("Url");
         artworkID = intent.getExtras().getInt("artworkID");
         String artistDescription = intent.getExtras().getString("artistDescription");
@@ -100,6 +101,7 @@ public class DetailedArtworkActivity extends AppCompatActivity {
 
         Intent myIntent = new Intent(DetailedArtworkActivity.this, CheckoutActivity.class);
         myIntent.putExtra("artworkID", artworkID);
+        myIntent.putExtra("price", price);
         DetailedArtworkActivity.this.startActivity(myIntent);
     }
 

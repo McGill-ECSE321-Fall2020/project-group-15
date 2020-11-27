@@ -10,9 +10,11 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
+        android:layout_centerInParent="true"
         android:text="@string/checkout"
+        android:onClick="checkoutItem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toggleButton" />
 
@@ -37,6 +39,7 @@
         tools:layout_editor_absoluteX="205dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/card_first_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
@@ -52,6 +55,7 @@
         tools:layout_editor_absoluteX="203dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/card_last_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/card_holder_last_name" />
@@ -66,6 +70,7 @@
         tools:layout_editor_absoluteX="201dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/card_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/card_number" />
@@ -80,6 +85,7 @@
         tools:layout_editor_absoluteX="202dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/card_cvv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/cvv" />
@@ -94,6 +100,7 @@
         tools:layout_editor_absoluteX="202dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/card_month"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/expiry_month" />
@@ -108,17 +115,18 @@
         tools:layout_editor_absoluteX="202dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/card_year"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/expiry_year" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/checkout_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="25dp"
         android:text="@string/price"
         android:textSize="28dp"
         app:layout_constraintStart_toStartOf="parent"
