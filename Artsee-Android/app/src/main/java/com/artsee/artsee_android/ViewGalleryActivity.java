@@ -9,14 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.AsyncHttpClient;
 
 import org.json.JSONArray;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 

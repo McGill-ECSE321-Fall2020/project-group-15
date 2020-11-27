@@ -54,19 +54,21 @@ public class MainActivity extends AppCompatActivity {
             HttpUtils.post("signIn/", params, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
                     try {
-                        username.setText("");
-                        password.setText("");
-
                         Customer.initialize(response.get("userID").toString(), response.get("email").toString(), response.get("firstName").toString(), response.get("lastName").toString());
-
-                        setContentView(R.layout.detailed_artwork_nav_bar);
-                        Toolbar toolbar = findViewById(R.id.toolbar);
-                        setSupportActionBar(toolbar);
                     } catch (JSONException e) {
                         error += e.getMessage();
                     }
+
+                    username.setText("");
+                    password.setText("");
+
                     refreshErrorMessage();
+
+                    setContentView(R.layout.detailed_artwork_nav_bar);
+                    Toolbar toolbar = findViewById(R.id.toolbar);
+                    setSupportActionBar(toolbar);
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {

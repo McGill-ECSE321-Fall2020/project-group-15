@@ -26,11 +26,6 @@ public class DetailedArtworkActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detailed_artwork_nav_bar);
 
-//        System.out.println(Customer.getInstance().getUsername());
-//        System.out.println(Customer.getInstance().getEmail());
-//        System.out.println(Customer.getInstance().getFirstName());
-//        System.out.println(Customer.getInstance().getLastName());
-
         // declare text and image views
         tvName = (TextView) findViewById(R.id.artwork_title);
         tvArtistName = (TextView) findViewById(R.id.artist_name_text);
