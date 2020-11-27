@@ -86,8 +86,8 @@ public class CheckoutActivity extends AppCompatActivity {
 
         // List of artworks
         List<Artwork> artworks = new ArrayList<Artwork>();
-//        artworks.add(new Artwork(artworkID));
-        params.put("artworks", new ArrayList<>());
+        artworks.add(new Artwork(artworkID));
+        params.put("artworks", artworks);
 
         // Customer placing the order
         CustomerDto customer = new CustomerDto(Customer.getInstance().getUserID());
