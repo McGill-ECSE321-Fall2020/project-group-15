@@ -62,8 +62,8 @@ https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Architecture-Mo
 |:-----------------:|:----------:|:------------:|:--------------------------:|
 |  Matthew Langshur |  260704964 |              |                            |
 |  Matteo Barbieri  |  260805184 |              |                            |
-|  Daniel Schwartz  |  260795149 |              |                            |
-| Enan Ashaduzzaman |  260805923 |              |                            |
+|  Daniel Schwartz  |  260795149 |   15 hours   | Integration of backend with the mobile frontend & Code Quality|
+| Enan Ashaduzzaman |  260805923 |   15 hours   | Integration of backend with the mobile frontend & Code Quality|
 |  Ragheed Qasmieh  |  260780556 |              |                            |
 
 
