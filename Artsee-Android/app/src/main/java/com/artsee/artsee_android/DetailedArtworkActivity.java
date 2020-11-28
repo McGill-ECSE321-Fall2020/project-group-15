@@ -6,11 +6,14 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.io.InputStream;
 
@@ -28,6 +31,8 @@ public class DetailedArtworkActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detailed_artwork_nav_bar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         // declare text and image views
         tvName = (TextView) findViewById(R.id.artwork_title);
@@ -63,6 +68,13 @@ public class DetailedArtworkActivity extends AppCompatActivity {
         // convert url to image
         new DownloadImageTask(img).execute(url);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
 
@@ -103,6 +115,34 @@ public class DetailedArtworkActivity extends AppCompatActivity {
         myIntent.putExtra("artworkID", artworkID);
         myIntent.putExtra("price", price);
         DetailedArtworkActivity.this.startActivity(myIntent);
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_logout) {
+            // logout of the application
+            Customer.resetCustomer();
+            setContentView(R.layout.login_page);
+        }
+
+        if (id == R.id.action_gallery) {
+            // this is what will bring you to the gallery
+
+            Intent myIntent = new Intent(this, ViewGalleryActivity.class);
+            this.startActivity(myIntent);
+
+//            setContentView(R.layout.login_page);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

@@ -1,6 +1,9 @@
 package com.artsee.artsee_android;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -31,7 +34,10 @@ public class ViewGalleryActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_view_gallery);
-        setContentView(R.layout.content_view_gallery);
+        setContentView(R.layout.activity_view_gallery);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         initArtworks();
         initRecyclerView();
 
@@ -101,4 +107,40 @@ public class ViewGalleryActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_logout) {
+            // logout of the application
+            Customer.resetCustomer();
+            
+            setContentView(R.layout.login_page);
+        }
+
+        if (id == R.id.action_gallery) {
+            // this is what will bring you to the gallery
+
+            Intent myIntent = new Intent(this, ViewGalleryActivity.class);
+            this.startActivity(myIntent);
+
+//            setContentView(R.layout.login_page);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
 }
