@@ -26,6 +26,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private Context context;
     private List<Artwork> artworks; // data to populate
 
+    /**
+     *
+     * @param context
+     * @param list
+     */
     public RecyclerViewAdapter(Context context, List<Artwork> list) {
         this.context = context;
         this.artworks = list;
@@ -84,6 +89,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getItemCount() {
         return artworks.size();
@@ -99,6 +108,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         ImageView artwork_image;
         CardView cardView;
 
+        /**
+         *
+         * @param itemView
+         */
         public MyViewHolder(View itemView) {
             super(itemView);
 
@@ -118,10 +131,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bitImage;
 
+        /**
+         *
+         * @param bitImage
+         */
         public DownloadImageTask(ImageView bitImage) {
             this.bitImage = bitImage;
         }
 
+        /**
+         *
+         * @param urls
+         * @return
+         */
         @Override
         protected Bitmap doInBackground(String... urls) {
             String urldisplay = urls[0];
@@ -138,6 +160,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             return mBmp;
         }
 
+        /**
+         *
+         * @param result
+         */
         protected void onPostExecute(Bitmap result) {
             bitImage.setImageBitmap(result);
         }

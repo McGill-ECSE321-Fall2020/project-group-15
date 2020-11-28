@@ -1,8 +1,10 @@
 package com.artsee.artsee_android;
 
+/**
+ * Artist class
+ */
 public class Artist {
 
-    private String name;
     private String userID;
     private String email;
     private String firstName;
@@ -12,12 +14,17 @@ public class Artist {
     private Double rating;
     private String profilePictureURL;
 
-    public Artist(String name) {
-        this.name = name;
-    }
-
-    public Artist(){}
-
+    /**
+     *
+     * @param userID
+     * @param email
+     * @param firstName
+     * @param lastName
+     * @param phoneNumber
+     * @param artistDescription
+     * @param rating
+     * @param profilePictureURL
+     */
     public Artist(String userID, String email, String firstName, String lastName, String phoneNumber, String artistDescription, Double rating, String profilePictureURL) {
         this.userID = userID;
         this.email = email;
@@ -29,43 +36,19 @@ public class Artist {
         this.profilePictureURL = profilePictureURL;
     }
 
+    /**
+     * get artist name
+     * @return
+     */
     public String getName(){
         return this.firstName + " " +this.lastName;
     }
 
-    public String getUserID() {
-        return userID;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public Double getRating() {
-        return rating;
-    }
-
+    /**
+     * get artist description
+     * @return
+     */
     public String getArtistDescription() {
         return artistDescription;
-    }
-
-    public String getProfilePictureURL() {
-        return this.profilePictureURL;
-    }
-
-    public void serProfilePictureURL(String profilePictureURL) {
-        this.profilePictureURL=profilePictureURL;
     }
 }

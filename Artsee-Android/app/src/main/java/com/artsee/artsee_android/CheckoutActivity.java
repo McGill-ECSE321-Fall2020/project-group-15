@@ -18,11 +18,18 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
+/**
+ * checkout activity class with all the checkout methods
+ */
 public class CheckoutActivity extends AppCompatActivity {
     private Integer artworkID;
     private String price;
     private String error = null;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +47,11 @@ public class CheckoutActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -47,7 +59,10 @@ public class CheckoutActivity extends AppCompatActivity {
         return true;
     }
 
-
+    /**
+     * checkout button method to buy the artwork
+     * @param v
+     */
     public void checkoutItem(View v){
         error = "";
         TextView tvCardNumber, tvCVV, tvMonth, tvYear;
@@ -82,39 +97,40 @@ public class CheckoutActivity extends AppCompatActivity {
             // Get shipping option
             ToggleButton deliveryOption = (ToggleButton) findViewById(R.id.toggleButton);
             String deliveryMethodDto = deliveryOption.getText().toString().toUpperCase();
-
-            System.out.println("=======================================");
-            System.out.println(Customer.getInstance().getUserID());
-            System.out.println("=======================================");
-
             String userID = Customer.getInstance().getUserID();
-
             RequestParams params = new RequestParams();
             params.setUseJsonStreamer(true);
 
             HttpUtils.post("artworkOrders/" + userID +"/"+artworkID.toString()+"/"+deliveryMethodDto,  params, new JsonHttpResponseHandler() {
 
-
+                /**
+                 *
+                 * @param statusCode
+                 * @param headers
+                 * @param response
+                 */
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
                     tvCardNumber.setText("");
                     tvCVV.setText("");
                     tvMonth.setText("");
                     tvYear.setText("");
                     tvYear.setText("");
-
                     tvFirstName.setText("");
                     tvLastName.setText("");
-
                     error = "";
-
                     refreshErrorMessage();
-
                     Intent myIntent = new Intent(CheckoutActivity.this, ThankYouActivity.class);
                     CheckoutActivity.this.startActivity(myIntent);
                 }
 
+                /**
+                 *
+                 * @param statusCode
+                 * @param headers
+                 * @param throwable
+                 * @param errorResponse
+                 */
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     error += errorResponse.toString();
@@ -122,12 +138,13 @@ public class CheckoutActivity extends AppCompatActivity {
                 }
             });
         }
-
-
-
-
     }
 
+    /**
+     * handles navigation buttons
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -135,16 +152,15 @@ public class CheckoutActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
-            // logout of the application
+            // logout and redirect to the login page
             Customer.resetCustomer();
             Intent myIntent = new Intent(this, MainActivity.class);
             this.startActivity(myIntent);
         }
 
         if (id == R.id.action_gallery) {
-            // this is what will bring you to the gallery
+            // redirect to the gallery
             Intent myIntent = new Intent(this, ViewGalleryActivity.class);
             this.startActivity(myIntent);
         }
@@ -152,14 +168,14 @@ public class CheckoutActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * error message function to display the errors
+     */
     private void refreshErrorMessage() {
-
 //         ADD ERROR FIELD AND MAKE MESSAGE SHOW
-
         // set the error message
         TextView tvError = (TextView) findViewById(R.id.errorCheckout);
         tvError.setText(error);
-        System.out.println(error);
         if (error == null || error.length() == 0) {
             tvError.setVisibility(View.GONE);
         } else {
@@ -167,7 +183,11 @@ public class CheckoutActivity extends AppCompatActivity {
         }
     }
 
-    // Checks if a string is a number
+    /**
+     * checks if the string is a number
+     * @param str
+     * @return
+     */
     public static boolean isNumeric(String str) {
         try {
             Double.parseDouble(str);

@@ -27,6 +27,10 @@ public class DetailedArtworkActivity extends AppCompatActivity {
     private ImageView img;
     private String price;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +45,6 @@ public class DetailedArtworkActivity extends AppCompatActivity {
         img = (ImageView) findViewById(R.id.imageView);
         tvDescription = (TextView) findViewById(R.id.artwork_description);
         tvDate = (TextView) findViewById(R.id.artwork_date);
-//        tvNumInStock = (TextView) findViewById(R.id.artwork_numInStock);
         tvArtistDescription = (TextView) findViewById(R.id.artist_description);
 
         // Receive data
@@ -49,7 +52,6 @@ public class DetailedArtworkActivity extends AppCompatActivity {
         String name = intent.getExtras().getString("Name");
         String description = intent.getExtras().getString("description");
         String date = intent.getExtras().getString("date");
-        int numInStock = intent.getExtras().getInt("numInStock");
         String artistName =  intent.getExtras().getString("ArtistName");
         price = Integer.toString(intent.getExtras().getInt("Price") / 100);
         String url = intent.getExtras().getString("Url");
@@ -62,14 +64,17 @@ public class DetailedArtworkActivity extends AppCompatActivity {
         tvPrice.setText("$" + price);
         tvDescription.setText(description);
         tvDate.setText(date);
-//        tvNumInStock.setText(numInStock);
         tvArtistDescription.setText(artistDescription);
 
         // convert url to image
         new DownloadImageTask(img).execute(url);
-
     }
 
+    /**
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -85,10 +90,19 @@ public class DetailedArtworkActivity extends AppCompatActivity {
     class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bitImage;
 
+        /**
+         *
+         * @param bitImage
+         */
         public DownloadImageTask(ImageView bitImage) {
             this.bitImage = bitImage;
         }
 
+        /**
+         *
+         * @param urls
+         * @return
+         */
         @Override
         protected Bitmap doInBackground(String... urls) {
             String urldisplay = urls[0];
@@ -103,11 +117,19 @@ public class DetailedArtworkActivity extends AppCompatActivity {
             return mBmp;
         }
 
+        /**
+         *
+         * @param result
+         */
         protected void onPostExecute(Bitmap result) {
             bitImage.setImageBitmap(result);
         }
     }
 
+    /**
+     * handle purchase item
+     * @param v
+     */
     public void purchaseItem(View v){
         // Takes you to the checkout page and passes artworkID parameter
 
@@ -118,7 +140,11 @@ public class DetailedArtworkActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * handles navigation buttons
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
