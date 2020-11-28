@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class CheckoutActivity extends AppCompatActivity {
     private Integer artworkID;
@@ -62,11 +63,10 @@ public class CheckoutActivity extends AppCompatActivity {
             error = "Please enter a valid year";
         }
 
-
-
         // Setting the parameters to pass to the http body for order
         RequestParams params = new RequestParams();
 //        RequestParams customer = new RequestParams();
+        //        customer.put("userID",Customer.getInstance().getUserID());
 //        RequestParams params2 = new RequestParams();
 
 //        JSONObject customer = new JSONObject();
@@ -85,28 +85,53 @@ public class CheckoutActivity extends AppCompatActivity {
 
 
         // List of artworks
-        List<Artwork> artworks = new ArrayList<Artwork>();
-        artworks.add(new Artwork(artworkID));
+//        ArrayList<Artwork> artworks = new ArrayList<Artwork>();
+        Artwork[] artworks = new Artwork[0];
+//        artworks.add(new Artwork(artworkID));
         params.put("artworks", artworks);
 
         // Customer placing the order
-        CustomerDto customer = new CustomerDto(Customer.getInstance().getUserID());
-        params.put("customer", customer);
+//        CustomerDto customer = new CustomerDto(Customer.getInstance().getUserID());
+//        params.put("customer", customer);
 
         // Get shipping option
         ToggleButton deliveryOption = (ToggleButton) findViewById(R.id.toggleButton);
         String deliveryMethodDto = deliveryOption.getText().toString().toUpperCase();
-        params.put("deliveryMethodDto", deliveryMethodDto);
+        params.put("deliveryMethodDto", ArtworkOrder.DeliveryMethodDto.SHIP);
 
-        System.out.println("=======================================");
-        System.out.println("params: " + params.toString());
-        System.out.println("=======================================");
+
+//        RequestParams orderParam = new RequestParams();
+//        ArtworkOrder order = new ArtworkOrder(ArtworkOrder.DeliveryMethodDto.SHIP, customer, artworks);
+//        orderParam.put("artworkOrderDto",order);
+//        orderParam.setUseJsonStreamer(true);
+//
+//        System.out.println("=======================================");
+//        System.out.println("params: " + params.toString());
+//        System.out.println("=======================================");
 
         params.setUseJsonStreamer(true);
 
-        //CHECK THAT THE PARAMS AND ALL FIELDS ARE VALID
 
-        HttpUtils.post("artworkOrders", params, new JsonHttpResponseHandler() {
+        JSONObject jsonParams = new JSONObject();
+        JSONObject customer = new JSONObject();
+        StringEntity entity = null;
+
+        try{
+            customer.put("userID", "john");
+            jsonParams.put("artworks", new ArrayList<Artwork>());
+            jsonParams.put("deliveryMethodDto", ArtworkOrder.DeliveryMethodDto.SHIP);
+             entity = new StringEntity(jsonParams.toString());
+        } catch (Exception e){
+            System.out.println("=======================================");
+            System.out.println(e.getMessage());
+            System.out.println("=======================================");
+        }
+
+
+
+
+        HttpUtils.post(this, "artworkOrders", entity, "application/json", new JsonHttpResponseHandler() {
+//        HttpUtils.post("artworkOrders/", params, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -135,7 +160,14 @@ public class CheckoutActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 System.out.println("================================");
                 System.out.println("Failure in place order: "+ errorResponse.toString());
-                System.out.println("Customer: " + customer.getUserID());
+                try{
+                    System.out.println(errorResponse.getString("error"));
+                } catch (Exception e){
+                    System.out.println("Error below from catch");
+                    System.out.println(e.getMessage());
+                }
+
+//                System.out.println("Customer: " + customer.getUserID());
 //                System.out.println("Artwork: " + artworks.get(0).getID());
                 System.out.println("Delivery: " + deliveryMethodDto);
                 System.out.println("================================");
@@ -143,6 +175,17 @@ public class CheckoutActivity extends AppCompatActivity {
                 //                error += errorResponse;
                 //                refreshErrorMessage();
             }
+
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, String error, Throwable throwable) {
+//                System.out.println("================================");
+//                System.out.println("Failure in place order: "+ error);
+////                System.out.println(orderParam.toString());
+//                System.out.println("================================");
+//
+//                //                error += errorResponse;
+//                //                refreshErrorMessage();
+//            }
         });
     }
 
