@@ -11,7 +11,7 @@ public class ArtworkOrder {
     private Date dateCompleted;
     private DeliveryMethodDto deliveryMethodDto;
     private OrderStatusDto orderStatusDto;
-    private Customer customer;
+    private CustomerDto customer;
     private List<Artwork> artworks;
 
     public enum OrderStatusDto {
@@ -26,7 +26,7 @@ public class ArtworkOrder {
 
     public ArtworkOrder() {}
 
-    public ArtworkOrder(Integer orderID, Integer totalPrice, Date datePlaced, Date dateCompleted, DeliveryMethodDto deliveryMethodDto, OrderStatusDto orderStatusDto, Customer customer, List<Artwork> artworks) {
+    public ArtworkOrder(Integer orderID, Integer totalPrice, Date datePlaced, Date dateCompleted, DeliveryMethodDto deliveryMethodDto, OrderStatusDto orderStatusDto, CustomerDto customer, List<Artwork> artworks) {
         this.orderID = orderID;
         this.totalPrice = totalPrice;
         this.datePlaced = datePlaced;
@@ -37,11 +37,10 @@ public class ArtworkOrder {
         this.artworks = artworks;
     }
 
-    public ArtworkOrder(Integer orderID, DeliveryMethodDto deliveryMethodDto, Customer customer, List<Artwork> artworksDto) {
-        this.orderID = orderID;
+    public ArtworkOrder(DeliveryMethodDto deliveryMethodDto, CustomerDto customer, List<Artwork> artworks) {
         this.deliveryMethodDto = deliveryMethodDto;
         this.customer = customer;
-        this.artworks = artworksDto;
+        this.artworks = artworks;
     }
 
     public int getOrderID() {
@@ -72,7 +71,7 @@ public class ArtworkOrder {
         return this.orderStatusDto;
     }
 
-    public Customer getCustomer() {
+    public CustomerDto getCustomer() {
         return this.customer;
     }
 

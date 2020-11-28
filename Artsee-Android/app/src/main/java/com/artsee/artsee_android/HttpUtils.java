@@ -1,8 +1,14 @@
 package com.artsee.artsee_android;
 
+import android.content.Context;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.HttpEntity;
 
 public class HttpUtils {
     public static final String DEFAULT_BASE_URL = "https://artsee-backend.herokuapp.com/";
@@ -28,6 +34,10 @@ public class HttpUtils {
 
     public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.post(getAbsoluteUrl(url), params, responseHandler);
+    }
+
+    public static void post(Context context, String url, HttpEntity entity, String contentType, AsyncHttpResponseHandler responseHandler){
+        client.post(context, getAbsoluteUrl(url), entity, contentType, responseHandler);
     }
 
     public static void getByUrl(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
