@@ -77,59 +77,66 @@ public class CheckoutActivity extends AppCompatActivity {
             error = "Please enter a valid year";
         }
 
+        if(error.isEmpty()){
+            refreshErrorMessage();
+        } else {
+            // List of artworks
+            Artwork[] artworks = new Artwork[1];
+            artworks[0] = new Artwork(artworkID);
 
-        //ERROR THROWING SHENANIGANS
+            // Get shipping option
+            ToggleButton deliveryOption = (ToggleButton) findViewById(R.id.toggleButton);
+            String deliveryMethodDto = deliveryOption.getText().toString().toUpperCase();
+
+            System.out.println("=======================================");
+            System.out.println(Customer.getInstance().getUserID());
+            System.out.println("=======================================");
+
+            String userID = Customer.getInstance().getUserID();
+
+            RequestParams params = new RequestParams();
+            params.setUseJsonStreamer(true);
+
+            HttpUtils.post("artworkOrders/" + userID +"/"+artworkID.toString()+"/"+deliveryMethodDto,  params, new JsonHttpResponseHandler() {
 
 
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-        // List of artworks
-        Artwork[] artworks = new Artwork[1];
-        artworks[0] = new Artwork(artworkID);
+                    System.out.println("=======================================");
+                    System.out.println("In Success");
+                    System.out.println("=======================================");
 
-        // Get shipping option
-        ToggleButton deliveryOption = (ToggleButton) findViewById(R.id.toggleButton);
-        String deliveryMethodDto = deliveryOption.getText().toString().toUpperCase();
-        String userID = Customer.getInstance().getUserID();
+                    Intent myIntent = new Intent(CheckoutActivity.this, ThankYouActivity.class);
+                    CheckoutActivity.this.startActivity(myIntent);
 
-        RequestParams params = new RequestParams();
-        params.setUseJsonStreamer(true);
-
-        HttpUtils.post("artworkOrders/" + userID +"/"+artworkID.toString()+"/"+deliveryMethodDto,  params, new JsonHttpResponseHandler() {
-
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-                System.out.println("=======================================");
-                System.out.println("In Success");
-                System.out.println("=======================================");
-
-                Intent myIntent = new Intent(CheckoutActivity.this, ThankYouActivity.class);
-                CheckoutActivity.this.startActivity(myIntent);
-
-//                refreshErrorMessage();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                System.out.println("================================");
-                System.out.println("Failure in place order: "+ errorResponse.toString());
-                try{
-                    System.out.println(errorResponse.getString("error"));
-                } catch (Exception e){
-                    System.out.println("Error below from catch");
-                    System.out.println(e.getMessage());
                 }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    System.out.println("================================");
+                    System.out.println("Failure in place order: "+ errorResponse.toString());
+//                    try{
+//                        System.out.println(errorResponse.getString("error"));
+//                    } catch (Exception e){
+//                        System.out.println("Error below from catch");
+//                        System.out.println(e.getMessage());
+//                    }
 
 //                System.out.println("Customer: " + customer.getUserID());
 //                System.out.println("Artwork: " + artworks.get(0).getID());
-                System.out.println("Delivery: " + deliveryMethodDto);
-                System.out.println("================================");
+                    System.out.println("Delivery: " + deliveryMethodDto);
+                    System.out.println("================================");
 
-                //                error += errorResponse;
-                //                refreshErrorMessage();
-            }
-        });
+                    //                error += errorResponse;
+                    refreshErrorMessage();
+                }
+            });
+        }
+
+
+
+
     }
 
     @Override
@@ -158,17 +165,17 @@ public class CheckoutActivity extends AppCompatActivity {
 
     private void refreshErrorMessage() {
 
-        // ADD ERROR FIELD AND MAKE MESSAGE SHOW
+//         ADD ERROR FIELD AND MAKE MESSAGE SHOW
 
-//        // set the error message
-//        TextView tvError = (TextView) findViewById(R.id.error);
-//        tvError.setText(error);
-//        System.out.println(error);
-//        if (error == null || error.length() == 0) {
-//            tvError.setVisibility(View.GONE);
-//        } else {
-//            tvError.setVisibility(View.VISIBLE);
-//        }
+        // set the error message
+        TextView tvError = (TextView) findViewById(R.id.errorCheckout);
+        tvError.setText(error);
+        System.out.println(error);
+        if (error == null || error.length() == 0) {
+            tvError.setVisibility(View.GONE);
+        } else {
+            tvError.setVisibility(View.VISIBLE);
+        }
     }
 
     // Checks if a string is a number
