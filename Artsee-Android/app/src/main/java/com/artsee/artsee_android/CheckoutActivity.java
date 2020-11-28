@@ -60,6 +60,8 @@ public class CheckoutActivity extends AppCompatActivity {
         TextView tvCardNumber, tvCVV, tvMonth, tvYear;
 
         // Verifying form info is valid
+        TextView tvFirstName = (TextView) findViewById(R.id.card_first_name);
+        TextView tvLastName = (TextView) findViewById(R.id.card_last_name);
         tvCardNumber = (TextView) findViewById(R.id.card_number);
         tvCVV = (TextView) findViewById(R.id.card_cvv);
         tvMonth = (TextView) findViewById(R.id.card_month);
@@ -77,7 +79,7 @@ public class CheckoutActivity extends AppCompatActivity {
             error = "Please enter a valid year";
         }
 
-        if(error.isEmpty()){
+        if(!error.isEmpty()){
             refreshErrorMessage();
         } else {
             // List of artworks
@@ -103,32 +105,26 @@ public class CheckoutActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-                    System.out.println("=======================================");
-                    System.out.println("In Success");
-                    System.out.println("=======================================");
+                    tvCardNumber.setText("");
+                    tvCVV.setText("");
+                    tvMonth.setText("");
+                    tvYear.setText("");
+                    tvYear.setText("");
+
+                    tvFirstName.setText("");
+                    tvLastName.setText("");
+
+                    error = "";
+
+                    refreshErrorMessage();
 
                     Intent myIntent = new Intent(CheckoutActivity.this, ThankYouActivity.class);
                     CheckoutActivity.this.startActivity(myIntent);
-
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    System.out.println("================================");
-                    System.out.println("Failure in place order: "+ errorResponse.toString());
-//                    try{
-//                        System.out.println(errorResponse.getString("error"));
-//                    } catch (Exception e){
-//                        System.out.println("Error below from catch");
-//                        System.out.println(e.getMessage());
-//                    }
-
-//                System.out.println("Customer: " + customer.getUserID());
-//                System.out.println("Artwork: " + artworks.get(0).getID());
-                    System.out.println("Delivery: " + deliveryMethodDto);
-                    System.out.println("================================");
-
-                    //                error += errorResponse;
+                    error += errorResponse.toString();
                     refreshErrorMessage();
                 }
             });
