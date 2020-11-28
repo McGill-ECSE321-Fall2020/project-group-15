@@ -2,10 +2,9 @@ package com.artsee.artsee_android;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.View;
 
 
 public class ThankYouActivity extends AppCompatActivity {

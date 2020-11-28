@@ -23,18 +23,6 @@ public class Customer {
         return this.userID;
     }
 
-    public String getEmail(){
-        return this.email;
-    }
-
-    public String getFirstName(){
-        return this.firstName;
-    }
-
-    public String getLastName(){
-        return this.lastName;
-    }
-
     public static Customer getInstance() {
         if(customer == null) {
             throw new AssertionError("Customer needs to be intialized");
