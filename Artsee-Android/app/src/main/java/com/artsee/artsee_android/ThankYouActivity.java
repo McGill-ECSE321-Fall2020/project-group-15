@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 public class ThankYouActivity extends AppCompatActivity {
 
     @Override

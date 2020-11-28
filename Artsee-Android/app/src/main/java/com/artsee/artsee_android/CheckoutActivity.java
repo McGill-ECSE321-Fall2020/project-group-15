@@ -2,22 +2,19 @@ package com.artsee.artsee_android;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -30,6 +27,9 @@ public class CheckoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.checkout_navbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         Intent intent = getIntent();
         artworkID = intent.getExtras().getInt("artworkID");
         price = intent.getExtras().getString("price");
@@ -40,11 +40,21 @@ public class CheckoutActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+
     public void checkoutItem(View v){
         error = "";
         TextView tvCardNumber, tvCVV, tvMonth, tvYear;
 
         // Verifying form info is valid
+        TextView tvFirstName = (TextView) findViewById(R.id.card_first_name);
+        TextView tvLastName = (TextView) findViewById(R.id.card_last_name);
         tvCardNumber = (TextView) findViewById(R.id.card_number);
         tvCVV = (TextView) findViewById(R.id.card_cvv);
         tvMonth = (TextView) findViewById(R.id.card_month);
@@ -62,103 +72,99 @@ public class CheckoutActivity extends AppCompatActivity {
             error = "Please enter a valid year";
         }
 
+        if(!error.isEmpty()){
+            refreshErrorMessage();
+        } else {
+            // List of artworks
+            Artwork[] artworks = new Artwork[1];
+            artworks[0] = new Artwork(artworkID);
+
+            // Get shipping option
+            ToggleButton deliveryOption = (ToggleButton) findViewById(R.id.toggleButton);
+            String deliveryMethodDto = deliveryOption.getText().toString().toUpperCase();
+
+            System.out.println("=======================================");
+            System.out.println(Customer.getInstance().getUserID());
+            System.out.println("=======================================");
+
+            String userID = Customer.getInstance().getUserID();
+
+            RequestParams params = new RequestParams();
+            params.setUseJsonStreamer(true);
+
+            HttpUtils.post("artworkOrders/" + userID +"/"+artworkID.toString()+"/"+deliveryMethodDto,  params, new JsonHttpResponseHandler() {
 
 
-        // Setting the parameters to pass to the http body for order
-        RequestParams params = new RequestParams();
-//        RequestParams customer = new RequestParams();
-//        RequestParams params2 = new RequestParams();
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-//        JSONObject customer = new JSONObject();
-//        JSONArray artworks = new JSONArray();
-//        JSONObject order = new JSONObject();
-//        try{
-//
-//            customer.put("userID","john");
-//            order.put("artworks", artworks);
-//            order.put("deliveryMethodDto", "SHIP");
-//
-//        } catch (Exception e){
-//            System.out.println(e.getMessage());
-//        }
-//        RequestParams requestParams = JsonHelper.toRequestParams(params);
+                    tvCardNumber.setText("");
+                    tvCVV.setText("");
+                    tvMonth.setText("");
+                    tvYear.setText("");
+                    tvYear.setText("");
 
+                    tvFirstName.setText("");
+                    tvLastName.setText("");
 
-        // List of artworks
-        List<Artwork> artworks = new ArrayList<Artwork>();
-        artworks.add(new Artwork(artworkID));
-        params.put("artworks", artworks);
+                    error = "";
 
-        // Customer placing the order
-        CustomerDto customer = new CustomerDto(Customer.getInstance().getUserID());
-        params.put("customer", customer);
+                    refreshErrorMessage();
 
-        // Get shipping option
-        ToggleButton deliveryOption = (ToggleButton) findViewById(R.id.toggleButton);
-        String deliveryMethodDto = deliveryOption.getText().toString().toUpperCase();
-        params.put("deliveryMethodDto", deliveryMethodDto);
-
-        System.out.println("=======================================");
-        System.out.println("params: " + params.toString());
-        System.out.println("=======================================");
-
-        params.setUseJsonStreamer(true);
-
-        //CHECK THAT THE PARAMS AND ALL FIELDS ARE VALID
-
-        HttpUtils.post("artworkOrders", params, new JsonHttpResponseHandler() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-                System.out.println("=======================================");
-                System.out.println("In Success");
-                System.out.println("=======================================");
-
-                try {
-
-                    System.out.println("Success");
-                    // Parse response if there is one
-                    //Redirect to order placed page
-
-//                    Intent myIntent = new Intent(MainActivity.this, ViewGalleryActivity.class);
-//                    MainActivity.this.startActivity(myIntent);
-
-                } catch (Exception e) {
-                    error += e.getMessage();
+                    Intent myIntent = new Intent(CheckoutActivity.this, ThankYouActivity.class);
+                    CheckoutActivity.this.startActivity(myIntent);
                 }
 
-//                refreshErrorMessage();
-            }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    error += errorResponse.toString();
+                    refreshErrorMessage();
+                }
+            });
+        }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                System.out.println("================================");
-                System.out.println("Failure in place order: "+ errorResponse.toString());
-                System.out.println("Customer: " + customer.getUserID());
-//                System.out.println("Artwork: " + artworks.get(0).getID());
-                System.out.println("Delivery: " + deliveryMethodDto);
-                System.out.println("================================");
 
-                //                error += errorResponse;
-                //                refreshErrorMessage();
-            }
-        });
+
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_logout) {
+            // logout of the application
+            Customer.resetCustomer();
+            Intent myIntent = new Intent(this, MainActivity.class);
+            this.startActivity(myIntent);
+        }
+
+        if (id == R.id.action_gallery) {
+            // this is what will bring you to the gallery
+            Intent myIntent = new Intent(this, ViewGalleryActivity.class);
+            this.startActivity(myIntent);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void refreshErrorMessage() {
 
-        // ADD ERROR FIELD AND MAKE MESSAGE SHOW
+//         ADD ERROR FIELD AND MAKE MESSAGE SHOW
 
-//        // set the error message
-//        TextView tvError = (TextView) findViewById(R.id.error);
-//        tvError.setText(error);
-//        System.out.println(error);
-//        if (error == null || error.length() == 0) {
-//            tvError.setVisibility(View.GONE);
-//        } else {
-//            tvError.setVisibility(View.VISIBLE);
-//        }
+        // set the error message
+        TextView tvError = (TextView) findViewById(R.id.errorCheckout);
+        tvError.setText(error);
+        System.out.println(error);
+        if (error == null || error.length() == 0) {
+            tvError.setVisibility(View.GONE);
+        } else {
+            tvError.setVisibility(View.VISIBLE);
+        }
     }
 
     // Checks if a string is a number

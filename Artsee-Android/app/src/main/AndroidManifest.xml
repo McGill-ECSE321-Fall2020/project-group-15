@@ -30,6 +30,9 @@
         <activity android:name=".CheckoutActivity"
             android:exported="true">
         </activity>
+        <activity android:name=".ThankYouActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>
