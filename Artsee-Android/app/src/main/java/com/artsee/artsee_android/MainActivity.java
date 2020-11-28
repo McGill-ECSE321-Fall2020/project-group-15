@@ -18,16 +18,28 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
+/**
+ * runs the main activity
+ */
 public class MainActivity extends AppCompatActivity {
 
     private String error = null;
 
+    /**
+     * create the main activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
+    /**
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -35,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * handle login function
+     * @param v
+     */
     public void login(View v) {
         //reset error and customer class
         error = "";
@@ -54,6 +70,12 @@ public class MainActivity extends AppCompatActivity {
             params.setUseJsonStreamer(true);
 
             HttpUtils.post("signIn/", params, new JsonHttpResponseHandler() {
+                /**
+                 * handle success request
+                 * @param statusCode
+                 * @param headers
+                 * @param response
+                 */
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
@@ -79,6 +101,14 @@ public class MainActivity extends AppCompatActivity {
 
                     refreshErrorMessage();
                 }
+
+                /**
+                 * handle failure request
+                 * @param statusCode
+                 * @param headers
+                 * @param errorResponse
+                 * @param throwable
+                 */
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
                     error += errorResponse;
@@ -88,6 +118,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * handle navbar buttons
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -95,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
             // logout of the application
             Customer.resetCustomer();
@@ -104,21 +138,19 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_gallery) {
             // this is what will bring you to the gallery
-
             Intent myIntent = new Intent(this, ViewGalleryActivity.class);
             this.startActivity(myIntent);
-
-//            setContentView(R.layout.login_page);
         }
-
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * error message function to handle errors
+     */
     private void refreshErrorMessage() {
         // set the error message
         TextView tvError = (TextView) findViewById(R.id.error);
         tvError.setText(error);
-        System.out.println(error);
         if (error == null || error.length() == 0) {
             tvError.setVisibility(View.GONE);
         } else {

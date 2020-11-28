@@ -1,7 +1,5 @@
 package com.artsee.artsee_android;
 
-import java.sql.Date;
-
 /**
  * Added this class to present data in list of recyclerViewAdapter
  */
@@ -17,11 +15,25 @@ public class Artwork {
     private Artist artist;
     private String artistID;
 
-    public Artwork() {}
-
+    /**
+     *
+     * @param id
+     */
     public Artwork(Integer id){
         this.id = id;
     }
+
+    /**
+     *
+     * @param id
+     * @param name
+     * @param description
+     * @param price
+     * @param date
+     * @param numInStock
+     * @param artist
+     * @param url
+     */
     public Artwork(Integer id, String name, String description, int price, String date, int numInStock, Artist artist, String url){
         this.id = id;
         this.name = name;
@@ -33,66 +45,74 @@ public class Artwork {
         this.url = url;
     }
 
-    public Artwork(String name, int price, String url, Artist artist) {
-        this.name = name;
-        this.price = price;
-        this.url = url;
-        this.artist = artist;
-    }
-
+    /**
+     * get artwork name
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * get artwork price
+     * @return
+     */
     public int getPrice() {
         return price;
     }
 
+    /**
+     * get artwork image url
+     * @return
+     */
     public String getUrl() {
         return url;
     }
 
+    /**
+     * get artist
+     * @return
+     */
     public Artist getArtist() {
         return artist;
     }
 
+    /**
+     * set name
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public void setArtist(Artist artist) {
-        this.artist = artist;
-    }
-
+    /**
+     * get ID
+     * @return
+     */
     public Integer getID() {
         return this.id;
     }
 
-    public void setDescription(String value) {
-        this.description = value;
-    }
+    /**
+     * get description
+     * @return
+     */
     public String getDescription() {
         return this.description;
     }
 
-    public void setDate(String value) {
-        this.date = value;
-    }
+    /**
+     * get date
+     * @return
+     */
     public String getDate() {
         return this.date;
     }
 
-    public void setNumInStock(Integer value) {
-        this.numInStock = value;
-    }
+    /**
+     * get num in stock
+     * @return
+     */
     public Integer getNumInStock() {
         return this.numInStock;
     }
