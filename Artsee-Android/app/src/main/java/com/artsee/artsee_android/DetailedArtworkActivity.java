@@ -130,16 +130,14 @@ public class DetailedArtworkActivity extends AppCompatActivity {
         if (id == R.id.action_logout) {
             // logout of the application
             Customer.resetCustomer();
-            setContentView(R.layout.login_page);
+            Intent myIntent = new Intent(this, MainActivity.class);
+            this.startActivity(myIntent);
         }
 
         if (id == R.id.action_gallery) {
             // this is what will bring you to the gallery
-
             Intent myIntent = new Intent(this, ViewGalleryActivity.class);
             this.startActivity(myIntent);
-
-//            setContentView(R.layout.login_page);
         }
 
         return super.onOptionsItemSelected(item);
