@@ -1,12 +1,42 @@
 <resources>
-    <string name="app_name">Artsee-Android</string>
-    <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
+    <string name="app_name">ArtSee</string>
+    <string name="action_settings">Logout</string>
+    <string name="action_gallery">Gallery</string>
+<!--     Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="gallery">Return to Gallery</string>
+    <string name="thankyoupage">Thank You for your Purchase</string>
+    <string name="username_hint">username</string>
+    <string name="password_hint">password</string>
+    <string name="newperson_button">Login</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="card_holder_last_name">Card Holder Last Name</string>
+    <string name="card_holder_first_name">Card Holder First Name</string>
+    <string name="delivery">Delivery Method:</string>
+    <string name="price">Price: $</string>
+    <string name="cvv">CVV/CVC</string>
+    <string name="ship">SHIP</string>
+    <string name="pickup">PICKUP</string>
+    <string name="card_number">Credit Card Number</string>
+    <string name="expiry_month">Expiry Month MM</string>
+    <string name="expiry_year">Expiry Year YYYY</string>
+    <string name="checkout">Checkout</string>
+
+
+
+
+
 </resources>

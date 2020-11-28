@@ -476,6 +476,31 @@ public class ArtseeRestController {
 		}
 	}
 	
+	@PostMapping(value = {"/artworkOrders/{userID}/{artworkID}/{deliveryMethodDto}" }, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> createArtworkOrder(@PathVariable("userID") String userID, @PathVariable("artworkID") Integer artworkID, @PathVariable("deliveryMethodDto") String deliveryMethodDto) {
+		try {
+			Customer customer = service.getCustomerByID(userID);
+			Artwork artwork = service.getArtworkById(artworkID);
+			
+			Set<Artwork> artworks = new HashSet<Artwork>();
+			artworks.add(artwork);
+			DeliveryMethod deliveryMethod = null;
+			
+			if (deliveryMethodDto.equals("SHIP")){
+				deliveryMethod = DeliveryMethod.SHIP;
+			} else {
+				deliveryMethod = DeliveryMethod.PICKUP;
+			}
+			
+			ArtworkOrder artworkOrder = service.createArtworkOrder(deliveryMethod, customer, artworks);
+			return new ResponseEntity<>(convertToDto(artworkOrder), HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	
 	@PutMapping(value = { "/artworkOrders", "/artworkOrders/" }, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> updateArtworkOrder(@RequestBody ArtworkOrderDto artworkOrderDto) {
 		try {
