@@ -77,76 +77,24 @@ public class CheckoutActivity extends AppCompatActivity {
             error = "Please enter a valid year";
         }
 
-        // Setting the parameters to pass to the http body for order
-        RequestParams params = new RequestParams();
-//        RequestParams customer = new RequestParams();
-        //        customer.put("userID",Customer.getInstance().getUserID());
-//        RequestParams params2 = new RequestParams();
 
-//        JSONObject customer = new JSONObject();
-//        JSONArray artworks = new JSONArray();
-//        JSONObject order = new JSONObject();
-//        try{
-//
-//            customer.put("userID","john");
-//            order.put("artworks", artworks);
-//            order.put("deliveryMethodDto", "SHIP");
-//
-//        } catch (Exception e){
-//            System.out.println(e.getMessage());
-//        }
-//        RequestParams requestParams = JsonHelper.toRequestParams(params);
+        //ERROR THROWING SHENANIGANS
+
 
 
         // List of artworks
-//        ArrayList<Artwork> artworks = new ArrayList<Artwork>();
-        Artwork[] artworks = new Artwork[0];
-//        artworks.add(new Artwork(artworkID));
-        params.put("artworks", artworks);
-
-        // Customer placing the order
-//        CustomerDto customer = new CustomerDto(Customer.getInstance().getUserID());
-//        params.put("customer", customer);
+        Artwork[] artworks = new Artwork[1];
+        artworks[0] = new Artwork(artworkID);
 
         // Get shipping option
         ToggleButton deliveryOption = (ToggleButton) findViewById(R.id.toggleButton);
         String deliveryMethodDto = deliveryOption.getText().toString().toUpperCase();
-        params.put("deliveryMethodDto", ArtworkOrder.DeliveryMethodDto.SHIP);
-
-
-//        RequestParams orderParam = new RequestParams();
-//        ArtworkOrder order = new ArtworkOrder(ArtworkOrder.DeliveryMethodDto.SHIP, customer, artworks);
-//        orderParam.put("artworkOrderDto",order);
-//        orderParam.setUseJsonStreamer(true);
-//
-//        System.out.println("=======================================");
-//        System.out.println("params: " + params.toString());
-//        System.out.println("=======================================");
-
-        params.setUseJsonStreamer(true);
-
-
-//        JSONObject jsonParams = new JSONObject();
-//        JSONObject customer = new JSONObject();
-//        StringEntity entity = null;
-//
-//        try{
-//            customer.put("userID", "john");
-//            jsonParams.put("artworks", new ArrayList<Artwork>());
-//            jsonParams.put("deliveryMethodDto", ArtworkOrder.DeliveryMethodDto.SHIP);
-//             entity = new StringEntity(jsonParams.toString());
-//        } catch (Exception e){
-//            System.out.println("=======================================");
-//            System.out.println(e.getMessage());
-//            System.out.println("=======================================");
-//        }
-
         String userID = Customer.getInstance().getUserID();
 
+        RequestParams params = new RequestParams();
+        params.setUseJsonStreamer(true);
 
-//        HttpUtils.post(this, "artworkOrders", entity, "application/json", new JsonHttpResponseHandler() {
-//        HttpUtils.post("artworkOrders/", params, new JsonHttpResponseHandler() {
-        HttpUtils.post("artworkOrders/" + userID +"/"+artworkID.toString()+"/"+deliveryMethodDto, params, new JsonHttpResponseHandler() {
+        HttpUtils.post("artworkOrders/" + userID +"/"+artworkID.toString()+"/"+deliveryMethodDto,  params, new JsonHttpResponseHandler() {
 
 
             @Override
@@ -156,18 +104,8 @@ public class CheckoutActivity extends AppCompatActivity {
                 System.out.println("In Success");
                 System.out.println("=======================================");
 
-                try {
-
-                    System.out.println("Success");
-                    // Parse response if there is one
-                    //Redirect to order placed page
-
-//                    Intent myIntent = new Intent(MainActivity.this, ViewGalleryActivity.class);
-//                    MainActivity.this.startActivity(myIntent);
-
-                } catch (Exception e) {
-                    error += e.getMessage();
-                }
+                Intent myIntent = new Intent(CheckoutActivity.this, ThankYouActivity.class);
+                CheckoutActivity.this.startActivity(myIntent);
 
 //                refreshErrorMessage();
             }
@@ -191,17 +129,6 @@ public class CheckoutActivity extends AppCompatActivity {
                 //                error += errorResponse;
                 //                refreshErrorMessage();
             }
-
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, String error, Throwable throwable) {
-//                System.out.println("================================");
-//                System.out.println("Failure in place order: "+ error);
-////                System.out.println(orderParam.toString());
-//                System.out.println("================================");
-//
-//                //                error += errorResponse;
-//                //                refreshErrorMessage();
-//            }
         });
     }
 

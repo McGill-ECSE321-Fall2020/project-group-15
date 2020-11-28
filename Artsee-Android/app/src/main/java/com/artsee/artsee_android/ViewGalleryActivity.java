@@ -52,6 +52,7 @@ public class ViewGalleryActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 // Clear past artworks
                 artworks.clear();
+                initRecyclerView();
                 Artwork artwork;
                 JSONObject data;
                 String url;
@@ -76,7 +77,10 @@ public class ViewGalleryActivity extends AppCompatActivity {
                         artwork = new Artwork((Integer) data.get("id"), data.getString("name"), data.getString("description"), data.getInt("price"), data.getString("dateOfCreation"), data.getInt("numInStock"), artist, url);
 
                         //Add artwork to list to be rendered
-                        artworks.add(artwork);
+                        if (artwork.getNumInStock()>0){
+                            artworks.add(artwork);
+                        }
+
 
                         initRecyclerView();
 
