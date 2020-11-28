@@ -42,7 +42,7 @@ project description as well as a team introduction can be found in the [wiki](ht
 
 [Sprint2](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Sprint-2-Report)
 
-## Deliverable 3
+## [Deliverable 3](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Sprint-3-Report)
 |        Name       | Student ID | Contribution | Role                       | 
 |:-----------------:|:----------:|:------------:|:--------------------------:|
 |  Matthew Langshur |  260704964 |  25 hours    | Web frontend GUI & Build System CI and Delivery |
@@ -57,15 +57,17 @@ https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Architecture-Mo
 **Link to Sprint Report**<br>
 [Sprint3] https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Sprint-3-Report
 
-## Deliverable 4
+## [Deliverable 4](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Sprint-4-Report)
 |        Name       | Student ID | Contribution | Role                       | 
 |:-----------------:|:----------:|:------------:|:--------------------------:|
-|  Matthew Langshur |  260704964 |              |                            |
-|  Matteo Barbieri  |  260805184 |              |                            |
+|  Matthew Langshur |  260704964 |   14 hours   | Build System & CI, Mobile frontend|
+|  Matteo Barbieri  |  260805184 |   12 hours   | User Documentation Sprint Report Mobile frontend|
 |  Daniel Schwartz  |  260795149 |   15 hours   | Integration of backend with the mobile frontend & Code Quality|
 | Enan Ashaduzzaman |  260805923 |   15 hours   | Integration of backend with the mobile frontend & Code Quality|
 |  Ragheed Qasmieh  |  260780556 |   12 hours   | Mobile frontend and code quality|
 
+**Link to User Documentation**
+[User Documentation](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/User-Documentation)
 
 ## Deliverable 5
 |        Name       | Student ID | Contribution | Role                       | 
