@@ -28,11 +28,11 @@ project description as well as a team introduction can be found in the [wiki](ht
 ## [Deliverable 2](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Sprint-2-Report)
 |        Name       | Student ID | Contribution | Role                       | 
 |:-----------------:|:----------:|:------------:|:--------------------------:|
-|  Matthew Langshur |  260704964 |   24 hours   |Unit & Integration Testing & Build System CI and Delivery|
-|  Matteo Barbieri  |  260805184 |   22 hours   |Business Method Unit Tests & Reports/Documentation|
-|  Daniel Schwartz  |  260795149 |   26 hours   |Controller, Service Methods, Service Tests|
-| Enan Ashaduzzaman |  260805923 |   26 hours   |Controller, Service Methods, Integration Tests|
-|  Ragheed Qasmieh  |  260780556 |   28 hours   |Controller, Service Methods, Integration Tests, RESTful API documentation|
+|  Matthew Langshur |  - |   24 hours   |Unit & Integration Testing & Build System CI and Delivery|
+|  Matteo Barbieri  |  - |   22 hours   |Business Method Unit Tests & Reports/Documentation|
+|  Daniel Schwartz  |  - |   26 hours   |Controller, Service Methods, Service Tests|
+| Enan Ashaduzzaman |  - |   26 hours   |Controller, Service Methods, Integration Tests|
+|  Ragheed Qasmieh  |  - |   28 hours   |Controller, Service Methods, Integration Tests, RESTful API documentation|
 
 **Links to QA Plan & Report & RESTful Endpoints**<br>
 [RESTful Service Endpoints](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/RESTful-Service-Endpoints)<br>
@@ -45,11 +45,11 @@ project description as well as a team introduction can be found in the [wiki](ht
 ## [Deliverable 3](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Sprint-3-Report)
 |        Name       | Student ID | Contribution | Role                       | 
 |:-----------------:|:----------:|:------------:|:--------------------------:|
-|  Matthew Langshur |  260704964 |  25 hours    | Web frontend GUI & Build System CI and Delivery |
-|  Matteo Barbieri  |  260805184 |  20 hours    | Web frontend GUI & Architecture model/ Sprint report|
-|  Daniel Schwartz  |  260795149 |  25 hours    | Integration of backend with frontend|
-| Enan Ashaduzzaman |  260805923 |  25 hours    | Integration of backend with frontend|
-|  Ragheed Qasmieh  |  260780556 |  21 hours    | Web frontend GUI & Architecture model|
+|  Matthew Langshur |  - |  25 hours    | Web frontend GUI & Build System CI and Delivery |
+|  Matteo Barbieri  |  - |  20 hours    | Web frontend GUI & Architecture model/ Sprint report|
+|  Daniel Schwartz  |  - |  25 hours    | Integration of backend with frontend|
+| Enan Ashaduzzaman |  - |  25 hours    | Integration of backend with frontend|
+|  Ragheed Qasmieh  |  - |  21 hours    | Web frontend GUI & Architecture model|
 
 **Link to Architecture model**<br>
 https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Architecture-Model
@@ -60,23 +60,13 @@ https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Architecture-Mo
 ## [Deliverable 4](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/Sprint-4-Report)
 |        Name       | Student ID | Contribution | Role                       | 
 |:-----------------:|:----------:|:------------:|:--------------------------:|
-|  Matthew Langshur |  260704964 |   14 hours   | Build System & CI, Mobile frontend|
-|  Matteo Barbieri  |  260805184 |   12 hours   | User Documentation Sprint Report Mobile frontend|
-|  Daniel Schwartz  |  260795149 |   15 hours   | Integration of backend with the mobile frontend & Code Quality|
-| Enan Ashaduzzaman |  260805923 |   15 hours   | Integration of backend with the mobile frontend & Code Quality|
-|  Ragheed Qasmieh  |  260780556 |   12 hours   | Mobile frontend and code quality|
+|  Matthew Langshur |  - |   14 hours   | Build System & CI, Mobile frontend|
+|  Matteo Barbieri  |  - |   12 hours   | User Documentation Sprint Report Mobile frontend|
+|  Daniel Schwartz  |  - |   15 hours   | Integration of backend with the mobile frontend & Code Quality|
+| Enan Ashaduzzaman |  - |   15 hours   | Integration of backend with the mobile frontend & Code Quality|
+|  Ragheed Qasmieh  |  - |   12 hours   | Mobile frontend and code quality|
 
 **Link to User Documentation**
 [User Documentation](https://github.com/McGill-ECSE321-Fall2020/project-group-15/wiki/User-Documentation)
-
-## Deliverable 5
-|        Name       | Student ID | Contribution | Role                       | 
-|:-----------------:|:----------:|:------------:|:--------------------------:|
-|  Matthew Langshur |  260704964 |              |                            |
-|  Matteo Barbieri  |  260805184 |              |                            |
-|  Daniel Schwartz  |  260795149 |              |                            |
-| Enan Ashaduzzaman |  260805923 |              |                            |
-|  Ragheed Qasmieh  |  260780556 |              |                            |
-
 
 Contribution towards deliverables is measured in number of hours contributed towards the project. 
